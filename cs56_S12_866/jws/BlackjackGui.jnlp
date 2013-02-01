@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="0.2 1.0" codebase="http://www.cs.ucsb.edu/~pointguard328/cs56/S12/issues/0000866/jws" href="BlackjackGui.jnlp">
+ <information>
+   <title>UCSB CS56 S12 Issue 866 Garrett Johnston BlackjackGui</title>
+   <vendor>UCSB CS56</vendor>
+   <homepage href="." />
+   <description>A multiplayer Blackjack GUI</description>
+  <icon href="cs56.png" />
+  <offline-allowed />
+ </information>
+ <resources>
+  <j2se version="1.3+" />
+  <jar href="cs56_S12_0000866.jar" />
+ </resources>
+ <application-desc main-class="edu.ucsb.cs56.S12.pointguard328.issue866.BlackjackGui"/>
+</jnlp>

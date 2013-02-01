@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="compile">
+
+ <!-- build.xml for Mantis issue866
+      name: Garrett Johnston for CS56, S12 -->
+ 
+ <property environment="env"/> <!-- load the environment variables --> 
+ <property name="webRoot" value="${env.HOME}/public_html/"/>
+ <property name="webBaseUrl" value="http://www.cs.ucsb.edu/~${env.USER}"/>
+ <property name="course" value="cs56"/>
+ <property name="quarter" value="S12"/>
+ <property name="projectName" value="0000866"/>
+ <property name="mainClass" value="edu.ucsb.cs56.S12.pointguard328.issue866.BlackjackGui"/>
+ <property name="projectPath" value="${course}/${quarter}/issues/${projectName}"/>
+ 
+ <property name="javadocDest" value="${webRoot}/${projectPath}/javadoc"/> 
+ <property name="javadocURL" value="${webBaseUrl}/${projectPath}/javadoc"/> 
+ <property name="imagesDest" value="${webRoot}/${projectPath}/images"/>
+ <property name="jwsURL" value="${webBaseUrl}/${projectPath}/jws"/>
+ <property name="jwsDest" value="${webRoot}/${projectPath}/jws"/>
+ 
+ 
+ <path id="project.class.path">
+   <pathelement location="build"/>
+   <pathelement location="/cs/faculty/pconrad/public_html/cs56/lib/junit-4.8.2.jar"/>
+ </path>
+ 
+ <!-- Compile src code -->
+ <target name="compile" description="compiles src code into .class files and stores them in build directory">
+   <mkdir dir="build"/>
+   <javac srcdir="src" destdir="build" debug="true" debuglevel="lines,source" includeantruntime="false">
+     <classpath refid="project.class.path"/>
+   </javac>
+   <copy todir="build/images">
+     <fileset dir="images" includes="*.gif"/>
+   </copy>
+ </target>
+ 
+ <!-- copy images to web -->
+ <target name="images" depends="compile,jar" description="copy images to web">
+   <delete dir="${webRoot}/${projectPath}/images"/>
+   <mkdir dir="${imagesDest}"/>
+   <copy todir="${imagesDest}">
+     <fileset dir="images" includes="*.gif"/>
+   </copy>
+ </target>
+ 
+ <!-- Run the Gui -->
+ <target name="run" depends="compile, jar" description="run the BlackjackGui">
+   <java fork="true" classname="${mainClass}">  
+     <classpath refid="project.class.path"/>
+   </java>
+ </target>
+ 
+ <!-- Clean the directories -->
+ <target name="clean" description="delete unnecessary files and directories">
+   <delete failonerror="false" verbose="true">
+     <fileset dir="build" includes="**/*.class"/>
+   </delete>
+   <delete dir="javadoc" quiet="true"/>
+   <delete dir="dist" quiet="true"/>
+   <delete dir="download" quiet="true"/>
+   <delete dir="temp" quiet="true"/>
+   <delete dir="build/images" quiet="true"/>
+ </target>
+ 
+ <!-- Run JUnit tests -->
+ <target name="test" depends="compile" description="run JUnit tests">
+   <junit haltonerror="no" haltonfailure="no">
+     <classpath refid="project.class.path"/>
+     <batchtest fork="yes">
+       <fileset dir="src">
+	 <!-- this will pick up every class with a name ending in Test -->
+	 <include name="**/*Test.java"/>
+       </fileset>
+     </batchtest>
+     <formatter type="plain" usefile="false"/>       
+   </junit>
+ </target>
+ 
+ <!-- Javadoc -->
+ <target name="javadoc" depends="compile" description="prepare and post javadoc"> 
+   <delete dir="javadoc" quiet="true"/> 
+   <javadoc destdir="javadoc" author="true" version="true" use="true">  
+     <fileset dir="src" includes="**/*.java"/>  
+     <classpath refid="project.class.path"/>
+   </javadoc>
+   <!-- delete the old javadoc -->
+   <delete quiet="true" dir="${javadocDest}"/> 
+   <!-- copy everything you just made to the javadoc destination, and then make it readable -->
+   <copy todir="${javadocDest}"> 
+     <fileset dir="javadoc"/> 
+   </copy> 
+   <!-- Note: this only does the chmod command on the 
+	javadoc subdirectory and its contents.  You MIGHT have to
+	MANUALLY do the chmod on the parent directories.  However,
+	you should only need to do that once. --> 
+   <chmod dir="${javadocDest}" perm="755" type="dir" includes="**"/> 
+   <chmod dir="${javadocDest}" perm="755" type="file" includes="**/*"/> 
+   <echo>Javadoc deployed to ${javadocURL}</echo> 
+ </target>
+ 
+ <!-- JAR -->
+ <target name="jar" depends="compile" description="JAR up files and put into dist directory">
+   <mkdir dir="dist"/>
+   <jar destfile="dist/${course}_${quarter}_${projectName}.jar" basedir="build">
+     <manifest>
+       <attribute name="Main-Class" value="${mainClass}"/>
+     </manifest>
+   </jar>
+ </target>
+
+ <!-- Java Web Start -->
+ <target name="jws" depends="compile,jar" description="create jws for the project">
+   <delete dir="${webRoot}/${projectPath}/jws"/>
+   <mkdir dir="${webRoot}/${projectPath}/jws"/>
+   <copy todir="${jwsDest}" file="dist/${course}_${quarter}_${projectName}.jar"/>
+   <copy todir="${jwsDest}">
+     <fileset dir="jws" includes="*.html"/>
+     <fileset dir="jws" includes="*.jnlp"/>
+     <fileset dir="jws" includes="*.png"/>
+     <fileset dir="jws" includes=".htaccess"/>
+   </copy>
+  <echo>Java web start at ${jwsURL}</echo>
+ </target>
+ 
+ <!-- prepare tarball/zip files -->
+ <target name="download" description="prepare tarball and zip files"> 
+   <delete quiet="true"> 
+     <fileset dir="temp" includes="**/*"/>  
+     <fileset dir="download" includes="**/*"/>  
+   </delete> 
+   <mkdir dir="download"/> 
+   <mkdir dir="temp"/>  
+   <mkdir dir="temp/${projectName}"/> 
+   <copy todir="temp/${projectName}"> 
+     <fileset dir="." excludes="build/**, javadoc/**, **/*~, temp/**, dist/**, download/**"/> 
+   </copy> 
+   <tar destfile="temp/${course}_${quarter}_${projectName}.tar" basedir="temp" includes="${projectName}/**"/> 
+   <gzip zipfile="download/${course}_${quarter}_${projectName}.tgz" src="temp/${course}_${quarter}_${projectName}.tar"/> 
+   <zip destfile="download/${course}_${quarter}_${projectName}.zip" basedir="temp" includes="${projectName}/**"/> 
+   <delete quiet="true"> 
+     <fileset dir="temp" includes="**/*"/>  
+   </delete> 
+ </target> 
+ 
+ <!-- Publish -->
+ <target name="publish" depends="jar,javadoc,download,images,jws,linenumbers" description="publish everything to web">
+   <mkdir dir="${webRoot}/${projectPath}"/>
+
+   <delete dir="${webRoot}/${projectPath}/browse"/>
+   <mkdir dir="${webRoot}/${projectPath}/browse"/>
+
+   <delete dir="${webRoot}/${projectPath}/download"/>
+   <mkdir dir="${webRoot}/${projectPath}/download"/>
+
+   <copy file="html/index.html" todir="${webRoot}/${projectPath}"/>
+   <copy todir="${webRoot}/${projectPath}/download"> 
+     <fileset dir="download"/> 
+     <fileset dir="dist"/>
+   </copy>
+
+   <copy file="build.xml" todir="${webRoot}/${projectPath}/browse"/>
+   <copy file="numberedsource.txt" todir="${webRoot}/${projectPath}/browse"/>
+   <copy todir="${webRoot}/${projectPath}/browse/src"> 
+     <fileset dir="src"/> 
+   </copy>
+
+   <chmod dir="${webRoot}/${projectPath}" perm="755" type="both" includes="**/*"/>
+   <echo>Project published to ${webBaseUrl}/${projectPath}</echo> 
+ </target>
+
+ <!--Lines-->
+ <target name="linenumbers" description="create one large text file containing all source files copied into it">                 
+   <exec executable="bash">
+     <arg value="-c"/>     
+     <arg value='tree -ifQ src | grep \.java\"$ | xargs pr -n > numberedsource.txt'/>
+   </exec>
+ </target>
+ 
+</project>

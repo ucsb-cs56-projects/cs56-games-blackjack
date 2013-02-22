@@ -11,7 +11,7 @@ Here is a current working version of a Blackjack game with a GUI. It can also be
 
 * Online Multiplayer Blackjack - Using a server-client set up and java's built in socket libraries, create a blackjack game that two users can play on separate computers.
 * Betting features - Add the ability for the user to place bets. 
-** (more advanced) - incorporate all of the betting possiblities such as "doubling down"
+	* (more advanced) - incorporate all of the betting possiblities such as "doubling down"
 
 ### Other former Blackjack projects
 

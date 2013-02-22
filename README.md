@@ -1,6 +1,6 @@
 # cs56-games-blackjack
 
-<b>TODO</b> - add more description to the sections of this README
+<b>TODO</	b> - add more description to the sections of this README
 
 This is a current working version of a Blackjack game with a GUI. It can also be found at these links:
 
@@ -13,7 +13,7 @@ This is a current working version of a Blackjack game with a GUI. It can also be
 * Betting features - Add the ability for the user to place bets. 
 	* (more advanced) - incorporate all of the betting possiblities such as "doubling down"
 
-### Other former Blackjack projects
+## Other former Blackjack projects
 
 These are past projects which may have similar/missing features. 
 

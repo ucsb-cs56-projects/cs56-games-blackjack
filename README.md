@@ -1,8 +1,8 @@
 # cs56-games-blackjack
 
-TODO - add more to the sections of this README
+<b>TODO<b> - add more description to the sections of this README
 
-Here is a current working version of a Blackjack game with a GUI. It can also be found at these links:
+This is a current working version of a Blackjack game with a GUI. It can also be found at these links:
 
 * [Archive page](https://foo.cs.ucsb.edu/cs56/issues/0000866/)
 * [Mantis page](https://foo.cs.ucsb.edu/56mantis/view.php?id=866)

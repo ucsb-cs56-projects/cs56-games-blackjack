@@ -1,23 +1,24 @@
-cs56-games-blackjack
-=====================
+# cs56-games-blackjack
 
-Blackjack games
+<b>TODO</b> - add more description to the sections of this README
 
-In this directory, you will find several subdirectories.
+This is a current working version of a Blackjack game with a GUI. It can also be found at these links:
 
-* main contains the "main" branch of development for the CS56
-  blackjack project.  At the start of S13, this is simply an empty
-  shell.  If you choose to take on this project, your job is to look
-  at all of the other subdirectories below, and either (a) improve one
-  of those, or (b) build a brand new game in this directory, pulling
-  the "best pieces" from those other attempts.
+* [Archive page](https://foo.cs.ucsb.edu/cs56/issues/0000866/)
+* [Mantis page](https://foo.cs.ucsb.edu/56mantis/view.php?id=866)
 
-Each of the other subdirectories contains code for a blackjack game
-developed by previous CS56 students.  Each of those subdirectories has
-its own README.md file that explains where that game came from, and
-what the next steps for that game might be.
+## Possible improvements
 
-cs56_S12_866 
-============= 
-* Archive page: https://foo.cs.ucsb.edu/cs56/issues/0000866/
-* Mantis page: https://foo.cs.ucsb.edu/56mantis/view.php?id=866 
+* Online Multiplayer Blackjack - Using a server-client set up and java's built in socket libraries, create a blackjack game that two users can play on separate computers.
+* Betting features - Add the ability for the user to place bets. 
+	* (more advanced) - incorporate all of the betting possiblities such as "doubling down"
+
+## Other former Blackjack projects
+
+These are past projects which may have similar/missing features. 
+
+* [cs56_W12_492](https://foo.cs.ucsb.edu/cs56/issues/0000492/lab09b/)
+* [cs56_W12_443](https://foo.cs.ucsb.edu/cs56/issues/0000443/)
+* [cs56_S11_360](https://foo.cs.ucsb.edu/cs56/issues/0000360/)
+* [Simple classes for PlayingCard, Deck, BlackJackHand](https://foo.cs.ucsb.edu/cs56/issues/0000215/)
+

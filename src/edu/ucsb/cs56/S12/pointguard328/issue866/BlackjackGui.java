@@ -310,6 +310,7 @@ public class BlackjackGui{
 		/** does nothing if it is not the player's turn
 		 *   otherwise makes the player hit and checks if the player went bust.
 		 *   If player busts, it goes to next player's turn or the dealer's turn.
+		 @param event ActionEvent, player's action
 		 */
 		public void actionPerformed(ActionEvent event){
 			if(!dealerTurn){
@@ -351,6 +352,7 @@ public class BlackjackGui{
 
 		/** does nothing if it is not the player's turn
 		 *  otherwise makes the player stay and starts the dealer's turn
+		 @param event ActionEvent, Player stays
 		 */
 		public void actionPerformed(ActionEvent event){
 			if(!dealerTurn){
@@ -371,6 +373,7 @@ public class BlackjackGui{
 	 */
 	public class WelcomeListener1 implements ActionListener{
 		/** initializes some of the JLabels for a one player game and brings up the main JFrame
+		    @param event ActionEvent, welcome 1 player
 		 */
 		public void actionPerformed(ActionEvent event){
 			numPlayers = 1;
@@ -394,6 +397,7 @@ public class BlackjackGui{
 	 */
 	public class WelcomeListener2 implements ActionListener{
 		/** initializes the JLabels for a two player game and brings up the main JFrame
+		    @param event ActionEvent, welcome 2 player
 		 */
 		public void actionPerformed(ActionEvent event){
 			numPlayers = 2;
@@ -422,6 +426,7 @@ public class BlackjackGui{
 	 */
 	public class WelcomeListener3 implements ActionListener{
 		/** initializes the JLabels for a three player game and brings up the main JFrame
+		    @param event ActionEvent, welcome 3 player
 		 */
 		public void actionPerformed(ActionEvent event){
 			numPlayers = 3;
@@ -453,6 +458,7 @@ public class BlackjackGui{
 	 */
 	public class BeginGameListener implements ActionListener{
 		/** adds names to players and starts game
+		    @param event ActionEvent, begins the game
 		 */
 		public void actionPerformed(ActionEvent event){
 			nameFrame.setVisible(false);
@@ -496,6 +502,7 @@ public class BlackjackGui{
 	public class PlayAgainListener implements ActionListener{
 
 		/** starts a new game
+		    @param event ActionEvent, play again
 		 */
 		public void actionPerformed(ActionEvent event){
 			game.newRound();
@@ -512,6 +519,7 @@ public class BlackjackGui{
 	class MyTimerListener implements ActionListener{
 
 		/**logic for dealer's turn, calls getWinner() at the end
+		   @param event ActionEvent, timer
 		 */
 		public void actionPerformed(ActionEvent event){
 			if(numPlayers == 1 && game.getPlayerS().isNotBust() == false){

@@ -9,8 +9,8 @@ public class Card{
 	private boolean isAce;
 	private int cardNumber;
 	/** 
-	@param value value of card, between 1 and 13, if greater than 10 it is set to 10
-	@param suit suit of card, either Hearts, Clubs, Spades, or Diamonds
+	@param value int, value of card, between 1 and 13, if greater than 10 it is set to 10
+	@param suit String, suit of card, either Hearts, Clubs, Spades, or Diamonds
 	 */
 	public Card(int value,String suit){
 		this.suit=suit;

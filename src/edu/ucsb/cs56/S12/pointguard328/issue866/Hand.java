@@ -8,7 +8,10 @@ public class Hand{
 	private ArrayList<Card> myCards;
 	private boolean hasAce;
 	private int handValue;
-
+    /** Two-arg constructor
+	@param c1 Card, one of two cards
+	@param c2 Card, two of two cards
+     */
 	public Hand(Card c1, Card c2){
 		myCards = new ArrayList<Card>();
 		myCards.add(c1);
@@ -44,6 +47,7 @@ public class Hand{
 
 	/** adds a Card to the ArrayList of Cards and keeps track of whether
 	 *  or not it was an ace
+	 @param c Card, adding a card
 	 */
 	public void addCard(Card c){
 		myCards.add(c);
@@ -52,6 +56,8 @@ public class Hand{
 			hasAce=true;
 	}
 
+        /** toString returning the hand
+         */
 	public String toString(){
 		String myHand = "";
 		for(int i=0; i<myCards.size(); i++){
@@ -62,14 +68,19 @@ public class Hand{
 		}
 		return myHand;
 	}
+
 	/** gets the first card in the hand
 	 */    
 	public Card getFirstCard(){
 		return myCards.get(0);
 	}
+
+        /** gets the second card in the hand
+         */
 	public Card getSecondCard(){
 		return myCards.get(1);
 	}
+
 	/** calculates whether or not the hand has blackjack
 	 */
 	public boolean hasBlackjack(){

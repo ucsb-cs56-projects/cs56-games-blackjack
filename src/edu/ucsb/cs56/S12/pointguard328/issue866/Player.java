@@ -73,13 +73,15 @@ public class Player{
 	
 	
 	/** sets players hand to defined Hand
+	    @param h Hand to set
 	 */
 	public void setHand(Hand h){
 		playerHand = h;
 		if(h.getHandValue() > 21)
 			notBust = false;
 	}
-	
+        /** toString, returns ""
+        */
 	public String toString(){
 		return "";
 	}
@@ -89,8 +91,8 @@ public class Player{
 	public boolean isNotBust(){
 		return this.notBust;
 	}
-
-
+        /** returns if player has blackjack
+	 */
 	public boolean hasBlackjack(){
 		return playerHand.hasBlackjack();
 	}

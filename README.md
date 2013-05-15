@@ -7,6 +7,12 @@ This is a current working version of a Blackjack game with a GUI. It can also be
 * [Archive page](https://foo.cs.ucsb.edu/cs56/issues/0000866/)
 * [Mantis page](https://foo.cs.ucsb.edu/56mantis/view.php?id=866)
 
+## Recent changes
+* Improved Javadoc
+* Refactored files and directories to appropriately reflect current quarter (Spring 2013)
+    * Previous: edu.ucsb.cs56.s12.pointguard328.issue866
+    * Current: edu.ucsb.cs56.s13.blackjack
+
 ## Possible improvements
 
 * Online Multiplayer Blackjack - Using a server-client set up and java's built in socket libraries, create a blackjack game that two users can play on separate computers.

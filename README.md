@@ -11,7 +11,7 @@ This is a current working version of a Blackjack game with a GUI. It can also be
 * Improved Javadoc
 * Refactored files and directories to appropriately reflect current quarter (Spring 2013)
     * Previous: edu.ucsb.cs56.s12.pointguard328.issue866
-    * Current: edu.ucsb.cs56.s13.blackjack
+    * Current: edu.ucsb.cs56.s13.Blackjack
 * Removed JWS references
 
 ## Possible improvements

@@ -1,5 +1,5 @@
 package edu.ucsb.cs56.S12.pointguard328.issue866;
-/** Player class contains a Hand, a String name, and a boolean if the hand is bust.
+/** Player Class has the following: Hand, String name, and a boolean for busting.
  */
 
 public class Player{
@@ -96,4 +96,4 @@ public class Player{
 	}
 
 
-}
+}//end Player

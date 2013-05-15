@@ -273,4 +273,4 @@ public class HandTest{
         assertEquals(-1,h.getSecondHandValue());
     }
 
-}
+}//end HandTest

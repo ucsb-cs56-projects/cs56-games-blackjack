@@ -1,7 +1,7 @@
 package edu.ucsb.cs56.S12.pointguard328.issue866;
 import java.util.ArrayList;
 /** Class Hand contains an ArrayList of Cards and an int
-    representing the value of the hand
+ *   representing the value of the hand
  */
 public class Hand{
 
@@ -43,7 +43,7 @@ public class Hand{
 	}
 
 	/** adds a Card to the ArrayList of Cards and keeps track of whether
- 	or not it was an ace
+	 *  or not it was an ace
 	 */
 	public void addCard(Card c){
 		myCards.add(c);
@@ -97,4 +97,4 @@ public class Hand{
 			display += getSecondHandValue();
 		return display;
 	}
-}
+}//end Hand

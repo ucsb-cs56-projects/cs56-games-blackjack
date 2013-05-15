@@ -1,6 +1,6 @@
 package edu.ucsb.cs56.S12.pointguard328.issue866;
-/** class Card has a suit, value, name, and 
- *  keeps track of if it is an ace or face card
+/** Card Class has the following variables: suit, value, name,
+ *  isAce (check if Ace), and cardNumber (set to face if > 10) 
  */
 public class Card{
 	private String suit;
@@ -43,11 +43,13 @@ public class Card{
 			this.value=10;
 		}
 	}
-	/** gets the value of the card 
+	/** returns the value of the card 
 	 */
 	public int getValue(){
 		return value;
 	}
+       /** returns toString 
+	*/   
 	public String toString(){
 		return name + " of " + suit;
 	}
@@ -61,4 +63,4 @@ public class Card{
 	public int getCardNumber(){
 		return cardNumber;
 	}
-}
+}//end Card

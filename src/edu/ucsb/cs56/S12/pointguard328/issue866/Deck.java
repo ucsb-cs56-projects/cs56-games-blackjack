@@ -1,7 +1,7 @@
 package edu.ucsb.cs56.S12.pointguard328.issue866;
 import java.util.ArrayList;
 /** class Deck
-    contains an ArrayList of Cards
+ *  contains an ArrayList of Cards
  */
 public class Deck{
 
@@ -52,4 +52,4 @@ public class Deck{
 	public int getDeckSize(){
 		return cards.size();
 	}
-}
+}//end Deck

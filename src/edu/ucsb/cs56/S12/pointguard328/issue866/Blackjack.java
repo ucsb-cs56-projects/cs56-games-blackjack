@@ -1,8 +1,8 @@
 package edu.ucsb.cs56.S12.pointguard328.issue866;
 import java.util.*;
 
-/**Blackjack Class contains a deck, a list of players, a dealer "Player", the next Card being 
- * turned up,  as well as methods for hitting and staying
+/** Blackjack Class has the following: Deck, ArrayList (list for players), Player (dealer), 
+ *and Card (next card to show). This class also contains methods for hitting and staying. 
  */
 public class Blackjack{
 	private Deck d;
@@ -64,7 +64,7 @@ public class Blackjack{
 		dealer.newHand(d);
 	}
 
-	/** returns false if the dealer went bust
+	/** returns false if the dealer busted
 	 */
 	public boolean dealerNotBust(){
 		return dealer.isNotBust();
@@ -140,7 +140,8 @@ public class Blackjack{
 		return dealer.getHand();
 	}
 
-	/** makes the player passed as a parameter hit and returns a reference to the card drawn so 		it can be displayed
+	/** makes the player passed as a parameter hit and returns a reference to the card drawn so
+	 *  it can be displayed
 	@param player 
 	 */
 	public Card playerHit(Player player){
@@ -150,7 +151,7 @@ public class Blackjack{
 	}
 
 	/** decides whether or not the dealer should stay i.e. dealer has 17 or 
-	higher
+	 *  higher
 	 */
 	public boolean dealerShouldStay(){
 		if(dealerHandValue() >= 17 || dealerSecondValue() >= 17)

@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.awt.*;
 import java.net.*;
 import java.util.ArrayList;
-/**BlackjackGui Class contains all widgets making up the interface for the Blackjack game
+/**BlackjackGui Class contains all widgets for Blackjack game interface.
  */
 public class BlackjackGui{
 	JFrame frame;
@@ -54,7 +54,7 @@ public class BlackjackGui{
 	}
 
 	/** gets the winner and displays it in a label
-	also makes the playAgain button visible
+	 *  also makes the playAgain button visible
 	 */
 	public void getWinner(){
 		//sets true or false whether each player won or lost
@@ -308,8 +308,8 @@ public class BlackjackGui{
 	 */
 	public class HitListener implements ActionListener{
 		/** does nothing if it is not the player's turn
-	    otherwise makes the player hit and checks if the player went bust.
-	    If player busts, it goes to next player's turn or the dealer's turn.
+		 *   otherwise makes the player hit and checks if the player went bust.
+		 *   If player busts, it goes to next player's turn or the dealer's turn.
 		 */
 		public void actionPerformed(ActionEvent event){
 			if(!dealerTurn){
@@ -350,7 +350,7 @@ public class BlackjackGui{
 	public class StayListener implements ActionListener{
 
 		/** does nothing if it is not the player's turn
-	    otherwise makes the player stay and starts the dealer's turn
+		 *  otherwise makes the player stay and starts the dealer's turn
 		 */
 		public void actionPerformed(ActionEvent event){
 			if(!dealerTurn){
@@ -566,7 +566,7 @@ public class BlackjackGui{
 			}
 		}
 	}
-}
+} //end BlackjackGui
 
 
 

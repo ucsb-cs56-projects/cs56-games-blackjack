@@ -14,7 +14,7 @@
  <property name="quarter" value="S13"/>
  <property name="projectName" value="Blackjack"/>
  <property name="mainClass" value="edu.ucsb.cs56.S13.Blackjack.BlackjackGui"/>
- <property name="projectPath" value="${course}/${quarter}/issues/${projectName}"/>
+ <property name="projectPath" value="${course}/${quarter}/${projectName}"/>
  
  <property name="javadocDest" value="${webRoot}/${projectPath}/javadoc"/> 
  <property name="javadocURL" value="${webBaseUrl}/${projectPath}/javadoc"/> 

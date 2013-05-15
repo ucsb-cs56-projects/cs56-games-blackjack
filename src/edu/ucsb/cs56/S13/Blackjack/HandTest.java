@@ -5,7 +5,9 @@ import static org.junit.Assert.assertEquals;
 /** test class for Hand
 
 @author Thomas Pilkington
-@version 2012.02.28
+@author Brian Wan
+@author Fanny Kuang
+@version 2013.05.15
 @see Hand
 
 */

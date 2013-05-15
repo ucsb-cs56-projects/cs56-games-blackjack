@@ -1,6 +1,9 @@
 package edu.ucsb.cs56.S13.Blackjack;
 /** Card Class has the following variables: suit, value, name,
  *  isAce (check if Ace), and cardNumber (set to face if > 10) 
+ @author Brian Wan
+ @author Fanny Kuang
+ @version 2013.05.15
  */
 public class Card{
 	private String suit;

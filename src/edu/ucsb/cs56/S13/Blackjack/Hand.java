@@ -2,6 +2,9 @@ package edu.ucsb.cs56.S13.Blackjack;
 import java.util.ArrayList;
 /** Class Hand contains an ArrayList of Cards and an int
  *   representing the value of the hand
+ @author Brian Wan
+ @author Fanny Kuang
+ @version 2013.05.15
  */
 public class Hand{
 

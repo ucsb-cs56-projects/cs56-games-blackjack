@@ -5,7 +5,9 @@ import static org.junit.Assert.assertEquals;
 /** test class for Deck
 
 @author Garrett Johnston
-@version 2012.05.16
+@author Brian Wan
+@author Fanny Kuang
+@version 2013.05.15
 @see Deck
 
 */

@@ -3,6 +3,9 @@ import java.util.*;
 
 /** Blackjack Class has the following: Deck, ArrayList (list for players), Player (dealer), 
  *and Card (next card to show). This class also contains methods for hitting and staying. 
+@author Brian Wan
+@author Fanny Kuang
+@version 2013.05.15
  */
 public class Blackjack{
 	private Deck d;

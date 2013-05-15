@@ -2,6 +2,9 @@ package edu.ucsb.cs56.S13.Blackjack;
 import java.util.ArrayList;
 /** class Deck
  *  contains an ArrayList of Cards
+ @author Brian Wan
+ @author Fanny Kuang
+ @version 2013.05.15
  */
 public class Deck{
 

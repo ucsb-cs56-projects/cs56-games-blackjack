@@ -5,6 +5,9 @@ import java.awt.*;
 import java.net.*;
 import java.util.ArrayList;
 /**BlackjackGui Class contains all widgets for Blackjack game interface.
+@author Brian Wan
+@author Fanny Kuang
+@version 2013.05.15
  */
 public class BlackjackGui{
 	JFrame frame;

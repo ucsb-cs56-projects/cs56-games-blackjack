@@ -29,13 +29,12 @@ public class HandTest{
     /** Test case for Hand.hasBlackjack()
             @see Hand
     */
-
     @Test
-        public void test_HasBlackjack2() {
-        Card c1 = new Card(12, "Diamonds");
-        Card c2 = new Card(1, "Clubs");
-        Hand h = new Hand(c2, c1);
-        assertEquals(true,h.hasBlackjack());
+     public void test_HasBlackjack2() {
+     Card c1 = new Card(13, "Spades");
+     Card c2 = new Card(1, "Clubs");
+     Hand h = new Hand(c2, c1);
+     assertEquals(true,h.hasBlackjack());
     }
 
 

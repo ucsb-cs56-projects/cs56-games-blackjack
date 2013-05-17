@@ -15,7 +15,7 @@ public class Player{
 	 */
 	public Player() {
 		playerHand = new Hand();
-		name = new String();
+		name = "";
 	}
 
 	/** Setter to set each person's name

@@ -14,6 +14,16 @@ import static org.junit.Assert.assertEquals;
 
 public class PlayerTest{
 
+    /** Test for newly created Player object.
+     * Tests no arg constructor
+     * @see Player
+     */
+    @Test
+    public void test_noArgConstructor() {
+        Player p = new Player();
+        assertEquals("",p.getName());
+    }
+
 	/** Test for setName and getName
 		@see Player
 	*/

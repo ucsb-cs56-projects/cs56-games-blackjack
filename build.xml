@@ -3,21 +3,22 @@
 
  <!-- build.xml for Mantis issue866
       name: Garrett Johnston for CS56, S12 -->
+
+ <!-- modified build.xml for Github CS56 Blackjack Project
+      name: Fanny Kuang for CS56, S13 -->
  
  <property environment="env"/> <!-- load the environment variables --> 
  <property name="webRoot" value="${env.HOME}/public_html/"/>
  <property name="webBaseUrl" value="http://www.cs.ucsb.edu/~${env.USER}"/>
  <property name="course" value="cs56"/>
- <property name="quarter" value="S12"/>
- <property name="projectName" value="0000866"/>
- <property name="mainClass" value="edu.ucsb.cs56.S12.pointguard328.issue866.BlackjackGui"/>
- <property name="projectPath" value="${course}/${quarter}/issues/${projectName}"/>
+ <property name="quarter" value="S13"/>
+ <property name="projectName" value="Blackjack"/>
+ <property name="mainClass" value="edu.ucsb.cs56.S13.Blackjack.BlackjackGui"/>
+ <property name="projectPath" value="${course}/${quarter}/${projectName}"/>
  
  <property name="javadocDest" value="${webRoot}/${projectPath}/javadoc"/> 
  <property name="javadocURL" value="${webBaseUrl}/${projectPath}/javadoc"/> 
  <property name="imagesDest" value="${webRoot}/${projectPath}/images"/>
- <property name="jwsURL" value="${webBaseUrl}/${projectPath}/jws"/>
- <property name="jwsDest" value="${webRoot}/${projectPath}/jws"/>
  
  
  <path id="project.class.path">
@@ -109,20 +110,6 @@
      </manifest>
    </jar>
  </target>
-
- <!-- Java Web Start -->
- <target name="jws" depends="compile,jar" description="create jws for the project">
-   <delete dir="${webRoot}/${projectPath}/jws"/>
-   <mkdir dir="${webRoot}/${projectPath}/jws"/>
-   <copy todir="${jwsDest}" file="dist/${course}_${quarter}_${projectName}.jar"/>
-   <copy todir="${jwsDest}">
-     <fileset dir="jws" includes="*.html"/>
-     <fileset dir="jws" includes="*.jnlp"/>
-     <fileset dir="jws" includes="*.png"/>
-     <fileset dir="jws" includes=".htaccess"/>
-   </copy>
-  <echo>Java web start at ${jwsURL}</echo>
- </target>
  
  <!-- prepare tarball/zip files -->
  <target name="download" description="prepare tarball and zip files"> 
@@ -145,7 +132,7 @@
  </target> 
  
  <!-- Publish -->
- <target name="publish" depends="jar,javadoc,download,images,jws,linenumbers" description="publish everything to web">
+ <target name="publish" depends="jar,javadoc,download,images,linenumbers" description="publish everything to web">
    <mkdir dir="${webRoot}/${projectPath}"/>
 
    <delete dir="${webRoot}/${projectPath}/browse"/>

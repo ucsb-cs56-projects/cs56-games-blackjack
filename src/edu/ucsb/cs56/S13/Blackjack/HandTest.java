@@ -55,12 +55,12 @@ public class HandTest{
     */
 
     @Test
-        public void test_HasBlackjack4() {
+    public void test_HasBlackjack4() {
         Card c1 = new Card(12, "Diamonds");
         Card c2 = new Card(4, "Clubs");
-	Card c3 = new Card(7, "Clubs");
+	    Card c3 = new Card(7, "Clubs");
         Hand h = new Hand(c1, c2);
-	h.addCard(c3);
+	    h.addCard(c3);
         assertEquals(false,h.hasBlackjack());
     }
 

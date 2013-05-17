@@ -13,6 +13,7 @@ This is a current working version of a Blackjack game with a GUI. It can also be
     * Previous: edu.ucsb.cs56.s12.pointguard328.issue866
     * Current: edu.ucsb.cs56.s13.Blackjack
 * Removed JWS references
+* Improved JUnit tests (Duplicates, corner cases)
 
 ## Possible improvements
 

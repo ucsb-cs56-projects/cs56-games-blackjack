@@ -23,7 +23,7 @@
  
  <path id="project.class.path">
    <pathelement location="build"/>
-   <pathelement location="/cs/faculty/pconrad/public_html/cs56/lib/junit-4.8.2.jar"/>
+   <pathelement location="lib/junit-4.8.2.jar"/>
  </path>
  
  <!-- Compile src code -->

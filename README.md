@@ -1,6 +1,6 @@
 # cs56-games-blackjack
 
-<b>TODO</b> - add more description to the sections of this README
+W14 ready! (Jakob Staahl)
 
 This is a current working version of a Blackjack game with a GUI. It can also be found at these links:
 

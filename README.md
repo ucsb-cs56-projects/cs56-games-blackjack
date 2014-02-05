@@ -7,6 +7,8 @@ This is a current working version of a Blackjack game with a GUI. It can also be
 * [Archive page](https://foo.cs.ucsb.edu/cs56/issues/0000866/)
 * [Mantis page](https://foo.cs.ucsb.edu/56mantis/view.php?id=866)
 
+![](http://i.imgur.com/rXE5Qe1.png)
+
 ## Recent changes
 * Improved Javadoc
 * Refactored files and directories to appropriately reflect current quarter (Spring 2013)

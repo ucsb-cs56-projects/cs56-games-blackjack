@@ -7,6 +7,13 @@ This is a current working version of a Blackjack game with a GUI. It can also be
 * [Archive page](https://foo.cs.ucsb.edu/cs56/issues/0000866/)
 * [Mantis page](https://foo.cs.ucsb.edu/56mantis/view.php?id=866)
 
+## Running the game
+
+simply use the command:
+```
+ant run
+```
+
 ![](http://i.imgur.com/rXE5Qe1.png)
 
 ## Recent changes

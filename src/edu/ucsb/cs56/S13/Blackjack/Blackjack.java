@@ -7,6 +7,7 @@ import java.util.*;
  @author Fanny Kuang
  @version 2013.05.15
 */
+
 public class Blackjack{
     private Deck d;
     private ArrayList<Player> players;
@@ -150,6 +151,7 @@ public class Blackjack{
     public Card playerHit(Player player){
 	displayCard = d.draw();
 	player.drawCard(displayCard);
+	player.setNumOfCards(1); // add number of cards by 1
 	return displayCard;
     }
     

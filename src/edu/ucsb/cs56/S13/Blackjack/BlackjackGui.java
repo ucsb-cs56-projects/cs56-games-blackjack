@@ -44,6 +44,18 @@ public class BlackjackGui{
     JLabel downCard;
     JButton playAgain;
     JButton beginGame;
+
+    JFrame betFrame;
+    JPanel betPanel;
+    JLabel betLabel;
+    JButton betButton;
+    JButton betAmount1;
+    JButton betAmount2;
+    JButton betAmount3;
+    JButton betAmount4;
+    JLabel betAmount;
+    int amountBet;
+
     ArrayList<String> names;
     public static int numPlayers;
     public static boolean keepRunning=false;
@@ -370,12 +382,107 @@ public class BlackjackGui{
 	    }
 	}
     }
+
+    /** listender class for confirm name button 
+     */
+    public class ConfirmName implements ActionListener{
+	/** initializes some of the JLabels for a set bet menu and brings up the main JFrame
+	    @param event ActionEvent, set bet
+	*/
+	public void actionPerformed(ActionEvent event){
+	    nameFrame.setVisible(false);
+
+	    betFrame = new JFrame();
+	    betPanel = new JPanel();
+	    betLabel = new JLabel();
+	    betPanel.setLayout(new BoxLayout(betPanel, BoxLayout.Y_AXIS));
+
+	    betLabel.setText("How much would you like to bet?");
+            betAmount = new JLabel("$25");
+	    amountBet = 25;
+
+	    betAmount1 = new JButton("$25");
+	    betAmount2 = new JButton("$50");
+	    betAmount3 = new JButton("$100");
+	    betAmount4 = new JButton("$250");
+	    betAmount1.addActionListener(new BetAmountListener1());
+	    betAmount2.addActionListener(new BetAmountListener2());
+	    betAmount3.addActionListener(new BetAmountListener3());
+	    betAmount4.addActionListener(new BetAmountListener4());
+
+            JButton betButton = new JButton("Confirm Bet");
+            betButton.addActionListener(new BeginGameListener());
+
+	    betPanel.add(betLabel);
+	    betPanel.add(betAmount);
+	    betPanel.add(betAmount1);
+	    betPanel.add(betAmount2);
+	    betPanel.add(betAmount3);
+	    betPanel.add(betAmount4);
+	    betPanel.add(betButton);
+
+	    betFrame.add(betPanel);
+	    betFrame.setSize(200,175);
+	    betFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    betFrame.setVisible(true);
+	    
+	}
+    }
     
+    /** listender class for setting the bet to $25
+     */
+    public class BetAmountListener1 implements ActionListener{
+        /** changes bet text
+            @param event ActionEvent, set bet
+	*/
+        public void actionPerformed(ActionEvent event){
+	    betAmount.setText("$25");
+	    amountBet = 25;
+	}
+    }
+
+    /** listender class for setting the bet to $50
+     */
+    public class BetAmountListener2 implements ActionListener{
+        /** changes bet text
+            @param event ActionEvent, set bet
+	*/
+        public void actionPerformed(ActionEvent event){
+            betAmount.setText("$50");
+            amountBet = 50;
+        }
+    }
+
+    /** listender class for setting the bet to $100
+     */
+    public class BetAmountListener3 implements ActionListener{
+        /** changes bet text
+            @param event ActionEvent, set bet
+	*/
+        public void actionPerformed(ActionEvent event){
+            betAmount.setText("$100");
+            amountBet = 100;
+        }
+    }
+
+    /** listender class for setting the bet to $250
+     */
+    public class BetAmountListener4 implements ActionListener{
+        /** changes bet text
+            @param event ActionEvent, set bet
+	*/
+        public void actionPerformed(ActionEvent event){
+            betAmount.setText("$250");
+            amountBet = 250;
+        }
+    }
+
+
     
     /** listener class for 1 player button
      */
     public class WelcomeListener1 implements ActionListener{
-	/** initializes some of the JLabels for a one player game and brings up the main JFrame
+	/** initializes the window for set bet amount and prepares for a 1 player game
 	    @param event ActionEvent, welcome 1 player
 	*/
 	public void actionPerformed(ActionEvent event){
@@ -388,8 +495,8 @@ public class BlackjackGui{
 	    player1Name = new JTextField(20);
 	    namePanel.add(name1);
 	    namePanel.add(player1Name);
-	    beginGame = new JButton("Begin Game");
-	    beginGame.addActionListener(new BeginGameListener());
+	    beginGame = new JButton("Confirm");
+	    beginGame.addActionListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
 	    nameFrame.setVisible(true);
@@ -399,7 +506,7 @@ public class BlackjackGui{
     /** listener class for 2 player button
      */
     public class WelcomeListener2 implements ActionListener{
-	/** initializes the JLabels for a two player game and brings up the main JFrame
+	/** initializes  the window for set bet amount and prepares for a 2 player game
 	    @param event ActionEvent, welcome 2 player
 	*/
 	public void actionPerformed(ActionEvent event){
@@ -416,8 +523,8 @@ public class BlackjackGui{
 	    namePanel.add(player1Name);
 	    namePanel.add(name2);
 	    namePanel.add(player2Name);
-	    beginGame = new JButton("Begin Game");
-	    beginGame.addActionListener(new BeginGameListener());
+	    beginGame = new JButton("Confirm");
+	    beginGame.addActionListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
 	    nameFrame.setVisible(true);
@@ -428,7 +535,7 @@ public class BlackjackGui{
     /** listener class for 3 player button
      */
     public class WelcomeListener3 implements ActionListener{
-	/** initializes the JLabels for a three player game and brings up the main JFrame
+	/** initializes the window for set bet amount and prepares for a 3 player game
 	    @param event ActionEvent, welcome 3 player
 	*/
 	public void actionPerformed(ActionEvent event){
@@ -449,8 +556,8 @@ public class BlackjackGui{
 	    namePanel.add(player2Name);
 	    namePanel.add(name3);
 	    namePanel.add(player3Name);
-	    beginGame = new JButton("Begin Game");
-	    beginGame.addActionListener(new BeginGameListener());
+	    beginGame = new JButton("Confirm");
+	    beginGame.addActionListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
 	    nameFrame.setVisible(true);
@@ -464,7 +571,7 @@ public class BlackjackGui{
 	    @param event ActionEvent, begins the game
 	*/
 	public void actionPerformed(ActionEvent event){
-	    nameFrame.setVisible(false);
+	    betFrame.setVisible(false);
 	    // switch statement gives players names and makes their cards visible
 	    switch(numPlayers) {
 	    case 1:

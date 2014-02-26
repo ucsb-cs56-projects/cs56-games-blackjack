@@ -9,22 +9,40 @@ public class Player{
     
     private Hand playerHand;
     private String name;
+    private int money;
+    private int numberOfCards;
     private boolean notBust = true;
     
     /** No-arg constructor creates new Player with a new Hand
      */
     public Player() {
 	playerHand = new Hand();
+	numberOfCards = 2;
+	money = 5000;
 	name = "";
     }
     
     /** Setter to set each person's name
-     *  @param name of Player to set name
+     *  @param name name of Player to set name
      */
     public void setName(String name){
 	this.name = name;
     }
-    
+
+    /** Setter to set player's number of cards in hand
+     * @param num number of cards to add/deduct from player's hand
+     */
+    public void setNumOfCards(int num) {
+	numberOfCards += num;
+    }
+
+    /** Setter to set player's balance (amount of money)
+     * @param amount amount (negative/positive) to add/subtract from Player's money
+     */
+    public void setMoney(int amount) {
+	money += amount;
+    }
+
     /** Resets player hand so a new round of blackjack can begin
      * @param d Deck to play with
      */

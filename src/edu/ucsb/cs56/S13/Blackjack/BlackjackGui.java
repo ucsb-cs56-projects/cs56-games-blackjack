@@ -4,6 +4,8 @@ import java.awt.event.*;
 import java.awt.*;
 import java.net.*;
 import java.util.ArrayList;
+
+
 /**BlackjackGui Class contains all widgets for Blackjack game interface.
 @author Brian Wan
 @author Fanny Kuang
@@ -55,6 +57,10 @@ public class BlackjackGui{
     JButton betAmount4;
     JLabel betAmount;
     int amountBet;
+
+    JLabel playerLabelSM;
+    JLabel playerLabelWM;
+    JLabel playerLabelEM;
 
     ArrayList<String> names;
     public static int numPlayers;
@@ -123,6 +129,28 @@ public class BlackjackGui{
 	dealerPanel.add(new JLabel(getMyImage(game.getDealer().getHand().getSecondCard())));
 	timer.start();
     }
+
+    /** deduct the bet amount from each players' hand at the start of each round
+     */
+    private void updateMoney() {
+	switch(numPlayers) {
+	case(1):
+	    game.getPlayerS().setMoney(-amountBet);
+	    break;
+	case(2):
+	    game.getPlayerS().setMoney(-amountBet);
+	    game.getPlayerE().setMoney(-amountBet);
+	    break;
+	case(3):
+	    game.getPlayerS().setMoney(-amountBet);
+	    game.getPlayerE().setMoney(-amountBet);
+	    game.getPlayerW().setMoney(-amountBet);
+	    break;
+	default:
+	    break;
+	}
+    }
+
     
     /** initializes many of the widgets and sets up listeners to some of those widgets
      */
@@ -134,6 +162,7 @@ public class BlackjackGui{
 	
 	dealerPanel = new JPanel(); dealerLabel = new JLabel();
 	playerPanelS = new JPanel(); playerLabelS = new JLabel();
+	playerLabelSM = new JLabel("Money: $" + game.getPlayerS().getMoney() + ", ");
 	playerPanelE = new JPanel(); playerLabelE = new JLabel();
 	playerPanelW = new JPanel(); playerLabelW = new JLabel();
 	displayPanel = new JPanel(); displayLabel = new JLabel();
@@ -165,6 +194,7 @@ public class BlackjackGui{
 	displayPanel.add(displayLabel);
 	displayPanel.add(centerPanel);
 	
+	playerPanelS.add(playerLabelSM);
 	playerPanelS.add(playerLabelS);
 	playerPanelS.add(new JLabel(getMyImage(game.getPlayerS().getHand().getFirstCard())));
 	playerPanelS.add(new JLabel(getMyImage(game.getPlayerS().getHand().getSecondCard())));
@@ -396,9 +426,12 @@ public class BlackjackGui{
 	    betPanel = new JPanel();
 	    betLabel = new JLabel();
 	    betPanel.setLayout(new BoxLayout(betPanel, BoxLayout.Y_AXIS));
-
+      
 	    betLabel.setText("How much would you like to bet?");
-            betAmount = new JLabel("$25");
+	    betLabel.setHorizontalAlignment(JLabel.CENTER);
+	    betLabel.setVerticalAlignment(JLabel.CENTER);
+
+	    betAmount = new JLabel("$25");
 	    amountBet = 25;
 
 	    betAmount1 = new JButton("$25");
@@ -421,8 +454,9 @@ public class BlackjackGui{
 	    betPanel.add(betAmount4);
 	    betPanel.add(betButton);
 
-	    betFrame.add(betPanel);
-	    betFrame.setSize(200,175);
+	    betFrame.getContentPane().add(betPanel);
+	    //betFrame.add(betPanel);
+	    betFrame.setSize(200,225);
 	    betFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    betFrame.setVisible(true);
 	    
@@ -572,10 +606,12 @@ public class BlackjackGui{
 	*/
 	public void actionPerformed(ActionEvent event){
 	    betFrame.setVisible(false);
+
 	    // switch statement gives players names and makes their cards visible
 	    switch(numPlayers) {
 	    case 1:
 		game.getPlayerS().setName(player1Name.getText());
+		game.getPlayerS().setMoney(-amountBet);
 		p1Name = new String(game.getPlayerS().getName());
 		playerLabelS.setText(game.getPlayerS().displayHandValue());
 		frame.remove(playerPanelW);
@@ -583,7 +619,9 @@ public class BlackjackGui{
 		break;
 	    case 2:
 		game.getPlayerS().setName(player1Name.getText());
+		game.getPlayerS().setMoney(-amountBet);
 		game.getPlayerE().setName(player2Name.getText());
+		game.getPlayerE().setMoney(-amountBet);
 		p1Name = new String(game.getPlayerS().getName());
 		p2Name = new String(game.getPlayerE().getName());
 		playerLabelS.setText(game.getPlayerS().displayHandValue());
@@ -592,8 +630,11 @@ public class BlackjackGui{
 		break;
 	    case 3:
 		game.getPlayerS().setName(player1Name.getText());
+		game.getPlayerS().setMoney(-amountBet);
 		game.getPlayerE().setName(player2Name.getText());
+		game.getPlayerE().setMoney(-amountBet);
 		game.getPlayerW().setName(player3Name.getText());
+		game.getPlayerW().setMoney(-amountBet);
 		p1Name = new String(game.getPlayerS().getName());
 		p2Name = new String(game.getPlayerE().getName());
 		p3Name = new String(game.getPlayerW().getName());

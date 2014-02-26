@@ -76,7 +76,7 @@ public class Player{
 
     /** Getter to get player's money on hand
      */
-    public String getMoney(){
+    public int getMoney(){
         return this.money;
     }
     

@@ -73,6 +73,12 @@ public class Player{
     public String getName(){
 	return this.name;
     }
+
+    /** Getter to get player's money on hand
+     */
+    public String getMoney(){
+        return this.money;
+    }
     
     /** formats a string that displays the value(s) of the player's hand
      */

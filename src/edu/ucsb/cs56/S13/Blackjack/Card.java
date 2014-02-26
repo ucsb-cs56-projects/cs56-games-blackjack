@@ -6,64 +6,83 @@ package edu.ucsb.cs56.S13.Blackjack;
  @version 2013.05.15
  */
 public class Card{
-	private String suit;
-	private int value;
-	private String name;
-	private boolean isAce;
-	private int cardNumber;
-	/** 
+    private String name;
+    private String suit;
+
+    private int value;
+    private int cardNumber;
+   
+    private boolean isAce;
+
+
+    /** 
 	@param value int, value of card, between 1 and 13, if greater than 10 it is set to 10
 	@param suit String, suit of card, either Hearts, Clubs, Spades, or Diamonds
-	 */
-	public Card(int value,String suit){
-		this.suit=suit;
-		this.value=value;
-		cardNumber = value;
-		if(suit.equals("Diamonds"))
-			cardNumber += 13;
-		else if(suit.equals("Hearts"))
-			cardNumber += 26;
-		else if(suit.equals("Spades"))
-			cardNumber += 39;
-		isAce=false;
-		if(value == 1){
-			name="Ace";
-			isAce = true;
-		}
-		else if(value >=2 && value <=10){
-			name=Integer.toString(value);
-		}
-		else if(value == 11){
-			name="Jack";
-			this.value=10;
-		}
-		else if(value == 12){
-			name="Queen";
-			this.value=10;
-		}
-		else if(value == 13){
-			name="King";
-			this.value=10;
-		}
+    */
+    public Card(int value,String suit){
+	this.suit=suit;
+	this.value=value;
+	cardNumber = value;
+
+	/** determine card number **/
+	if(suit.equals("Diamonds"))
+	    cardNumber += 13;
+	
+	else if(suit.equals("Hearts"))
+	    cardNumber += 26;
+	
+	else if(suit.equals("Spades"))
+	    cardNumber += 39;
+
+	/** determine card name, value and whether or not it is an ace. 
+	/** by default isAce is set to false, so it will remain false
+	/** unless value == 1 */
+	if(value == 1){
+	    name="Ace";
+	    isAce = true;
 	}
-	/** returns the value of the card 
-	 */
-	public int getValue(){
-		return value;
+	
+	else if(value >=2 && value <=10){
+	    name=Integer.toString(value);
 	}
-       /** returns toString 
-	*/   
-	public String toString(){
-		return name + " of " + suit;
+
+	else if(value == 11){
+	    name="Jack";
+	    this.value=10;
 	}
-	/** returns whether or not the card is an ace
-	 */
-	public boolean isAnAce(){
-		return isAce;
+
+	else if(value == 12){
+	    name="Queen";
+	    this.value=10;
 	}
-	/** returns the true Card Number (e.g. King = 13, Ace = 1, 4 = 4)
-	 */
-	public int getCardNumber(){
-		return cardNumber;
+
+	else if(value == 13){
+	    name="King";
+	    this.value=10;
 	}
+    }
+    
+    /** returns the value of the card 
+     */
+    public int getValue(){
+	return value;
+    }
+    
+    /** returns toString 
+     */   
+    public String toString(){
+	return name + " of " + suit;
+    }
+    
+    /** returns whether or not the card is an ace
+     */
+    public boolean isAnAce(){
+	return isAce;
+    }
+    
+    /** returns the true Card Number (e.g. King = 13, Ace = 1, 4 = 4)
+     */
+    public int getCardNumber(){
+	return cardNumber;
+    }
 }//end Card

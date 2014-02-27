@@ -12,6 +12,9 @@ import java.util.ArrayList;
 @version 2013.05.15
  */
 public class BlackjackGui{
+    /** WELCOME WINDOW,
+     * # OF PLAYERS SELECTION WINDOW,
+     * and BLACKJACK TABLE WINDOW **/
     JFrame frame;
     JFrame welcomeFrame;
     JFrame nameFrame;
@@ -47,6 +50,7 @@ public class BlackjackGui{
     JButton playAgain;
     JButton beginGame;
 
+    /** BET WINDOW **/
     JFrame betFrame;
     JPanel betPanel;
     JLabel betLabel;
@@ -58,16 +62,22 @@ public class BlackjackGui{
     JLabel betAmount;
     int amountBet;
 
+    /** PLAYER FUNDS **/
     JLabel playerLabelSM;
     JLabel playerLabelWM;
     JLabel playerLabelEM;
 
+    /** GAME INFORMATION **/
     ArrayList<String> names;
     public static int numPlayers;
     public static boolean keepRunning=false;
     int speed = 1000;
     Timer timer = new Timer(speed, new MyTimerListener());
     
+
+    /** launches/runs the blackjack game
+     * @param args array of String command line arguments 
+     */
     public static void main(String[] args){
 	BlackjackGui gui = new BlackjackGui();
 	gui.welcome();
@@ -122,7 +132,7 @@ public class BlackjackGui{
 	else if (p3IsWinner)
 	    updateMoney(amountBet, 3);
      
-
+	/** create 'play again' button to display at the end of the round **/
 	playAgain = new JButton("Play again");
 	playAgain.setMaximumSize(new Dimension(130, 75));
 	playAgain.addActionListener(new PlayAgainListener());
@@ -192,25 +202,32 @@ public class BlackjackGui{
 	dealerTurn = false;
 	playerTurn = 1;
 
+	// remove the bet amount from all of the players' total money
 	updateMoney();
 	
+	// create dealer's label
 	dealerPanel = new JPanel(); dealerLabel = new JLabel();
 
+	// create 1st player's label
 	playerPanelS = new JPanel(); playerLabelS = new JLabel();
 	playerLabelSM = new JLabel("Money: $" + game.getPlayerS().getMoney() + ", ");
 
+	// create 2nd player's label
 	playerPanelE = new JPanel(); playerLabelE = new JLabel();
 	playerLabelEM = new JLabel("Money: $" + game.getPlayerE().getMoney() + ", ");
 
+	// create 3rd player's label
 	playerPanelW = new JPanel(); playerLabelW = new JLabel();
 	playerLabelWM = new JLabel("Money: $" + game.getPlayerW().getMoney() + ", ");
 
+	// create card displays for all players
 	displayPanel = new JPanel(); displayLabel = new JLabel();
 	cardPanelE = new JPanel(); cardPanelW = new JPanel();
 	textPanel = new JPanel();
 	centerPanel = new JPanel();
 	displayLabel.setFont(new Font(displayLabel.getName(), Font.PLAIN, 20));
 	
+ 
 	dealerPanel.add(dealerLabel);
 	dealerPanel.add(new JLabel(getMyImage(game.getDealer().getHand().getFirstCard())));
 	URL myURL = getClass().getResource("/images/b1fv.gif");
@@ -218,7 +235,8 @@ public class BlackjackGui{
 	downCard = new JLabel(myImage);
 	dealerPanel.add(downCard);
 	dealerLabel.setText(game.displayDealerCardValue());
-	
+
+	// create the 'hit' and 'stay' buttons	
 	JButton hit = new JButton("hit");
 	hit.setMaximumSize(new Dimension(75,75));
 	hit.addActionListener(new HitListener());
@@ -234,11 +252,13 @@ public class BlackjackGui{
 	displayPanel.add(displayLabel);
 	displayPanel.add(centerPanel);
 	
+	// add 1st player's labels and starter cards to the panel
 	playerPanelS.add(playerLabelSM);
 	playerPanelS.add(playerLabelS);
 	playerPanelS.add(new JLabel(getMyImage(game.getPlayerS().getHand().getFirstCard())));
 	playerPanelS.add(new JLabel(getMyImage(game.getPlayerS().getHand().getSecondCard())));
 	
+	// add 2nd player's labels and starter cards to the panel
 	playerPanelE.setLayout(new BoxLayout(playerPanelE, BoxLayout.Y_AXIS));
 	playerPanelE.add(playerLabelEM);
 	playerPanelE.add(playerLabelE);
@@ -246,14 +266,15 @@ public class BlackjackGui{
 	cardPanelE.add(new JLabel(getMyImage(game.getPlayerE().getHand().getSecondCard())));
 	playerPanelE.add(cardPanelE);
 		
+	// add 3rd  player's labels and starter cards to the panel
 	playerPanelW.setLayout(new BoxLayout(playerPanelW, BoxLayout.Y_AXIS));
-	
 	playerPanelW.add(playerLabelWM);
 	playerPanelW.add(playerLabelW);
 	cardPanelW.add(new JLabel(getMyImage(game.getPlayerW().getHand().getFirstCard())));
 	cardPanelW.add(new JLabel(getMyImage(game.getPlayerW().getHand().getSecondCard())));
 	playerPanelW.add(cardPanelW);
 	
+	// set all the player+dealer+buttons panels into proper positions in the frame
 	frame.getContentPane().add(BorderLayout.NORTH, dealerPanel);
 	frame.getContentPane().add(BorderLayout.CENTER, displayPanel);
 	frame.getContentPane().add(BorderLayout.SOUTH, playerPanelS);
@@ -463,20 +484,25 @@ public class BlackjackGui{
 	    @param event ActionEvent, set bet
 	*/
 	public void actionPerformed(ActionEvent event){
+	    // disable the previous window ('enter player name(s)')
 	    nameFrame.setVisible(false);
 
+	    // create the frame and panels, as well as set the layout
 	    betFrame = new JFrame();
 	    betPanel = new JPanel();
 	    betLabel = new JLabel();
 	    betPanel.setLayout(new BoxLayout(betPanel, BoxLayout.Y_AXIS));
       
+	    // set the main text and center it
 	    betLabel.setText("How much would you like to bet?");
 	    betLabel.setHorizontalAlignment(JLabel.CENTER);
 	    betLabel.setVerticalAlignment(JLabel.CENTER);
 
+	    // by default have the $25 bet selected
 	    betAmount = new JLabel("$25");
 	    amountBet = 25;
 
+	    // create bet amount buttons and assign ActionListeners
 	    betAmount1 = new JButton("$25");
 	    betAmount2 = new JButton("$50");
 	    betAmount3 = new JButton("$100");
@@ -486,9 +512,11 @@ public class BlackjackGui{
 	    betAmount3.addActionListener(new BetAmountListener3());
 	    betAmount4.addActionListener(new BetAmountListener4());
 
+	    // create button to confirm selected bet amount
             JButton betButton = new JButton("Confirm Bet");
             betButton.addActionListener(new BeginGameListener());
 
+	    // add widgets to panel
 	    betPanel.add(betLabel);
 	    betPanel.add(betAmount);
 	    betPanel.add(betAmount1);
@@ -497,8 +525,8 @@ public class BlackjackGui{
 	    betPanel.add(betAmount4);
 	    betPanel.add(betButton);
 
+	    // add the panel to the frame and set frame attributes
 	    betFrame.getContentPane().add(betPanel);
-	    //betFrame.add(betPanel);
 	    betFrame.setSize(200,225);
 	    betFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    betFrame.setVisible(true);

@@ -3,7 +3,8 @@ package edu.ucsb.cs56.S13.Blackjack;
  *  isAce (check if Ace), and cardNumber (set to face if > 10) 
  @author Brian Wan
  @author Fanny Kuang
- @version 2013.05.15
+ @author Eric Palyan
+ @version 2014.02.27
  */
 public class Card{
     private String name;

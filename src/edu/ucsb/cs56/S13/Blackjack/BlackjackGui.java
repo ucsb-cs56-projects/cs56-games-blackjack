@@ -7,10 +7,11 @@ import java.util.ArrayList;
 
 
 /**BlackjackGui Class contains all widgets for Blackjack game interface.
-@author Brian Wan
-@author Fanny Kuang
-@version 2013.05.15
- */
+   @author Brian Wan
+   @author Fanny Kuang
+   @author Eric Palyan
+   @version 2014.02.27
+*/
 public class BlackjackGui{
     /** WELCOME WINDOW,
      * # OF PLAYERS SELECTION WINDOW,
@@ -346,6 +347,7 @@ public class BlackjackGui{
 	welcomeFrame.add(welcomePanel);
 	welcomeFrame.setSize(200,175);
 	welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	welcomeFrame.setLocationRelativeTo(null); // center the window
 	welcomeFrame.setVisible(true);
     }
     
@@ -506,7 +508,7 @@ public class BlackjackGui{
 
 	    // by default have the $25 bet selected
 	    betAmount = new JLabel("$25");
-	    amountBet = 25;
+ 	    amountBet = 25;
 
 	    // create bet amount buttons and assign ActionListeners
 	    betAmount1 = new JButton("$25");
@@ -535,6 +537,7 @@ public class BlackjackGui{
 	    betFrame.getContentPane().add(betPanel);
 	    betFrame.setSize(200,225);
 	    betFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    betFrame.setLocationRelativeTo(null); // center window
 	    betFrame.setVisible(true);
 	    
 	}
@@ -610,6 +613,8 @@ public class BlackjackGui{
 	    beginGame.addActionListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
+	    nameFrame.setLocationRelativeTo(null); // center the window
+	    
 	    nameFrame.setVisible(true);
 	}
     }
@@ -638,6 +643,8 @@ public class BlackjackGui{
 	    beginGame.addActionListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
+	    nameFrame.setLocationRelativeTo(null); // center the window
+
 	    nameFrame.setVisible(true);
 	    
 	}
@@ -671,6 +678,8 @@ public class BlackjackGui{
 	    beginGame.addActionListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
+	    nameFrame.setLocationRelativeTo(null); // center the window
+
 	    nameFrame.setVisible(true);
 	}
     }
@@ -726,6 +735,8 @@ public class BlackjackGui{
 		frame.setSize(1000,600);
 	    }
 	    displayLabel.setText(p1Name + "'s turn");
+	    frame.setLocationRelativeTo(null); // center window
+
 	    frame.setVisible(true);
 	}
     }

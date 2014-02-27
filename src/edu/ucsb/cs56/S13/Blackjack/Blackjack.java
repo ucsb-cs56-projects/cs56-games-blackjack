@@ -5,7 +5,8 @@ import java.util.*;
  *and Card (next card to show). This class also contains methods for hitting and staying. 
  @author Brian Wan
  @author Fanny Kuang
- @version 2013.05.15
+ @author Eric Palyan
+ @version 2014.02.27
 */
 
 public class Blackjack{
@@ -152,7 +153,7 @@ public class Blackjack{
 	displayCard = d.draw();
 	player.drawCard(displayCard);
 	player.setNumberOfCards(1); // add number of cards by 1
-	System.out.println(""+player.getNumberOfCards());
+   
 	return displayCard;
     }
     

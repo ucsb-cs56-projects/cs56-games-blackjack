@@ -5,7 +5,8 @@ import java.util.ArrayList;
  *  contains an ArrayList of Cards
  @author Brian Wan
  @author Fanny Kuang
- @version 2013.05.15
+ @author Eric Palyan
+ @version 2014.02.27
  */
 public class Deck{
     

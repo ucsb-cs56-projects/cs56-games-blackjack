@@ -2,7 +2,8 @@ package edu.ucsb.cs56.S13.Blackjack;
 /** Player Class has the following: Hand, String name, and a boolean for busting.
     @author Brian Wan
     @author Fanny Kuang
-    @version 2013.05.15
+    @author Eric Palyan
+    @version 2014.02.27
 */
 
 public class Player{

@@ -64,7 +64,7 @@ public class Player{
 
     /** returns number of cards in player's hand
      */
-    public void getNumberOfCards() {
+    public int getNumberOfCards() {
 	return numberOfCards;
     }
 

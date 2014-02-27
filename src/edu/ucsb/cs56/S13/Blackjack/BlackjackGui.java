@@ -328,9 +328,8 @@ public class BlackjackGui{
      */
     public void welcome(){
 	welcomeFrame = new JFrame();
-	welcomePanel = new JPanel();
+	welcomePanel = new JPanel(new GridLayout(4, 0, 5, 0));
 	welcomeLabel = new JLabel();
-	welcomePanel.setLayout(new BoxLayout(welcomePanel, BoxLayout.Y_AXIS));
 	
 	JButton onePlayer = new JButton("1 player");
 	JButton twoPlayers = new JButton("2 players");
@@ -340,10 +339,21 @@ public class BlackjackGui{
 	threePlayers.addActionListener(new WelcomeListener3());
 	
 	welcomeLabel.setText("Welcome to Blackjack");
+	welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
 	welcomePanel.add(welcomeLabel);
 	welcomePanel.add(onePlayer);
 	welcomePanel.add(twoPlayers);
 	welcomePanel.add(threePlayers);
+	welcomePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+	// create the outer panel to center the widgets
+	JPanel outerPanel = new JPanel();
+	outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
+	outerPanel.add(Box.createHorizontalGlue());
+	outerPanel.add(welcomePanel);
+	outerPanel.add(Box.createHorizontalGlue());
+
 	welcomeFrame.add(welcomePanel);
 	welcomeFrame.setSize(200,175);
 	welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -619,11 +619,12 @@ public class BlackjackGui{
 	    betFrame.setVisible(false);
 	    
 	    updateMoney();
+	    
 	    // switch statement gives players names and makes their cards visible
 	    switch(numPlayers) {
 	    case 1:
 		game.getPlayerS().setName(player1Name.getText());
-		playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()-amountBet));
+		playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
 
 		p1Name = new String(game.getPlayerS().getName());
 		playerLabelS.setText(game.getPlayerS().displayHandValue());
@@ -633,8 +634,8 @@ public class BlackjackGui{
 	    case 2:
 		game.getPlayerS().setName(player1Name.getText());
 		game.getPlayerE().setName(player2Name.getText());
-		playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()-amountBet));
-		playerLabelEM.setText("Money: $" + (game.getPlayerE().getMoney()-amountBet));
+		playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
+		playerLabelEM.setText("Money: $" + (game.getPlayerE().getMoney()));
 
 		p1Name = new String(game.getPlayerS().getName());
 		p2Name = new String(game.getPlayerE().getName());
@@ -646,9 +647,9 @@ public class BlackjackGui{
 		game.getPlayerS().setName(player1Name.getText());
 		game.getPlayerE().setName(player2Name.getText());
 		game.getPlayerW().setName(player3Name.getText());
-		playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()-amountBet));
-		playerLabelEM.setText("Money: $" + (game.getPlayerE().getMoney()-amountBet));
-		playerLabelWM.setText("Money: $" + (game.getPlayerW().getMoney()-amountBet));
+		playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
+		playerLabelEM.setText("Money: $" + (game.getPlayerE().getMoney()));
+		playerLabelWM.setText("Money: $" + (game.getPlayerW().getMoney()));
 
 		p1Name = new String(game.getPlayerS().getName());
 		p2Name = new String(game.getPlayerE().getName());

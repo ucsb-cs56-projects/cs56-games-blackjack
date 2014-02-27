@@ -62,9 +62,9 @@ public class Blackjack{
      */
     public void newRound(){
 	d = new Deck();
-	players.get(0).newHand(d);
-	players.get(1).newHand(d);
-	players.get(2).newHand(d);
+	players.get(0).newHand(d); players.get(0).resetNumberOfCards();
+	players.get(1).newHand(d); players.get(1).resetNumberOfCards();
+	players.get(2).newHand(d); players.get(2).resetNumberOfCards();
 	dealer.newHand(d);
     }
     
@@ -151,7 +151,8 @@ public class Blackjack{
     public Card playerHit(Player player){
 	displayCard = d.draw();
 	player.drawCard(displayCard);
-	player.setNumOfCards(1); // add number of cards by 1
+	player.setNumberOfCards(1); // add number of cards by 1
+	System.out.println(""+player.getNumberOfCards());
 	return displayCard;
     }
     
@@ -187,13 +188,17 @@ public class Blackjack{
 	@param player to compare if won against dealer
     */
     public char evaluateWinner(Player player){
-	if(!player.isNotBust())
+	if(!player.isNotBust()) // if player is bust, dealer wins
 	    return 'D';
-	else if(!dealerNotBust())
+	else if(!dealerNotBust()) // if dealer bust, player wins
 	    return 'P';
-	else if(dealer.hasBlackjack())
+	else if(dealer.hasBlackjack()) // if dealer has a blackjack, dealer wins
 	    return 'D';
-	else if(player.hasBlackjack())
+	else if(player.hasBlackjack()) // if player has a blackjack, player wins
+	    return 'P';
+	else if (dealer.getNumberOfCards() == 5) // if dealer has a 5 card charlie, dealer wins
+	    return 'D';
+	else if (player.getNumberOfCards() == 5) // if player has a 5 card charlie, player wins 
 	    return 'P';
 	else if(dealer.getSecondHandValue() >= 
 		player.getSecondHandValue() && 

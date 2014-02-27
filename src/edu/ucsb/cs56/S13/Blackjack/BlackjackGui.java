@@ -150,7 +150,28 @@ public class BlackjackGui{
 	    break;
 	}
     }
-
+    
+    /** [overloaded] add the total pot to the winner's total money
+     * @param pot pot is the amount of money to be won
+     */
+    private void updateMoney(int pot) {
+	switch(numPlayers) {
+	case(1):
+	    game.getPlaterS().setMoney(pot*2);
+	    break;
+	case(2):
+	    game.getPlayerS().setMoney(pot*3);
+	    game.getPlayerE().setMoney(pot*3);
+	    break;
+	case(3):
+	    game.getPlayerS().setMoney(pot*4);
+	    game.getPlayerE().setMoney(pot*4);
+	    game.getPlayerW().setMoney(pot*4);
+	    break;
+	default:
+	    break;
+	}
+    }
     
     /** initializes many of the widgets and sets up listeners to some of those widgets
      */

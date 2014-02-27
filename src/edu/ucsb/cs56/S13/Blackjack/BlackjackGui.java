@@ -357,6 +357,7 @@ public class BlackjackGui{
 	welcomeFrame.add(welcomePanel);
 	welcomeFrame.setSize(200,175);
 	welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	welcomeFrame.pack();
 	welcomeFrame.setLocationRelativeTo(null); // center the window
 	welcomeFrame.setVisible(true);
     }
@@ -507,21 +508,21 @@ public class BlackjackGui{
 
 	    // create the frame and panels, as well as set the layout
 	    betFrame = new JFrame();
-	    betPanel = new JPanel();
+	    betPanel = new JPanel(new GridLayout(7,0,5,0));
 	    betLabel = new JLabel();
-	    betPanel.setLayout(new BoxLayout(betPanel, BoxLayout.Y_AXIS));
       
 	    // set the main text and center it
-	    betLabel.setText("How much would you like to bet?");
+	    betLabel.setText("<html>How much would you<br>like to bet?</html>");
 	    betLabel.setHorizontalAlignment(JLabel.CENTER);
-	    betLabel.setVerticalAlignment(JLabel.CENTER);
+       
 
 	    // by default have the $25 bet selected
 	    betAmount = new JLabel("$25");
+	    betAmount.setHorizontalAlignment(JLabel.CENTER); // center the label
  	    amountBet = 25;
 
 	    // create bet amount buttons and assign ActionListeners
-	    betAmount1 = new JButton("$25");
+	    betAmount1 = new JButton("$25"); betAmount1.setPreferredSize(new Dimension(5,5));
 	    betAmount2 = new JButton("$50");
 	    betAmount3 = new JButton("$100");
 	    betAmount4 = new JButton("$250");
@@ -543,10 +544,17 @@ public class BlackjackGui{
 	    betPanel.add(betAmount4);
 	    betPanel.add(betButton);
 
+	    // create the outer panel to center the widgets
+	    JPanel outerPanel = new JPanel();
+	    outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
+	    outerPanel.add(Box.createHorizontalGlue());
+	    outerPanel.add(betPanel);
+	    outerPanel.add(Box.createHorizontalGlue());
+
 	    // add the panel to the frame and set frame attributes
-	    betFrame.getContentPane().add(betPanel);
-	    betFrame.setSize(200,225);
+	    betFrame.add(outerPanel);
 	    betFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    betFrame.pack();
 	    betFrame.setLocationRelativeTo(null); // center window
 	    betFrame.setVisible(true);
 	    

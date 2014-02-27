@@ -113,6 +113,16 @@ public class BlackjackGui{
 	default:
 	    break;
 	}
+
+	/** UPDATE MONEY FOR THE WINNER **/
+	if (p1IsWinner)
+	    updateMoney(amountBet, 1);
+	else if (p2IsWinner)
+	    updateMoney(amountBet, 2);
+	else if (p3IsWinner)
+	    updateMoney(amountBet, 3);
+     
+
 	playAgain = new JButton("Play again");
 	playAgain.setMaximumSize(new Dimension(130, 75));
 	playAgain.addActionListener(new PlayAgainListener());
@@ -153,20 +163,21 @@ public class BlackjackGui{
     
     /** [overloaded] add the total pot to the winner's total money
      * @param pot pot is the amount of money to be won
+     * @param player the player that won
      */
-    private void updateMoney(int pot) {
+    private void updateMoney(int pot, int player) {
 	switch(numPlayers) {
 	case(1):
-	    game.getPlaterS().setMoney(pot*2);
+	    if(player == 1) game.getPlayerS().setMoney(pot*2);
 	    break;
 	case(2):
-	    game.getPlayerS().setMoney(pot*3);
-	    game.getPlayerE().setMoney(pot*3);
+	    if(player == 1) game.getPlayerS().setMoney(pot*3);
+	    if(player == 2) game.getPlayerE().setMoney(pot*3);
 	    break;
 	case(3):
-	    game.getPlayerS().setMoney(pot*4);
-	    game.getPlayerE().setMoney(pot*4);
-	    game.getPlayerW().setMoney(pot*4);
+	    if(player == 1) game.getPlayerS().setMoney(pot*4);
+	    if(player == 2) game.getPlayerE().setMoney(pot*4);
+	    if(player == 3) game.getPlayerW().setMoney(pot*4);
 	    break;
 	default:
 	    break;

@@ -67,6 +67,12 @@ public class BlackjackGui{
     JLabel playerLabelWM;
     JLabel playerLabelEM;
 
+    /** NUM OF PLAYER CARDS **/
+    int numCardsD = 2;
+    int numCardsS = 2;
+    int numCardsE = 2;
+    int numCardsW = 2;
+
     /** GAME INFORMATION **/
     ArrayList<String> names;
     public static int numPlayers;

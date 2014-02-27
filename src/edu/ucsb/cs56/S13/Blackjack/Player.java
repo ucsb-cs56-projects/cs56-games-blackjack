@@ -36,6 +36,12 @@ public class Player{
 	numberOfCards += num;
     }
 
+    /** Reset number of cards the player has
+     */
+    public void resetNumberOfCards() {
+	numberOfCards = 2;
+    }
+
     /** Setter to set player's balance (amount of money)
      * @param amount amount (negative/positive) to add/subtract from Player's money
      */

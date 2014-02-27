@@ -10,7 +10,7 @@ public class Player{
     private Hand playerHand;
     private String name;
     private int money;
-    private int numberOfCards;
+    private int numberOfCards = 2;
     private boolean notBust = true;
     
     /** No-arg constructor creates new Player with a new Hand
@@ -32,7 +32,7 @@ public class Player{
     /** Setter to set player's number of cards in hand
      * @param num number of cards to add/deduct from player's hand
      */
-    public void setNumOfCards(int num) {
+    public void setNumberOfCards(int num) {
 	numberOfCards += num;
     }
 
@@ -61,7 +61,13 @@ public class Player{
 	if(playerHand.getHandValue() > 21)
 	    notBust = false;
     }
-    
+
+    /** returns number of cards in player's hand
+     */
+    public void getNumberOfCards() {
+	return numberOfCards;
+    }
+
     /** returns players Hand object
      */
     public Hand getHand(){

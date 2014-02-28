@@ -87,6 +87,17 @@ public class BlackjackGui{
     int numCardsE = 2;
     int numCardsW = 2;
 
+    /** ABLE TO DOUBLE DOWN? **/
+    JButton dd;
+    boolean canPlayer1DD;
+    boolean canPlayer2DD;
+    boolean canPlayer3DD;
+    boolean canPlayer4DD;
+
+    /** TABLE INFORMATION **/
+    JLabel totalPotLabel;
+    int totalPot;
+    
     /** GAME INFORMATION **/
     ArrayList<String> names;
     public static int numPlayers;
@@ -104,6 +115,46 @@ public class BlackjackGui{
 	gui.go();
     }
     
+    /** enabled or disabled Double Down optiion 
+     */
+    private void setDoubleDown() {	
+	switch(playerTurn) {
+	case(1):
+	    if (canPlayer1DD) {
+		canPlayer1DD = false;
+		dd.setVisible(true);
+	    }
+	    else
+		dd.setVisible(false);
+	    break;
+	case(2):
+	    if (canPlayer2DD) {
+                canPlayer2DD = false;
+                dd.setVisible(true);
+	    }
+	    else
+                dd.setVisible(false);
+	    break;
+	case(3):
+	    if (canPlayer3DD) {
+		canPlayer3DD = false;
+		dd.setVisible(true);
+	    }
+	    else
+                dd.setVisible(false);
+	    break;
+	case(4):
+	    if (canPlayer4DD) {
+		canPlayer4DD = false;
+		dd.setVisible(true);
+	    }
+	    else
+                dd.setVisible(false);
+	    break;
+	}
+    }	
+
+
     /** gets the winner and displays it in a label
      *  also makes the playAgain button visible
      */
@@ -191,6 +242,14 @@ public class BlackjackGui{
 	timer.start();
     }
 
+    /** add money to the total pot
+     * @param amount amount to add to the total pot
+     */
+    public void updateTotalPot(int amount) {
+	totalPot += amount;
+	totalPotLabel.setText("Total pot: $" + totalPot);
+    }
+
     /** deduct the bet amount from each players' hand at the start of each round
      */
     private void updateMoney() {
@@ -234,6 +293,30 @@ public class BlackjackGui{
 	    break;
 	}
     }
+
+    /** [overloaded] add/deduct amount from a specific player
+     * @param player player to deduct from
+     */
+    private void updateMoney(int player) {
+	game.getPlayer(player).setMoney(-amountBet);
+	updateMoneyLabel(player);
+    }
+
+    /** update money label for the player
+     * @param player player's label to update
+     */
+    public void updateMoneyLabel(int player) {
+	switch(player) {
+        case(1):
+            playerLabelSM.setText("Money: $" + game.getPlayerS().getMoney()); break;
+        case(2):
+            playerLabelEM.setText("Money: $" + game.getPlayerE().getMoney()); break;
+        case(3):
+            playerLabelWM.setText("Money: $" + game.getPlayerW().getMoney()); break;
+        default:
+            break;
+        }
+    }
     
     /** initializes many of the widgets and sets up listeners to some of those widgets
      */
@@ -242,6 +325,10 @@ public class BlackjackGui{
 	frame = new JFrame();
 	dealerTurn = false;
 	playerTurn = 1;
+	canPlayer1DD =true;
+	canPlayer2DD =true;
+	canPlayer3DD =true;
+        canPlayer4DD =true;
 
 	// remove the bet amount from all of the players' total money
 	updateMoney();
@@ -251,15 +338,15 @@ public class BlackjackGui{
 
 	// create 1st player's label
 	playerPanelS = new JPanel(); playerLabelS = new JLabel(p1Name);
-	playerLabelSM = new JLabel("Money: $" + game.getPlayerS().getMoney() + ", ");
+	playerLabelSM = new JLabel("Money: $" + game.getPlayerS().getMoney());
 
 	// create 2nd player's label
 	playerPanelE = new JPanel(); playerLabelE = new JLabel(p2Name);
-	playerLabelEM = new JLabel("Money: $" + game.getPlayerE().getMoney() + ", ");
+	playerLabelEM = new JLabel("Money: $" + game.getPlayerE().getMoney());
 
 	// create 3rd player's label
 	playerPanelW = new JPanel(); playerLabelW = new JLabel(p3Name);
-	playerLabelWM = new JLabel("Money: $" + game.getPlayerW().getMoney() + ", ");
+	playerLabelWM = new JLabel("Money: $" + game.getPlayerW().getMoney());
 
 	// create card displays for all players
 	displayPanel = new JPanel(); displayLabel = new JLabel();
@@ -292,7 +379,18 @@ public class BlackjackGui{
 	displayPanel.add(Box.createRigidArea(new Dimension(0, 60)));
 	displayPanel.add(displayLabel);
 	displayPanel.add(centerPanel);
+        
+	dd = new JButton("Double Down?");
+	dd.addActionListener(new ddListener());
+        displayPanel.add(dd);
+	setDoubleDown();
 	
+	// display total pot
+	totalPot = 0;
+	updateTotalPot(amountBet*(numPlayers+1));
+	
+	displayPanel.add(totalPotLabel);
+
 
 	  /*********************************/
 	 /** Prepare the blackjack table **/
@@ -333,15 +431,7 @@ public class BlackjackGui{
 	playerPanelE.add(cardLabelE); // value of cards
 	playerPanelE.add(playerLabelEM); // amount of money
 
-	/**
-	playerPanelE.setLayout(new BoxLayout(playerPanelE, BoxLayout.Y_AXIS));
-	playerPanelE.add(playerLabelEM);
-	playerPanelE.add(playerLabelE);
-	cardPanelE.add(new JLabel(getMyImage(game.getPlayerE().getHand().getFirstCard())));
-	cardPanelE.add(new JLabel(getMyImage(game.getPlayerE().getHand().getSecondCard())));
-	playerPanelE.add(cardPanelE);
-	**/
-	
+ 	
 	// add 3rd  player's labels and starter cards to the panel
 	cardsPanelW = new JPanel(); 
 	cardsPanelW.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -358,15 +448,7 @@ public class BlackjackGui{
 	playerPanelW.add(cardsPanelW); // cards in hand
 	playerPanelW.add(cardLabelW); // value of cards
 	playerPanelW.add(playerLabelWM); // amount of money
-
-	/**
-	playerPanelW.setLayout(new BoxLayout(playerPanelW, BoxLayout.Y_AXIS));
-	playerPanelW.add(playerLabelWM);
-	playerPanelW.add(playerLabelW);
-	cardPanelW.add(new JLabel(getMyImage(game.getPlayerW().getHand().getFirstCard())));
-	cardPanelW.add(new JLabel(getMyImage(game.getPlayerW().getHand().getSecondCard())));
-	playerPanelW.add(cardPanelW);
-	**/
+	
 
 	// set all the player+dealer+buttons panels into proper positions in the frame
 	frame.getContentPane().add(BorderLayout.NORTH, dealerPanel);
@@ -382,7 +464,6 @@ public class BlackjackGui{
 	if(keepRunning == true){
 	    if(numPlayers == 1){
 		cardLabelS.setText(game.getPlayerS().displayHandValue());
-		System.out.println("DEBUG: keep running"); /**********************************************************/
 		frame.remove(playerPanelE);
 		frame.remove(playerPanelW);
 		frame.setSize(600,600);
@@ -410,12 +491,15 @@ public class BlackjackGui{
     public void nextPlayersTurn(){
 	playerTurn++;
 	displayLabel.setText(game.getPlayer(playerTurn).getName() + "'s turn");
+	setDoubleDown();
     }
     
     
     /** initializes the welcome widgets
      */
     public void welcome(){
+	totalPotLabel = new JLabel();
+
 	welcomeFrame = new JFrame();
 	welcomePanel = new JPanel(new GridLayout(4, 0, 5, 0));
 	welcomeLabel = new JLabel();
@@ -530,6 +614,8 @@ public class BlackjackGui{
 	 @param event ActionEvent, player's action
 	*/
 	public void actionPerformed(ActionEvent event){
+	    setDoubleDown();
+
 	    if(!dealerTurn){
 		//adds a new card to the players hand
 		Card newCard = game.playerHit(game.getPlayer(playerTurn));
@@ -578,6 +664,7 @@ public class BlackjackGui{
 	 @param event ActionEvent, Player stays
 	*/
 	public void actionPerformed(ActionEvent event){
+
 	    if(!dealerTurn){
 		if(playerTurn < numPlayers){
 		    playerTurn++;
@@ -588,8 +675,76 @@ public class BlackjackGui{
 		    theGui.startDealerTurn();
 		}
 	    }
+	    setDoubleDown();
 	}
     }
+
+
+    /** listener class for the double down button
+     */
+    public class ddListener implements ActionListener{
+
+        /** does nothing if it is not the player's turn
+         *  otherwise makes the player draw one card and then goes to the next player's turn
+         @param event ActionEvent, Player doubles down
+	*/
+        public void actionPerformed(ActionEvent event){
+
+            if(!dealerTurn){
+		//update pot and deduct player's money on hand
+		updateTotalPot(amountBet);
+		updateMoney(playerTurn);
+
+		//adds a new card to the players hand
+                Card newCard = game.playerHit(game.getPlayer(playerTurn));
+                //makes a string for whether or not the player busts,
+                //to later append to their label
+                String isBust = !game.getPlayer(playerTurn).isNotBust() ? " went bust!" : "";
+                switch(playerTurn){
+                case 1:
+                    playerLabelS.setText(p1Name + isBust);
+                    cardLabelS.setText(game.getPlayerS().displayHandValue());
+                    cardsPanelS.add(new JLabel(getMyImage(newCard)));
+                    displayLabel.setText(p1Name + " hit!");
+                    break;
+                case 2:
+                    playerLabelE.setText(p2Name + isBust);
+                    cardLabelE.setText(game.getPlayerE().displayHandValue());
+                    cardsPanelE.add(new JLabel(getMyImage(newCard)));
+                    displayLabel.setText(p2Name + " hit!");
+                    break;
+                case 3:
+                    playerLabelW.setText(p3Name + isBust);
+                    cardLabelW.setText(game.getPlayerW().displayHandValue());
+                    cardsPanelW.add(new JLabel(getMyImage(newCard)));
+                    displayLabel.setText(p3Name + " hit!");
+                    break;
+                default:
+                    break;
+		}
+		//if player busts, either continue on to next player's turn or dealer's turn
+                if(!game.getPlayer(playerTurn).isNotBust()){
+                    if(playerTurn < numPlayers)
+                        theGui.nextPlayersTurn();
+                    else
+                        theGui.startDealerTurn();
+                }
+
+		// if not bust
+                else if(playerTurn < numPlayers){
+                    playerTurn++;
+                    displayLabel.setText(game.getPlayer(playerTurn).getName() + "'s turn");
+                }
+		// if dealer's turn
+                else{
+                    displayLabel.setText("Dealer's Turn");
+                    theGui.startDealerTurn();
+                }
+            }
+	    
+        }
+    }
+
 
     /** listender class for confirm name button 
      */
@@ -849,8 +1004,10 @@ public class BlackjackGui{
 		frame.setSize(1000,600);
 	    }
 	    displayLabel.setText(p1Name + "'s turn");
-	    frame.setLocationRelativeTo(null); // center window
 
+	    updateTotalPot(amountBet*(numPlayers+1));
+
+	    frame.setLocationRelativeTo(null); // center window
 	    frame.setVisible(true);
 	}
     }

@@ -22,6 +22,7 @@ public class BlackjackGui{
     JPanel playerPanelS;
     JPanel playerPanelE;
     JPanel playerPanelW;
+    JPanel cardPanelS;
     JPanel cardPanelE;
     JPanel cardPanelW;
     JPanel dealerPanel;
@@ -29,9 +30,6 @@ public class BlackjackGui{
     JPanel displayPanel;
     JPanel centerPanel;
     JPanel textPanel;
-    JLabel playerLabelS;
-    JLabel playerLabelE;
-    JLabel playerLabelW;
     JLabel dealerLabel;
     JLabel displayLabel;
     JLabel welcomeLabel;
@@ -63,10 +61,25 @@ public class BlackjackGui{
     JLabel betAmount;
     int amountBet;
 
-    /** PLAYER FUNDS **/
+    /** PLAYER NAME LABELS **/
+    JLabel playerLabelS;
+    JLabel playerLabelE;
+    JLabel playerLabelW;
+
+    /** PLAYER CARD VALUES LABELS **/
+    JLabel cardLabelS;
+    JLabel cardLabelE;
+    JLabel cardLabelW;
+
+    /** PLAYER MONEY LABELS **/
     JLabel playerLabelSM;
-    JLabel playerLabelWM;
     JLabel playerLabelEM;
+    JLabel playerLabelWM;
+
+    /** PLAYER CARDS PANELS **/
+    JPanel cardsPanelS;
+    JPanel cardsPanelE;
+    JPanel cardsPanelW;
 
     /** NUM OF PLAYER CARDS **/
     int numCardsD = 2;
@@ -104,26 +117,47 @@ public class BlackjackGui{
 	*/
 	switch(numPlayers){
 	case 1:
+	    // player 1
 	    String winOrLose1 = p1IsWinner ? " wins" : " loses";
-	    playerLabelS.setText(p1Name + winOrLose1 + ", hand value = " + game.getPlayerS().getHand().displayBestValue());
+	    playerLabelS.setText(p1Name + winOrLose1);
+	    cardLabelS.setText("Hand Value: " + game.getPlayerS().getHand().displayBestValue());
+
+	    // if the players did not win then the dealer won
 	    if(!p1IsWinner)
 		displayLabel.setText("Dealer wins");
 	    break;
 	case 2:
+	    // player 1
 	    String winOrLose2 = p1IsWinner ? " wins" : " loses";
-	    playerLabelS.setText(p1Name + winOrLose2+ ", hand value = " + game.getPlayerS().getHand().displayBestValue());
+	    playerLabelS.setText(p1Name + winOrLose2);
+	    cardLabelS.setText("Hand Value: " + game.getPlayerS().getHand().displayBestValue());
+	    
+	    // player 2
 	    winOrLose2 = p2IsWinner ? " wins" : " loses";
-	    playerLabelE.setText(p2Name + winOrLose2+ ", hand value = " + game.getPlayerE().getHand().displayBestValue());
+	    playerLabelE.setText(p2Name + winOrLose2);
+	    cardLabelE.setText("Hand Value: " + game.getPlayerE().getHand().displayBestValue());
+
+	    // if the players did not win then the dealer won
 	    if(!p1IsWinner && !p2IsWinner)
 		displayLabel.setText("Dealer Wins");
 	    break;
 	case 3:
+	    // player 1
 	    String winOrLose3 = p1IsWinner ? " wins" : " loses";
-	    playerLabelS.setText(p1Name + winOrLose3+ ", hand value = " + game.getPlayerS().getHand().displayBestValue());
+	    playerLabelS.setText(p1Name + winOrLose3);
+	    cardLabelS.setText("Hand Value: " + game.getPlayerS().getHand().displayBestValue());
+	    
+	    // player 2
 	    winOrLose3 = p2IsWinner ? " wins" : " loses";
-	    playerLabelE.setText(p2Name + winOrLose3+ ", hand value = " + game.getPlayerE().getHand().displayBestValue());
+	    playerLabelE.setText(p2Name + winOrLose3);
+	    cardLabelS.setText("Hand Value: " + game.getPlayerE().getHand().displayBestValue());
+	    
+	    // player 3
 	    winOrLose3 = p3IsWinner ? " wins" : " loses";
-	    playerLabelW.setText(p3Name + winOrLose3+ ", hand value = " + game.getPlayerW().getHand().displayBestValue());
+	    playerLabelW.setText(p3Name + winOrLose3);
+	    cardLabelW.setText("Hand Value: " + game.getPlayerW().getHand().displayBestValue());	    
+
+	    // if the players did not win then the dealer won
 	    if(!p1IsWinner && !p2IsWinner && !p3IsWinner)
 		displayLabel.setText("Dealer Wins");
 	    break;
@@ -216,15 +250,15 @@ public class BlackjackGui{
 	dealerPanel = new JPanel(); dealerLabel = new JLabel();
 
 	// create 1st player's label
-	playerPanelS = new JPanel(); playerLabelS = new JLabel();
+	playerPanelS = new JPanel(); playerLabelS = new JLabel(p1Name);
 	playerLabelSM = new JLabel("Money: $" + game.getPlayerS().getMoney() + ", ");
 
 	// create 2nd player's label
-	playerPanelE = new JPanel(); playerLabelE = new JLabel();
+	playerPanelE = new JPanel(); playerLabelE = new JLabel(p2Name);
 	playerLabelEM = new JLabel("Money: $" + game.getPlayerE().getMoney() + ", ");
 
 	// create 3rd player's label
-	playerPanelW = new JPanel(); playerLabelW = new JLabel();
+	playerPanelW = new JPanel(); playerLabelW = new JLabel(p3Name);
 	playerLabelWM = new JLabel("Money: $" + game.getPlayerW().getMoney() + ", ");
 
 	// create card displays for all players
@@ -238,7 +272,7 @@ public class BlackjackGui{
 	dealerPanel.add(dealerLabel);
 	dealerPanel.add(new JLabel(getMyImage(game.getDealer().getHand().getFirstCard())));
 	URL myURL = getClass().getResource("/images/b1fv.gif");
-	ImageIcon myImage =	new ImageIcon(myURL);
+	ImageIcon myImage = new ImageIcon(myURL);
 	downCard = new JLabel(myImage);
 	dealerPanel.add(downCard);
 	dealerLabel.setText(game.displayDealerCardValue());
@@ -259,28 +293,81 @@ public class BlackjackGui{
 	displayPanel.add(displayLabel);
 	displayPanel.add(centerPanel);
 	
+
+	  /*********************************/
+	 /** Prepare the blackjack table **/
+	/*********************************/
+
 	// add 1st player's labels and starter cards to the panel
-	playerPanelS.add(playerLabelSM);
-	playerPanelS.add(playerLabelS);
-	playerPanelS.add(new JLabel(getMyImage(game.getPlayerS().getHand().getFirstCard())));
-	playerPanelS.add(new JLabel(getMyImage(game.getPlayerS().getHand().getSecondCard())));
+	cardsPanelS = new JPanel(); 
+	cardsPanelS.setAlignmentX(Component.CENTER_ALIGNMENT);
+	cardsPanelS.setLayout(new BoxLayout(cardsPanelS, BoxLayout.X_AXIS));
+	cardsPanelS.setBorder(BorderFactory.createEmptyBorder(10,100,10,10)); // keep cards aligned 
+	cardsPanelS.add( new  JLabel(getMyImage(game.getPlayerS().getHand().getFirstCard())), BorderLayout.CENTER); // add first card
+	cardsPanelS.add( new  JLabel(getMyImage(game.getPlayerS().getHand().getSecondCard())), BorderLayout.CENTER); // add second card
+
+	cardLabelS = new JLabel("Hand Value: " + game.getPlayerS().getHand().displayHandValue());	
 	
+	playerPanelS.setLayout(new BoxLayout(playerPanelS, BoxLayout.Y_AXIS));
+	playerPanelS.setAlignmentX(Component.CENTER_ALIGNMENT); 
+	playerPanelS.add(playerLabelS); // name of player
+	playerPanelS.add(cardsPanelS); // cards in hand
+	playerPanelS.add(cardLabelS); // value of cards
+	playerPanelS.add(playerLabelSM); // amount of money
+	
+
 	// add 2nd player's labels and starter cards to the panel
+	cardsPanelE = new JPanel(); 
+	cardsPanelE.setAlignmentX(Component.CENTER_ALIGNMENT);
+	cardsPanelE.setLayout(new BoxLayout(cardsPanelE, BoxLayout.X_AXIS));
+	cardsPanelE.setBorder(BorderFactory.createEmptyBorder(10,100,10,10)); // keep cards aligned 
+	cardsPanelE.add( new  JLabel(getMyImage(game.getPlayerE().getHand().getFirstCard())), BorderLayout.CENTER); // add first card
+	cardsPanelE.add( new  JLabel(getMyImage(game.getPlayerE().getHand().getSecondCard())), BorderLayout.CENTER); // add second card
+
+	cardLabelE = new JLabel("Hand Value: " + game.getPlayerE().getHand().displayHandValue());	
+	
+	playerPanelE.setLayout(new BoxLayout(playerPanelE, BoxLayout.Y_AXIS));
+	playerPanelE.setAlignmentX(Component.CENTER_ALIGNMENT); 
+	playerPanelE.add(playerLabelE); // name of player
+	playerPanelE.add(cardsPanelE); // cards in hand
+	playerPanelE.add(cardLabelE); // value of cards
+	playerPanelE.add(playerLabelEM); // amount of money
+
+	/**
 	playerPanelE.setLayout(new BoxLayout(playerPanelE, BoxLayout.Y_AXIS));
 	playerPanelE.add(playerLabelEM);
 	playerPanelE.add(playerLabelE);
 	cardPanelE.add(new JLabel(getMyImage(game.getPlayerE().getHand().getFirstCard())));
 	cardPanelE.add(new JLabel(getMyImage(game.getPlayerE().getHand().getSecondCard())));
 	playerPanelE.add(cardPanelE);
-		
+	**/
+	
 	// add 3rd  player's labels and starter cards to the panel
+	cardsPanelW = new JPanel(); 
+	cardsPanelW.setAlignmentX(Component.CENTER_ALIGNMENT);
+	cardsPanelW.setLayout(new BoxLayout(cardsPanelW, BoxLayout.X_AXIS));
+	cardsPanelW.setBorder(BorderFactory.createEmptyBorder(10,100,10,10)); // keep cards aligned 
+	cardsPanelW.add( new  JLabel(getMyImage(game.getPlayerW().getHand().getFirstCard())), BorderLayout.CENTER); // add first card
+	cardsPanelW.add( new  JLabel(getMyImage(game.getPlayerW().getHand().getSecondCard())), BorderLayout.CENTER); // add second card
+
+	cardLabelW = new JLabel("Hand Value: " + game.getPlayerW().getHand().displayHandValue());	
+	
+	playerPanelW.setLayout(new BoxLayout(playerPanelW, BoxLayout.Y_AXIS));
+	playerPanelW.setAlignmentX(Component.CENTER_ALIGNMENT); 
+	playerPanelW.add(playerLabelW); // name of player
+	playerPanelW.add(cardsPanelW); // cards in hand
+	playerPanelW.add(cardLabelW); // value of cards
+	playerPanelW.add(playerLabelWM); // amount of money
+
+	/**
 	playerPanelW.setLayout(new BoxLayout(playerPanelW, BoxLayout.Y_AXIS));
 	playerPanelW.add(playerLabelWM);
 	playerPanelW.add(playerLabelW);
 	cardPanelW.add(new JLabel(getMyImage(game.getPlayerW().getHand().getFirstCard())));
 	cardPanelW.add(new JLabel(getMyImage(game.getPlayerW().getHand().getSecondCard())));
 	playerPanelW.add(cardPanelW);
-	
+	**/
+
 	// set all the player+dealer+buttons panels into proper positions in the frame
 	frame.getContentPane().add(BorderLayout.NORTH, dealerPanel);
 	frame.getContentPane().add(BorderLayout.CENTER, displayPanel);
@@ -294,7 +381,8 @@ public class BlackjackGui{
 	// This section is for a new round of Blackjack
 	if(keepRunning == true){
 	    if(numPlayers == 1){
-		playerLabelS.setText(game.getPlayerS().displayHandValue());
+		cardLabelS.setText(game.getPlayerS().displayHandValue());
+		System.out.println("DEBUG: keep running"); /**********************************************************/
 		frame.remove(playerPanelE);
 		frame.remove(playerPanelW);
 		frame.setSize(600,600);
@@ -312,6 +400,7 @@ public class BlackjackGui{
 		frame.setSize(1000,600);
 	    }
 	    displayLabel.setText("New Round, " + p1Name + "'s turn");
+	    frame.setLocationRelativeTo(null);
 	    frame.setVisible(true);
 	}
     }
@@ -446,19 +535,25 @@ public class BlackjackGui{
 		Card newCard = game.playerHit(game.getPlayer(playerTurn));
 		//makes a string for whether or not the player busts,
 		//to later append to their label
-		String isBust = !game.getPlayer(playerTurn).isNotBust() ? " You went bust" : "";
+		String isBust = !game.getPlayer(playerTurn).isNotBust() ? " went bust!" : "";
 		switch(playerTurn){
 		case 1:
-		    playerLabelS.setText(game.getPlayerS().displayHandValue() + isBust);
-		    playerPanelS.add(new JLabel(getMyImage(newCard)));
+		    playerLabelS.setText(p1Name + isBust);
+		    cardLabelS.setText(game.getPlayerS().displayHandValue());
+		    cardsPanelS.add(new JLabel(getMyImage(newCard)));
+		    displayLabel.setText(p1Name + " hit!");
 		    break;
 		case 2:
-		    playerLabelE.setText(game.getPlayerE().displayHandValue()+ isBust);
-		    cardPanelE.add(new JLabel(getMyImage(newCard)));
+		    playerLabelE.setText(p2Name + isBust);
+		    cardLabelE.setText(game.getPlayerE().displayHandValue());
+		    cardsPanelE.add(new JLabel(getMyImage(newCard)));
+		    displayLabel.setText(p2Name + " hit!");
 		    break;
 		case 3:
-		    playerLabelW.setText(game.getPlayerW().displayHandValue()+ isBust);
-		    cardPanelW.add(new JLabel(getMyImage(newCard)));
+		    playerLabelW.setText(p3Name + isBust);
+		    cardLabelW.setText(game.getPlayerW().displayHandValue());
+		    cardsPanelW.add(new JLabel(getMyImage(newCard)));
+		    displayLabel.setText(p3Name + " hit!");
 		    break;
 		default:
 		    break;
@@ -522,7 +617,7 @@ public class BlackjackGui{
  	    amountBet = 25;
 
 	    // create bet amount buttons and assign ActionListeners
-	    betAmount1 = new JButton("$25"); betAmount1.setPreferredSize(new Dimension(5,5));
+	    betAmount1 = new JButton("$25");
 	    betAmount2 = new JButton("$50");
 	    betAmount3 = new JButton("$100");
 	    betAmount4 = new JButton("$250");
@@ -720,7 +815,8 @@ public class BlackjackGui{
 		playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
 
 		p1Name = new String(game.getPlayerS().getName());
-		playerLabelS.setText(game.getPlayerS().displayHandValue());
+		//playerLabelS.setText(game.getPlayerS().displayHandValue());
+		playerLabelS.setText(p1Name);
 		frame.remove(playerPanelW);
 		frame.remove(playerPanelE);
 		break;

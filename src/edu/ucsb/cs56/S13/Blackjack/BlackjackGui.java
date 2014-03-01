@@ -49,6 +49,12 @@ public class BlackjackGui{
     JButton playAgain;
     JButton beginGame;
 
+    /** RULES WINDOW **/
+    JFrame rulesFrame;
+    JPanel rulesPanel;
+    JLabel rulesLabel;
+    JButton rulesButton;
+
     /** BET WINDOW **/
     JFrame betFrame;
     JPanel betPanel;
@@ -111,6 +117,7 @@ public class BlackjackGui{
      */
     public static void main(String[] args){
 	BlackjackGui gui = new BlackjackGui();
+	gui.rules();
 	gui.welcome();
 	gui.go();
     }
@@ -494,7 +501,39 @@ public class BlackjackGui{
 	setDoubleDown();
     }
     
-    
+    /** initializes the rules window
+     */
+    public void rules() {
+	rulesFrame = new JFrame();
+        rulesPanel = new JPanel(new GridLayout(2, 0, 5, 0));
+        rulesLabel = new JLabel("<html><br>Blackjack win and loss conditions.. <br>Loss Conditions: <br>-Having a hand value of over 21 (BUST!) <br>-Having a hand value less than the dealer's hand value <br><br>Win Conditions: <br>-Get blackjack (hand value of 21) <br>-Have 5 cards without busting (5 card charlie! you still still lose if the dealer has blackjack) <br>-Have a hand value greater than the dealer's <br><br>Other Features:<br>-Double downing draws one card then moves onto the next player (deducts bet amount, chance to win double)<br>-Every player starts with $5,000<br><br>");
+
+        rulesButton = new JButton("Play!");
+        rulesButton.addActionListener(new CloseRulesListener());
+        
+        rulesLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+	rulesPanel.add(rulesLabel);
+        rulesPanel.add(rulesButton);       
+        rulesPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        // create the outer panel to center the widgets
+        JPanel outerPanel = new JPanel();
+        outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
+        outerPanel.add(Box.createHorizontalGlue());
+        outerPanel.add(rulesPanel);
+        outerPanel.add(Box.createHorizontalGlue());
+
+        rulesFrame.add(rulesPanel);
+        rulesFrame.setSize(300,400);
+        rulesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        rulesFrame.pack();
+        rulesFrame.setLocationRelativeTo(null); // center the window
+        rulesFrame.setVisible(true);
+    }
+
+
+
     /** initializes the welcome widgets
      */
     public void welcome(){
@@ -532,7 +571,7 @@ public class BlackjackGui{
 	welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	welcomeFrame.pack();
 	welcomeFrame.setLocationRelativeTo(null); // center the window
-	welcomeFrame.setVisible(true);
+       
     }
     
     
@@ -859,6 +898,18 @@ public class BlackjackGui{
         }
     }
 
+
+    /** listener class for closing the rules window
+     */
+    public class CloseRulesListener implements ActionListener {
+	/** closes the rules window
+            @param event ActionEvent, play button (close rules)
+	*/
+	public void actionPerformed(ActionEvent event) {
+	    rulesFrame.setVisible(false);
+	    welcomeFrame.setVisible(true);
+	}
+    }
 
     
     /** listener class for 1 player button

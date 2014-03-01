@@ -6,7 +6,11 @@
 
  <!-- modified build.xml for Github CS56 Blackjack Project
       name: Fanny Kuang for CS56, S13 -->
+
+<!-- modified build.xml for CS56 Blackjack Project
+     name: Eric Palyan, W14 -->
  
+
  <property environment="env"/> <!-- load the environment variables --> 
  <property name="webRoot" value="${env.HOME}/public_html/"/>
  <property name="webBaseUrl" value="http://www.cs.ucsb.edu/~${env.USER}"/>

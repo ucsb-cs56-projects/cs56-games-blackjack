@@ -15,10 +15,10 @@
  <property name="webRoot" value="${env.HOME}/public_html/"/>
  <property name="webBaseUrl" value="http://www.cs.ucsb.edu/~${env.USER}"/>
  <property name="course" value="cs56"/>
- <property name="quarter" value="S13"/>
- <property name="projectName" value="Blackjack"/>
- <property name="mainClass" value="edu.ucsb.cs56.S13.Blackjack.BlackjackGui"/>
- <property name="projectPath" value="${course}/${quarter}/${projectName}"/>
+ <property name="quarter" value="W13"/>
+ <property name="projectName" value="blackjack"/>
+ <property name="mainClass" value="edu.ucsb.cs56.projects.game.blackjack.BlackjackGui"/>
+ <property name="projectPath" value="${course}/projects/game/${projectName}"/>
  
  <property name="javadocDest" value="${webRoot}/${projectPath}/javadoc"/> 
  <property name="javadocURL" value="${webBaseUrl}/${projectPath}/javadoc"/> 
@@ -113,60 +113,6 @@
        <attribute name="Main-Class" value="${mainClass}"/>
      </manifest>
    </jar>
- </target>
- 
- <!-- prepare tarball/zip files -->
- <target name="download" description="prepare tarball and zip files"> 
-   <delete quiet="true"> 
-     <fileset dir="temp" includes="**/*"/>  
-     <fileset dir="download" includes="**/*"/>  
-   </delete> 
-   <mkdir dir="download"/> 
-   <mkdir dir="temp"/>  
-   <mkdir dir="temp/${projectName}"/> 
-   <copy todir="temp/${projectName}"> 
-     <fileset dir="." excludes="build/**, javadoc/**, **/*~, temp/**, dist/**, download/**"/> 
-   </copy> 
-   <tar destfile="temp/${course}_${quarter}_${projectName}.tar" basedir="temp" includes="${projectName}/**"/> 
-   <gzip zipfile="download/${course}_${quarter}_${projectName}.tgz" src="temp/${course}_${quarter}_${projectName}.tar"/> 
-   <zip destfile="download/${course}_${quarter}_${projectName}.zip" basedir="temp" includes="${projectName}/**"/> 
-   <delete quiet="true"> 
-     <fileset dir="temp" includes="**/*"/>  
-   </delete> 
- </target> 
- 
- <!-- Publish -->
- <target name="publish" depends="jar,javadoc,download,images,linenumbers" description="publish everything to web">
-   <mkdir dir="${webRoot}/${projectPath}"/>
-
-   <delete dir="${webRoot}/${projectPath}/browse"/>
-   <mkdir dir="${webRoot}/${projectPath}/browse"/>
-
-   <delete dir="${webRoot}/${projectPath}/download"/>
-   <mkdir dir="${webRoot}/${projectPath}/download"/>
-
-   <copy file="html/index.html" todir="${webRoot}/${projectPath}"/>
-   <copy todir="${webRoot}/${projectPath}/download"> 
-     <fileset dir="download"/> 
-     <fileset dir="dist"/>
-   </copy>
-
-   <copy file="build.xml" todir="${webRoot}/${projectPath}/browse"/>
-   <copy file="numberedsource.txt" todir="${webRoot}/${projectPath}/browse"/>
-   <copy todir="${webRoot}/${projectPath}/browse/src"> 
-     <fileset dir="src"/> 
-   </copy>
-
-   <chmod dir="${webRoot}/${projectPath}" perm="755" type="both" includes="**/*"/>
-   <echo>Project published to ${webBaseUrl}/${projectPath}</echo> 
- </target>
-
- <!--Lines-->
- <target name="linenumbers" description="create one large text file containing all source files copied into it">                 
-   <exec executable="bash">
-     <arg value="-c"/>     
-     <arg value='tree -ifQ src | grep \.java\"$ | xargs pr -n > numberedsource.txt'/>
-   </exec>
  </target>
  
 </project>

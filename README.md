@@ -18,17 +18,24 @@ ant run
 
 ## Recent changes
 * Improved Javadoc
-* Refactored files and directories to appropriately reflect current quarter (Spring 2013)
-    * Previous: edu.ucsb.cs56.s12.pointguard328.issue866
-    * Current: edu.ucsb.cs56.s13.Blackjack
+* Refactored files and directories to appropriately reflect current quarter (Winter 2014)
+    * Previous: edu.ucsb.cs56.s13.Blackjack
+    * Current: edu.ucsb.cs56.projects.game.blackjack
 * Removed JWS references
-* Improved JUnit tests (Duplicates, corner cases)
+* Added more JUnit tests
+* Removed uneccessary build.xml targets (github handles those for us)
+* Added Currency & Betting
+* Added How To Play
+* Added Double Down
+* Cleaned up code and added comments
 
 ## Possible improvements
 
 * Online Multiplayer Blackjack - Using a server-client set up and java's built in socket libraries, create a blackjack game that two users can play on separate computers.
-* Betting features - Add the ability for the user to place bets. 
-	* (more advanced) - incorporate all of the betting possiblities such as "doubling down"
+* Allow players to change the bet amount at the end of each round
+* Allow a player to back out of the game
+* Add in game statistics
+* Save/load feature
 
 ## Other former Blackjack projects
 

@@ -28,6 +28,7 @@ ant run
 * Added How To Play
 * Added Double Down
 * Cleaned up code and added comments
+* Cleaned up and improved the GUI
 
 ## Possible improvements
 

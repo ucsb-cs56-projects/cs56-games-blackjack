@@ -1,11 +1,15 @@
 # cs56-games-blackjack
 
-W14 ready! (Jakob Staahl)
-
 This is a current working version of a Blackjack game with a GUI. It can also be found at these links:
 
 * [Archive page](https://foo.cs.ucsb.edu/cs56/issues/0000866/)
 * [Mantis page](https://foo.cs.ucsb.edu/56mantis/view.php?id=866)
+
+project history
+===============
+```
+ W14 | andrewberls 5pm | ericpalyan | (jstaahl) Blackjack game
+```
 
 ## Running the game
 

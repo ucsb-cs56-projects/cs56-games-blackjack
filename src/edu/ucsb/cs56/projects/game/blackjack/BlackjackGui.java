@@ -177,6 +177,8 @@ public class BlackjackGui{
 	case 1:
 	    // player 1
 	    String winOrLose1 = p1IsWinner ? " wins" : " loses";
+	    p1IsWinner ? game.getPlayerS().addWin() : game.getPlayerS().addLoss();
+	    p1IsWinner ? game.getPlayerS().addMoneyWon(amountBet) : game.getPlayerS().addMoneyLost(amountBet);
 	    playerLabelS.setText(p1Name + winOrLose1);
 	    cardLabelS.setText("Hand Value: " + game.getPlayerS().getHand().displayBestValue());
 
@@ -187,11 +189,15 @@ public class BlackjackGui{
 	case 2:
 	    // player 1
 	    String winOrLose2 = p1IsWinner ? " wins" : " loses";
+	    p1IsWinner ? game.getPlayerS().addWin() : game.getPlayerS().addLoss();
+	    p1IsWinner ? game.getPlayerS().addMoneyWon(amountBet) : game.getPlayerS().addMoneyLost(amountBet);
 	    playerLabelS.setText(p1Name + winOrLose2);
 	    cardLabelS.setText("Hand Value: " + game.getPlayerS().getHand().displayBestValue());
 	    
 	    // player 2
 	    winOrLose2 = p2IsWinner ? " wins" : " loses";
+	    p2IsWinner ? game.getPlayerE().addWin() : game.getPlayerE().addLoss();
+	    p2IsWinner ? game.getPlayerE().addMoneyWon(amountBet) : game.getPlayerE().addMoneyLost(amountBet);
 	    playerLabelE.setText(p2Name + winOrLose2);
 	    cardLabelE.setText("Hand Value: " + game.getPlayerE().getHand().displayBestValue());
 
@@ -202,16 +208,22 @@ public class BlackjackGui{
 	case 3:
 	    // player 1
 	    String winOrLose3 = p1IsWinner ? " wins" : " loses";
+	    p1IsWinner ? game.getPlayerS().addWin() : game.getPlayerS().addLoss();
+	    p1IsWinner ? game.getPlayerS().addMoneyWon(amountBet) : game.getPlayerS().addMoneyLost(amountBet);
 	    playerLabelS.setText(p1Name + winOrLose3);
 	    cardLabelS.setText("Hand Value: " + game.getPlayerS().getHand().displayBestValue());
 	    
 	    // player 2
 	    winOrLose3 = p2IsWinner ? " wins" : " loses";
+	    p2IsWinner ? game.getPlayerE().addWin() : game.getPlayerE().addLoss();
+	    p2IsWinner ? game.getPlayerE().addMoneyWon(amountBet) : game.getPlayerE().addMoneyLost(amountBet);
 	    playerLabelE.setText(p2Name + winOrLose3);
 	    cardLabelS.setText("Hand Value: " + game.getPlayerE().getHand().displayBestValue());
 	    
 	    // player 3
 	    winOrLose3 = p3IsWinner ? " wins" : " loses";
+	    p3IsWinner ? game.getPlayerW().addWin() : game.getPlayerW().addLoss();
+	    p3IsWinner ? game.getPlayerW().addMoneyWon(amountBet) : game.getPlayerW().addMoneyLost(amountBet);
 	    playerLabelW.setText(p3Name + winOrLose3);
 	    cardLabelW.setText("Hand Value: " + game.getPlayerW().getHand().displayBestValue());	    
 
@@ -285,7 +297,8 @@ public class BlackjackGui{
     private void updateMoney(int pot, int player) {
 	switch(numPlayers) {
 	case(1):
-	    if(player == 1) game.getPlayerS().setMoney(pot*2);
+	    if(player == 1)
+	    	game.getPlayerS().setMoney(pot*2);
 	    break;
 	case(2):
 	    if(player == 1) game.getPlayerS().setMoney(pot*3);

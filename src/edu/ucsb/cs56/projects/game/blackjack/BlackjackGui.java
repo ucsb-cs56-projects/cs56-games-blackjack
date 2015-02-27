@@ -81,6 +81,20 @@ public class BlackjackGui{
     JLabel playerLabelSM;
     JLabel playerLabelEM;
     JLabel playerLabelWM;
+    
+    /** PLAYER STATISTICS LABELS **/
+    JLabel playerLabelSWins;
+    JLabel playerLabelEWins;
+    JLabel playerLabelWWins;
+    JLabel playerLabelSLosses;
+    JLabel playerLabelWLosses;
+    JLabel playerLabelWLosses;
+    JLabel playerLabelSMWon;
+    JLabel playerLabelEMWon;
+    JLabel playerLabelWMWon;
+    JLabel playerLabelSMLost;
+    JLabel playerLabelWMLost;
+    JLabel playerLabelWMLost;
 
     /** PLAYER CARDS PANELS **/
     JPanel cardsPanelS;
@@ -359,6 +373,7 @@ public class BlackjackGui{
 	// create 1st player's label
 	playerPanelS = new JPanel(); playerLabelS = new JLabel(p1Name);
 	playerLabelSM = new JLabel("Money: $" + game.getPlayerS().getMoney());
+	playerLabelSWins = 
 
 	// create 2nd player's label
 	playerPanelE = new JPanel(); playerLabelE = new JLabel(p2Name);

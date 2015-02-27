@@ -117,6 +117,30 @@ public class Player{
         return this.losses;
     }
     
+    /** Adds money won to player's instance variable
+     */
+    public void addMoneyWon(int amount) {
+    	this.moneyWon += amount;
+    }
+    
+    /** Adds money lost to player's instance variable
+     */
+    public void addMoneyLost(int amount) {
+    	this.moneyLost += amount;
+    }
+    
+    /** Adds a win to player's instance variable
+     */
+    public void addWin() {
+    	this.wins++;
+    }
+    
+    /** Adds a loss to player's instance variable
+     */
+    public void addLoss() {
+    	this.losses++;
+    }
+    
     /** formats a string that displays the value(s) of the player's hand
      */
     public String displayHandValue(){

@@ -187,11 +187,11 @@ public class BlackjackGui{
 	    String winOrLose1 = p1IsWinner ? " wins" : " loses";
 	    if (p1IsWinner) {
 		game.getPlayerS().addWin();
-		game.getPlayerS().addMoneyWon(amountBet + );
+		game.getPlayerS().addMoneyWon(amountBet + game.getPlayerS().getDD());
 	    }
 	    else {
 		game.getPlayerS().addLoss();
-		game.getPlayerS().addMoneyLost(amountBet);
+		game.getPlayerS().addMoneyLost(amountBet + game.getPlayerS().getDD());
 	    }
 	    updateMoneyLabel(1);
 	    playerLabelS.setText(p1Name + winOrLose1);
@@ -206,11 +206,11 @@ public class BlackjackGui{
 	    String winOrLose2 = p1IsWinner ? " wins" : " loses";
 	    if (p1IsWinner) {
 		game.getPlayerS().addWin();
-		game.getPlayerS().addMoneyWon(amountBet);
+		game.getPlayerS().addMoneyWon(amountBet + game.getPlayerS().getDD());
 	    }
 	    else {
 		game.getPlayerS().addLoss();
-		game.getPlayerS().addMoneyLost(amountBet);
+		game.getPlayerS().addMoneyLost(amountBet + game.getPlayerS().getDD());
 	    }
 	    playerLabelS.setText(p1Name + winOrLose2);
 	    cardLabelS.setText("Hand Value: " + game.getPlayerS().getHand().displayBestValue());
@@ -219,11 +219,11 @@ public class BlackjackGui{
 	    winOrLose2 = p2IsWinner ? " wins" : " loses";
 	    if (p2IsWinner) {
 		game.getPlayerE().addWin();
-		game.getPlayerE().addMoneyWon(amountBet);
+		game.getPlayerE().addMoneyWon(amountBet + game.getPlayerE().getDD());
 	    }
 	    else {
 		game.getPlayerE().addLoss();
-		game.getPlayerE().addMoneyLost(amountBet);
+		game.getPlayerE().addMoneyLost(amountBet + game.getPlayerE().getDD());
 	    }
 	    updateMoneyLabel(1);
 	    updateMoneyLabel(2);
@@ -239,11 +239,11 @@ public class BlackjackGui{
 	    String winOrLose3 = p1IsWinner ? " wins" : " loses";
 	    if (p1IsWinner) {
 		game.getPlayerS().addWin();
-		game.getPlayerS().addMoneyWon(amountBet);
+		game.getPlayerS().addMoneyWon(amountBet + game.getPlayerS().getDD());
 	    }
 	    else {
 		game.getPlayerS().addLoss();
-		game.getPlayerS().addMoneyLost(amountBet);
+		game.getPlayerS().addMoneyLost(amountBet + game.getPlayerS().getDD());
 	    }
 	    playerLabelS.setText(p1Name + winOrLose3);
 	    cardLabelS.setText("Hand Value: " + game.getPlayerS().getHand().displayBestValue());
@@ -252,11 +252,11 @@ public class BlackjackGui{
 	    winOrLose3 = p2IsWinner ? " wins" : " loses";
 	    if (p2IsWinner) {
 		game.getPlayerE().addWin();
-		game.getPlayerE().addMoneyWon(amountBet);
+		game.getPlayerE().addMoneyWon(amountBet + game.getPlayerE().getDD());
 	    }
 	    else {
 		game.getPlayerE().addLoss();
-		game.getPlayerE().addMoneyLost(amountBet);
+		game.getPlayerE().addMoneyLost(amountBet + game.getPlayerE().getDD());
 	    }
 	    playerLabelE.setText(p2Name + winOrLose3);
 	    cardLabelS.setText("Hand Value: " + game.getPlayerE().getHand().displayBestValue());
@@ -265,11 +265,11 @@ public class BlackjackGui{
 	    winOrLose3 = p3IsWinner ? " wins" : " loses";
 	    if (p3IsWinner) {
 		game.getPlayerW().addWin();
-		game.getPlayerW().addMoneyWon(amountBet);
+		game.getPlayerW().addMoneyWon(amountBet + game.getPlayerW().getDD());
 	    }
 	    else {
 		game.getPlayerW().addLoss();
-		game.getPlayerW().addMoneyLost(amountBet);
+		game.getPlayerW().addMoneyLost(amountBet + game.getPlayerW().getDD());
 	    }
 	    updateMoneyLabel(1);
 	    updateMoneyLabel(2);
@@ -828,18 +828,21 @@ public class BlackjackGui{
                     cardLabelS.setText(game.getPlayerS().displayHandValue());
                     cardsPanelS.add(new JLabel(getMyImage(newCard)));
                     displayLabel.setText(p1Name + " hit!");
+                    game.getPlayerS().setDD(amountBet);
                     break;
                 case 2:
                     playerLabelE.setText(p2Name + isBust);
                     cardLabelE.setText(game.getPlayerE().displayHandValue());
                     cardsPanelE.add(new JLabel(getMyImage(newCard)));
                     displayLabel.setText(p2Name + " hit!");
+                    game.getPlayerE().setDD(amountBet);
                     break;
                 case 3:
                     playerLabelW.setText(p3Name + isBust);
                     cardLabelW.setText(game.getPlayerW().displayHandValue());
                     cardsPanelW.add(new JLabel(getMyImage(newCard)));
                     displayLabel.setText(p3Name + " hit!");
+                    game.getPlayerW().setDD(amountBet);
                     break;
                 default:
                     break;

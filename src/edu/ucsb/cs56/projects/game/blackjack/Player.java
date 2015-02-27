@@ -10,7 +10,7 @@ public class Player{
     
     private Hand playerHand;
     private String name;
-    private int money, moneyWon, moneyLost, wins, losses;
+    private int money, moneyWon, moneyLost, wins, losses, DD;
     private int numberOfCards = 2;
     private boolean notBust = true;
     
@@ -115,6 +115,14 @@ public class Player{
      */
     public int getLosses(){
         return this.losses;
+    }
+    
+    public int getDD() {
+    	return this.DD;
+    }
+    
+    public void setDD(int dd) {
+    	this.DD = dd;
     }
     
     /** Adds money won to player's instance variable

@@ -83,18 +83,12 @@ public class BlackjackGui{
     JLabel playerLabelWM;
     
     /** PLAYER STATISTICS LABELS **/
-    JLabel playerLabelSWins;
-    JLabel playerLabelEWins;
-    JLabel playerLabelWWins;
-    JLabel playerLabelSLosses;
-    JLabel playerLabelWLosses;
-    JLabel playerLabelWLosses;
-    JLabel playerLabelSMWon;
-    JLabel playerLabelEMWon;
-    JLabel playerLabelWMWon;
-    JLabel playerLabelSMLost;
-    JLabel playerLabelWMLost;
-    JLabel playerLabelWMLost;
+    JLabel playerLabelSWinLoss;
+    JLabel playerLabelEWinLoss;
+    JLabel playerLabelWWinLoss;
+    JLabel playerLabelSMWonLost;
+    JLabel playerLabelEMWonLost;
+    JLabel playerLabelWMWonLost;
 
     /** PLAYER CARDS PANELS **/
     JPanel cardsPanelS;
@@ -342,11 +336,20 @@ public class BlackjackGui{
     public void updateMoneyLabel(int player) {
 	switch(player) {
         case(1):
-            playerLabelSM.setText("Money: $" + game.getPlayerS().getMoney()); break;
+            playerLabelSM.setText("Money: $" + game.getPlayerS().getMoney());
+            playerLabelSWinLoss.setText("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
+            playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
+            break;
         case(2):
-            playerLabelEM.setText("Money: $" + game.getPlayerE().getMoney()); break;
+            playerLabelEM.setText("Money: $" + game.getPlayerE().getMoney());
+            playerLabelEWinLoss.setText("Wins/Losses: " + game.getPlayerE().getWins() + "/" + game.getPlayerE().getLosses());
+            playerLabelEMWonLost.setText("Money Won/Lost: " + game.getPlayerE().getMoneyWon() + "/" + game.getPlayerE().getMoneyLost());
+            break;
         case(3):
-            playerLabelWM.setText("Money: $" + game.getPlayerW().getMoney()); break;
+            playerLabelWM.setText("Money: $" + game.getPlayerW().getMoney()); 
+            playerLabelWWinLoss.setText("Wins/Losses: " + game.getPlayerW().getWins() + "/" + game.getPlayerW().getLosses());
+            playerLabelWMWonLost.setText("Money Won/Lost: " + game.getPlayerW().getMoneyWon() + "/" + game.getPlayerW().getMoneyLost());
+            break;
         default:
             break;
         }
@@ -373,15 +376,20 @@ public class BlackjackGui{
 	// create 1st player's label
 	playerPanelS = new JPanel(); playerLabelS = new JLabel(p1Name);
 	playerLabelSM = new JLabel("Money: $" + game.getPlayerS().getMoney());
-	playerLabelSWins = 
+	playerLabelSWinLoss = new JLabel("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
+	playerLabelSMWonLost = new JLabel("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
 
 	// create 2nd player's label
 	playerPanelE = new JPanel(); playerLabelE = new JLabel(p2Name);
 	playerLabelEM = new JLabel("Money: $" + game.getPlayerE().getMoney());
+	playerLabelEWinLoss = new JLabel("Wins/Losses: " + game.getPlayerE().getWins() + "/" + game.getPlayerE().getLosses());
+	playerLabelEMWonLost = new JLabel("Money Won/Lost: " + game.getPlayerE().getMoneyWon() + "/" + game.getPlayerE().getMoneyLost());
 
 	// create 3rd player's label
 	playerPanelW = new JPanel(); playerLabelW = new JLabel(p3Name);
 	playerLabelWM = new JLabel("Money: $" + game.getPlayerW().getMoney());
+	playerLabelWWinLoss = new JLabel("Wins/Losses: " + game.getPlayerW().getWins() + "/" + game.getPlayerW().getLosses());
+	playerLabelWMWonLost = new JLabel("Money Won/Lost: " + game.getPlayerW().getMoneyWon() + "/" + game.getPlayerW().getMoneyLost());
 
 	// create card displays for all players
 	displayPanel = new JPanel(); displayLabel = new JLabel();
@@ -447,7 +455,8 @@ public class BlackjackGui{
 	playerPanelS.add(cardsPanelS); // cards in hand
 	playerPanelS.add(cardLabelS); // value of cards
 	playerPanelS.add(playerLabelSM); // amount of money
-	
+	playerPanelS.add(playerLabelSWinLoss);
+	playerPanelS.add(playerLabelSMWonLost);
 
 	// add 2nd player's labels and starter cards to the panel
 	cardsPanelE = new JPanel(); 
@@ -465,6 +474,8 @@ public class BlackjackGui{
 	playerPanelE.add(cardsPanelE); // cards in hand
 	playerPanelE.add(cardLabelE); // value of cards
 	playerPanelE.add(playerLabelEM); // amount of money
+	playerPanelE.add(playerLabelEWinLoss);
+	playerPanelE.add(playerLabelEMWonLost);
 
  	
 	// add 3rd  player's labels and starter cards to the panel
@@ -483,6 +494,8 @@ public class BlackjackGui{
 	playerPanelW.add(cardsPanelW); // cards in hand
 	playerPanelW.add(cardLabelW); // value of cards
 	playerPanelW.add(playerLabelWM); // amount of money
+	playerPanelW.add(playerLabelWWinLoss);
+	playerPanelW.add(playerLabelWMWonLost);
 	
 
 	// set all the player+dealer+buttons panels into proper positions in the frame
@@ -1047,6 +1060,8 @@ public class BlackjackGui{
 	    case 1:
 		game.getPlayerS().setName(player1Name.getText());
 		playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
+		playerLabelSWinLoss.setText("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
+        	playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
 
 		p1Name = new String(game.getPlayerS().getName());
 		//playerLabelS.setText(game.getPlayerS().displayHandValue());
@@ -1058,7 +1073,11 @@ public class BlackjackGui{
 		game.getPlayerS().setName(player1Name.getText());
 		game.getPlayerE().setName(player2Name.getText());
 		playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
+		playerLabelSWinLoss.setText("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
+                playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
 		playerLabelEM.setText("Money: $" + (game.getPlayerE().getMoney()));
+		playerLabelEWinLoss.setText("Wins/Losses: " + game.getPlayerE().getWins() + "/" + game.getPlayerE().getLosses());
+                playerLabelEMWonLost.setText("Money Won/Lost: " + game.getPlayerE().getMoneyWon() + "/" + game.getPlayerE().getMoneyLost());
 
 		p1Name = new String(game.getPlayerS().getName());
 		p2Name = new String(game.getPlayerE().getName());
@@ -1071,8 +1090,14 @@ public class BlackjackGui{
 		game.getPlayerE().setName(player2Name.getText());
 		game.getPlayerW().setName(player3Name.getText());
 		playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
+		playerLabelSWinLoss.setText("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
+                playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
 		playerLabelEM.setText("Money: $" + (game.getPlayerE().getMoney()));
+		playerLabelEWinLoss.setText("Wins/Losses: " + game.getPlayerE().getWins() + "/" + game.getPlayerE().getLosses());
+                playerLabelEMWonLost.setText("Money Won/Lost: " + game.getPlayerE().getMoneyWon() + "/" + game.getPlayerE().getMoneyLost());
 		playerLabelWM.setText("Money: $" + (game.getPlayerW().getMoney()));
+		playerLabelWWinLoss.setText("Wins/Losses: " + game.getPlayerW().getWins() + "/" + game.getPlayerW().getLosses());
+                playerLabelWMWonLost.setText("Money Won/Lost: " + game.getPlayerW().getMoneyWon() + "/" + game.getPlayerW().getMoneyLost());
 
 		p1Name = new String(game.getPlayerS().getName());
 		p2Name = new String(game.getPlayerE().getName());

@@ -72,7 +72,7 @@ public class Blackjack{
     public void loadStats() {
     	try {
     	File file1 = new File("Stats.txt");
-    	BufferedReader reader1 = new BufferedReader(new FileReader(file1));
+    	BufferedReader reader = new BufferedReader(new FileReader(file1));
 	String line;
 	
 	line = reader.readLine();

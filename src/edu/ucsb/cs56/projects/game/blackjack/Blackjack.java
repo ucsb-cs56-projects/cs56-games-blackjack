@@ -15,6 +15,8 @@ public class Blackjack{
     private ArrayList<Player> players;
     private Player dealer;
     private Card displayCard;
+    public int p1wins, p2wins, p3wins, p1losses, p2losses, p3losses;
+    public int p1won, p2won, p3won, p1lost, p2lost, p3lost;
     
     /** constructor
      */
@@ -36,28 +38,39 @@ public class Blackjack{
 	displayCard = null;
     }
     
-    public Blackjack(BlackjackGui gui){
-	d = new Deck();
-	dealer = new Player();
-	dealer.drawCard(d.draw());
-	dealer.drawCard(d.draw());
-	dealer.setName("Dealer");
+    public void saveStats() {
+    	try {
+    		File file = new File("Stats.txt");
+    		FileWriter writer = new FileWriter(file);
+    		writer.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + "\n" +
+    			     p2wins + " " + p2losses + " " + p2won + " " + p2lost + "\n" +
+    		             p3wins + " " + p3losses + " " + p3won + " " + p3lost + "\n");
+    		writer.close();
+    		} catch(Exception ex) { } 
+    }
+    
+    public void resetStats() {
+    	p1wins = p2wins = p3wins = p1losses = p2losses = p3losses = p1won = p2won = p3won = p1lost = p2lost = p3lost = 0;
+    }
+    
+    public void loadStats() {
+    	try {
+    	File file = new File("Stats.txt");
+    	BufferedReader reader = new BufferedReader(new FileReader(file));
+	String line;
 	
-	players = new ArrayList<Player>();
-	for(int i=0; i < 3; i++){
-	    Player newPlayer = new Player();
-	    newPlayer.drawCard(d.draw());
-	    newPlayer.drawCard(d.draw());
-	    if (i == 0)  { newPlayer.setWins(gui.p1wins); newPlayer.setLosses(gui.p1losses); 
-	    		newPlayer.setWon(gui.p1won); newPlayer.setLost(gui.p1lost); }
-	    else if (i == 1)  { newPlayer.setWins(gui.p2wins); newPlayer.setLosses(gui.p2losses); 
-	    		newPlayer.setWon(gui.p2won); newPlayer.setLost(gui.p2lost); }
-	    else if (i == 2)  { newPlayer.setWins(gui.p3wins); newPlayer.setLosses(gui.p3losses); 
-	    		newPlayer.setWon(gui.p3won); newPlayer.setLost(gui.p3lost); }
-	    players.add(newPlayer);
-	}
+	line = reader.readLine();
+	String [] stats1 = line.split("\\s+");
+	p1wins = Integer.parseInt(stats1[0]); p1losses = Integer.parseInt(stats1[1]); p1won = Integer.parseInt(stats1[2]); p1lost = Integer.parseInt(stats1[3]);
+	line = reader.readLine();
+	String [] stats2 = line.split("\\s+");
+	p2wins = Integer.parseInt(stats2[0]); p2losses = Integer.parseInt(stats2[1]); p2won = Integer.parseInt(stats2[2]); p2lost = Integer.parseInt(stats2[3]);
+	line = reader.readLine();
+	String [] stats3 = line.split("\\s+");
+	p3wins = Integer.parseInt(stats3[0]); p3losses = Integer.parseInt(stats3[1]); p3won = Integer.parseInt(stats3[2]); p3lost = Integer.parseInt(stats3[3]);
 	
-	displayCard = null;
+	reader.close();
+    	} catch(Exception ex) { }
     }
     
     /** 4 arg constructor for testing purposes

@@ -1112,7 +1112,7 @@ public class BlackjackGui{
     
     public class LoadListener implements ItemListener {
     	public void itemStateChanged(ItemEvent e) {
-    		if (e.getStateChage() == ItemEvent.SELECTED) {
+    		if (e.getStateChange() == ItemEvent.SELECTED) {
     			game.loadStats();
     		}
     		else {

@@ -40,14 +40,38 @@ public class Blackjack{
     }
     
     public void saveStats() {
-    	try {
-    		File file = new File("Stats.txt");
-    		FileWriter writer = new FileWriter(file);
-    		writer.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + "\n" +
-    			     p2wins + " " + p2losses + " " + p2won + " " + p2lost + "\n" +
-    		             p3wins + " " + p3losses + " " + p3won + " " + p3lost + "\n");
-    		writer.close();
+    	switch(players.size()) {
+    		case 1: try {
+    		File file1 = new File("Stats1.txt");
+    		FileWriter writer1 = new FileWriter(file1);
+    		writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + "\n");
+    		writer1.close();
     		} catch(Exception ex) { } 
+    		case 2: try {
+    		File file1 = new File("Stats1.txt");
+    		File file2 = new File("Stats2.txt");
+    		FileWriter writer1 = new FileWriter(file1);
+    		FileWriter writer2 = new FileWriter(file2);
+    		writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + "\n");
+    		writer2.write(p2wins + " " + p2losses + " " + p2won + " " + p2lost + "\n");
+    		writer1.close();
+    		writer2.close();
+    		} catch(Exception ex) { } 
+    	        case 3: try {
+    		File file1 = new File("Stats1.txt");
+    		File file2 = new File("Stats2.txt");
+    		File file3 = new File("Stats3.txt");
+    		FileWriter writer1 = new FileWriter(file1);
+    		FileWriter writer2 = new FileWriter(file2);
+    		FileWriter writer3 = new FileWriter(file3);
+    		writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + "\n");
+    		writer2.write(p2wins + " " + p2losses + " " + p2won + " " + p2lost + "\n");
+    		writer3.write(p3wins + " " + p3losses + " " + p3won + " " + p3lost + "\n");
+    		writer1.close();
+    		writer2.close();
+    		writer3.close();
+    		} catch(Exception ex) { }
+    	}
     }
     
     public void resetStats() {

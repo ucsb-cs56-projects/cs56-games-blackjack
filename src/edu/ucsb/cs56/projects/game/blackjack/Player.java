@@ -125,6 +125,22 @@ public class Player{
     	this.DD = dd;
     }
     
+    public void setWins(int wins) {
+    	this.wins = wins;
+    }
+    
+    public void setLosses(int losses) {
+    	this.losses = losses;
+    }
+    
+    public void setWon(int won) {
+    	this.moneyWon = won;
+    }
+    
+    public void setLost(int lost) {
+    	this.moneyLost = lost;
+    }
+    
     /** Adds money won to player's instance variable
      */
     public void addMoneyWon(int amount) {

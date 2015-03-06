@@ -298,7 +298,7 @@ public class BlackjackGui{
      
 	/** create 'play again' button to display at the end of the round **/
 	JButton save = new JButton("Save all stats");
-	save.setMaximumSize(new Dimension(170, 75);
+	save.setMaximumSize(new Dimension(170, 75));
 	save.addActionListener(new SaveListener());
 	playAgain = new JButton("Play again");
 	playAgain.setMaximumSize(new Dimension(130, 75));

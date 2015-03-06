@@ -117,7 +117,6 @@ public class BlackjackGui{
     ArrayList<String> names;
     public int p1wins, p2wins, p3wins, p1losses, p2losses, p3losses;
     public int p1won, p2won, p3won, p1lost, p2lost, p3lost;
-    p1wins = p2wins = p3wins = p1losses = p2losses = p3losses = p1won = p2won = p3won = p1lost = p2lost = p3lost = 0;
     public static int numPlayers;
     public static boolean keepRunning=false;
     int speed = 1000;

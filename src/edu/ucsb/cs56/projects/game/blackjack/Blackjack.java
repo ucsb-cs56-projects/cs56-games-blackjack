@@ -131,9 +131,9 @@ public class Blackjack{
      */
     public void newRound(){
 	d = new Deck();
-	players.get(0).newHand(d); players.get(0).resetNumberOfCards();
-	players.get(1).newHand(d); players.get(1).resetNumberOfCards();
-	players.get(2).newHand(d); players.get(2).resetNumberOfCards();
+	for (Player player : players) {
+		player.newHand(d); player.resetNumberOfCards();
+	}
 	dealer.newHand(d);
     }
     

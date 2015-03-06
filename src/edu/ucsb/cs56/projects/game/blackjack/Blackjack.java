@@ -18,6 +18,7 @@ public class Blackjack{
     private Card displayCard;
     public int p1wins, p2wins, p3wins, p1losses, p2losses, p3losses;
     public int p1won, p2won, p3won, p1lost, p2lost, p3lost;
+    public int p1money, p2money, p3money;
     
     /** constructor
      */
@@ -43,30 +44,36 @@ public class Blackjack{
     	switch(players.size()) {
     		case 1: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
     			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost();
+    			p1money = players.get(0).getMoney();
     		case 2: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
     			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost(); 
     			p2wins = players.get(1).getWins(); p2losses = players.get(1).getLosses(); 
-    			p2won = players.get(1).getMoneyWon(); p2lost = players.get(1).getMoneyLost(); 
+    			p2won = players.get(1).getMoneyWon(); p2lost = players.get(1).getMoneyLost();
+    			p1money = players.get(0).getMoney();
+    			p2money = players.get(1).getMoney();
     		case 3: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
     			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost(); 
     			p2wins = players.get(1).getWins(); p2losses = players.get(1).getLosses(); 
     			p2won = players.get(1).getMoneyWon(); p2lost = players.get(1).getMoneyLost(); 
     			p3wins = players.get(2).getWins(); p3losses = players.get(2).getLosses(); 
-    			p3won = players.get(2).getMoneyWon(); p3lost = players.get(2).getMoneyLost(); 
+    			p3won = players.get(2).getMoneyWon(); p3lost = players.get(2).getMoneyLost();
+    			p1money = players.get(0).getMoney();
+    			p2money = players.get(1).getMoney();
+    			p3money = players.get(2).getMoney();
     	}
     	try {
     		File file1 = new File("Stats.txt");
     		FileWriter writer1 = new FileWriter(file1);
-    		writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + "\n" +
-    			      p2wins + " " + p2losses + " " + p2won + " " + p2lost + "\n" +
-    	                      p3wins + " " + p3losses + " " + p3won + " " + p3lost + "\n");
+    		writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + " " + p1money + \n" +
+    			      p2wins + " " + p2losses + " " + p2won + " " + p2lost + " " + p2money + \n" +
+    	                      p3wins + " " + p3losses + " " + p3won + " " + p3lost + " " + p3money + \n");
     		writer1.close();
     		} catch(Exception ex) { }
     	
     }
     
     public void resetStats() {
-    	p1wins = p2wins = p3wins = p1losses = p2losses = p3losses = p1won = p2won = p3won = p1lost = p2lost = p3lost = 0;
+    	p1money = p2money = p3money = p1wins = p2wins = p3wins = p1losses = p2losses = p3losses = p1won = p2won = p3won = p1lost = p2lost = p3lost = 0;
     }
     
     public void loadStats() {
@@ -77,13 +84,16 @@ public class Blackjack{
 	
 	line = reader.readLine();
 	String [] stats1 = line.split("\\s+");
-	p1wins = Integer.parseInt(stats1[0]); p1losses = Integer.parseInt(stats1[1]); p1won = Integer.parseInt(stats1[2]); p1lost = Integer.parseInt(stats1[3]);
+	p1wins = Integer.parseInt(stats1[0]); p1losses = Integer.parseInt(stats1[1]); 
+	p1won = Integer.parseInt(stats1[2]); p1lost = Integer.parseInt(stats1[3]); p1money = Integer.parseInt(stats1[4]);
 	line = reader.readLine();
 	String [] stats2 = line.split("\\s+");
-	p2wins = Integer.parseInt(stats2[0]); p2losses = Integer.parseInt(stats2[1]); p2won = Integer.parseInt(stats2[2]); p2lost = Integer.parseInt(stats2[3]);
+	p2wins = Integer.parseInt(stats2[0]); p2losses = Integer.parseInt(stats2[1]); 
+	p2won = Integer.parseInt(stats2[2]); p2lost = Integer.parseInt(stats2[3]); p2money = Integer.parseInt(stats2[4]);
 	line = reader.readLine();
 	String [] stats3 = line.split("\\s+");
-	p3wins = Integer.parseInt(stats3[0]); p3losses = Integer.parseInt(stats3[1]); p3won = Integer.parseInt(stats3[2]); p3lost = Integer.parseInt(stats3[3]);
+	p3wins = Integer.parseInt(stats3[0]); p3losses = Integer.parseInt(stats3[1]);
+	p3won = Integer.parseInt(stats3[2]); p3lost = Integer.parseInt(stats3[3]); p3money = Integer.parseInt(stats3[4]);
 	
 	reader.close();
     	} catch(Exception ex) { }

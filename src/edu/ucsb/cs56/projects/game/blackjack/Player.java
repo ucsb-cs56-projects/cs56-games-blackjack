@@ -50,6 +50,10 @@ public class Player{
 	money += amount;
     }
 
+    public void resetMoney(int amount) {
+    	money = amount;
+    }
+
     /** Resets player hand so a new round of blackjack can begin
      * @param d Deck to play with
      */

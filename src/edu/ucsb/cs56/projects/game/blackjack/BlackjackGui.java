@@ -116,7 +116,7 @@ public class BlackjackGui{
     
     /** GAME INFORMATION **/
     ArrayList<String> names;
-    public static int numPlayers;
+    public int numPlayers;
     public static boolean keepRunning=false;
     int speed = 1000;
     Timer timer = new Timer(speed, new MyTimerListener());
@@ -302,8 +302,30 @@ public class BlackjackGui{
 	playAgain = new JButton("Play again");
 	playAgain.setMaximumSize(new Dimension(130, 75));
 	playAgain.addActionListener(new PlayAgainListener());
+	if (game.getPlayerS() != null) {
+		JButton exitS = new JButton("Leave Game");
+		exitS.addActionListener(new ExitSListener());
+		playerPanelS.add(exitS);
+	}
+	if (game.getPlayerE() != null) {
+		JButton exitE = new JButton("Leave Game");
+		exitE.addActionListener(new ExitEListener());
+		playerPanelE.add(exitE);
+	}
+	if (game.getPlayerW() != null) {
+		JButton exitW = new JButton("Leave Game");
+		exitW.addActionListener(new ExitWListener());
+		playerPanelW.add(exitW);
+	}
 	displayPanel.add(playAgain);
 	displayPanel.add(save);
+    }
+    
+    public class ExitSListener extends ActionListener {
+    	public void actionPerformed(ActionEvent e) {
+    		numPlayers--;
+    		game.players.remove(0);
+    	}
     }
     
     /** beings the delay timer and shows the dealer's card that was face down
@@ -561,21 +583,30 @@ public class BlackjackGui{
 	// This section is for a new round of Blackjack
 	if(keepRunning == true){
 	    if(numPlayers == 1){
-		cardLabelS.setText(game.getPlayerS().displayHandValue());
-		frame.remove(playerPanelE);
-		frame.remove(playerPanelW);
+		if (game.getPlayerS() != null) cardLabelS.setText(game.getPlayerS().displayHandValue());
+		else frame.remove(playerPanelS);
+		if (game.getPlayerE() != null) cardLabelE.setText(game.getPlayerE().displayHandValue());
+		else frame.remove(playerPanelE);
+		if (game.getPlayerW() != null) cardLabelW.setText(game.getPlayerW().displayHandValue());
+		else frame.remove(playerPanelW);
 		frame.setSize(600,600);
 	    }
 	    else if(numPlayers == 2){
-		playerLabelS.setText(game.getPlayerS().displayHandValue());
-		playerLabelE.setText(game.getPlayerE().displayHandValue());
-		frame.remove(playerPanelW);
+		if (game.getPlayerS() != null) cardLabelS.setText(game.getPlayerS().displayHandValue());
+		else frame.remove(playerPanelS);
+		if (game.getPlayerE() != null) cardLabelE.setText(game.getPlayerE().displayHandValue());
+		else frame.remove(playerPanelE);
+		if (game.getPlayerW() != null) cardLabelW.setText(game.getPlayerW().displayHandValue());
+		else frame.remove(playerPanelW);
 		frame.setSize(800,600);
 	    }
 	    else if(numPlayers == 3){
-		playerLabelS.setText(game.getPlayerS().displayHandValue());
-		playerLabelE.setText(game.getPlayerE().displayHandValue());
-		playerLabelW.setText(game.getPlayerW().displayHandValue());
+		if (game.getPlayerS() != null) cardLabelS.setText(game.getPlayerS().displayHandValue());
+		else frame.remove(playerPanelS);
+		if (game.getPlayerE() != null) cardLabelE.setText(game.getPlayerE().displayHandValue());
+		else frame.remove(playerPanelE);
+		if (game.getPlayerW() != null) cardLabelW.setText(game.getPlayerW().displayHandValue());
+		else frame.remove(playerPanelW);
 		frame.setSize(1000,600);
 	    }
 	    displayLabel.setText("New Round, " + p1Name + "'s turn");

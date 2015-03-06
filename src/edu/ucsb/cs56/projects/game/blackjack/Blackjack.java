@@ -36,7 +36,7 @@ public class Blackjack{
 	displayCard = null;
     }
     
-    public Blackjack(BlackjackGUI gui){
+    public Blackjack(BlackjackGui gui){
 	d = new Deck();
 	dealer = new Player();
 	dealer.drawCard(d.draw());

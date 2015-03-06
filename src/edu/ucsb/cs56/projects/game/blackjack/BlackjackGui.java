@@ -1060,7 +1060,7 @@ public class BlackjackGui{
 	    loadSave.addActionListener(new LoadListener());
 	    namePanel.add(loadSave);
 	    beginGame = new JButton("Confirm");
-	    beginGame.addActionListener(new ConfirmName());
+	    beginGame.addItemListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
 	    nameFrame.setLocationRelativeTo(null); // center the window
@@ -1099,7 +1099,7 @@ public class BlackjackGui{
 	    loadSave.addItemListener(new LoadListener());
 	    namePanel.add(loadSave);
 	    beginGame = new JButton("Confirm");
-	    beginGame.addActionListener(new ConfirmName());
+	    beginGame.addItemListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
 	    nameFrame.setLocationRelativeTo(null); // center the window

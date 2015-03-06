@@ -41,7 +41,7 @@ public class BlackjackGui{
     String p2Name;
     String p3Name;
     JPanel namePanel;
-    Blackjack game;
+    Blackjack game = new Blackjack();
     boolean dealerTurn;
     int playerTurn = 1;
     BlackjackGui theGui;
@@ -1111,58 +1111,22 @@ public class BlackjackGui{
 	}
     }
     
-    public void resetStats() {
-    	p1wins = p2wins = p3wins = p1losses = p2losses = p3losses = p1won = p2won = p3won = p1lost = p2lost = p3lost = 0;
-    }
     
-    public void loadStats() {
-    	try {
-    	File file = new File("Stats.txt");
-    	BufferedReader reader = new BufferedReader(new FileReader(file));
-	String line;
-	
-	line = reader.readLine();
-	String [] stats1 = line.split("\\s+");
-	p1wins = Integer.parseInt(stats1[0]); p1losses = Integer.parseInt(stats1[1]); p1won = Integer.parseInt(stats1[2]); p1lost = Integer.parseInt(stats1[3]);
-	line = reader.readLine();
-	String [] stats2 = line.split("\\s+");
-	p2wins = Integer.parseInt(stats2[0]); p2losses = Integer.parseInt(stats2[1]); p2won = Integer.parseInt(stats2[2]); p2lost = Integer.parseInt(stats2[3]);
-	line = reader.readLine();
-	String [] stats3 = line.split("\\s+");
-	p3wins = Integer.parseInt(stats3[0]); p3losses = Integer.parseInt(stats3[1]); p3won = Integer.parseInt(stats3[2]); p3lost = Integer.parseInt(stats3[3]);
-	
-	reader.close();
-    	} catch(Exception ex) { }
-    }
-    
-    public class LoadListener implements ActionListener {
-    	public void actionPerformed(ActionEvent event) {
-    		if (loadSave.isSelected()) {
-    			loadSave.setSelected(false);
-    			resetStats();
+    public class LoadListener implements ItemListener {
+    	public void itemStateChanged(ItemEvent e) {
+    		if (e.getStateChage() == ItemEvent.SELECTED) {
+    			game.loadStats();
     		}
     		else {
-    			loadSave.setSelected(true);
-    			loadStats();
+    			game.resetStats();
     		}
     	}
     }
     
     public class SaveListener implements ActionListener {
     	public void actionPerformed(ActionEvent event) {
-    		try {
-    		File file = new File("Stats.txt");
-    		FileWriter writer = new FileWriter(file);
-    		writer.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + "\n" +
-    			     p2wins + " " + p2losses + " " + p2won + " " + p2lost + "\n" +
-    		             p3wins + " " + p3losses + " " + p3won + " " + p3lost + "\n");
-    		writer.close();
-    		} catch(Exception ex) { } 
+    		game.saveStats();
     	}
-    }
-    
-    public void makeGame() {
-    	game = new Blackjack(theGui);
     }
     
     /** listener class for beginGame button after entering player names
@@ -1173,8 +1137,6 @@ public class BlackjackGui{
 	*/
 	public void actionPerformed(ActionEvent event){
 	    betFrame.setVisible(false);
-	    
-	    makeGame();
 	    
 	    updateMoney();
 	    

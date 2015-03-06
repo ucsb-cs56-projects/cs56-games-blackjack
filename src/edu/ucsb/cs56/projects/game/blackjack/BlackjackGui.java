@@ -323,8 +323,19 @@ public class BlackjackGui{
     
     public class ExitSListener extends ActionListener {
     	public void actionPerformed(ActionEvent e) {
-    		numPlayers--;
     		game.players.remove(0);
+    	}
+    }
+    
+    public class ExitEListener extends ActionListener {
+    	public void actionPerformed(ActionEvent e) {
+    		game.players.remove(1);
+    	}
+    }
+    
+    public class ExitWListener extends ActionListener {
+    	public void actionPerformed(ActionEvent e) {
+    		game.players.remove(2);
     	}
     }
     
@@ -583,30 +594,21 @@ public class BlackjackGui{
 	// This section is for a new round of Blackjack
 	if(keepRunning == true){
 	    if(numPlayers == 1){
-		if (game.getPlayerS() != null) cardLabelS.setText(game.getPlayerS().displayHandValue());
-		else frame.remove(playerPanelS);
-		if (game.getPlayerE() != null) cardLabelE.setText(game.getPlayerE().displayHandValue());
-		else frame.remove(playerPanelE);
-		if (game.getPlayerW() != null) cardLabelW.setText(game.getPlayerW().displayHandValue());
-		else frame.remove(playerPanelW);
+		cardLabelS.setText(game.getPlayerS().displayHandValue());
+		frame.remove(playerPanelE);
+		frame.remove(playerPanelW);
 		frame.setSize(600,600);
 	    }
 	    else if(numPlayers == 2){
-		if (game.getPlayerS() != null) cardLabelS.setText(game.getPlayerS().displayHandValue());
-		else frame.remove(playerPanelS);
-		if (game.getPlayerE() != null) cardLabelE.setText(game.getPlayerE().displayHandValue());
-		else frame.remove(playerPanelE);
-		if (game.getPlayerW() != null) cardLabelW.setText(game.getPlayerW().displayHandValue());
-		else frame.remove(playerPanelW);
+		cardLabelS.setText(game.getPlayerS().displayHandValue());
+		cardLabelE.setText(game.getPlayerE().displayHandValue());
+		frame.remove(playerPanelW);
 		frame.setSize(800,600);
 	    }
 	    else if(numPlayers == 3){
-		if (game.getPlayerS() != null) cardLabelS.setText(game.getPlayerS().displayHandValue());
-		else frame.remove(playerPanelS);
-		if (game.getPlayerE() != null) cardLabelE.setText(game.getPlayerE().displayHandValue());
-		else frame.remove(playerPanelE);
-		if (game.getPlayerW() != null) cardLabelW.setText(game.getPlayerW().displayHandValue());
-		else frame.remove(playerPanelW);
+		cardLabelS.setText(game.getPlayerS().displayHandValue());
+		cardLabelE.setText(game.getPlayerE().displayHandValue());
+		cardLabelW.setText(game.getPlayerW().displayHandValue());
 		frame.setSize(1000,600);
 	    }
 	    displayLabel.setText("New Round, " + p1Name + "'s turn");

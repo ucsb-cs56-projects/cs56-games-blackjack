@@ -324,18 +324,21 @@ public class BlackjackGui{
     public class ExitSListener extends ActionListener {
     	public void actionPerformed(ActionEvent e) {
     		game.players.remove(0);
+    		numPlayers--;
     	}
     }
     
     public class ExitEListener extends ActionListener {
     	public void actionPerformed(ActionEvent e) {
     		game.players.remove(1);
+    		numPlayers--;
     	}
     }
     
     public class ExitWListener extends ActionListener {
     	public void actionPerformed(ActionEvent e) {
     		game.players.remove(2);
+    		numPlayers--;
     	}
     }
     

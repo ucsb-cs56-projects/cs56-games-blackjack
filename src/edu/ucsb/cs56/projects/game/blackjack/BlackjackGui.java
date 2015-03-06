@@ -1220,7 +1220,7 @@ public class BlackjackGui{
         	playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
 
 		p1Name = new String(game.getPlayerS().getName());
-		//playerLabelS.setText(game.getPlayerS().displayHandValue());
+		playerLabelS.setText(game.getPlayerS().displayHandValue());
 		playerLabelS.setText(p1Name);
 		frame.remove(playerPanelW);
 		frame.remove(playerPanelE);

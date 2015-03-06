@@ -1116,6 +1116,7 @@ public class BlackjackGui{
     }
     
     public void loadStats() {
+    	try {
     	File file = new File("Stats.txt");
     	BufferedReader reader = new BufferedReader(new FileReader(file));
 	String line;
@@ -1131,6 +1132,7 @@ public class BlackjackGui{
 	p3wins = Integer.parseInt(stats3[0]); p3losses = Integer.parseInt(stats3[1]); p3won = Integer.parseInt(stats3[2]); p3lost = Integer.parseInt(stats3[3]);
 	
 	reader.close();
+    	} catch(Exception ex) { }
     }
     
     public class LoadListener implements ActionListener {
@@ -1148,12 +1150,14 @@ public class BlackjackGui{
     
     public class SaveListener implements ActionListener {
     	public void actionPerformed(ActionEvent event) {
+    		try {
     		File file = new File("Stats.txt");
     		FileWriter writer = new FileWriter(file);
     		writer.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + "\n" +
     			     p2wins + " " + p2losses + " " + p2won + " " + p2lost + "\n" +
     		             p3wins + " " + p3losses + " " + p3won + " " + p3lost + "\n");
     		writer.close();
+    		} catch(Exception ex) { } 
     	}
     }
     

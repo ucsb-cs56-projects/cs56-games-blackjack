@@ -41,35 +41,26 @@ public class Blackjack{
     
     public void saveStats() {
     	switch(players.size()) {
-    		case 1: try {
-    		File file1 = new File("Stats1.txt");
+    		case 1: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
+    			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost();
+    		case 2: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
+    			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost(); 
+    			p2wins = players.get(1).getWins(); p2losses = players.get(1).getLosses(); 
+    			p2won = players.get(1).getMoneyWon(); p2lost = players.get(1).getMoneyLost(); 
+    		case 3: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
+    			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost(); 
+    			p2wins = players.get(1).getWins(); p2losses = players.get(1).getLosses(); 
+    			p2won = players.get(1).getMoneyWon(); p2lost = players.get(1).getMoneyLost(); 
+    			p3wins = players.get(2).getWins(); p3losses = players.get(2).getLosses(); 
+    			p3won = players.get(2).getMoneyWon(); p3lost = players.get(2).getMoneyLost(); 
+    	}
+    	try {
+    		File file1 = new File("Stats.txt");
     		FileWriter writer1 = new FileWriter(file1);
-    		writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + "\n");
+    		writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + "\n" +
+    			      p2wins + " " + p2losses + " " + p2won + " " + p2lost + "\n" +
+    	                      p3wins + " " + p3losses + " " + p3won + " " + p3lost + "\n");
     		writer1.close();
-    		} catch(Exception ex) { } 
-    		case 2: try {
-    		File file1 = new File("Stats1.txt");
-    		File file2 = new File("Stats2.txt");
-    		FileWriter writer1 = new FileWriter(file1);
-    		FileWriter writer2 = new FileWriter(file2);
-    		writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + "\n");
-    		writer2.write(p2wins + " " + p2losses + " " + p2won + " " + p2lost + "\n");
-    		writer1.close();
-    		writer2.close();
-    		} catch(Exception ex) { } 
-    	        case 3: try {
-    		File file1 = new File("Stats1.txt");
-    		File file2 = new File("Stats2.txt");
-    		File file3 = new File("Stats3.txt");
-    		FileWriter writer1 = new FileWriter(file1);
-    		FileWriter writer2 = new FileWriter(file2);
-    		FileWriter writer3 = new FileWriter(file3);
-    		writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + "\n");
-    		writer2.write(p2wins + " " + p2losses + " " + p2won + " " + p2lost + "\n");
-    		writer3.write(p3wins + " " + p3losses + " " + p3won + " " + p3lost + "\n");
-    		writer1.close();
-    		writer2.close();
-    		writer3.close();
     		} catch(Exception ex) { }
     	}
     }
@@ -80,8 +71,8 @@ public class Blackjack{
     
     public void loadStats() {
     	try {
-    	File file = new File("Stats.txt");
-    	BufferedReader reader = new BufferedReader(new FileReader(file));
+    	File file1 = new File("Stats.txt");
+    	BufferedReader reader1 = new BufferedReader(new FileReader(file1));
 	String line;
 	
 	line = reader.readLine();

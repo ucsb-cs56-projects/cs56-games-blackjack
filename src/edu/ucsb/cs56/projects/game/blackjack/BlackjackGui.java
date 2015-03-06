@@ -66,9 +66,7 @@ public class BlackjackGui{
     JButton betAmount4;
     JLabel betAmount;
     int amountBet;
-    JButton loadSave1;
-    JButton loadSave2;
-    JButton loadSave3;
+    JCheckBox loadSave;
 
     /** PLAYER NAME LABELS **/
     JLabel playerLabelS;
@@ -300,10 +298,14 @@ public class BlackjackGui{
 	    updateMoney(amountBet, 3);
      
 	/** create 'play again' button to display at the end of the round **/
+	JButton save = new JButton("Save all stats");
+	save.setMaximumSize(new Dimension(170, 75);
+	save.addActionListener(new SaveListener());
 	playAgain = new JButton("Play again");
 	playAgain.setMaximumSize(new Dimension(130, 75));
 	playAgain.addActionListener(new PlayAgainListener());
 	displayPanel.add(playAgain);
+	displayPanel.add(save);
     }
     
     /** beings the delay timer and shows the dealer's card that was face down
@@ -888,6 +890,8 @@ public class BlackjackGui{
 	public void actionPerformed(ActionEvent event){
 	    // disable the previous window ('enter player name(s)')
 	    nameFrame.setVisible(false);
+	    
+	    game = new Blackjack(this);
 
 	    // create the frame and panels, as well as set the layout
 	    betFrame = new JFrame();
@@ -1022,16 +1026,16 @@ public class BlackjackGui{
 	    player1Name = new JTextField(20);
 	    namePanel.add(name1);
 	    namePanel.add(player1Name);
-	    loadSave1 = new JButton("Load Player 1's Save");
-	    loadSave.addActionListener(new LoadListener1());
-	    namePanel.add(loadSave1);
+	    loadSave = new JCheckBox("Load Saved Stats");
+	    loadSave.addActionListener(new LoadListener());
+	    namePanel.add(loadSave);
 	    beginGame = new JButton("Confirm");
 	    beginGame.addActionListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
 	    nameFrame.setLocationRelativeTo(null); // center the window
 	    
-	    game = new Blackjack(this);
+	  
 	    nameFrame.setVisible(true);
 	}
     }
@@ -1056,19 +1060,16 @@ public class BlackjackGui{
 	    namePanel.add(player1Name);
 	    namePanel.add(name2);
 	    namePanel.add(player2Name);
-	    loadSave1 = new JButton("Load Player 1's Save");
-	    loadSave.addActionListener(new LoadListener1());
-	    namePanel.add(loadSave1);
-	    loadSave2 = new JButton("Load Player 2's Save");
-	    loadSave.addActionListener(new LoadListener2());
-	    namePanel.add(loadSave2);
+	    loadSave = new JCheckBox("Load Saved Stats");
+	    loadSave.addActionListener(new LoadListener());
+	    namePanel.add(loadSave);
 	    beginGame = new JButton("Confirm");
 	    beginGame.addActionListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
 	    nameFrame.setLocationRelativeTo(null); // center the window
 		
-	    game = new Blackjack(this);
+	   
 	    nameFrame.setVisible(true);
 	    
 	}
@@ -1098,24 +1099,64 @@ public class BlackjackGui{
 	    namePanel.add(player2Name);
 	    namePanel.add(name3);
 	    namePanel.add(player3Name);
-	    loadSave1 = new JButton("Load Player 1's Save");
-	    loadSave.addActionListener(new LoadListener1());
-	    namePanel.add(loadSave1);
-	    loadSave2 = new JButton("Load Player 2's Save");
-	    loadSave.addActionListener(new LoadListener2());
-	    namePanel.add(loadSave2);
-	    loadSave3 = new JButton("Load Player 3's Save");
-	    loadSave.addActionListener(new LoadListener3());
-	    namePanel.add(loadSave3);
+	    loadSave = new JCheckBox("Load Saved Stats");
+	    loadSave.addActionListener(new LoadListener());
+	    namePanel.add(loadSave);
 	    beginGame = new JButton("Confirm");
 	    beginGame.addActionListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
 	    nameFrame.setLocationRelativeTo(null); // center the window
 	    
-	    game = new Blackjack(this);
+	    
 	    nameFrame.setVisible(true);
 	}
+    }
+    
+    public void resetStats() {
+    	p1wins = p2wins = p3wins = p1losses = p2losses = p3losses = p1won = p2won = p3won = p1lost = p2lost = p3lost = 0;
+    }
+    
+    public void loadStats() {
+    	File file = new File("Stats.txt");
+    	BufferedReader reader = new BufferedReader(new FileReader(file));
+	String line;
+	
+	line = reader.readLine();
+	String [] stats1 = line.split("\\s+");
+	p1wins = stats1[0]; p1losses = stats1[1]; p1won = stats1[2]; p1lost = stats1[3];
+	line = reader.readLine();
+	String [] stats2 = line.split("\\s+");
+	p2wins = stats2[0]; p2losses = stats2[1]; p2won = stats2[2]; p2lost = stats2[3];
+	line = reader.readLine();
+	String [] stats3 = line.split("\\s+");
+	p3wins = stats3[0]; p3losses = stats3[1]; p3won = stats3[2]; p3lost = stats3[3];
+	
+	reader.close();
+    }
+    
+    public class LoadListener implements ActionListener {
+    	public void actionPerformed(ActionEvent event) {
+    		if (loadSave.isSelected) {
+    			loadSave.setSelected(false);
+    			resetStats();
+    		}
+    		else {
+    			loadSave.setSelected(true);
+    			loadStats();
+    		}
+    	}
+    }
+    
+    public class SaveListener implements ActionListener {
+    	public void actionPerformed(ActionEvent event) {
+    		File file = new File("Stats.txt");
+    		FileWriter writer = new FileWriter(file);
+    		writer.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + "\n" +
+    			     p2wins + " " + p2losses + " " + p2won + " " + p2lost + "\n" +
+    		             p3wins + " " + p3losses + " " + p3won + " " + p3lost + "\n");
+    		writer.close();
+    	}
     }
     
     /** listener class for beginGame button after entering player names

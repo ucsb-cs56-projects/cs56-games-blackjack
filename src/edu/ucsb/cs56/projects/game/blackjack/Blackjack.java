@@ -45,12 +45,14 @@ public class Blackjack{
     		case 1: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
     			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost();
     			p1money = players.get(0).getMoney();
+    			break;
     		case 2: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
     			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost(); 
     			p2wins = players.get(1).getWins(); p2losses = players.get(1).getLosses(); 
     			p2won = players.get(1).getMoneyWon(); p2lost = players.get(1).getMoneyLost();
     			p1money = players.get(0).getMoney();
     			p2money = players.get(1).getMoney();
+    			break;
     		case 3: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
     			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost(); 
     			p2wins = players.get(1).getWins(); p2losses = players.get(1).getLosses(); 
@@ -60,6 +62,7 @@ public class Blackjack{
     			p1money = players.get(0).getMoney();
     			p2money = players.get(1).getMoney();
     			p3money = players.get(2).getMoney();
+    			break;
     	}
     	try {
     		File file1 = new File("Stats.txt");

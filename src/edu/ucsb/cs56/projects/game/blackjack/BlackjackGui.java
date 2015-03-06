@@ -1096,7 +1096,7 @@ public class BlackjackGui{
 	    namePanel.add(name3);
 	    namePanel.add(player3Name);
 	    loadSave = new JCheckBox("Load Saved Stats");
-	    loadSave.addItem	Listener(new LoadListener());
+	    loadSave.addItemListener(new LoadListener());
 	    namePanel.add(loadSave);
 	    beginGame = new JButton("Confirm");
 	    beginGame.addActionListener(new ConfirmName());

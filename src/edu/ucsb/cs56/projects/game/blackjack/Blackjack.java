@@ -1,6 +1,7 @@
 package edu.ucsb.cs56.projects.game.blackjack;
 
 import java.util.*;
+import java.io.*;
 
 /** Blackjack Class has the following: Deck, ArrayList (list for players), Player (dealer), 
  *and Card (next card to show). This class also contains methods for hitting and staying. 
@@ -12,7 +13,7 @@ import java.util.*;
 
 public class Blackjack{
     private Deck d;
-    private ArrayList<Player> players;
+    public ArrayList<Player> players;
     private Player dealer;
     private Card displayCard;
     public int p1wins, p2wins, p3wins, p1losses, p2losses, p3losses;

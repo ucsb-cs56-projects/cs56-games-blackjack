@@ -116,8 +116,6 @@ public class BlackjackGui{
     
     /** GAME INFORMATION **/
     ArrayList<String> names;
-    public int p1wins, p2wins, p3wins, p1losses, p2losses, p3losses;
-    public int p1won, p2won, p3won, p1lost, p2lost, p3lost;
     public static int numPlayers;
     public static boolean keepRunning=false;
     int speed = 1000;
@@ -1129,6 +1127,10 @@ public class BlackjackGui{
     	}
     }
     
+    public void updateStats() {
+    	
+    }
+    
     /** listener class for beginGame button after entering player names
      */
     public class BeginGameListener implements ActionListener{
@@ -1138,6 +1140,7 @@ public class BlackjackGui{
 	public void actionPerformed(ActionEvent event){
 	    betFrame.setVisible(false);
 	    
+	    updateStats();
 	    updateMoney();
 	    
 	    // switch statement gives players names and makes their cards visible

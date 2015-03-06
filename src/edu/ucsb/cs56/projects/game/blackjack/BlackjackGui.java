@@ -1162,7 +1162,7 @@ public class BlackjackGui{
     }
     
     public void makeGame() {
-    	game = new Blackjack(this);
+    	game = new Blackjack(theGui);
     }
     
     /** listener class for beginGame button after entering player names

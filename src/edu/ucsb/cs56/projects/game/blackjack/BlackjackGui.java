@@ -1137,7 +1137,7 @@ public class BlackjackGui{
     
     public class LoadListener implements ActionListener {
     	public void actionPerformed(ActionEvent event) {
-    		if (loadSave.isSelected) {
+    		if (loadSave.isSelected()) {
     			loadSave.setSelected(false);
     			resetStats();
     		}

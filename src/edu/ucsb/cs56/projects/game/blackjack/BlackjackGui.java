@@ -891,8 +891,6 @@ public class BlackjackGui{
 	    // disable the previous window ('enter player name(s)')
 	    nameFrame.setVisible(false);
 	    
-	    game = new Blackjack(this);
-
 	    // create the frame and panels, as well as set the layout
 	    betFrame = new JFrame();
 	    betPanel = new JPanel(new GridLayout(7,0,5,0));
@@ -1124,13 +1122,13 @@ public class BlackjackGui{
 	
 	line = reader.readLine();
 	String [] stats1 = line.split("\\s+");
-	p1wins = stats1[0]; p1losses = stats1[1]; p1won = stats1[2]; p1lost = stats1[3];
+	p1wins = Integer.parseInt(stats1[0]); p1losses = Integer.parseInt(stats1[1]); p1won = Integer.parseInt(stats1[2]); p1lost = Integer.parseInt(stats1[3]);
 	line = reader.readLine();
 	String [] stats2 = line.split("\\s+");
-	p2wins = stats2[0]; p2losses = stats2[1]; p2won = stats2[2]; p2lost = stats2[3];
+	p2wins = Integer.parseInt(stats2[0]); p2losses = Integer.parseInt(stats2[1]); p2won = Integer.parseInt(stats2[2]); p2lost = Integer.parseInt(stats2[3]);
 	line = reader.readLine();
 	String [] stats3 = line.split("\\s+");
-	p3wins = stats3[0]; p3losses = stats3[1]; p3won = stats3[2]; p3lost = stats3[3];
+	p3wins = Integer.parseInt(stats3[0]); p3losses = Integer.parseInt(stats3[1]); p3won = Integer.parseInt(stats3[2]); p3lost = Integer.parseInt(stats3[3]);
 	
 	reader.close();
     }
@@ -1159,6 +1157,10 @@ public class BlackjackGui{
     	}
     }
     
+    public void makeGame() {
+    	game = new Blackjack(this);
+    }
+    
     /** listener class for beginGame button after entering player names
      */
     public class BeginGameListener implements ActionListener{
@@ -1167,6 +1169,8 @@ public class BlackjackGui{
 	*/
 	public void actionPerformed(ActionEvent event){
 	    betFrame.setVisible(false);
+	    
+	    makeGame();
 	    
 	    updateMoney();
 	    

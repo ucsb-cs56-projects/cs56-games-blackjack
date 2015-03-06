@@ -36,6 +36,24 @@ public class Blackjack{
 	displayCard = null;
     }
     
+    public Blackjack(BlackjackGUI gui){
+	d = new Deck();
+	dealer = new Player();
+	dealer.drawCard(d.draw());
+	dealer.drawCard(d.draw());
+	dealer.setName("Dealer");
+	
+	players = new ArrayList<Player>();
+	for(int i=0; i < 3; i++){
+	    Player newPlayer = new Player();
+	    newPlayer.drawCard(d.draw());
+	    newPlayer.drawCard(d.draw());
+	    players.add(newPlayer);
+	}
+	
+	displayCard = null;
+    }
+    
     /** 4 arg constructor for testing purposes
 	@param dh Dealer's hand
 	@param p1 Player 1's hand

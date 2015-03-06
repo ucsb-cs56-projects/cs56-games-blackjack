@@ -323,7 +323,7 @@ public class BlackjackGui{
 	displayPanel.add(save);
     }
     
-    public class ExitSListener extends ActionListener {
+    public class ExitSListener implements ActionListener {
     	public void actionPerformed(ActionEvent e) {
     		if (numPlayers == 1) frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     		game.players.remove(0);
@@ -332,7 +332,7 @@ public class BlackjackGui{
     	}
     }
     
-    public class ExitEListener extends ActionListener {
+    public class ExitEListener implements ActionListener {
     	public void actionPerformed(ActionEvent e) {
     		if (numPlayers == 1) {
     			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
@@ -345,7 +345,7 @@ public class BlackjackGui{
     	}
     }
     
-    public class ExitWListener extends ActionListener {
+    public class ExitWListener implements ActionListener {
     	public void actionPerformed(ActionEvent e) {
     		if (numPlayers == 1) {
     			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));

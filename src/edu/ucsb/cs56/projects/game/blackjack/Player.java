@@ -51,7 +51,8 @@ public class Player{
     }
 
     public void resetMoney(int amount) {
-    	money = amount;
+    	if (amount==0) money = 5000;
+    	else money = amount;
     }
 
     /** Resets player hand so a new round of blackjack can begin

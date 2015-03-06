@@ -48,6 +48,12 @@ public class Blackjack{
 	    Player newPlayer = new Player();
 	    newPlayer.drawCard(d.draw());
 	    newPlayer.drawCard(d.draw());
+	    if (i == 0)  { newPlayer.setWins(gui.p1wins); newPlayer.setLosses(gui.p1losses); 
+	    		newPlayer.setWon(gui.p1won); newPlayer.setLost(gui.p1lost); }
+	    else if (i == 1)  { newPlayer.setWins(gui.p2wins); newPlayer.setLosses(gui.p2losses); 
+	    		newPlayer.setWon(gui.p2won); newPlayer.setLost(gui.p2lost); }
+	    else if (i == 2)  { newPlayer.setWins(gui.p3wins); newPlayer.setLosses(gui.p3losses); 
+	    		newPlayer.setWon(gui.p3won); newPlayer.setLost(gui.p3lost); }
 	    players.add(newPlayer);
 	}
 	

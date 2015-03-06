@@ -62,7 +62,7 @@ public class Blackjack{
     	                      p3wins + " " + p3losses + " " + p3won + " " + p3lost + "\n");
     		writer1.close();
     		} catch(Exception ex) { }
-    	}
+    	
     }
     
     public void resetStats() {

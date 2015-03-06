@@ -73,7 +73,8 @@ public class Blackjack{
     }
     
     public void resetStats() {
-    	p1money = p2money = p3money = p1wins = p2wins = p3wins = p1losses = p2losses = p3losses = p1won = p2won = p3won = p1lost = p2lost = p3lost = 0;
+    	p1money = p2money = p3money = 5000;
+    	p1wins = p2wins = p3wins = p1losses = p2losses = p3losses = p1won = p2won = p3won = p1lost = p2lost = p3lost = 0;
     }
     
     public void loadStats() {

@@ -117,6 +117,7 @@ public class BlackjackGui{
     /** GAME INFORMATION **/
     ArrayList<String> names;
     public int numPlayers;
+    public boolean shift = false;
     public static boolean keepRunning=false;
     int speed = 1000;
     Timer timer = new Timer(speed, new MyTimerListener());
@@ -302,6 +303,7 @@ public class BlackjackGui{
 	playAgain = new JButton("Play again");
 	playAgain.setMaximumSize(new Dimension(130, 75));
 	playAgain.addActionListener(new PlayAgainListener());
+	shift = false;
 	if (game.getPlayerS() != null) {
 		JButton exitS = new JButton("Leave Game");
 		exitS.addActionListener(new ExitSListener());
@@ -323,21 +325,35 @@ public class BlackjackGui{
     
     public class ExitSListener extends ActionListener {
     	public void actionPerformed(ActionEvent e) {
+    		if (numPlayers == 1) frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     		game.players.remove(0);
+    		if (numPlayers == 3) shift = true;
     		numPlayers--;
     	}
     }
     
     public class ExitEListener extends ActionListener {
     	public void actionPerformed(ActionEvent e) {
-    		game.players.remove(1);
+    		if (numPlayers == 1) {
+    			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+    		}
+    		else if (numPlayers == 3) {
+    			game.players.remove(1);
+    		}
+    		else game.players.remove(shift ? 0 : 1);
     		numPlayers--;
     	}
     }
     
     public class ExitWListener extends ActionListener {
     	public void actionPerformed(ActionEvent e) {
-    		game.players.remove(2);
+    		if (numPlayers == 1) {
+    			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+    		}
+    		else if (numPlayers == 2) {
+    			game.players.remove(1);
+    		}
+    		else game.players.remove(2);
     		numPlayers--;
     	}
     }
@@ -596,6 +612,9 @@ public class BlackjackGui{
 	
 	// This section is for a new round of Blackjack
 	if(keepRunning == true){
+	    if(numPlayers == 0) {
+	    	frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+	    }
 	    if(numPlayers == 1){
 		cardLabelS.setText(game.getPlayerS().displayHandValue());
 		frame.remove(playerPanelE);

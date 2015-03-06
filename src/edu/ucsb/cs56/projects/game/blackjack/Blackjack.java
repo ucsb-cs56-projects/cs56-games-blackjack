@@ -64,9 +64,9 @@ public class Blackjack{
     	try {
     		File file1 = new File("Stats.txt");
     		FileWriter writer1 = new FileWriter(file1);
-    		writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + " " + p1money + \n" +
-    			      p2wins + " " + p2losses + " " + p2won + " " + p2lost + " " + p2money + \n" +
-    	                      p3wins + " " + p3losses + " " + p3won + " " + p3lost + " " + p3money + \n");
+    		writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + " " + p1money + "\n" +
+    			      p2wins + " " + p2losses + " " + p2won + " " + p2lost + " " + p2money + "\n" +
+    	                      p3wins + " " + p3losses + " " + p3won + " " + p3lost + " " + p3money + "\n");
     		writer1.close();
     		} catch(Exception ex) { }
     	

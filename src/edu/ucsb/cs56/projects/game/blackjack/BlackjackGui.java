@@ -1130,15 +1130,15 @@ public class BlackjackGui{
     public void updateStats() {
     	if (game.getPlayerS() != null) { game.players.get(0).setWins(game.p1wins); game.players.get(0).setLosses(game.p1losses); 
     					 game.players.get(0).setWon(game.p1won); game.players.get(0).setLost(game.p1lost); 
-    					 game.players.get(0).setMoney(game.p1money); }
+    					 game.players.get(0).resetMoney(game.p1money); }
     					 
     	if (game.getPlayerE() != null) { game.players.get(1).setWins(game.p2wins); game.players.get(1).setLosses(game.p2losses); 
     					 game.players.get(1).setWon(game.p2won); game.players.get(1).setLost(game.p2lost); 
-    					 game.players.get(1).setMoney(game.p2money); }
+    					 game.players.get(1).resetMoney(game.p2money); }
     					 
         if (game.getPlayerW() != null) { game.players.get(2).setWins(game.p3wins); game.players.get(2).setLosses(game.p3losses); 
     					 game.players.get(2).setWon(game.p3won); game.players.get(2).setLost(game.p3lost); 
-    					 game.players.get(2).setMoney(game.p3money); }
+    					 game.players.get(2).resetMoney(game.p3money); }
     }
     
     /** listener class for beginGame button after entering player names

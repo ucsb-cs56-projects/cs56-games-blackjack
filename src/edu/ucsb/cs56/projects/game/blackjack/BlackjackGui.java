@@ -40,7 +40,7 @@ public class BlackjackGui{
     String p2Name;
     String p3Name;
     JPanel namePanel;
-    Blackjack game = new Blackjack();
+    Blackjack game;
     boolean dealerTurn;
     int playerTurn = 1;
     BlackjackGui theGui;
@@ -66,6 +66,9 @@ public class BlackjackGui{
     JButton betAmount4;
     JLabel betAmount;
     int amountBet;
+    JButton loadSave1;
+    JButton loadSave2;
+    JButton loadSave3;
 
     /** PLAYER NAME LABELS **/
     JLabel playerLabelS;
@@ -114,6 +117,9 @@ public class BlackjackGui{
     
     /** GAME INFORMATION **/
     ArrayList<String> names;
+    public int p1wins, p2wins, p3wins, p1losses, p2losses, p3losses;
+    public int p1won, p2won, p3won, p1lost, p2lost, p3lost;
+    p1wins = p2wins = p3wins = p1losses = p2losses = p3losses = p1won = p2won = p3won = p1lost = p2lost = p3lost = 0;
     public static int numPlayers;
     public static boolean keepRunning=false;
     int speed = 1000;
@@ -408,6 +414,8 @@ public class BlackjackGui{
 	canPlayer2DD =true;
 	canPlayer3DD =true;
         canPlayer4DD =true;
+        
+        
 
 	// remove the bet amount from all of the players' total money
 	updateMoney();
@@ -1014,12 +1022,16 @@ public class BlackjackGui{
 	    player1Name = new JTextField(20);
 	    namePanel.add(name1);
 	    namePanel.add(player1Name);
+	    loadSave1 = new JButton("Load Player 1's Save");
+	    loadSave.addActionListener(new LoadListener1());
+	    namePanel.add(loadSave1);
 	    beginGame = new JButton("Confirm");
 	    beginGame.addActionListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
 	    nameFrame.setLocationRelativeTo(null); // center the window
 	    
+	    game = new Blackjack(this);
 	    nameFrame.setVisible(true);
 	}
     }
@@ -1044,12 +1056,19 @@ public class BlackjackGui{
 	    namePanel.add(player1Name);
 	    namePanel.add(name2);
 	    namePanel.add(player2Name);
+	    loadSave1 = new JButton("Load Player 1's Save");
+	    loadSave.addActionListener(new LoadListener1());
+	    namePanel.add(loadSave1);
+	    loadSave2 = new JButton("Load Player 2's Save");
+	    loadSave.addActionListener(new LoadListener2());
+	    namePanel.add(loadSave2);
 	    beginGame = new JButton("Confirm");
 	    beginGame.addActionListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
 	    nameFrame.setLocationRelativeTo(null); // center the window
-
+		
+	    game = new Blackjack(this);
 	    nameFrame.setVisible(true);
 	    
 	}
@@ -1079,12 +1098,22 @@ public class BlackjackGui{
 	    namePanel.add(player2Name);
 	    namePanel.add(name3);
 	    namePanel.add(player3Name);
+	    loadSave1 = new JButton("Load Player 1's Save");
+	    loadSave.addActionListener(new LoadListener1());
+	    namePanel.add(loadSave1);
+	    loadSave2 = new JButton("Load Player 2's Save");
+	    loadSave.addActionListener(new LoadListener2());
+	    namePanel.add(loadSave2);
+	    loadSave3 = new JButton("Load Player 3's Save");
+	    loadSave.addActionListener(new LoadListener3());
+	    namePanel.add(loadSave3);
 	    beginGame = new JButton("Confirm");
 	    beginGame.addActionListener(new ConfirmName());
 	    namePanel.add(beginGame);
 	    nameFrame.getContentPane().add(namePanel);
 	    nameFrame.setLocationRelativeTo(null); // center the window
-
+	    
+	    game = new Blackjack(this);
 	    nameFrame.setVisible(true);
 	}
     }

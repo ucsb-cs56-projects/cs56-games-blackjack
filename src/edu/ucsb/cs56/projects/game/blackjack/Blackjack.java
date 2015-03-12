@@ -44,7 +44,13 @@ public class Blackjack{
     	switch(gui.numPlayers) {
     		case 1: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
     			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost();
-    			p1money = players.get(0).getMoney(); p1name = gui.p1Name;
+    			p1money = players.get(0).getMoney();
+    			try {
+    			File file1 = new File(gui.p1Name + ".txt");
+    			FileWriter writer1 = new FileWriter(file1);
+    			writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + " " + p1money + "\n");
+    			writer1.close();
+    			} catch(Exception ex) { }
     			break;
     		case 2: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
     			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost(); 
@@ -52,6 +58,16 @@ public class Blackjack{
     			p2won = players.get(1).getMoneyWon(); p2lost = players.get(1).getMoneyLost();
     			p1money = players.get(0).getMoney();
     			p2money = players.get(1).getMoney();
+    			try {
+    			File file1 = new File(gui.p1Name + ".txt");
+    			FileWriter writer1 = new FileWriter(file1);
+    			writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + " " + p1money + "\n");
+    			writer1.close();
+    			File file2 = new File(gui.p2Name + ".txt");
+    			FileWriter writer2 = new FileWriter(file2);
+    			writer2.write(p2wins + " " + p2losses + " " + p2won + " " + p2lost + " " + p2money + "\n");
+    			writer2.close();
+    			} catch(Exception ex) { }
     			break;
     		case 3: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
     			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost(); 
@@ -62,16 +78,22 @@ public class Blackjack{
     			p1money = players.get(0).getMoney();
     			p2money = players.get(1).getMoney();
     			p3money = players.get(2).getMoney();
+    			try {
+    			File file1 = new File(gui.p1Name + ".txt");
+    			FileWriter writer1 = new FileWriter(file1);
+    			writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + " " + p1money + "\n");
+    			writer1.close();
+    			File file2 = new File(gui.p2Name + ".txt");
+    			FileWriter writer2 = new FileWriter(file2);
+    			writer2.write(p2wins + " " + p2losses + " " + p2won + " " + p2lost + " " + p2money + "\n");
+    			writer2.close();
+    			File file3 = new File(gui.p3Name + ".txt");
+    			FileWriter writer3 = new FileWriter(file3);
+    			writer3.write(p3wins + " " + p3losses + " " + p3won + " " + p3lost + " " + p3money + "\n");
+    			writer.close();
+    			} catch(Exception ex) { }
     			break;
     	}
-    	try {
-    		File file1 = new File("Stats.txt");
-    		FileWriter writer1 = new FileWriter(file1);
-    		writer1.write(p1wins + " " + p1losses + " " + p1won + " " + p1lost + " " + p1money + "\n" +
-    			      p2wins + " " + p2losses + " " + p2won + " " + p2lost + " " + p2money + "\n" +
-    	                      p3wins + " " + p3losses + " " + p3won + " " + p3lost + " " + p3money + "\n");
-    		writer1.close();
-    		} catch(Exception ex) { }
     	
     }
     
@@ -80,27 +102,85 @@ public class Blackjack{
     	p1wins = p2wins = p3wins = p1losses = p2losses = p3losses = p1won = p2won = p3won = p1lost = p2lost = p3lost = 0;
     }
     
-    public void loadStats() {
-    	try {
-    	File file1 = new File("Stats.txt");
-    	BufferedReader reader = new BufferedReader(new FileReader(file1));
-	String line;
+    public void loadStats(BlackjackGui gui) {
+    	
+    	switch(gui.numPlayers) {
+    		case 1: try {
+    			File file1 = new File(gui.p1Name + ".txt");
+    			BufferedReader reader = new BufferedReader(new FileReader(file1));
+			String line;
+			line = reader.readLine();
+			String [] stats1 = line.split("\\s+");
+			p1wins = Integer.parseInt(stats1[0]); p1losses = Integer.parseInt(stats1[1]); 
+			p1won = Integer.parseInt(stats1[2]); p1lost = Integer.parseInt(stats1[3]); p1money = Integer.parseInt(stats1[4]);
+			reader.close();
+    			} catch(Exception ex) { }
+    			break;
+    		case 2: try {
+    			File file1 = new File(gui.p1Name + ".txt");
+    			BufferedReader reader1 = new BufferedReader(new FileReader(file1));
+			String line;
+			line = reader1.readLine();
+			String [] stats1 = line.split("\\s+");
+			p1wins = Integer.parseInt(stats1[0]); p1losses = Integer.parseInt(stats1[1]); 
+			p1won = Integer.parseInt(stats1[2]); p1lost = Integer.parseInt(stats1[3]); p1money = Integer.parseInt(stats1[4]);
+			File file2 = new File(gui.p2Name + ".txt");
+			BufferedReader reader2 = new BufferedReader(new FileReader(file2));
+			line = reader2.readLine();
+			String [] stats2 = line.split("\\s+");
+			p2wins = Integer.parseInt(stats2[0]); p2losses = Integer.parseInt(stats2[1]); 
+			p2won = Integer.parseInt(stats2[2]); p2lost = Integer.parseInt(stats2[3]); p2money = Integer.parseInt(stats2[4]);
+			reader1.close();
+			reader2.close();
+    			} catch(Exception ex) { }
+    			break;
+    		case 3: try {
+    			File file1 = new File(gui.p1Name + ".txt");
+    			BufferedReader reader1 = new BufferedReader(new FileReader(file1));
+			String line;
+			line = reader1.readLine();
+			String [] stats1 = line.split("\\s+");
+			p1wins = Integer.parseInt(stats1[0]); p1losses = Integer.parseInt(stats1[1]); 
+			p1won = Integer.parseInt(stats1[2]); p1lost = Integer.parseInt(stats1[3]); p1money = Integer.parseInt(stats1[4]);
+			File file2 = new File(gui.p2Name + ".txt");
+			BufferedReader reader2 = new BufferedReader(new FileReader(file2));
+			line = reader2.readLine();
+			String [] stats2 = line.split("\\s+");
+			p2wins = Integer.parseInt(stats2[0]); p2losses = Integer.parseInt(stats2[1]); 
+			p2won = Integer.parseInt(stats2[2]); p2lost = Integer.parseInt(stats2[3]); p2money = Integer.parseInt(stats2[4]);
+			File file = new File(gui.p3Name + ".txt");
+			BufferedReader reader3 = new BufferedReader(new FileReader(file3));
+			line = reader3.readLine();
+			String [] stats3 = line.split("\\s+");
+			p3wins = Integer.parseInt(stats3[0]); p3losses = Integer.parseInt(stats3[1]); 
+			p3won = Integer.parseInt(stats3[2]); p3lost = Integer.parseInt(stats3[3]); p3money = Integer.parseInt(stats3[4]);
+			reader1.close();
+			reader2.close();
+			reader3.close();
+    			} catch(Exception ex) { }
+    			break;
+    	}
+    	
+    	//try {
+    	//File file1 = new File("Stats.txt");
+    	//BufferedReader reader = new BufferedReader(new FileReader(file1));
+	//String line;
 	
-	line = reader.readLine();
-	String [] stats1 = line.split("\\s+");
-	p1wins = Integer.parseInt(stats1[0]); p1losses = Integer.parseInt(stats1[1]); 
-	p1won = Integer.parseInt(stats1[2]); p1lost = Integer.parseInt(stats1[3]); p1money = Integer.parseInt(stats1[4]);
-	line = reader.readLine();
-	String [] stats2 = line.split("\\s+");
-	p2wins = Integer.parseInt(stats2[0]); p2losses = Integer.parseInt(stats2[1]); 
-	p2won = Integer.parseInt(stats2[2]); p2lost = Integer.parseInt(stats2[3]); p2money = Integer.parseInt(stats2[4]);
-	line = reader.readLine();
-	String [] stats3 = line.split("\\s+");
-	p3wins = Integer.parseInt(stats3[0]); p3losses = Integer.parseInt(stats3[1]);
-	p3won = Integer.parseInt(stats3[2]); p3lost = Integer.parseInt(stats3[3]); p3money = Integer.parseInt(stats3[4]);
+	//line = reader.readLine();
+	//String [] stats1 = line.split("\\s+");
+	//p1wins = Integer.parseInt(stats1[0]); p1losses = Integer.parseInt(stats1[1]); 
+	//p1won = Integer.parseInt(stats1[2]); p1lost = Integer.parseInt(stats1[3]); p1money = Integer.parseInt(stats1[4]);
+	//line = reader.readLine();
+	//String [] stats2 = line.split("\\s+");
+	//p2wins = Integer.parseInt(stats2[0]); p2losses = Integer.parseInt(stats2[1]); 
+	//p2won = Integer.parseInt(stats2[2]); p2lost = Integer.parseInt(stats2[3]); p2money = Integer.parseInt(stats2[4]);
+	//line = reader.readLine();
+	//String [] stats3 = line.split("\\s+");
+	//p3wins = Integer.parseInt(stats3[0]); p3losses = Integer.parseInt(stats3[1]);
+	//p3won = Integer.parseInt(stats3[2]); p3lost = Integer.parseInt(stats3[3]); p3money = Integer.parseInt(stats3[4]);
 	
-	reader.close();
-    	} catch(Exception ex) { }
+	//reader.close();
+    	//} catch(Exception ex) { }
     }
     
     /** 4 arg constructor for testing purposes

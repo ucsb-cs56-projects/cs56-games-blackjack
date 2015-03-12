@@ -117,6 +117,7 @@ public class BlackjackGui{
     /** GAME INFORMATION **/
     ArrayList<String> names;
     public int numPlayers;
+    public boolean load = false;
     public boolean shift = false;
     public static boolean keepRunning=false;
     int speed = 1000;
@@ -982,7 +983,7 @@ public class BlackjackGui{
 	/** initializes some of the JLabels for a set bet menu and brings up the main JFrame
 	    @param event ActionEvent, set bet
 	*/
-	public void actionPerformed(ActionEvent event){
+	public void actionPerformed(ActionEvent event){	
 	    // disable the previous window ('enter player name(s)')
 	    nameFrame.setVisible(false);
 	    
@@ -1210,10 +1211,11 @@ public class BlackjackGui{
     public class LoadListener implements ItemListener {
     	public void itemStateChanged(ItemEvent e) {
     		if (e.getStateChange() == ItemEvent.SELECTED) {
-    			game.loadStats(theGui);
+    			load = true;
     		}
     		else {
     			game.resetStats();
+    			load = false;
     		}
     	}
     }
@@ -1250,13 +1252,28 @@ public class BlackjackGui{
 	public void actionPerformed(ActionEvent event){
 	    betFrame.setVisible(false);
 	    
+	    switch(numPlayers) {
+	    case 1:
+		game.getPlayerS().setName(player1Name.getText());
+		break;
+	    case 2:
+	    	game.getPlayerS().setName(player1Name.getText());
+		game.getPlayerE().setName(player2Name.getText());
+		break;
+	    case 3:
+	    	game.getPlayerS().setName(player1Name.getText());
+		game.getPlayerE().setName(player2Name.getText());
+		game.getPlayerW().setName(player3Name.getText());
+		break;
+	    }
+	    
+	    game.loadStats(theGui);
 	    updateStats();
 	    updateMoney();
 	    
 	    // switch statement gives players names and makes their cards visible
 	    switch(numPlayers) {
 	    case 1:
-		game.getPlayerS().setName(player1Name.getText());
 		playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
 		playerLabelSWinLoss.setText("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
         	playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
@@ -1268,8 +1285,6 @@ public class BlackjackGui{
 		frame.remove(playerPanelE);
 		break;
 	    case 2:
-		game.getPlayerS().setName(player1Name.getText());
-		game.getPlayerE().setName(player2Name.getText());
 		playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
 		playerLabelSWinLoss.setText("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
                 playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
@@ -1284,9 +1299,6 @@ public class BlackjackGui{
 		frame.remove(playerPanelW);
 		break;
 	    case 3:
-		game.getPlayerS().setName(player1Name.getText());
-		game.getPlayerE().setName(player2Name.getText());
-		game.getPlayerW().setName(player3Name.getText());
 		playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
 		playerLabelSWinLoss.setText("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
                 playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());

@@ -1220,7 +1220,7 @@ public class BlackjackGui{
     
     public class SaveListener implements ActionListener {
     	public void actionPerformed(ActionEvent event) {
-    		game.saveStats();
+    		game.saveStats(theGui);
     	}
     }
     

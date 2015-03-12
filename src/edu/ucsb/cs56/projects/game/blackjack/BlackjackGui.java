@@ -365,7 +365,7 @@ public class BlackjackGui{
     			game.players.get(1).setLosses(game.players.get(2).getLosses());
     		}
     		else if (numPlayers == 2) {
-    			if (shift = true) {
+    			if (shift == true) {
     				game.players.get(0).resetMoney(game.players.get(1).getMoney());
     				game.players.get(0).setWon(game.players.get(1).getMoneyWon());
     				game.players.get(0).setLost(game.players.get(1).getMoneyLost());

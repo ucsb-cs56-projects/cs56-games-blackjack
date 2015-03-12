@@ -326,7 +326,7 @@ public class BlackjackGui{
     public class ExitSListener implements ActionListener {
     	public void actionPerformed(ActionEvent e) {
     		if (numPlayers == 1) frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-    		game.players.remove(0);
+    		//game.players.remove(0);
     		if (numPlayers == 3) shift = true;
     		numPlayers--;
     	}
@@ -337,10 +337,10 @@ public class BlackjackGui{
     		if (numPlayers == 1) {
     			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     		}
-    		else if (numPlayers == 3) {
-    			game.players.remove(1);
-    		}
-    		else game.players.remove(shift ? 0 : 1);
+    		//else if (numPlayers == 3) {
+    		//	game.players.remove(1);
+    		//}
+    		//else game.players.remove(shift ? 0 : 1);
     		numPlayers--;
     	}
     }
@@ -350,10 +350,10 @@ public class BlackjackGui{
     		if (numPlayers == 1) {
     			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     		}
-    		else if (numPlayers == 2) {
-    			game.players.remove(1);
-    		}
-    		else game.players.remove(2);
+    		//else if (numPlayers == 2) {
+    		//	game.players.remove(1);
+    		//}
+    		//else game.players.remove(2);
     		numPlayers--;
     	}
     }

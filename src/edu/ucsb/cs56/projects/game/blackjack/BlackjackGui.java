@@ -1267,7 +1267,7 @@ public class BlackjackGui{
 		break;
 	    }
 	    
-	    game.loadStats(theGui);
+	    if (load) game.loadStats(theGui);
 	    updateStats();
 	    updateMoney();
 	    

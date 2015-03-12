@@ -106,7 +106,7 @@ public class Blackjack{
     	
     	switch(gui.numPlayers) {
     		case 1: try {
-    			File file1 = new File(gui.p1Name + ".txt");
+    			File file1 = new File(players.get(0).getName() + ".txt");
     			BufferedReader reader = new BufferedReader(new FileReader(file1));
 			String line;
 			line = reader.readLine();
@@ -117,14 +117,14 @@ public class Blackjack{
     			} catch(Exception ex) { }
     			break;
     		case 2: try {
-    			File file1 = new File(gui.p1Name + ".txt");
+    			File file1 = new File(players.get(0).getName() + ".txt");
     			BufferedReader reader1 = new BufferedReader(new FileReader(file1));
 			String line;
 			line = reader1.readLine();
 			String [] stats1 = line.split("\\s+");
 			p1wins = Integer.parseInt(stats1[0]); p1losses = Integer.parseInt(stats1[1]); 
 			p1won = Integer.parseInt(stats1[2]); p1lost = Integer.parseInt(stats1[3]); p1money = Integer.parseInt(stats1[4]);
-			File file2 = new File(gui.p2Name + ".txt");
+			File file2 = new File(players.get(1).getName() + ".txt");
 			BufferedReader reader2 = new BufferedReader(new FileReader(file2));
 			line = reader2.readLine();
 			String [] stats2 = line.split("\\s+");
@@ -135,20 +135,20 @@ public class Blackjack{
     			} catch(Exception ex) { }
     			break;
     		case 3: try {
-    			File file1 = new File(gui.p1Name + ".txt");
+    			File file1 = new File(players.get(0).getName() + ".txt");
     			BufferedReader reader1 = new BufferedReader(new FileReader(file1));
 			String line;
 			line = reader1.readLine();
 			String [] stats1 = line.split("\\s+");
 			p1wins = Integer.parseInt(stats1[0]); p1losses = Integer.parseInt(stats1[1]); 
 			p1won = Integer.parseInt(stats1[2]); p1lost = Integer.parseInt(stats1[3]); p1money = Integer.parseInt(stats1[4]);
-			File file2 = new File(gui.p2Name + ".txt");
+			File file2 = new File(players.get(1).getName() + ".txt");
 			BufferedReader reader2 = new BufferedReader(new FileReader(file2));
 			line = reader2.readLine();
 			String [] stats2 = line.split("\\s+");
 			p2wins = Integer.parseInt(stats2[0]); p2losses = Integer.parseInt(stats2[1]); 
 			p2won = Integer.parseInt(stats2[2]); p2lost = Integer.parseInt(stats2[3]); p2money = Integer.parseInt(stats2[4]);
-			File file3 = new File(gui.p3Name + ".txt");
+			File file3 = new File(players.get(2).getName() + ".txt");
 			BufferedReader reader3 = new BufferedReader(new FileReader(file3));
 			line = reader3.readLine();
 			String [] stats3 = line.split("\\s+");

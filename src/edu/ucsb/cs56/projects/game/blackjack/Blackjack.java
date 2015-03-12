@@ -40,11 +40,11 @@ public class Blackjack{
 	displayCard = null;
     }
     
-    public void saveStats() {
-    	switch(players.size()) {
+    public void saveStats(BlackjackGui gui) {
+    	switch(gui.numPlayers) {
     		case 1: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
     			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost();
-    			p1money = players.get(0).getMoney();
+    			p1money = players.get(0).getMoney(); p1name = gui.p1Name;
     			break;
     		case 2: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
     			p1won = players.get(0).getMoneyWon(); p1lost = players.get(0).getMoneyLost(); 

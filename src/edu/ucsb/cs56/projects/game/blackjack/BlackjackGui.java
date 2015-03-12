@@ -109,6 +109,13 @@ public class BlackjackGui{
     boolean canPlayer2DD;
     boolean canPlayer3DD;
     boolean canPlayer4DD;
+    
+    /** ABLE TO SPLIT HAND? **/
+    JButton split;
+    boolean canPlayer1Split;
+    boolean canPlayer2Split;
+    boolean canPlayer3Split;
+    boolean canPlayer4Split;
 
     /** TABLE INFORMATION **/
     JLabel totalPotLabel;
@@ -171,8 +178,46 @@ public class BlackjackGui{
                 dd.setVisible(false);
 	    break;
 	}
-    }	
-
+    }
+    
+    /** enabled or disabled split option */
+    private void setSplit() {	
+	switch(playerTurn) {
+	case(1):
+	    if (game.getPlayerS().
+	    if (canPlayer1Split) {
+		canPlayer1Split = false;
+		split.setVisible(true);
+	    }
+	    else
+		split.setVisible(false);
+	    break;
+	case(2):
+	    if (canPlayer2Split) {
+                canPlayer2Split = false;
+                split.setVisible(true);
+	    }
+	    else
+                split.setVisible(false);
+	    break;
+	case(3):
+	    if (canPlayer3Split) {
+		canPlayer3Split = false;
+		split.setVisible(true);
+	    }
+	    else
+                split.setVisible(false);
+	    break;
+	case(4):
+	    if (canPlayer4Split) {
+		canPlayer4Split = false;
+		split.setVisible(true);
+	    }
+	    else
+                split.setVisible(false);
+	    break;
+	}
+    }
 
     /** gets the winner and displays it in a label
      *  also makes the playAgain button visible
@@ -572,6 +617,11 @@ public class BlackjackGui{
 	dd.addActionListener(new ddListener());
         displayPanel.add(dd);
 	setDoubleDown();
+	
+	split = new JButton("Split Hand");
+	split.addActionListener(new splitListener());
+	displayPanel.add(split);
+	setSplit();
 	
 	// display total pot
 	totalPot = 0;

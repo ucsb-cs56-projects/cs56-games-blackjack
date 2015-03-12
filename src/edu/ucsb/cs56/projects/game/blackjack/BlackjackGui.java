@@ -333,11 +333,13 @@ public class BlackjackGui{
     			game.players.get(0).setLost(game.players.get(1).getMoneyLost());
     			game.players.get(0).setWins(game.players.get(1).getWins());
     			game.players.get(0).setLosses(game.players.get(1).getLosses());
+    			game.players.get(0).setName(game.players.get(1).getName());
     			game.players.get(1).resetMoney(game.players.get(2).getMoney());
     			game.players.get(1).setWon(game.players.get(2).getMoneyWon());
     			game.players.get(1).setLost(game.players.get(2).getMoneyLost());
     			game.players.get(1).setWins(game.players.get(2).getWins());
     			game.players.get(1).setLosses(game.players.get(2).getLosses());
+    			game.players.get(1).setName(game.players.get(2).getName());
     		}
     		else if (numPlayers == 2) {
     			game.players.get(0).resetMoney(game.players.get(1).getMoney());
@@ -345,6 +347,7 @@ public class BlackjackGui{
     			game.players.get(0).setLost(game.players.get(1).getMoneyLost());
     			game.players.get(0).setWins(game.players.get(1).getWins());
     			game.players.get(0).setLosses(game.players.get(1).getLosses());
+    			game.players.get(0).setName(game.players.get(1).getName());
     		}
     		numPlayers--;
     		JButton exit = (JButton)e.getSource();
@@ -363,6 +366,7 @@ public class BlackjackGui{
     			game.players.get(1).setLost(game.players.get(2).getMoneyLost());
     			game.players.get(1).setWins(game.players.get(2).getWins());
     			game.players.get(1).setLosses(game.players.get(2).getLosses());
+    			game.players.get(1).setName(game.players.get(2).getName());
     		}
     		else if (numPlayers == 2) {
     			if (shift == true) {
@@ -371,6 +375,7 @@ public class BlackjackGui{
     				game.players.get(0).setLost(game.players.get(1).getMoneyLost());
     				game.players.get(0).setWins(game.players.get(1).getWins());
     				game.players.get(0).setLosses(game.players.get(1).getLosses());
+    				game.players.get(0).setName(game.players.get(1).getName());
     			}
     		}
     		numPlayers--;

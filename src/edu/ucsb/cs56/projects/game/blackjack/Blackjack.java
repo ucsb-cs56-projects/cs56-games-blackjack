@@ -90,7 +90,7 @@ public class Blackjack{
     			File file3 = new File(gui.p3Name + ".txt");
     			FileWriter writer3 = new FileWriter(file3);
     			writer3.write(p3wins + " " + p3losses + " " + p3won + " " + p3lost + " " + p3money + "\n");
-    			writer.close();
+    			writer3.close();
     			} catch(Exception ex) { }
     			break;
     	}
@@ -148,7 +148,7 @@ public class Blackjack{
 			String [] stats2 = line.split("\\s+");
 			p2wins = Integer.parseInt(stats2[0]); p2losses = Integer.parseInt(stats2[1]); 
 			p2won = Integer.parseInt(stats2[2]); p2lost = Integer.parseInt(stats2[3]); p2money = Integer.parseInt(stats2[4]);
-			File file = new File(gui.p3Name + ".txt");
+			File file3 = new File(gui.p3Name + ".txt");
 			BufferedReader reader3 = new BufferedReader(new FileReader(file3));
 			line = reader3.readLine();
 			String [] stats3 = line.split("\\s+");

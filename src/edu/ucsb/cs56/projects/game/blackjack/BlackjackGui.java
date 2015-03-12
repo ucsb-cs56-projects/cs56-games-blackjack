@@ -326,8 +326,26 @@ public class BlackjackGui{
     public class ExitSListener implements ActionListener {
     	public void actionPerformed(ActionEvent e) {
     		if (numPlayers == 1) frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-    		//game.players.remove(0);
-    		if (numPlayers == 3) shift = true;
+    		if (numPlayers == 3) {
+    			shift = true;
+    			game.players.at(0).resetMoney(game.players.at(1).getMoney());
+    			game.players.at(0).setWon(game.players.at(1).getMoneyWon());
+    			game.players.at(0).setLost(game.players.at(1).getMoneyLost());
+    			game.players.at(0).setWins(game.players.at(1).getWins());
+    			game.players.at(0).setLosses(game.players.at(1).getLosses());
+    			game.players.at(1).resetMoney(game.players.at(2).getMoney());
+    			game.players.at(1).setWon(game.players.at(2).getMoneyWon());
+    			game.players.at(1).setLost(game.players.at(2).getMoneyLost());
+    			game.players.at(1).setWins(game.players.at(2).getWins());
+    			game.players.at(1).setLosses(game.players.at(2).getLosses());
+    		}
+    		else if (numPlayers == 2) {
+    			game.players.at(0).resetMoney(game.players.at(1).getMoney());
+    			game.players.at(0).setWon(game.players.at(1).getMoneyWon());
+    			game.players.at(0).setLost(game.players.at(1).getMoneyLost());
+    			game.players.at(0).setWins(game.players.at(1).getWins());
+    			game.players.at(0).setLosses(game.players.at(1).getLosses());
+    		}
     		numPlayers--;
     	}
     }
@@ -337,11 +355,25 @@ public class BlackjackGui{
     		if (numPlayers == 1) {
     			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     		}
-    		//else if (numPlayers == 3) {
-    		//	game.players.remove(1);
-    		//}
-    		//else game.players.remove(shift ? 0 : 1);
+    		else if (numPlayers == 3) {
+    			game.players.at(1).resetMoney(game.players.at(2).getMoney());
+    			game.players.at(1).setWon(game.players.at(2).getMoneyWon());
+    			game.players.at(1).setLost(game.players.at(2).getMoneyLost());
+    			game.players.at(1).setWins(game.players.at(2).getWins());
+    			game.players.at(1).setLosses(game.players.at(2).getLosses());
+    		}
+    		else if (numPlayers == 2) {
+    			if (shift = true) {
+    				game.players.at(0).resetMoney(game.players.at(1).getMoney());
+    				game.players.at(0).setWon(game.players.at(1).getMoneyWon());
+    				game.players.at(0).setLost(game.players.at(1).getMoneyLost());
+    				game.players.at(0).setWins(game.players.at(1).getWins());
+    				game.players.at(0).setLosses(game.players.at(1).getLosses());
+    			}
+    		}
     		numPlayers--;
+    		JButton exit = (JButton)e.getSource();
+    		exit.setActionListener(null);
     	}
     }
     
@@ -350,11 +382,9 @@ public class BlackjackGui{
     		if (numPlayers == 1) {
     			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     		}
-    		//else if (numPlayers == 2) {
-    		//	game.players.remove(1);
-    		//}
-    		//else game.players.remove(2);
     		numPlayers--;
+    		JButton exit = (JButton)e.getSource();
+    		exit.setActionListener(null);
     	}
     }
     

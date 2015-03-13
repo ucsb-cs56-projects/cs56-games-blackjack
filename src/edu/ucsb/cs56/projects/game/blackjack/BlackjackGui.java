@@ -186,19 +186,19 @@ public class BlackjackGui{
     private void setSplit() {	
 	switch(playerTurn) {
 	case(1):
-	    if (game.getPlayerS().getHand().getFirstCard().getCardNumber() == game.getPlayerS().getHand().getSecondCard().getCardNumber()) {
+	    if (game.getPlayerS().getHand().getFirstCard().getValue() == game.getPlayerS().getHand().getSecondCard().getValue()) {
 	    	split.setVisible(true);
 	    }
 	    else split.setVisible(false);
 	    break;
 	case(2):
-	    if (game.getPlayerE().getHand().getFirstCard().getCardNumber() == game.getPlayerE().getHand().getSecondCard().getCardNumber()) {
+	    if (game.getPlayerE().getHand().getFirstCard().getValue() == game.getPlayerE().getHand().getSecondCard().getValue()) {
 	    	split.setVisible(true);
 	    }
 	    else split.setVisible(false);
 	    break;
 	case(3):
-	    if (game.getPlayerW().getHand().getFirstCard().getCardNumber() == game.getPlayerW().getHand().getSecondCard().getCardNumber()) {
+	    if (game.getPlayerW().getHand().getFirstCard().getValue() == game.getPlayerW().getHand().getSecondCard().getValue() {
 	    	split.setVisible(true);
 	    }
 	    else split.setVisible(false);

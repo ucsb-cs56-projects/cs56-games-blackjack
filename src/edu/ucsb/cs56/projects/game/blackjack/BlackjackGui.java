@@ -206,7 +206,10 @@ public class BlackjackGui{
     }
     
     public void splitHand(int player) {
-    	
+	cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
+	cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST); 
+	cardLabelS.setText("Hand Value: " + game.getPlayerS().getHand().displayHandValue() + 
+			   "Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
     }
     
     public class SplitListener implements ActionListener {
@@ -551,8 +554,7 @@ public class BlackjackGui{
 	canPlayer2DD =true;
 	canPlayer3DD =true;
         canPlayer4DD =true;
-        
-        
+       
 
 	// remove the bet amount from all of the players' total money
 	updateMoney();

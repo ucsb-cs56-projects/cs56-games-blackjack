@@ -38,6 +38,10 @@ public class Player{
     public void setNumberOfCards(int num) {
 	numberOfCards += num;
     }
+    
+    public void setNumberOfCards2(int num) {
+    	numberOfCards2 += num;
+    }
 
     /** Reset number of cards the player has
      */

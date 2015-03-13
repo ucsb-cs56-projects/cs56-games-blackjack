@@ -94,10 +94,6 @@ public class Hand{
 	return myCards.get(1);
     }
     
-    public void setFirstCard(Card c) {
-    	myCards.set(0, c);
-    }
-    
     public void setSecondCard(Card c) {
     	if (myCards.get(1).isAnAce() && !myCards.get(0).isAnAce()) hasAce = false;
     	handValue -= myCards.get(1).getValue();

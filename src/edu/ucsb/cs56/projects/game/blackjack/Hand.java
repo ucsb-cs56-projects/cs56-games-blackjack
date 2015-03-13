@@ -94,6 +94,14 @@ public class Hand{
 	return myCards.get(1);
     }
     
+    public void setFirstCard(Card c) {
+    	myCards.get(0) = c;
+    }
+    
+    public void setSecondCard(Card c) {
+    	myCards.get(1) = c;
+    }
+    
     /** calculates whether or not the hand has blackjack
      */
     public boolean hasBlackjack(){

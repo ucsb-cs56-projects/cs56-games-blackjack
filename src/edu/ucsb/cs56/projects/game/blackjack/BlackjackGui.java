@@ -184,38 +184,28 @@ public class BlackjackGui{
     private void setSplit() {	
 	switch(playerTurn) {
 	case(1):
-	    if (game.getPlayerS().
-	    if (canPlayer1Split) {
-		canPlayer1Split = false;
-		split.setVisible(true);
+	    if (game.getPlayerS().getHand().getFirstCard().getValue() == game.getPlayerS().getHand().getSecondCard().getValue()) {
+	    	canPlayer1Split = true;
+	    	split.setVisible(true);
 	    }
-	    else
-		split.setVisible(false);
+	    else split.setVisible(false);
 	    break;
 	case(2):
-	    if (canPlayer2Split) {
-                canPlayer2Split = false;
-                split.setVisible(true);
+	    if (game.getPlayerE().getHand().getFirstCard().getValue() == game.getPlayerE().getHand().getSecondCard().getValue()) {
+	    	canPlayer2Split = true;
+	    	split.setVisible(true);
 	    }
-	    else
-                split.setVisible(false);
+	    else split.setVisible(false);
 	    break;
 	case(3):
-	    if (canPlayer3Split) {
-		canPlayer3Split = false;
-		split.setVisible(true);
+	    if (game.getPlayerW().getHand().getFirstCard().getValue() == game.getPlayerW().getHand().getSecondCard().getValue()) {
+	    	canPlayer3Split = true;
+	    	split.setVisible(true);
 	    }
-	    else
-                split.setVisible(false);
+	    else split.setVisible(false);
 	    break;
-	case(4):
-	    if (canPlayer4Split) {
-		canPlayer4Split = false;
-		split.setVisible(true);
-	    }
-	    else
-                split.setVisible(false);
-	    break;
+	case(4): split.setVisible(false); 
+		break;
 	}
     }
 
@@ -560,6 +550,8 @@ public class BlackjackGui{
 	// remove the bet amount from all of the players' total money
 	updateMoney();
 	
+	setSplit();
+	
 	// create dealer's label
 	dealerPanel = new JPanel(); dealerLabel = new JLabel();
 
@@ -621,7 +613,7 @@ public class BlackjackGui{
 	split = new JButton("Split Hand");
 	split.addActionListener(new splitListener());
 	displayPanel.add(split);
-	setSplit();
+	
 	
 	// display total pot
 	totalPot = 0;
@@ -738,6 +730,7 @@ public class BlackjackGui{
 	playerTurn++;
 	displayLabel.setText(game.getPlayer(playerTurn).getName() + "'s turn");
 	setDoubleDown();
+	setSplit();
     }
     
     /** initializes the rules window
@@ -947,6 +940,7 @@ public class BlackjackGui{
 		if(playerTurn < numPlayers){
 		    playerTurn++;
 		    displayLabel.setText(game.getPlayer(playerTurn).getName() + "'s turn");
+		    setSplit();
 		}
 		else{
 		    displayLabel.setText("Dealer's Turn");
@@ -1320,6 +1314,7 @@ public class BlackjackGui{
 	    if (load) game.loadStats(theGui);
 	    updateStats();
 	    updateMoney();
+	    setSplit();
 	    
 	    // switch statement gives players names and makes their cards visible
 	    switch(numPlayers) {

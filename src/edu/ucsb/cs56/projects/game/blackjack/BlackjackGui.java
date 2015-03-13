@@ -556,8 +556,6 @@ public class BlackjackGui{
 	// remove the bet amount from all of the players' total money
 	updateMoney();
 	
-	setSplit();
-	
 	// create dealer's label
 	dealerPanel = new JPanel(); dealerLabel = new JLabel();
 
@@ -700,6 +698,7 @@ public class BlackjackGui{
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setSize(800,600);
 	
+	setSplit();
 	
 	// This section is for a new round of Blackjack
 	if(keepRunning == true){

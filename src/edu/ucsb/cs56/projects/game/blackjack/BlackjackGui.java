@@ -1320,7 +1320,6 @@ public class BlackjackGui{
 	    if (load) game.loadStats(theGui);
 	    updateStats();
 	    updateMoney();
-	    setSplit();
 	    
 	    // switch statement gives players names and makes their cards visible
 	    switch(numPlayers) {

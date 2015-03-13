@@ -20,6 +20,7 @@ public class Player{
      */
     public Player() {
 	playerHand = new Hand();
+	playerHand2 = new Hand();
 	numberOfCards = 2;
 	money = 5000;
 	name = "";

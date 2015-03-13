@@ -208,6 +208,12 @@ public class BlackjackGui{
 		break;
 	}
     }
+    
+    public class SplitListener implements ActionListener {
+    	public void ActionPerformed(ActionEvent e) {
+    		
+    	}
+    }
 
     /** gets the winner and displays it in a label
      *  also makes the playAgain button visible
@@ -611,7 +617,7 @@ public class BlackjackGui{
 	setDoubleDown();
 	
 	split = new JButton("Split Hand");
-	split.addActionListener(new splitListener());
+	split.addActionListener(new SplitListener());
 	displayPanel.add(split);
 	
 	

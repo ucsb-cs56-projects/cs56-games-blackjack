@@ -11,7 +11,7 @@ public class Player{
     private Hand playerHand, playerHand2;
     private String name;
     private int money, moneyWon, moneyLost, wins, losses, DD;
-    private int numberOfCards = 2;
+    private int numberOfCards = 2; 
     private int numberOfCards2 = 2;
     private boolean notBust = true;
     private boolean notBust2 = true;

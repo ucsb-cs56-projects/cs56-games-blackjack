@@ -210,7 +210,7 @@ public class BlackjackGui{
     }
     
     public class SplitListener implements ActionListener {
-    	public void ActionPerformed(ActionEvent e) {
+    	public void actionPerformed(ActionEvent e) {
     		
     	}
     }

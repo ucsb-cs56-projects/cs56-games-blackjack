@@ -112,10 +112,9 @@ public class BlackjackGui{
     
     /** ABLE TO SPLIT HAND? **/
     JButton split;
-    boolean canPlayer1Split;
-    boolean canPlayer2Split;
-    boolean canPlayer3Split;
-    boolean canPlayer4Split;
+    boolean didPlayer1Split = false;
+    boolean didPlayer2Split = false;
+    boolean didPlayer3Split = false;
 
     /** TABLE INFORMATION **/
     JLabel totalPotLabel;
@@ -185,21 +184,18 @@ public class BlackjackGui{
 	switch(playerTurn) {
 	case(1):
 	    if (game.getPlayerS().getHand().getFirstCard().getValue() == game.getPlayerS().getHand().getSecondCard().getValue()) {
-	    	canPlayer1Split = true;
 	    	split.setVisible(true);
 	    }
 	    else split.setVisible(false);
 	    break;
 	case(2):
 	    if (game.getPlayerE().getHand().getFirstCard().getValue() == game.getPlayerE().getHand().getSecondCard().getValue()) {
-	    	canPlayer2Split = true;
 	    	split.setVisible(true);
 	    }
 	    else split.setVisible(false);
 	    break;
 	case(3):
 	    if (game.getPlayerW().getHand().getFirstCard().getValue() == game.getPlayerW().getHand().getSecondCard().getValue()) {
-	    	canPlayer3Split = true;
 	    	split.setVisible(true);
 	    }
 	    else split.setVisible(false);
@@ -209,9 +205,14 @@ public class BlackjackGui{
 	}
     }
     
+    public void splitHand(int player) {
+    	
+    }
+    
     public class SplitListener implements ActionListener {
     	public void actionPerformed(ActionEvent e) {
-    		
+    		game.splitHand(playerTurn);
+    		splitHand(playerTurn);
     	}
     }
 

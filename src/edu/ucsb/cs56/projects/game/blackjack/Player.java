@@ -8,16 +8,19 @@ package edu.ucsb.cs56.projects.game.blackjack;
 
 public class Player{
     
-    private Hand playerHand;
+    private Hand playerHand, playerHand2;
     private String name;
-    private int money;
-    private int numberOfCards = 2;
+    private int money, moneyWon, moneyLost, wins, losses, DD;
+    private int numberOfCards = 2; 
+    private int numberOfCards2 = 2;
     private boolean notBust = true;
+    private boolean notBust2 = true;
     
     /** No-arg constructor creates new Player with a new Hand
      */
     public Player() {
 	playerHand = new Hand();
+	playerHand2 = new Hand();
 	numberOfCards = 2;
 	money = 5000;
 	name = "";
@@ -36,6 +39,10 @@ public class Player{
     public void setNumberOfCards(int num) {
 	numberOfCards += num;
     }
+    
+    public void setNumberOfCards2(int num) {
+    	numberOfCards2 += num;
+    }
 
     /** Reset number of cards the player has
      */
@@ -48,6 +55,11 @@ public class Player{
      */
     public void setMoney(int amount) {
 	money += amount;
+    }
+
+    public void resetMoney(int amount) {
+    	if (amount==0) money = 5000;
+    	else money = amount;
     }
 
     /** Resets player hand so a new round of blackjack can begin
@@ -68,6 +80,12 @@ public class Player{
 	if(playerHand.getHandValue() > 21)
 	    notBust = false;
     }
+    
+    public void drawCard2(Card c){
+	playerHand2.addCard(c);
+	if(playerHand2.getHandValue() > 21)
+	    notBust2 = false;
+    }
 
     /** returns number of cards in player's hand
      */
@@ -81,6 +99,10 @@ public class Player{
 	return this.playerHand;
     }
     
+    public Hand getHand2() {
+    	return this.playerHand2;
+    }
+    
     /** Getter to get each person's name
      */
     public String getName(){
@@ -91,6 +113,78 @@ public class Player{
      */
     public int getMoney(){
         return this.money;
+    }
+    
+    /** Getter to get player's money won
+     */
+    public int getMoneyWon(){
+        return this.moneyWon;
+    }
+    
+    /** Getter to get player's money lost
+     */
+    public int getMoneyLost(){
+        return this.moneyLost;
+    }
+    
+    /** Getter to get player's wins
+     */
+    public int getWins(){
+        return this.wins;
+    }
+    
+    /** Getter to get player's losses
+     */
+    public int getLosses(){
+        return this.losses;
+    }
+    
+    public int getDD() {
+    	return this.DD;
+    }
+    
+    public void setDD(int dd) {
+    	this.DD = dd;
+    }
+    
+    public void setWins(int wins) {
+    	this.wins = wins;
+    }
+    
+    public void setLosses(int losses) {
+    	this.losses = losses;
+    }
+    
+    public void setWon(int won) {
+    	this.moneyWon = won;
+    }
+    
+    public void setLost(int lost) {
+    	this.moneyLost = lost;
+    }
+    
+    /** Adds money won to player's instance variable
+     */
+    public void addMoneyWon(int amount) {
+    	this.moneyWon += amount;
+    }
+    
+    /** Adds money lost to player's instance variable
+     */
+    public void addMoneyLost(int amount) {
+    	this.moneyLost += amount;
+    }
+    
+    /** Adds a win to player's instance variable
+     */
+    public void addWin() {
+    	this.wins++;
+    }
+    
+    /** Adds a loss to player's instance variable
+     */
+    public void addLoss() {
+    	this.losses++;
     }
     
     /** formats a string that displays the value(s) of the player's hand

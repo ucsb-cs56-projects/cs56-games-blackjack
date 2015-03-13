@@ -235,6 +235,7 @@ public class BlackjackGui{
     	public void actionPerformed(ActionEvent e) {
     		game.splitHand(playerTurn);
     		splitHand(playerTurn);
+    		split.removeActionListener(this);
     	}
     }
 

@@ -95,11 +95,11 @@ public class Hand{
     }
     
     public void setFirstCard(Card c) {
-    	myCards.get(0) = c;
+    	myCards[0] = c;
     }
     
     public void setSecondCard(Card c) {
-    	myCards.get(1) = c;
+    	myCards[1] = c;
     }
     
     /** calculates whether or not the hand has blackjack

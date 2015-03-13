@@ -21,7 +21,7 @@ public class Blackjack{
     public int p1money, p2money, p3money;
     
     /** constructor
-     */
+     */ 
     public Blackjack(){
 	d = new Deck();
 	dealer = new Player();

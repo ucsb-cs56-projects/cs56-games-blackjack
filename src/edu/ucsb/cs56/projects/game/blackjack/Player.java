@@ -12,7 +12,9 @@ public class Player{
     private String name;
     private int money, moneyWon, moneyLost, wins, losses, DD;
     private int numberOfCards = 2;
+    private int numberOfCards2 = 2;
     private boolean notBust = true;
+    private boolean notBust2 = true;
     
     /** No-arg constructor creates new Player with a new Hand
      */
@@ -72,6 +74,12 @@ public class Player{
 	playerHand.addCard(c);
 	if(playerHand.getHandValue() > 21)
 	    notBust = false;
+    }
+    
+    public void drawCard2(Card c){
+	playerHand2.addCard(c);
+	if(playerHand2.getHandValue() > 21)
+	    notBust2 = false;
     }
 
     /** returns number of cards in player's hand

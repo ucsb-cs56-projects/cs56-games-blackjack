@@ -677,8 +677,9 @@ public class BlackjackGui{
 	cardsPanelE.setAlignmentX(Component.CENTER_ALIGNMENT);
 	cardsPanelE.setLayout(new BoxLayout(cardsPanelE, BoxLayout.X_AXIS));
 	cardsPanelE.setBorder(BorderFactory.createEmptyBorder(10,100,10,10)); // keep cards aligned 
-	cardsPanelE.add( new  JLabel(getMyImage(game.getPlayerE().getHand().getFirstCard())), BorderLayout.CENTER); // add first card
-	cardsPanelE.add( new  JLabel(getMyImage(game.getPlayerE().getHand().getSecondCard())), BorderLayout.CENTER); // add second card
+	cardsPanelE.add( new  JLabel(getMyImage(game.getPlayerE().getHand().getFirstCard())), BorderLayout.EAST); // add first card
+	card2LabelE = new JLabel(getMyImage(game.getPlayerE().getHand().getSecondCard()));
+	cardsPanelE.add(card2LabelE, BorderLayout.WEST); // add second card
 
 	cardLabelE = new JLabel("Hand Value: " + game.getPlayerE().getHand().displayHandValue());	
 	
@@ -697,8 +698,9 @@ public class BlackjackGui{
 	cardsPanelW.setAlignmentX(Component.CENTER_ALIGNMENT);
 	cardsPanelW.setLayout(new BoxLayout(cardsPanelW, BoxLayout.X_AXIS));
 	cardsPanelW.setBorder(BorderFactory.createEmptyBorder(10,100,10,10)); // keep cards aligned 
-	cardsPanelW.add( new  JLabel(getMyImage(game.getPlayerW().getHand().getFirstCard())), BorderLayout.CENTER); // add first card
-	cardsPanelW.add( new  JLabel(getMyImage(game.getPlayerW().getHand().getSecondCard())), BorderLayout.CENTER); // add second card
+	cardsPanelW.add( new  JLabel(getMyImage(game.getPlayerW().getHand().getFirstCard())), BorderLayout.WEST); // add first card
+	card2LabelW = new JLabel(getMyImage(game.getPlayerW().getHand().getSecondCard()));
+	cardsPanelW.add(card2LabelW, BorderLayout.WEST); // add second card
 
 	cardLabelW = new JLabel("Hand Value: " + game.getPlayerW().getHand().displayHandValue());	
 	

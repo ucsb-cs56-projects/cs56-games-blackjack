@@ -8,7 +8,7 @@ package edu.ucsb.cs56.projects.game.blackjack;
 
 public class Player{
     
-    private Hand playerHand;
+    private Hand playerHand, playerHand2;
     private String name;
     private int money, moneyWon, moneyLost, wins, losses, DD;
     private int numberOfCards = 2;

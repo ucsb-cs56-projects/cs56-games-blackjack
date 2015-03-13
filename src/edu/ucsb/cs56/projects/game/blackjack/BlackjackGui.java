@@ -13,7 +13,7 @@ import java.io.*;
    @author Eric Palyan
    @version 2014.02.27
 */
-public class BlackjackGui{
+public class BlackjackGui{ 
     /** WELCOME WINDOW,
      * # OF PLAYERS SELECTION WINDOW,
      * and BLACKJACK TABLE WINDOW **/

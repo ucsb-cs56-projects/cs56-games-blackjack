@@ -86,6 +86,10 @@ public class Player{
 	return this.playerHand;
     }
     
+    public Hand getHand2() {
+    	return this.playerHand2;
+    }
+    
     /** Getter to get each person's name
      */
     public String getName(){

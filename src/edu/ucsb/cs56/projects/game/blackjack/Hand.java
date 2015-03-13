@@ -5,7 +5,7 @@ import java.util.ArrayList;
  *   representing the value of the hand
  @author Brian Wan
  @author Fanny Kuang
- @author Eric Palyan
+ @author Eric Palyan 
  @version 2014.02.27
 */
 

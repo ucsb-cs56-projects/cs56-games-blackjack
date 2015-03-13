@@ -198,7 +198,7 @@ public class BlackjackGui{
 	    else split.setVisible(false);
 	    break;
 	case(3):
-	    if (game.getPlayerW().getHand().getFirstCard().getValue() == game.getPlayerW().getHand().getSecondCard().getValue() {
+	    if (game.getPlayerW().getHand().getFirstCard().getValue() == game.getPlayerW().getHand().getSecondCard().getValue()) {
 	    	split.setVisible(true);
 	    }
 	    else split.setVisible(false);

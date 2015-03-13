@@ -198,7 +198,9 @@ public class Blackjack{
     }
     
     public void splitHand(int player) {
-    	
+    	getPlayer(player).getHand2().setFirstCard(getPlayer(player).getHand().getSecondCard());
+    	getPlayer(player).getHand2().setSecondCard(d.draw());
+    	getPlayer(player).getHand().setSecondCard(d.draw());
     }
     
     /** returns false if the dealer busted
@@ -285,6 +287,14 @@ public class Blackjack{
 	displayCard = d.draw();
 	player.drawCard(displayCard);
 	player.setNumberOfCards(1); // add number of cards by 1
+   
+	return displayCard;
+    }
+    
+    public Card playerHit2(Player player) {
+    	displayCard = d.draw();
+	player.drawCard2(displayCard);
+	player.setNumberOfCards2(1); // add number of cards by 1
    
 	return displayCard;
     }

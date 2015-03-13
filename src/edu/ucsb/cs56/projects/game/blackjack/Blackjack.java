@@ -198,8 +198,8 @@ public class Blackjack{
     }
     
     public void splitHand(int player) {
-    	getPlayer(player).getHand2().setFirstCard(getPlayer(player).getHand().getSecondCard());
-    	getPlayer(player).getHand2().setSecondCard(d.draw());
+    	getPlayer(player).getHand2().addCard(getPlayer(player).getHand().getSecondCard());
+    	getPlayer(player).getHand2().addCard(d.draw());
     	getPlayer(player).getHand().setSecondCard(d.draw());
     }
     

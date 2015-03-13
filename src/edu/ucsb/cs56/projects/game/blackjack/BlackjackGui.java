@@ -78,6 +78,9 @@ public class BlackjackGui{
     JLabel cardLabelS;
     JLabel cardLabelE;
     JLabel cardLabelW;
+    JLabel card2LabelS;
+    JLabel card2LabelE;
+    JLabel card2LabelW;
 
     /** PLAYER MONEY LABELS **/
     JLabel playerLabelSM;
@@ -206,10 +209,26 @@ public class BlackjackGui{
     }
     
     public void splitHand(int player) {
-	cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
-	cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST); 
-	cardLabelS.setText("Hand Value: " + game.getPlayerS().getHand().displayHandValue() + 
-			   "Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
+    	switch(player) {
+    		case 1: cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
+		cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
+		card2LabelS.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
+		cardLabelS.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() + 
+				   "  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
+		break;
+		case 2: cardsPanelE.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
+		cardsPanelE.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
+		card2LabelE.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
+		cardLabelE.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() + 
+				   "  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
+		break;
+		case 3: cardsPanelW.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
+		cardsPanelW.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
+		card2LabelW.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
+		cardLabelW.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() + 
+				   "  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
+		break;
+    	}
     }
     
     public class SplitListener implements ActionListener {
@@ -638,8 +657,9 @@ public class BlackjackGui{
 	cardsPanelS.setAlignmentX(Component.CENTER_ALIGNMENT);
 	cardsPanelS.setLayout(new BoxLayout(cardsPanelS, BoxLayout.X_AXIS));
 	cardsPanelS.setBorder(BorderFactory.createEmptyBorder(10,100,10,10)); // keep cards aligned 
-	cardsPanelS.add( new  JLabel(getMyImage(game.getPlayerS().getHand().getFirstCard())), BorderLayout.CENTER); // add first card
-	cardsPanelS.add( new  JLabel(getMyImage(game.getPlayerS().getHand().getSecondCard())), BorderLayout.CENTER); // add second card
+	cardsPanelS.add( new  JLabel(getMyImage(game.getPlayerS().getHand().getFirstCard())), BorderLayout.WEST); // add first card
+	card2LabelS = new JLabel(getMyImage(game.getPlayerS().getHand().getSecondCard()));
+	cardsPanelS.add(card2LabelS, BorderLayout.WEST); // add second card
 
 	cardLabelS = new JLabel("Hand Value: " + game.getPlayerS().getHand().displayHandValue());	
 	

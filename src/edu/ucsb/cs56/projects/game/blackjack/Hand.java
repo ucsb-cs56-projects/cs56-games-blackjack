@@ -5,7 +5,7 @@ import java.util.ArrayList;
  *   representing the value of the hand
  @author Brian Wan
  @author Fanny Kuang
- @author Eric Palyan
+ @author Eric Palyan 
  @version 2014.02.27
 */
 
@@ -92,6 +92,13 @@ public class Hand{
      */
     public Card getSecondCard(){
 	return myCards.get(1);
+    }
+    
+    public void setSecondCard(Card c) {
+    	if (myCards.get(1).isAnAce() && !myCards.get(0).isAnAce()) hasAce = false;
+    	handValue -= myCards.get(1).getValue();
+    	myCards.remove(1);
+    	addCard(c);
     }
     
     /** calculates whether or not the hand has blackjack

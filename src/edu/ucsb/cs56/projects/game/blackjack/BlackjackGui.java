@@ -1,4 +1,9 @@
 package edu.ucsb.cs56.projects.game.blackjack;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -65,9 +70,13 @@ public class BlackjackGui{
     JButton betAmount2;
     JButton betAmount3;
     JButton betAmount4;
+    JButton betAmount5;
     JLabel betAmount;
     int amountBet;
     JCheckBox loadSave;
+
+    /** COLOR **/
+    Color feltgreen = new Color(39,119,20);
 
     /** PLAYER NAME LABELS **/
     JLabel playerLabelS;
@@ -562,7 +571,57 @@ public class BlackjackGui{
             break;
         }
     }
-    
+
+   public class Sound {
+    private Clip clip;
+    public Sound(String fileName) {
+        // specify the sound to play
+        // (assuming the sound can be played by the audio system)
+        // from a wave File
+        try {
+            File file = new File(fileName);
+            if (file.exists()) {
+                AudioInputStream sound = AudioSystem.getAudioInputStream(file);
+             // load the sound into memory (a Clip)
+                clip = AudioSystem.getClip();
+                clip.open(sound);
+            }
+            else {
+                throw new RuntimeException("Sound: file not found: " + fileName);
+            }
+        }
+        catch (MalformedURLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Sound: Malformed URL: " + e);
+        }
+        catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Sound: Unsupported Audio File: " + e);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Sound: Input/Output Error: " + e);
+        }
+        catch (LineUnavailableException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Sound: Line Unavailable Exception Error: " + e);
+        }
+        // play, stop, loop the sound clip
+    }
+    public void play(){
+        clip.setFramePosition(0);  // Must always rewind!
+        clip.start();
+    }
+    public void loop(){
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+    public void stop(){
+            clip.stop();
+        }
+    }
+    // song object for background music
+    Sound song = new Sound("music/Casino_Ambiance_Music.wav");
+
     /** initializes many of the widgets and sets up listeners to some of those widgets
      */
     public void go(){
@@ -573,14 +632,21 @@ public class BlackjackGui{
 	canPlayer1DD =true;
 	canPlayer2DD =true;
 	canPlayer3DD =true;
-        canPlayer4DD =true;
-       
+    canPlayer4DD =true;
+
+    // background music
+    song.play();
+    song.loop();
 
 	// remove the bet amount from all of the players' total money
 	updateMoney();
 	
 	// create dealer's label
 	dealerPanel = new JPanel(); dealerLabel = new JLabel();
+	dealerPanel.setOpaque(true);
+	dealerPanel.setBackground(feltgreen);
+
+
 
 	// create 1st player's label
 	playerPanelS = new JPanel(); playerLabelS = new JLabel(p1Name);
@@ -602,9 +668,17 @@ public class BlackjackGui{
 
 	// create card displays for all players
 	displayPanel = new JPanel(); displayLabel = new JLabel();
+	displayPanel.setOpaque(true);
+	displayPanel.setBackground(feltgreen);
 	cardPanelE = new JPanel(); cardPanelW = new JPanel();
+	cardPanelE.setOpaque(true);
+	cardPanelE.setBackground(feltgreen);
 	textPanel = new JPanel();
+	textPanel.setOpaque(true);
+	textPanel.setBackground(feltgreen);
 	centerPanel = new JPanel();
+	centerPanel.setOpaque(true);
+	centerPanel.setBackground(feltgreen);
 	displayLabel.setFont(new Font(displayLabel.getName(), Font.PLAIN, 20));
 	
  
@@ -654,7 +728,9 @@ public class BlackjackGui{
 	/*********************************/
 
 	// add 1st player's labels and starter cards to the panel
-	cardsPanelS = new JPanel(); 
+	cardsPanelS = new JPanel();
+	cardsPanelS.setOpaque(true);
+	cardsPanelS.setBackground(feltgreen);
 	cardsPanelS.setAlignmentX(Component.CENTER_ALIGNMENT);
 	cardsPanelS.setLayout(new BoxLayout(cardsPanelS, BoxLayout.X_AXIS));
 	cardsPanelS.setBorder(BorderFactory.createEmptyBorder(10,100,10,10)); // keep cards aligned 
@@ -665,6 +741,8 @@ public class BlackjackGui{
 	cardLabelS = new JLabel("Hand Value: " + game.getPlayerS().getHand().displayHandValue());	
 	
 	playerPanelS.setLayout(new BoxLayout(playerPanelS, BoxLayout.Y_AXIS));
+	playerPanelS.setOpaque(true);
+	playerPanelS.setBackground(feltgreen);
 	playerPanelS.setAlignmentX(Component.CENTER_ALIGNMENT); 
 	playerPanelS.add(playerLabelS); // name of player
 	playerPanelS.add(cardsPanelS); // cards in hand
@@ -675,6 +753,8 @@ public class BlackjackGui{
 
 	// add 2nd player's labels and starter cards to the panel
 	cardsPanelE = new JPanel(); 
+	cardsPanelE.setOpaque(true);
+	cardsPanelE.setBackground(feltgreen);
 	cardsPanelE.setAlignmentX(Component.CENTER_ALIGNMENT);
 	cardsPanelE.setLayout(new BoxLayout(cardsPanelE, BoxLayout.X_AXIS));
 	cardsPanelE.setBorder(BorderFactory.createEmptyBorder(10,100,10,10)); // keep cards aligned 
@@ -685,6 +765,8 @@ public class BlackjackGui{
 	cardLabelE = new JLabel("Hand Value: " + game.getPlayerE().getHand().displayHandValue());	
 	
 	playerPanelE.setLayout(new BoxLayout(playerPanelE, BoxLayout.Y_AXIS));
+	playerPanelE.setOpaque(true);
+	playerPanelE.setBackground(feltgreen);
 	playerPanelE.setAlignmentX(Component.CENTER_ALIGNMENT); 
 	playerPanelE.add(playerLabelE); // name of player
 	playerPanelE.add(cardsPanelE); // cards in hand
@@ -696,6 +778,8 @@ public class BlackjackGui{
  	
 	// add 3rd  player's labels and starter cards to the panel
 	cardsPanelW = new JPanel(); 
+	cardsPanelW.setOpaque(true);
+	cardsPanelW.setBackground(feltgreen);
 	cardsPanelW.setAlignmentX(Component.CENTER_ALIGNMENT);
 	cardsPanelW.setLayout(new BoxLayout(cardsPanelW, BoxLayout.X_AXIS));
 	cardsPanelW.setBorder(BorderFactory.createEmptyBorder(10,100,10,10)); // keep cards aligned 
@@ -706,6 +790,8 @@ public class BlackjackGui{
 	cardLabelW = new JLabel("Hand Value: " + game.getPlayerW().getHand().displayHandValue());	
 	
 	playerPanelW.setLayout(new BoxLayout(playerPanelW, BoxLayout.Y_AXIS));
+	playerPanelW.setOpaque(true);
+	playerPanelW.setBackground(feltgreen);
 	playerPanelW.setAlignmentX(Component.CENTER_ALIGNMENT); 
 	playerPanelW.add(playerLabelW); // name of player
 	playerPanelW.add(cardsPanelW); // cards in hand
@@ -729,6 +815,7 @@ public class BlackjackGui{
 	// This section is for a new round of Blackjack
 	if(keepRunning == true){
 	    if(numPlayers == 0) {
+	    	song.stop();
 	    	frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 	    }
 	    if(numPlayers == 1){
@@ -751,6 +838,7 @@ public class BlackjackGui{
 	    }
 	    displayLabel.setText("New Round, " + p1Name + "'s turn");
 	    frame.setLocationRelativeTo(null);
+	    frame.getContentPane().setBackground(feltgreen);
 	    frame.setVisible(true);
 	}
     }
@@ -1082,10 +1170,12 @@ public class BlackjackGui{
 	    betAmount2 = new JButton("$50");
 	    betAmount3 = new JButton("$100");
 	    betAmount4 = new JButton("$250");
+	    betAmount5 = new JButton("$500");
 	    betAmount1.addActionListener(new BetAmountListener1());
 	    betAmount2.addActionListener(new BetAmountListener2());
 	    betAmount3.addActionListener(new BetAmountListener3());
 	    betAmount4.addActionListener(new BetAmountListener4());
+	    betAmount5.addActionListener(new BetAmountListener5());
 
 	    // create button to confirm selected bet amount
             JButton betButton = new JButton("Confirm Bet");
@@ -1098,6 +1188,7 @@ public class BlackjackGui{
 	    betPanel.add(betAmount2);
 	    betPanel.add(betAmount3);
 	    betPanel.add(betAmount4);
+	    betPanel.add(betAmount5);
 	    betPanel.add(betButton);
 
 	    // create the outer panel to center the widgets
@@ -1124,8 +1215,9 @@ public class BlackjackGui{
             @param event ActionEvent, set bet
 	*/
         public void actionPerformed(ActionEvent event){
-	    betAmount.setText("$25");
-	    amountBet = 25;
+	    amountBet += 25;
+	    betAmount.setText("$" + amountBet);
+
 	}
     }
 
@@ -1136,8 +1228,9 @@ public class BlackjackGui{
             @param event ActionEvent, set bet
 	*/
         public void actionPerformed(ActionEvent event){
-            betAmount.setText("$50");
-            amountBet = 50;
+            amountBet += 50;
+            betAmount.setText("$" + amountBet);
+
         }
     }
 
@@ -1148,8 +1241,9 @@ public class BlackjackGui{
             @param event ActionEvent, set bet
 	*/
         public void actionPerformed(ActionEvent event){
-            betAmount.setText("$100");
-            amountBet = 100;
+            amountBet += 100;
+            betAmount.setText("$" + amountBet);
+
         }
     }
 
@@ -1160,8 +1254,20 @@ public class BlackjackGui{
             @param event ActionEvent, set bet
 	*/
         public void actionPerformed(ActionEvent event){
-            betAmount.setText("$250");
-            amountBet = 250;
+            amountBet += 250;
+            betAmount.setText("$" + amountBet);
+
+        }
+    }
+    
+    public class BetAmountListener5 implements ActionListener{
+        /** changes bet text
+            @param event ActionEvent, set bet
+	*/
+        public void actionPerformed(ActionEvent event){
+            amountBet += 500;
+            betAmount.setText("$" + amountBet);
+
         }
     }
 
@@ -1410,6 +1516,7 @@ public class BlackjackGui{
 	*/
 	public void actionPerformed(ActionEvent event){
 	    game.newRound();
+	    song.stop();
 	    frame.dispose();
 	    welcomeFrame.dispose();
 	    nameFrame.dispose();

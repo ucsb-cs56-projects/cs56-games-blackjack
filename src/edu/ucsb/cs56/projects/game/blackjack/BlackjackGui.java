@@ -75,6 +75,17 @@ public class BlackjackGui{
     int amountBet;
     JCheckBox loadSave;
 
+    /** MENUBAR **/
+    JMenuBar menuBar;
+    JMenu menuFile;
+    JMenu menuEdit;
+    JMenu menuView;
+    JMenu menuHelp;
+    
+    /** BUTTONS **/
+    JButton hit;
+    JButton stay;
+    
     /** COLOR **/
     Color feltgreen = new Color(39,119,20);
 
@@ -371,13 +382,15 @@ public class BlackjackGui{
 	else if (p3IsWinner)
 	    updateMoney(amountBet, 3);
      
-	/** create 'play again' button to display at the end of the round **/
+	/** create 'play again' button to display at the end of the round and removes hit and stay button **/
 	JButton save = new JButton("Save all stats");
 	save.setMaximumSize(new Dimension(170, 75));
 	save.addActionListener(new SaveListener());
 	playAgain = new JButton("Play again");
 	playAgain.setMaximumSize(new Dimension(130, 75));
 	playAgain.addActionListener(new PlayAgainListener());
+	hit.setVisible(false);
+	stay.setVisible(false);
 	shift = false;
 	if (game.getPlayerS() != null) {
 		JButton exitS = new JButton("Leave Game");
@@ -474,6 +487,13 @@ public class BlackjackGui{
     		exit.removeActionListener(this);
     	}
     }
+
+    public class ExitListener implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+	    System.exit(0);
+	}
+    }
+     
     
     /** beings the delay timer and shows the dealer's card that was face down
      */
@@ -633,7 +653,40 @@ public class BlackjackGui{
 	canPlayer2DD =true;
 	canPlayer3DD =true;
     canPlayer4DD =true;
+    frame.pack();
 
+    //create menubar
+    menuBar = new JMenuBar();
+    menuFile = new JMenu("File");
+    menuEdit = new JMenu("Edit");
+    menuView = new JMenu("View");
+    menuHelp = new JMenu("Help");
+    JMenuItem menuSave= new JMenuItem("Save");
+    menuSave.addActionListener(new SaveListener());
+    JMenuItem menuExit = new JMenuItem("Exit");
+    menuExit.addActionListener(new ExitListener());
+    JMenuItem menuRestart = new JMenuItem("Restart");
+    menuRestart.addActionListener(new PlayAgainListener());
+    JMenuItem menuRules= new JMenuItem("Rules");
+    menuRules.addActionListener(new RulesListener());
+    JMenuItem menuColors= new JMenuItem("Colors");
+    JMenuItem menuNames = new JMenuItem("Player Names");
+    menuNames.addActionListener(new ChangeNamesListener());
+    menuFile.add(menuSave);
+    menuFile.add(menuExit);
+    menuFile.add(menuRestart);
+    menuBar.add(menuFile);
+    menuEdit.add(menuNames);
+    menuBar.add(menuEdit);
+    menuView.add(menuColors);
+    menuBar.add(menuView);
+    menuHelp.add(menuRules);
+    menuBar.add(menuHelp);
+    frame.setJMenuBar(menuBar);
+    //menuBar.setVisible(true);
+    
+		
+    
     // background music
     song.play();
     song.loop();
@@ -691,10 +744,10 @@ public class BlackjackGui{
 	dealerLabel.setText(game.displayDealerCardValue());
 
 	// create the 'hit' and 'stay' buttons	
-	JButton hit = new JButton("hit");
+	hit = new JButton("hit");
 	hit.setMaximumSize(new Dimension(75,75));
 	hit.addActionListener(new HitListener());
-	JButton stay = new JButton("stay");
+	stay = new JButton("stay");
 	stay.setMaximumSize(new Dimension(75,75));
 	stay.addActionListener(new StayListener());
 	displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
@@ -883,7 +936,7 @@ public class BlackjackGui{
         rulesFrame.setVisible(true);
     }
 
-
+    
 
     /** initializes the welcome widgets
      */
@@ -1139,6 +1192,17 @@ public class BlackjackGui{
         }
     }
 
+    
+    /** Opens rules without Play button **/
+    public class RulesListener implements ActionListener{
+	public void actionPerformed(ActionEvent e)
+	{
+	    rulesFrame.setVisible(true);
+	    rulesButton.setVisible(false);
+	}
+
+    }
+    
 
     /** listender class for confirm name button 
      */
@@ -1284,9 +1348,70 @@ public class BlackjackGui{
 	}
     }
 
-    
+    /** listener class for player names change in menu bar **/
+    public class ChangeNamesListener implements ActionListener{
+	public void actionPerformed(ActionEvent e){
+	    createNewNameFrame(numPlayers);
+	}
+       
+    }
+
+    /** creates name frame that sets player names
+	@param num number of players
+    **/
+    public void createNewNameFrame(int num){
+	nameFrame = new JFrame();
+	namePanel = new JPanel();
+	nameFrame.setSize(300,200);
+	if(num == 1)
+	    {
+		JLabel name1 = new JLabel("Player 1's name: ");
+		player1Name = new JTextField(20);
+		namePanel.add(name1);
+		namePanel.add(player1Name);
+	    }
+	else if(num == 2)
+	    {
+		JLabel name1 = new JLabel("Player 1's name: ");
+		player1Name = new JTextField(20);
+		JLabel name2 = new JLabel("Player 2's name: ");
+		player2Name = new JTextField(20);
+		namePanel.add(name1);
+		namePanel.add(player1Name);
+		namePanel.add(name2);
+		namePanel.add(player2Name);
+	    }
+	else if(num ==3)
+	    {
+		JLabel name1 = new JLabel("Player 1's name: ");
+		player1Name = new JTextField(20);
+		JLabel name2 = new JLabel("Player 2's name: ");
+		player2Name = new JTextField(20);
+		JLabel name3 = new JLabel("Player 3's name: ");
+		player3Name = new JTextField(20);
+		namePanel.add(name1);
+		namePanel.add(player1Name);
+		namePanel.add(name2);
+		namePanel.add(player2Name);
+		namePanel.add(name3);
+		namePanel.add(player3Name);		
+	    }
+
+	loadSave = new JCheckBox("Load Saved Stats");
+	loadSave.addItemListener(new LoadListener());
+	namePanel.add(loadSave);
+	beginGame = new JButton("Confirm");
+	beginGame.addActionListener(new ConfirmName());
+	namePanel.add(beginGame);
+	nameFrame.getContentPane().add(namePanel);
+	nameFrame.setLocationRelativeTo(null); // center the window 
+	nameFrame.setVisible(true);
+    }
+
+
+
     /** listener class for 1 player button
-     */
+     */	
     public class WelcomeListener1 implements ActionListener{
 	/** initializes the window for set bet amount and prepares for a 1 player game
 	    @param event ActionEvent, welcome 1 player
@@ -1294,24 +1419,7 @@ public class BlackjackGui{
 	public void actionPerformed(ActionEvent event){
 	    numPlayers = 1;
 	    welcomeFrame.setVisible(false);
-	    nameFrame = new JFrame();
-	    namePanel = new JPanel();
-	    nameFrame.setSize(300,200);
-	    JLabel name1 = new JLabel("Player 1's name: ");
-	    player1Name = new JTextField(20);
-	    namePanel.add(name1);
-	    namePanel.add(player1Name);
-	    loadSave = new JCheckBox("Load Saved Stats");
-	    loadSave.addItemListener(new LoadListener());
-	    namePanel.add(loadSave);
-	    beginGame = new JButton("Confirm");
-	    beginGame.addActionListener(new ConfirmName());
-	    namePanel.add(beginGame);
-	    nameFrame.getContentPane().add(namePanel);
-	    nameFrame.setLocationRelativeTo(null); // center the window
-	    
-	  
-	    nameFrame.setVisible(true);
+	    createNewNameFrame(numPlayers);
 	}
     }
     
@@ -1324,29 +1432,7 @@ public class BlackjackGui{
 	public void actionPerformed(ActionEvent event){
 	    numPlayers = 2;
 	    welcomeFrame.setVisible(false);
-	    nameFrame = new JFrame();
-	    namePanel = new JPanel();
-	    nameFrame.setSize(360,150);
-	    JLabel name1 = new JLabel("Player 1's name: ");
-	    player1Name = new JTextField(20);
-	    JLabel name2 = new JLabel("Player 2's name: ");
-	    player2Name = new JTextField(20);
-	    namePanel.add(name1);
-	    namePanel.add(player1Name);
-	    namePanel.add(name2);
-	    namePanel.add(player2Name);
-	    loadSave = new JCheckBox("Load Saved Stats");
-	    loadSave.addItemListener(new LoadListener());
-	    namePanel.add(loadSave);
-	    beginGame = new JButton("Confirm");
-	    beginGame.addActionListener(new ConfirmName());
-	    namePanel.add(beginGame);
-	    nameFrame.getContentPane().add(namePanel);
-	    nameFrame.setLocationRelativeTo(null); // center the window
-		
-	   
-	    nameFrame.setVisible(true);
-	    
+	    createNewNameFrame(numPlayers);
 	}
     }
     
@@ -1359,36 +1445,11 @@ public class BlackjackGui{
 	public void actionPerformed(ActionEvent event){
 	    numPlayers = 3;
 	    welcomeFrame.setVisible(false);
-	    nameFrame = new JFrame();
-	    namePanel = new JPanel();
-	    nameFrame.setSize(360,200);
-	    JLabel name1 = new JLabel("Player 1's name: ");
-	    player1Name = new JTextField(20);
-	    JLabel name2 = new JLabel("Player 2's name: ");
-	    player2Name = new JTextField(20);
-	    JLabel name3 = new JLabel("Player 3's name: ");
-	    player3Name = new JTextField(20);
-	    namePanel.add(name1);
-	    namePanel.add(player1Name);
-	    namePanel.add(name2);
-	    namePanel.add(player2Name);
-	    namePanel.add(name3);
-	    namePanel.add(player3Name);
-	    loadSave = new JCheckBox("Load Saved Stats");
-	    loadSave.addItemListener(new LoadListener());
-	    namePanel.add(loadSave);
-	    beginGame = new JButton("Confirm");
-	    beginGame.addActionListener(new ConfirmName());
-	    namePanel.add(beginGame);
-	    nameFrame.getContentPane().add(namePanel);
-	    nameFrame.setLocationRelativeTo(null); // center the window
-	    
-	    
-	    nameFrame.setVisible(true);
+            createNewNameFrame(numPlayers);
 	}
     }
-    
-    
+       
+
     public class LoadListener implements ItemListener {
     	public void itemStateChanged(ItemEvent e) {
     		if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -1506,9 +1567,11 @@ public class BlackjackGui{
 	    frame.setVisible(true);
 	}
     }
-    
+
+
+   
     /** listener class for playAgain button
-     */
+    */
     public class PlayAgainListener implements ActionListener{
 	
 	/** starts a new game

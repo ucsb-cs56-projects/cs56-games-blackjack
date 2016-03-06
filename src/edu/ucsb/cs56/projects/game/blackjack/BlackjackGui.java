@@ -65,6 +65,7 @@ public class BlackjackGui{
     JFrame betFrame;
     JPanel betPanel;
     JLabel betLabel;
+    JTextField betText;
     JButton betButton;
     JButton betAmount1;
     JButton betAmount2;
@@ -653,7 +654,6 @@ public class BlackjackGui{
 	canPlayer2DD =true;
 	canPlayer3DD =true;
     canPlayer4DD =true;
-    frame.pack();
 
     //create menubar
     menuBar = new JMenuBar();
@@ -683,7 +683,7 @@ public class BlackjackGui{
     menuHelp.add(menuRules);
     menuBar.add(menuHelp);
     frame.setJMenuBar(menuBar);
-    //menuBar.setVisible(true);
+
     
 		
     
@@ -862,7 +862,8 @@ public class BlackjackGui{
 	frame.getContentPane().add(BorderLayout.WEST, playerPanelW);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setSize(800,600);
-	
+	 frame.pack();
+
 	setSplit();
 	
 	// This section is for a new round of Blackjack
@@ -1218,7 +1219,8 @@ public class BlackjackGui{
 	    betFrame = new JFrame();
 	    betPanel = new JPanel(new GridLayout(7,0,5,0));
 	    betLabel = new JLabel();
-      
+	    
+	    
 	    // set the main text and center it
 	    betLabel.setText("<html>How much would you<br>like to bet?</html>");
 	    betLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -1228,6 +1230,9 @@ public class BlackjackGui{
 	    betAmount = new JLabel("$25");
 	    betAmount.setHorizontalAlignment(JLabel.CENTER); // center the label
  	    amountBet = 25;
+	    
+	    betText = new JTextField("Or enter your desired bet amount here");
+	    betText.addActionListener(new BetTextListener());
 
 	    // create bet amount buttons and assign ActionListeners
 	    betAmount1 = new JButton("$25");
@@ -1253,8 +1258,10 @@ public class BlackjackGui{
 	    betPanel.add(betAmount3);
 	    betPanel.add(betAmount4);
 	    betPanel.add(betAmount5);
+	    betPanel.add(betText);
 	    betPanel.add(betButton);
 
+	    betText.selectAll();
 	    // create the outer panel to center the widgets
 	    JPanel outerPanel = new JPanel();
 	    outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
@@ -1271,8 +1278,24 @@ public class BlackjackGui{
 	    
 	}
     }
-    
-    /** listender class for setting the bet to $25
+
+
+    /**listener class for bet text field allowing for custom user bets
+     */
+
+    public class BetTextListener implements ActionListener
+    {
+	/** changes bet text
+            @param event ActionEvent, set bet
+	*/
+	public void actionPerformed(ActionEvent event){
+	    betText.selectAll();
+	    amountBet = Integer.parseInt(betText.getText());
+	    betAmount.setText("$" + amountBet);
+}
+    }
+
+    /** listener class for setting the bet to $25
      */
     public class BetAmountListener1 implements ActionListener{
         /** changes bet text

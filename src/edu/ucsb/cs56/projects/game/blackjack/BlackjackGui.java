@@ -395,17 +395,35 @@ public class BlackjackGui{
 	shift = false;
 	if (game.getPlayerS() != null) {
 		JButton exitS = new JButton("Leave Game");
+		JButton addMoneyS = new JButton("Add Money?");
+		JButton changeBetS = new JButton("Change Bet Amount?");
 		exitS.addActionListener(new ExitSListener());
+		changeBetS.addActionListener(new ChangeBetListener());
+		addMoneyS.addActionListener(new AddMoneySListener());
+		playerPanelS.add(addMoneyS);
+		playerPanelS.add(changeBetS);
 		playerPanelS.add(exitS);
 	}
 	if (game.getPlayerE() != null) {
 		JButton exitE = new JButton("Leave Game");
+		JButton addMoneyE = new JButton("Add Money?");
+		JButton changeBetE = new JButton("Change Bet Amount?");
 		exitE.addActionListener(new ExitEListener());
+		changeBetE.addActionListener(new ChangeBetListener());
+		addMoneyE.addActionListener(new AddMoneyEListener());
+		playerPanelE.add(addMoneyE);
+		playerPanelE.add(changeBetE);
 		playerPanelE.add(exitE);
 	}
 	if (game.getPlayerW() != null) {
 		JButton exitW = new JButton("Leave Game");
+		JButton addMoneyW = new JButton("Add Money?");
+		JButton changeBetW = new JButton("Change Bet Amount?");
 		exitW.addActionListener(new ExitWListener());
+		changeBetW.addActionListener(new ChangeBetListener());
+		addMoneyW.addActionListener(new AddMoneyWListener());
+		playerPanelW.add(addMoneyW);
+		playerPanelW.add(changeBetW);
 		playerPanelW.add(exitW);
 	}
 	displayPanel.add(playAgain);
@@ -494,7 +512,30 @@ public class BlackjackGui{
 	    System.exit(0);
 	}
     }
-     
+    
+    public class AddMoneySListener implements ActionListener{
+	public void actionPerformed(ActionEvent e){
+	    
+	}
+    }
+    
+    public class AddMoneyEListener implements ActionListener{
+	public void actionPerformed(ActionEvent e){
+	    
+	}
+    }
+    
+    public class AddMoneyWListener implements ActionListener{
+	public void actionPerformed(ActionEvent e){
+	    
+	}
+    }
+    
+    public class ChangeBetListener implements ActionListener{
+	public void actionPerformed(ActionEvent e){
+	    createBetWindow();
+	}
+    }
     
     /** beings the delay timer and shows the dealer's card that was face down
      */
@@ -861,7 +902,7 @@ public class BlackjackGui{
 	frame.getContentPane().add(BorderLayout.EAST, playerPanelE);
 	frame.getContentPane().add(BorderLayout.WEST, playerPanelW);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	frame.setSize(800,600);
+	//frame.setSize(800,600);
 	 frame.pack();
 
 	setSplit();
@@ -893,6 +934,7 @@ public class BlackjackGui{
 	    displayLabel.setText("New Round, " + p1Name + "'s turn");
 	    frame.setLocationRelativeTo(null);
 	    frame.getContentPane().setBackground(feltgreen);
+	    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    frame.setVisible(true);
 	}
     }
@@ -1204,6 +1246,72 @@ public class BlackjackGui{
 
     }
     
+    /** creates window for betting
+     */
+    public void createBetWindow() {
+	
+	// create the frame and panels, as well as set the layout
+	betFrame = new JFrame();
+	betPanel = new JPanel(new GridLayout(7,0,5,0));
+	betLabel = new JLabel();
+
+
+	// set the main text and center it
+	betLabel.setText("<html>How much would you<br>like to bet?</html>");
+	betLabel.setHorizontalAlignment(JLabel.CENTER);
+
+
+	// by default have the $25 bet selected
+	betAmount = new JLabel("$25");
+	betAmount.setHorizontalAlignment(JLabel.CENTER); // center the label
+	amountBet = 25;
+
+	betText = new JTextField("Or enter your desired bet amount here");
+	betText.addActionListener(new BetTextListener());
+
+	// create bet amount buttons and assign ActionListeners
+	betAmount1 = new JButton("$25");
+	betAmount2 = new JButton("$50");
+	betAmount3 = new JButton("$100");
+	betAmount4 = new JButton("$250");
+	betAmount5 = new JButton("$500");
+	betAmount1.addActionListener(new BetAmountListener1());
+	betAmount2.addActionListener(new BetAmountListener2());
+	betAmount3.addActionListener(new BetAmountListener3());
+	betAmount4.addActionListener(new BetAmountListener4());
+	betAmount5.addActionListener(new BetAmountListener5());
+
+	// create button to confirm selected bet amount
+	JButton betButton = new JButton("Confirm Bet");
+	betButton.addActionListener(new BeginGameListener());
+	// add widgets to panel
+	betPanel.add(betLabel);
+	betPanel.add(betAmount);
+	betPanel.add(betAmount1);
+	betPanel.add(betAmount2);
+	betPanel.add(betAmount3);
+	betPanel.add(betAmount4);
+	betPanel.add(betAmount5);
+	betPanel.add(betText);
+	betPanel.add(betButton);
+
+	betText.selectAll();
+	// create the outer panel to center the widgets
+	JPanel outerPanel = new JPanel();
+	outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
+	outerPanel.add(Box.createHorizontalGlue());
+	outerPanel.add(betPanel);
+	outerPanel.add(Box.createHorizontalGlue());
+
+	// add the panel to the frame and set frame attributes
+	betFrame.add(outerPanel);
+	betFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	betFrame.pack();
+	betFrame.setLocationRelativeTo(null); // center window
+	betFrame.setVisible(true);
+
+
+    }
 
     /** listender class for confirm name button 
      */
@@ -1214,68 +1322,8 @@ public class BlackjackGui{
 	public void actionPerformed(ActionEvent event){	
 	    // disable the previous window ('enter player name(s)')
 	    nameFrame.setVisible(false);
-	    
-	    // create the frame and panels, as well as set the layout
-	    betFrame = new JFrame();
-	    betPanel = new JPanel(new GridLayout(7,0,5,0));
-	    betLabel = new JLabel();
-	    
-	    
-	    // set the main text and center it
-	    betLabel.setText("<html>How much would you<br>like to bet?</html>");
-	    betLabel.setHorizontalAlignment(JLabel.CENTER);
-       
 
-	    // by default have the $25 bet selected
-	    betAmount = new JLabel("$25");
-	    betAmount.setHorizontalAlignment(JLabel.CENTER); // center the label
- 	    amountBet = 25;
-	    
-	    betText = new JTextField("Or enter your desired bet amount here");
-	    betText.addActionListener(new BetTextListener());
-
-	    // create bet amount buttons and assign ActionListeners
-	    betAmount1 = new JButton("$25");
-	    betAmount2 = new JButton("$50");
-	    betAmount3 = new JButton("$100");
-	    betAmount4 = new JButton("$250");
-	    betAmount5 = new JButton("$500");
-	    betAmount1.addActionListener(new BetAmountListener1());
-	    betAmount2.addActionListener(new BetAmountListener2());
-	    betAmount3.addActionListener(new BetAmountListener3());
-	    betAmount4.addActionListener(new BetAmountListener4());
-	    betAmount5.addActionListener(new BetAmountListener5());
-
-	    // create button to confirm selected bet amount
-            JButton betButton = new JButton("Confirm Bet");
-            betButton.addActionListener(new BeginGameListener());
-
-	    // add widgets to panel
-	    betPanel.add(betLabel);
-	    betPanel.add(betAmount);
-	    betPanel.add(betAmount1);
-	    betPanel.add(betAmount2);
-	    betPanel.add(betAmount3);
-	    betPanel.add(betAmount4);
-	    betPanel.add(betAmount5);
-	    betPanel.add(betText);
-	    betPanel.add(betButton);
-
-	    betText.selectAll();
-	    // create the outer panel to center the widgets
-	    JPanel outerPanel = new JPanel();
-	    outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
-	    outerPanel.add(Box.createHorizontalGlue());
-	    outerPanel.add(betPanel);
-	    outerPanel.add(Box.createHorizontalGlue());
-
-	    // add the panel to the frame and set frame attributes
-	    betFrame.add(outerPanel);
-	    betFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    betFrame.pack();
-	    betFrame.setLocationRelativeTo(null); // center window
-	    betFrame.setVisible(true);
-	    
+	    createBetWindow();
 	}
     }
 
@@ -1580,13 +1628,15 @@ public class BlackjackGui{
 		playerLabelS.setText(game.getPlayerS().displayHandValue());
 		playerLabelE.setText(game.getPlayerE().displayHandValue());
 		playerLabelW.setText(game.getPlayerW().displayHandValue());
-		frame.setSize(1000,600);
+		//frame.setSize(1000,600);
 	    }
 	    displayLabel.setText(p1Name + "'s turn");
 
 	    updateTotalPot(amountBet*(numPlayers+1));
 
 	    frame.setLocationRelativeTo(null); // center window
+	    frame.setUndecorated(true);
+	    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    frame.setVisible(true);
 	}
     }

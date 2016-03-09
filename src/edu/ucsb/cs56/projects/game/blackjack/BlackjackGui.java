@@ -89,6 +89,9 @@ public class BlackjackGui{
     
     /** COLOR **/
     Color feltgreen = new Color(39,119,20);
+    Color maroon = new Color(204,0,0);
+    Color navy = new Color(0,102,204);
+    Color gray = new Color(224,224,224);
 
     /** PLAYER NAME LABELS **/
     JLabel playerLabelS;
@@ -395,34 +398,34 @@ public class BlackjackGui{
 	shift = false;
 	if (game.getPlayerS() != null) {
 		JButton exitS = new JButton("Leave Game");
-		JButton addMoneyS = new JButton("Add Money?");
+		//JButton addMoneyS = new JButton("Add Money?");
 		JButton changeBetS = new JButton("Change Bet Amount?");
 		exitS.addActionListener(new ExitSListener());
 		changeBetS.addActionListener(new ChangeBetListener());
-		addMoneyS.addActionListener(new AddMoneySListener());
-		playerPanelS.add(addMoneyS);
+		//addMoneyS.addActionListener(new AddMoneySListener());
+		//playerPanelS.add(addMoneyS);
 		playerPanelS.add(changeBetS);
 		playerPanelS.add(exitS);
 	}
 	if (game.getPlayerE() != null) {
 		JButton exitE = new JButton("Leave Game");
-		JButton addMoneyE = new JButton("Add Money?");
+		//JButton addMoneyE = new JButton("Add Money?");
 		JButton changeBetE = new JButton("Change Bet Amount?");
 		exitE.addActionListener(new ExitEListener());
 		changeBetE.addActionListener(new ChangeBetListener());
-		addMoneyE.addActionListener(new AddMoneyEListener());
-		playerPanelE.add(addMoneyE);
+		//addMoneyE.addActionListener(new AddMoneyEListener());
+		//playerPanelE.add(addMoneyE);
 		playerPanelE.add(changeBetE);
 		playerPanelE.add(exitE);
 	}
 	if (game.getPlayerW() != null) {
 		JButton exitW = new JButton("Leave Game");
-		JButton addMoneyW = new JButton("Add Money?");
+		//JButton addMoneyW = new JButton("Add Money?");
 		JButton changeBetW = new JButton("Change Bet Amount?");
 		exitW.addActionListener(new ExitWListener());
 		changeBetW.addActionListener(new ChangeBetListener());
-		addMoneyW.addActionListener(new AddMoneyWListener());
-		playerPanelW.add(addMoneyW);
+		//addMoneyW.addActionListener(new AddMoneyWListener());
+		//playerPanelW.add(addMoneyW);
 		playerPanelW.add(changeBetW);
 		playerPanelW.add(exitW);
 	}
@@ -430,33 +433,32 @@ public class BlackjackGui{
 	displayPanel.add(save);
     }
     
+
+/** Fetches stats when a player leaves
+* @param int player for which player
+*/
+    public void playerLeaves(int player){
+    	game.players.get(player).resetMoney(game.players.get(player + 1).getMoney());
+    	game.players.get(player).setWon(game.players.get(player + 1).getMoneyWon());
+    	game.players.get(player).setLost(game.players.get(player + 1).getMoneyLost());
+    	game.players.get(player).setWins(game.players.get(player + 1).getWins());
+    	game.players.get(player).setLosses(game.players.get(player + 1).getLosses());
+    	game.players.get(player).setName(game.players.get(player + 1).getName());
+    }
+
+
     public class ExitSListener implements ActionListener {
     	public void actionPerformed(ActionEvent e) {
     		if (numPlayers == 1) frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     		if (numPlayers == 3) {
     			shift = true;
-    			game.players.get(0).resetMoney(game.players.get(1).getMoney());
-    			game.players.get(0).setWon(game.players.get(1).getMoneyWon());
-    			game.players.get(0).setLost(game.players.get(1).getMoneyLost());
-    			game.players.get(0).setWins(game.players.get(1).getWins());
-    			game.players.get(0).setLosses(game.players.get(1).getLosses());
-    			game.players.get(0).setName(game.players.get(1).getName());
+    			playerLeaves(0);
     			p1Name = p2Name;
-    			game.players.get(1).resetMoney(game.players.get(2).getMoney());
-    			game.players.get(1).setWon(game.players.get(2).getMoneyWon());
-    			game.players.get(1).setLost(game.players.get(2).getMoneyLost());
-    			game.players.get(1).setWins(game.players.get(2).getWins());
-    			game.players.get(1).setLosses(game.players.get(2).getLosses());
-    			game.players.get(1).setName(game.players.get(2).getName());
+    			playerLeaves(1);
     			p2Name = p3Name;
     		}
     		else if (numPlayers == 2) {
-    			game.players.get(0).resetMoney(game.players.get(1).getMoney());
-    			game.players.get(0).setWon(game.players.get(1).getMoneyWon());
-    			game.players.get(0).setLost(game.players.get(1).getMoneyLost());
-    			game.players.get(0).setWins(game.players.get(1).getWins());
-    			game.players.get(0).setLosses(game.players.get(1).getLosses());
-    			game.players.get(0).setName(game.players.get(1).getName());
+    			playerLeaves(0);
     			p1Name = p2Name;
     		}
     		numPlayers--;
@@ -471,22 +473,12 @@ public class BlackjackGui{
     			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     		}
     		else if (numPlayers == 3) {
-    			game.players.get(1).resetMoney(game.players.get(2).getMoney());
-    			game.players.get(1).setWon(game.players.get(2).getMoneyWon());
-    			game.players.get(1).setLost(game.players.get(2).getMoneyLost());
-    			game.players.get(1).setWins(game.players.get(2).getWins());
-    			game.players.get(1).setLosses(game.players.get(2).getLosses());
-    			game.players.get(1).setName(game.players.get(2).getName());
+    			playerLeaves(1);
     			p2Name = p3Name;
     		}
     		else if (numPlayers == 2) {
     			if (shift == true) {
-    				game.players.get(0).resetMoney(game.players.get(1).getMoney());
-    				game.players.get(0).setWon(game.players.get(1).getMoneyWon());
-    				game.players.get(0).setLost(game.players.get(1).getMoneyLost());
-    				game.players.get(0).setWins(game.players.get(1).getWins());
-    				game.players.get(0).setLosses(game.players.get(1).getLosses());
-    				game.players.get(0).setName(game.players.get(1).getName());
+    			playerLeaves(0);
     				p1Name = p2Name;
     			}
     		}
@@ -513,23 +505,23 @@ public class BlackjackGui{
 	}
     }
     
-    public class AddMoneySListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
+ //    public class AddMoneySListener implements ActionListener{
+	// public void actionPerformed(ActionEvent e){
 	    
-	}
-    }
+	// }
+ //    }
     
-    public class AddMoneyEListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
+ //    public class AddMoneyEListener implements ActionListener{
+	// public void actionPerformed(ActionEvent e){
 	    
-	}
-    }
+	// }
+ //    }
     
-    public class AddMoneyWListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
+ //    public class AddMoneyWListener implements ActionListener{
+	// public void actionPerformed(ActionEvent e){
 	    
-	}
-    }
+	// }
+ //    }
     
     public class ChangeBetListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
@@ -684,6 +676,55 @@ public class BlackjackGui{
     // song object for background music
     Sound song = new Sound("music/Casino_Ambiance_Music.wav");
 
+
+
+
+//hello 
+    public class NavyActionListener implements ActionListener{
+    	public void actionPerformed(ActionEvent e){
+    		dealerPanel.setBackground(navy);
+    		displayPanel.setBackground(navy);
+    		cardsPanelE.setBackground(navy);
+    		cardsPanelS.setBackground(navy);
+    		cardsPanelW.setBackground(navy);
+    		centerPanel.setBackground(navy);
+    		textPanel.setBackground(navy);
+    		playerPanelS.setBackground(navy);
+    		playerPanelE.setBackground(navy);
+    		playerPanelW.setBackground(navy);
+    	}
+    }
+
+    public class MaroonActionListener implements ActionListener{
+    	public void actionPerformed(ActionEvent e){
+    		dealerPanel.setBackground(maroon);
+    		displayPanel.setBackground(maroon);
+    		cardsPanelE.setBackground(maroon);
+    		cardsPanelS.setBackground(maroon);
+    		cardsPanelW.setBackground(maroon);
+    		centerPanel.setBackground(maroon);
+    		textPanel.setBackground(maroon);
+    		playerPanelS.setBackground(maroon);
+    		playerPanelE.setBackground(maroon);
+    		playerPanelW.setBackground(maroon);
+    	}
+    }
+
+    public class GrayActionListener implements ActionListener{
+    	public void actionPerformed(ActionEvent e){
+    		dealerPanel.setBackground(gray);
+    		displayPanel.setBackground(gray);
+    		cardsPanelE.setBackground(gray);
+    		cardsPanelS.setBackground(gray);
+    		cardsPanelW.setBackground(gray);
+    		centerPanel.setBackground(gray);
+    		textPanel.setBackground(gray);
+    		playerPanelS.setBackground(gray);
+    		playerPanelE.setBackground(gray);
+    		playerPanelW.setBackground(gray);
+    	}
+    }
+
     /** initializes many of the widgets and sets up listeners to some of those widgets
      */
     public void go(){
@@ -710,7 +751,16 @@ public class BlackjackGui{
     menuRestart.addActionListener(new PlayAgainListener());
     JMenuItem menuRules= new JMenuItem("Rules");
     menuRules.addActionListener(new RulesListener());
-    JMenuItem menuColors= new JMenuItem("Colors");
+    JMenu menuColors= new JMenu("Colors");
+    JMenuItem colorNavy = new JMenuItem("Navy");
+    JMenuItem colorMaroon = new JMenuItem("Maroon");
+    JMenuItem colorGray = new JMenuItem("Gray");
+    menuColors.add(colorNavy);
+    menuColors.add(colorGray);
+    menuColors.add(colorMaroon);
+    colorNavy.addActionListener(new NavyActionListener());
+    colorGray.addActionListener(new GrayActionListener());
+    colorMaroon.addActionListener(new MaroonActionListener());
     JMenuItem menuNames = new JMenuItem("Player Names");
     menuNames.addActionListener(new ChangeNamesListener());
     menuFile.add(menuSave);
@@ -902,7 +952,9 @@ public class BlackjackGui{
 	frame.getContentPane().add(BorderLayout.EAST, playerPanelE);
 	frame.getContentPane().add(BorderLayout.WEST, playerPanelW);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	//frame.setSize(800,600);
+	//frame.setSize(10000,10000);
+	frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 	 frame.pack();
 
 	setSplit();
@@ -917,24 +969,28 @@ public class BlackjackGui{
 		cardLabelS.setText(game.getPlayerS().displayHandValue());
 		frame.remove(playerPanelE);
 		frame.remove(playerPanelW);
-		frame.setSize(600,600);
+		//frame.setSize(1000,1000);
+	    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    }
 	    else if(numPlayers == 2){
 		cardLabelS.setText(game.getPlayerS().displayHandValue());
 		cardLabelE.setText(game.getPlayerE().displayHandValue());
 		frame.remove(playerPanelW);
-		frame.setSize(800,600);
+		//frame.setSize(800,600);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 	    }
 	    else if(numPlayers == 3){
 		cardLabelS.setText(game.getPlayerS().displayHandValue());
 		cardLabelE.setText(game.getPlayerE().displayHandValue());
 		cardLabelW.setText(game.getPlayerW().displayHandValue());
-		frame.setSize(1000,600);
+		//frame.setSize(1000,600);
+	    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);	    
 	    }
 	    displayLabel.setText("New Round, " + p1Name + "'s turn");
 	    frame.setLocationRelativeTo(null);
 	    frame.getContentPane().setBackground(feltgreen);
-	    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    frame.setVisible(true);
 	}
     }
@@ -1629,14 +1685,15 @@ public class BlackjackGui{
 		playerLabelE.setText(game.getPlayerE().displayHandValue());
 		playerLabelW.setText(game.getPlayerW().displayHandValue());
 		//frame.setSize(1000,600);
+	    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);	    
 	    }
 	    displayLabel.setText(p1Name + "'s turn");
 
 	    updateTotalPot(amountBet*(numPlayers+1));
 
 	    frame.setLocationRelativeTo(null); // center window
-	    frame.setUndecorated(true);
-	    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    //frame.setUndecorated(true);
+	    //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    frame.setVisible(true);
 	}
     }

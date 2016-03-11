@@ -51,3 +51,9 @@ These are past projects which may have similar/missing features.
 * [cs56_S11_360](https://foo.cs.ucsb.edu/cs56/issues/0000360/)
 * [Simple classes for PlayingCard, Deck, BlackJackHand](https://foo.cs.ucsb.edu/cs56/issues/0000215/)
 
+
+
+W16 final remarks
+-------------------
+Most of the code you will be working on will be located in the BlackJackGui.java file. Things will be much easier if you can separate the code inside that file and put them into their own separate files because currently BlackJackGui.java is a very long file with literally every single frame the game uses. There are still some bugs in the game: ex.) When a player tries the "Add Money?" button. All the bugs are related to the GUI and not the game logic.
+

@@ -221,6 +221,14 @@ public class Blackjack{
     public Player getPlayer(int index){
 	return players.get(index-1);
     }
+	
+	 /** returns reference to any Player 
+     */    
+	public Player getPlayerX(int player){
+	if(players.size() > player)
+	    return players.get(player);
+	return null;
+    }
     
     /** returns reference to Player in South
      */

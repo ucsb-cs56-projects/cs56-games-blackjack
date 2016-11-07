@@ -50,7 +50,6 @@ import java.io.*;
     String p1Name;
     String p2Name;
     String p3Name;
-	//String[] playerName = new String[3];
     JPanel namePanel;
     Blackjack game = new Blackjack();
     boolean dealerTurn;
@@ -239,19 +238,22 @@ import java.io.*;
     private void setSplit() {	
     	switch(playerTurn) {
     		case(1):
-    		if (game.getPlayerS().getHand().getFirstCard().getValue() == game.getPlayerS().getHand().getSecondCard().getValue()) {
+			//System.out.println("South: " + ((game.getPlayerS().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerS().getHand().getSecondCard().getCardNumber()) % 13 )); 
+    		if (((game.getPlayerS().getHand().getFirstCard().getCardNumber()) % 13 )== ((game.getPlayerS().getHand().getSecondCard().getCardNumber()) % 13 )) {
     			split.setVisible(true);
     		}
     		else split.setVisible(false);
     		break;
     		case(2):
-    		if (game.getPlayerE().getHand().getFirstCard().getValue() == game.getPlayerE().getHand().getSecondCard().getValue()) {
+			//System.out.println("East: " + ((game.getPlayerE().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerE().getHand().getSecondCard().getCardNumber()) % 13 ));  
+    		if (((game.getPlayerE().getHand().getFirstCard().getCardNumber()) % 13) == ((game.getPlayerE().getHand().getSecondCard().getCardNumber()) % 13)) {
     			split.setVisible(true);
     		}
     		else split.setVisible(false);
     		break;
     		case(3):
-    		if (game.getPlayerW().getHand().getFirstCard().getValue() == game.getPlayerW().getHand().getSecondCard().getValue()) {
+			//System.out.println("West: " + ((game.getPlayerW().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerW().getHand().getSecondCard().getCardNumber()) % 13 ));  
+    		if (((game.getPlayerW().getHand().getFirstCard().getCardNumber()) % 13) == ((game.getPlayerW().getHand().getSecondCard().getCardNumber()) % 13 )) {
     			split.setVisible(true);
     		}
     		else split.setVisible(false);
@@ -288,7 +290,8 @@ import java.io.*;
     	public void actionPerformed(ActionEvent e) {
     		game.splitHand(playerTurn);
     		splitHand(playerTurn);
-    		split.removeActionListener(this);
+			split.setVisible(false);
+    		
     	}
     }
 
@@ -906,10 +909,7 @@ public class FeltGreenActionListener implements ActionListener{
     	canPlayer2DD =true;
     	canPlayer3DD =true;
     	canPlayer4DD =true;
-		
-		
-		//frame = new JFrame();
-		isFirstRound = false;
+
    		//create menubar
 		createMenuBar();
 		// create dealer's label
@@ -1246,24 +1246,25 @@ public class FeltGreenActionListener implements ActionListener{
 		//makes a string for whether or not the player busts,
 		//to later append to their label
 	 		String isBust = !game.getPlayer(playerTurn).isNotBust() ? " went bust!" : "";
+			split.setVisible(false);
 	 		switch(playerTurn){
 	 			case 1:
-	 			playerLabelS.setText(p1Name + isBust);
+	 			playerLabelS.setText(game.getPlayerX(0).getName() + isBust);
 	 			cardLabelS.setText(game.getPlayerS().displayHandValue());
 	 			cardsPanelS.add(new JLabel(getMyImage(newCard)));
-	 			displayLabel.setText(p1Name + " hit!");
+	 			displayLabel.setText(game.getPlayerX(0).getName() + " hit!");
 	 			break;
 	 			case 2:
-	 			playerLabelE.setText(p2Name + isBust);
+	 			playerLabelE.setText(game.getPlayerX(1).getName() + isBust);
 	 			cardLabelE.setText(game.getPlayerE().displayHandValue());
 	 			cardsPanelE.add(new JLabel(getMyImage(newCard)));
-	 			displayLabel.setText(p2Name + " hit!");
+	 			displayLabel.setText(game.getPlayerX(1).getName() + " hit!");
 	 			break;
 	 			case 3:
-	 			playerLabelW.setText(p3Name + isBust);
+	 			playerLabelW.setText(game.getPlayerX(2).getName() + isBust);
 	 			cardLabelW.setText(game.getPlayerW().displayHandValue());
 	 			cardsPanelW.add(new JLabel(getMyImage(newCard)));
-	 			displayLabel.setText(p3Name + " hit!");
+	 			displayLabel.setText(game.getPlayerX(2).getName() + " hit!");
 	 			break;
 	 			default:
 	 			break;
@@ -1792,8 +1793,6 @@ public class FeltGreenActionListener implements ActionListener{
 	    public void actionPerformed(ActionEvent event){
 	    	game.newRound();
 	    	song.stop();
-			
-	    	//frame.dispose();
 	    	welcomeFrame.dispose();
 	    	nameFrame.dispose();
 	    	keepRunning = true;

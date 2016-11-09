@@ -18,7 +18,7 @@ import java.io.*;
    @author Eric Palyan
    @author David Tsu
    @author Marco Chavez
-   @version 2014.02.27
+   @version 2016.11.9
 */
 public class BlackjackGui{ 
     /** WELCOME WINDOW,
@@ -296,7 +296,12 @@ public class BlackjackGui{
 	    break;
     	}
     }
-    
+
+    /** split listener
+     *  @author David Tsu
+     *  @author Marco Chavez
+     *  @version 2016.11.9
+     */
     public class SplitListener implements ActionListener {
     	public void actionPerformed(ActionEvent e) {
 	    game.splitHand(playerTurn);
@@ -375,7 +380,9 @@ public class BlackjackGui{
 	displayPanel.add(playAgain);
 	displayPanel.add(save);
     }
- 
+
+    /** creates buttons at round's end
+     */ 
     private void createSouthAfterRoundButtons(){
 	JButton exitS = new JButton("Leave Game");
 	JButton addMoneyS = new JButton("Add Money?");
@@ -388,7 +395,7 @@ public class BlackjackGui{
 	playerPanelS.add(exitS);
     }
     /** Fetches stats when a player leaves
-     * @param int player for which player
+     * @param player int for which player
      */
     public void playerLeaves(int player){
 	game.players.get(player).resetMoney(game.players.get(player + 1).getMoney());
@@ -399,7 +406,11 @@ public class BlackjackGui{
 	game.players.get(player).setName(game.players.get(player + 1).getName());
     }
 
-
+    /** ExitSListener, listens for bottom player's exit
+     *  @author David Tsu
+     *  @author Marco Chavez
+     *  @version 2016.11.9
+     */
     public class ExitSListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 	    if (numPlayers == 1) frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
@@ -420,6 +431,11 @@ public class BlackjackGui{
 	}
     }
 
+    /** ExitEListener, listens for right player's exit
+     *  @author David Tsu
+     *  @author Marco Chavez
+     *  @version 2016.11.9
+     */
     public class ExitEListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 	    if (numPlayers == 1) {
@@ -441,6 +457,11 @@ public class BlackjackGui{
 	}
     }
 
+    /** ExitWListener, listens for left player's exit
+     *  @author David Tsu
+     *  @author Marco Chavez
+     *  @version 2016.11.9
+     */
     public class ExitWListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 	    if (numPlayers == 1) {
@@ -452,6 +473,11 @@ public class BlackjackGui{
 	}
     }
 
+    /** ExitListener, listens for general game exit
+     *  @author David Tsu
+     *  @author Marco Chavez
+     *  @version 2016.11.9
+     */
     public class ExitListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 	    System.exit(0);
@@ -460,7 +486,7 @@ public class BlackjackGui{
 
     JTextField amountTextField;
     /** creates name frame that sets player names
-	@param num number of players
+	@param player int number of players
     **/
     public void createAddMoneyFrame(int player){
 	addMoneyFrame = new JFrame();
@@ -505,12 +531,21 @@ public class BlackjackGui{
 	addMoneyFrame.setVisible(true);
     }
 
+    /** AddMoneySListener
+     *  @author David Tsu
+     *  @author Marco Chavez
+     *  @version 2016.11.9
+     */
     public class AddMoneySListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 	    createAddMoneyFrame(1);
 	}
     }
-
+    /** AddMoneyEListener
+     *  @author David Tsu
+     *  @author Marco Chavez
+     *  @version 2016.11.9
+     */
     public class AddMoneyEListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 	    createAddMoneyFrame(2);
@@ -518,12 +553,23 @@ public class BlackjackGui{
 	}
     }
 
+    /** AddMoneyWListener
+     *  @author David Tsu
+     *  @author Marco Chavez
+     *  @version 2016.11.9
+     */
     public class AddMoneyWListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 	    createAddMoneyFrame(3);
 
 	}
     }
+
+    /** AmountTextFieldListener
+     *  @author David Tsu
+     *  @author Marco Chavez
+     *  @version 2016.11.9
+     */
     public class AmountTextFieldListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 	    int moneyToAdd = Integer.parseInt(amountTextField.getText());
@@ -532,7 +578,11 @@ public class BlackjackGui{
 	    currentMoney.setText("Your current amount of Money:" + currentMoneyToDisplay);
 	}
     }
-    /** listender class for confirm addMoney button 
+    
+    /** listener class for confirm addMoney button
+     *  @author David Tsu
+     *  @author Marco Chavez
+     *  @version 2016.11.9
      */
     public class ConfirmAddMoney implements ActionListener{
 	/** initializes some of the JLabels for a set bet menu and brings up the main JFrame
@@ -544,8 +594,11 @@ public class BlackjackGui{
 	}
     }
 
-
-
+    /** listener class for changebet
+     *  @author David Tsu
+     *  @author Marco Chavez
+     *  @version 2016.11.9
+     */
     public class ChangeBetListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 	    createBetWindow();
@@ -649,6 +702,10 @@ public class BlackjackGui{
     	}
     }
 
+    /** sound class, plays background music from menu bar
+     *  @author John Lau
+     *  @version 2016.2.18
+     */
     public class Sound {
     	private Clip clip;
     	public Sound(String fileName) {
@@ -699,20 +756,30 @@ public class BlackjackGui{
     // song object for background music
     Sound song = new Sound("music/Casino_Ambiance_Music.wav");
 
+    /** listener class for pause button
+     *  @author John Lau
+     *  @version 2016.2.18
+     */
     public class PauseMusicListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 	    song.stop();
 	}
     }
 
+    /** listener class for play button
+     *  @author John Lau
+     *  @version 2016.2.18
+     */
     public class PlayMusicListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 	    song.play();
 	}
     }
 
-
-    //
+    /** listener class for Navy color change
+     *  @author ???
+     *  @version 2016.11.9
+     */
     public class NavyActionListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 	    currentColor = navy;
@@ -729,6 +796,10 @@ public class BlackjackGui{
 	}
     }
 
+    /** listener class for Maroon color change
+     *  @author ???
+     *  @version 2016.11.9
+     */
     public class MaroonActionListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 	    currentColor = maroon;
@@ -745,6 +816,10 @@ public class BlackjackGui{
 	}
     }
 
+    /** listener class for Gray color change
+     *  @author ???
+     *  @version 2016.11.9
+     */
     public class GrayActionListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 	    currentColor = gray;
@@ -760,6 +835,11 @@ public class BlackjackGui{
 	    playerPanelW.setBackground(gray);
 	}
     }
+
+    /** listener class for FeltGreen color change
+     *  @author Marco Chavez
+     *  @version 2016.11.9
+     */
     public class FeltGreenActionListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 	    currentColor = feltgreen;
@@ -1171,7 +1251,8 @@ public class BlackjackGui{
 
 
     /** returns the image corresponding to the Card passed in
-	@param c Card to retrieve the image of
+     *  @param c Card to retrieve the image of
+     *  @return ImageIcon for corresponding card
     */
     public ImageIcon getMyImage(Card c){
 	String cardString ="";
@@ -1291,6 +1372,8 @@ public class BlackjackGui{
     }
 
     /** listener class for the stay button
+     *  @author ???
+     *  @version 2016.11.9
      */
     public class StayListener implements ActionListener{
 
@@ -1317,6 +1400,8 @@ public class BlackjackGui{
 
 
     /** listener class for the double down button
+     *  @author ???
+     *  @version 2016.11.9
      */
     public class ddListener implements ActionListener{
 
@@ -1385,7 +1470,10 @@ public class BlackjackGui{
     }
 
 
-    /** Opens rules without Play button **/
+    /** Opens rules without Play button
+     *  @author ???
+     *  @version 2016.11.9
+     */
     public class RulesListener implements ActionListener{
      	public void actionPerformed(ActionEvent e)
      	{
@@ -1463,6 +1551,8 @@ public class BlackjackGui{
     }
 
     /** listender class for confirm name button 
+     *  @author ???
+     *  @version 2016.11.9
      */
     public class ConfirmName implements ActionListener{
 	/** initializes some of the JLabels for a set bet menu and brings up the main JFrame
@@ -1477,9 +1567,10 @@ public class BlackjackGui{
     }
 
 
-    /**listener class for bet text field allowing for custom user bets
+    /** listener class for bet text field allowing for custom user bets
+     *  @author ???
+     *  @version 2016.11.9
      */
-
     public class BetTextListener implements ActionListener
     {
 	/** changes bet text
@@ -1493,6 +1584,8 @@ public class BlackjackGui{
     }
 
     /** listener class for setting the bet to $25
+     *  @author ???
+     *  @version 2016.11.9
      */
     public class BetAmountListener1 implements ActionListener{
         /** changes bet text
@@ -1506,6 +1599,8 @@ public class BlackjackGui{
     }
 
     /** listender class for setting the bet to $50
+     *  @author ???
+     *  @version 2016.11.9
      */
     public class BetAmountListener2 implements ActionListener{
         /** changes bet text
@@ -1519,6 +1614,8 @@ public class BlackjackGui{
     }
 
     /** listender class for setting the bet to $100
+     *  @author ???
+     *  @version 2016.11.9
      */
     public class BetAmountListener3 implements ActionListener{
         /** changes bet text
@@ -1532,6 +1629,8 @@ public class BlackjackGui{
     }
 
     /** listender class for setting the bet to $250
+     *  @author ???
+     *  @version 2016.11.9
      */
     public class BetAmountListener4 implements ActionListener{
         /** changes bet text
@@ -1544,6 +1643,10 @@ public class BlackjackGui{
 	}
     }
 
+    /** listener class for setting the bet to $500
+     *  @author ???
+     *  @version 2016.11.9
+     */
     public class BetAmountListener5 implements ActionListener{
         /** changes bet text
             @param event ActionEvent, set bet
@@ -1557,6 +1660,8 @@ public class BlackjackGui{
 
 
     /** listener class for closing the rules window
+     *  @author ???
+     *  @version 2016.11.9
      */
     public class CloseRulesListener implements ActionListener {
 	/** closes the rules window
@@ -1568,7 +1673,10 @@ public class BlackjackGui{
 	}
     }
 
-    /** listener class for player names change in menu bar **/
+    /** listener class for player names change in menu bar
+     *  @author ???
+     *  @version 2016.11.9
+     */
     public class ChangeNamesListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 	    createNewNameFrame(numPlayers);
@@ -1631,6 +1739,8 @@ public class BlackjackGui{
 
 
     /** listener class for 1 player button
+     *  @author ???
+     *  @version 2016.11.9
      */	
     public class WelcomeListener1 implements ActionListener{
 	/** initializes the window for set bet amount and prepares for a 1 player game
@@ -1644,6 +1754,8 @@ public class BlackjackGui{
     }
 
     /** listener class for 2 player button
+     *  @author ???
+     *  @version 2016.11.9
      */
     public class WelcomeListener2 implements ActionListener{
 	/** initializes  the window for set bet amount and prepares for a 2 player game
@@ -1657,6 +1769,8 @@ public class BlackjackGui{
     }
 
     /** listener class for 3 player button
+     *  @author ???
+     *  @version 2016.11.9
      */
     public class WelcomeListener3 implements ActionListener{
 	/** initializes the window for set bet amount and prepares for a 3 player game
@@ -1669,8 +1783,14 @@ public class BlackjackGui{
 	}
     }
 
-
+    /** listener class for load button
+     *  @author ???
+     *  @version 2016.11.9
+     */
     public class LoadListener implements ItemListener {
+	/** prepares for load
+	 *  @param e ItemEvent
+	 */
 	public void itemStateChanged(ItemEvent e) {
 	    if (e.getStateChange() == ItemEvent.SELECTED) {
 		load = true;
@@ -1682,12 +1802,21 @@ public class BlackjackGui{
 	}
     }
 
+    /** listener class for save button
+     *  @author ???
+     *  @version 2016.11.9
+     */
     public class SaveListener implements ActionListener {
+	/** prepares for save
+	 *  @param event ActionEvent
+	 */
 	public void actionPerformed(ActionEvent event) {
 	    game.saveStats(theGui);
 	}
     }
 
+    /** updates ingame statistics
+     */
     public void updateStats() {
 	if (game.getPlayerS() != null) { game.getPlayerS().setWins(game.p1wins); game.getPlayerS().setLosses(game.p1losses); 
 	    game.getPlayerS().setWon(game.p1won); game.getPlayerS().setLost(game.p1lost); 
@@ -1706,6 +1835,8 @@ public class BlackjackGui{
     }
 
     /** listener class for beginGame button after entering player names
+     *  @author ???
+     *  @version 2016.11.9
      */
     public class BeginGameListener implements ActionListener{
 	/** adds names to players and starts game
@@ -1794,6 +1925,8 @@ public class BlackjackGui{
 
 
     /** listener class for playAgain button
+     *  @author ???
+     *  @version 2016.11.9
      */
     public class PlayAgainListener implements ActionListener{
 
@@ -1815,6 +1948,10 @@ public class BlackjackGui{
     }
 
     /** listener class for timer
+     *  @author ???
+     *  @author David Tsu
+     *  @author Marco Chavez
+     *  @version 2016.11.9
      */
     class MyTimerListener implements ActionListener{
 

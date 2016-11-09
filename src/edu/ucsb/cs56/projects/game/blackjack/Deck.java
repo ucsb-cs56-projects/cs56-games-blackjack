@@ -44,6 +44,7 @@ public class Deck{
 	cards = tempCards;
     }
     /** removes the top card and returns a reference to it
+     *  @return Card
      */
     public Card draw(){
 	Card temp = cards.get(0);
@@ -53,6 +54,7 @@ public class Deck{
     
     
     /** get size of the deck, for testing purposes
+     *  @return Card
      */
     public int getDeckSize(){
 	return cards.size();

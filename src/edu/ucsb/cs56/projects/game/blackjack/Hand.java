@@ -43,12 +43,14 @@ public class Hand{
     
 
     /** gets the value of the hand with aces counted as 1
+     *  @return int
      */
     public int getHandValue(){
 	return handValue;
     }
     
     /** gets the value of the hand with aces counted as 11 or returns -1 if the value of the hand exceeds 21 with aces counted as 11
+     *  @return int
      */
     public int getSecondHandValue(){
 	if(hasAce && getHandValue()<=11)
@@ -83,17 +85,22 @@ public class Hand{
     }
     
     /** gets the first card in the hand
+     *  @return Card
      */    
     public Card getFirstCard(){
 	return myCards.get(0);
     }
     
     /** gets the second card in the hand
+     *  @return Card
      */
     public Card getSecondCard(){
 	return myCards.get(1);
     }
-    
+
+    /** sets second card in the hand
+     *  @param c Card
+     */
     public void setSecondCard(Card c) {
     	if (myCards.get(1).isAnAce() && !myCards.get(0).isAnAce()) hasAce = false;
     	handValue -= myCards.get(1).getValue();
@@ -102,6 +109,7 @@ public class Hand{
     }
     
     /** calculates whether or not the hand has blackjack
+     *  @return boolean
      */
     public boolean hasBlackjack(){
 	if(getSecondHandValue() == 21 && myCards.size() == 2)
@@ -110,6 +118,7 @@ public class Hand{
     }
     
     /** returns a string displaying the hand's value(s)
+     *  @return String
      */
     public String displayHandValue(){
 	String display = "";
@@ -120,6 +129,7 @@ public class Hand{
     }
     
     /** returns a string displaying the best hand value
+     *  @return String
      */
     public String displayBestValue(){
 	String display = "";

@@ -235,54 +235,57 @@ import java.io.*;
     }
     
     /** enabled or disabled split option */
-    private void setSplit() {	
-    	switch(playerTurn) {
-    		case(1):
-			//System.out.println("South: " + ((game.getPlayerS().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerS().getHand().getSecondCard().getCardNumber()) % 13 )); 
-    		if (((game.getPlayerS().getHand().getFirstCard().getCardNumber()) % 13 )== ((game.getPlayerS().getHand().getSecondCard().getCardNumber()) % 13 )) {
-    			split.setVisible(true);
-    		}
-    		else split.setVisible(false);
-    		break;
-    		case(2):
-			//System.out.println("East: " + ((game.getPlayerE().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerE().getHand().getSecondCard().getCardNumber()) % 13 ));  
-    		if (((game.getPlayerE().getHand().getFirstCard().getCardNumber()) % 13) == ((game.getPlayerE().getHand().getSecondCard().getCardNumber()) % 13)) {
-    			split.setVisible(true);
-    		}
-    		else split.setVisible(false);
-    		break;
-    		case(3):
-			//System.out.println("West: " + ((game.getPlayerW().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerW().getHand().getSecondCard().getCardNumber()) % 13 ));  
-    		if (((game.getPlayerW().getHand().getFirstCard().getCardNumber()) % 13) == ((game.getPlayerW().getHand().getSecondCard().getCardNumber()) % 13 )) {
-    			split.setVisible(true);
-    		}
-    		else split.setVisible(false);
-    		break;
-    		case(4): split.setVisible(false); 
-    		break;
-    	}
-    }
+       private void setSplit() {	
+	   switch(playerTurn) {
+	   case(1):
+	       //System.out.println("South: " + ((game.getPlayerS().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerS().getHand().getSecondCard().getCardNumber()) % 13 )); 
+	       if (((game.getPlayerS().getHand().getFirstCard().getCardNumber()) % 13 )== ((game.getPlayerS().getHand().getSecondCard().getCardNumber()) % 13 )) {
+		   split.setVisible(true);
+	       }
+	       else split.setVisible(false);
+	       break;
+	   case(2):
+	       //System.out.println("East: " + ((game.getPlayerE().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerE().getHand().getSecondCard().getCardNumber()) % 13 ));  
+	       if (((game.getPlayerE().getHand().getFirstCard().getCardNumber()) % 13) == ((game.getPlayerE().getHand().getSecondCard().getCardNumber()) % 13)) {
+		   split.setVisible(true);
+	       }
+	       else split.setVisible(false);
+	       break;
+	   case(3):
+	       //System.out.println("West: " + ((game.getPlayerW().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerW().getHand().getSecondCard().getCardNumber()) % 13 ));  
+	       if (((game.getPlayerW().getHand().getFirstCard().getCardNumber()) % 13) == ((game.getPlayerW().getHand().getSecondCard().getCardNumber()) % 13 )) {
+		   split.setVisible(true);
+	       }
+	       else split.setVisible(false);
+	       break;
+	   case(4): split.setVisible(false); 
+	       break;
+	   }
+       }
     
     public void splitHand(int player) {
     	switch(player) {
-    		case 1: cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
-    		cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
-    		card2LabelS.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
-    		cardLabelS.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() + 
-    			"  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
-    		break;
-    		case 2: cardsPanelE.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
-    		cardsPanelE.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
-    		card2LabelE.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
-    		cardLabelE.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() + 
-    			"  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
-    		break;
-    		case 3: cardsPanelW.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
-    		cardsPanelW.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
-    		card2LabelW.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
-    		cardLabelW.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() + 
-    			"  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
-    		break;
+	case 1: cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
+	    cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
+	    card2LabelS.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
+	    cardLabelS.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() + 
+			       "  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
+	    game.getPlayer(player).setHasSplitTrue();
+	    break;
+	case 2: cardsPanelE.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
+	    cardsPanelE.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
+	    card2LabelE.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
+	    cardLabelE.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() + 
+			       "  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
+	    game.getPlayer(player).setHasSplitTrue();
+	    break;
+	case 3: cardsPanelW.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
+	    cardsPanelW.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
+	    card2LabelW.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
+	    cardLabelW.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() + 
+			       "  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
+	    game.getPlayer(player).setHasSplitTrue();  
+	    break;
     	}
     }
     
@@ -326,45 +329,45 @@ import java.io.*;
 		}	
 	   	if(DealerWon)
 	   		displayLabel.setText("Dealer wins");	
-	   /** create 'play again' button to display at the end of the round and removes hit and stay button **/
-	   JButton save = new JButton("Save all stats");
-	   save.setMaximumSize(new Dimension(170, 75));
-	   save.addActionListener(new SaveListener());
-	   playAgain = new JButton("Play again");
-	   playAgain.setMaximumSize(new Dimension(130, 75));
-	   playAgain.addActionListener(new PlayAgainListener());
-	   hit.setVisible(false);
-	   stay.setVisible(false);
-	   shift = false;
-	   if (game.getPlayerS() != null) {
-			if(isFirstRound)
-				createSouthAfterRoundButtons();
+		/** create 'play again' button to display at the end of the round and removes hit and stay button **/
+		JButton save = new JButton("Save all stats");
+		save.setMaximumSize(new Dimension(170, 75));
+		save.addActionListener(new SaveListener());
+		playAgain = new JButton("Play again");
+		playAgain.setMaximumSize(new Dimension(130, 75));
+		playAgain.addActionListener(new PlayAgainListener());
+		hit.setVisible(false);
+		stay.setVisible(false);
+		shift = false;
+		if (game.getPlayerS() != null) {
+		    if(isFirstRound)
+			createSouthAfterRoundButtons();
 			
-	   }
-	   if (game.getPlayerE() != null) {
-	   	JButton exitE = new JButton("Leave Game");
-	   	JButton addMoneyE = new JButton("Add Money?");
-	   	JButton changeBetE = new JButton("Change Bet Amount?");
-	   	exitE.addActionListener(new ExitEListener());
-	   	changeBetE.addActionListener(new ChangeBetListener());
-	   	addMoneyE.addActionListener(new AddMoneyEListener());
-	   	playerPanelE.add(addMoneyE);
-	   	playerPanelE.add(changeBetE);
-	   	playerPanelE.add(exitE);
-	   }
-	   if (game.getPlayerW() != null) {
-	   	JButton exitW = new JButton("Leave Game");
-	   	JButton addMoneyW = new JButton("Add Money?");
-	   	JButton changeBetW = new JButton("Change Bet Amount?");
-	   	exitW.addActionListener(new ExitWListener());
-	   	changeBetW.addActionListener(new ChangeBetListener());
-	   	addMoneyW.addActionListener(new AddMoneyWListener());
-	   	playerPanelW.add(addMoneyW);
-	   	playerPanelW.add(changeBetW);
-	   	playerPanelW.add(exitW);
-	   }
-	   displayPanel.add(playAgain);
-	   displayPanel.add(save);
+		}
+		if (game.getPlayerE() != null) {
+		    JButton exitE = new JButton("Leave Game");
+		    JButton addMoneyE = new JButton("Add Money?");
+		    JButton changeBetE = new JButton("Change Bet Amount?");
+		    exitE.addActionListener(new ExitEListener());
+		    changeBetE.addActionListener(new ChangeBetListener());
+		    addMoneyE.addActionListener(new AddMoneyEListener());
+		    playerPanelE.add(addMoneyE);
+		    playerPanelE.add(changeBetE);
+		    playerPanelE.add(exitE);
+		}
+		if (game.getPlayerW() != null) {
+		    JButton exitW = new JButton("Leave Game");
+		    JButton addMoneyW = new JButton("Add Money?");
+		    JButton changeBetW = new JButton("Change Bet Amount?");
+		    exitW.addActionListener(new ExitWListener());
+		    changeBetW.addActionListener(new ChangeBetListener());
+		    addMoneyW.addActionListener(new AddMoneyWListener());
+		    playerPanelW.add(addMoneyW);
+		    playerPanelW.add(changeBetW);
+		    playerPanelW.add(exitW);
+		}
+		displayPanel.add(playAgain);
+		displayPanel.add(save);
 	}
  
 	private void createSouthAfterRoundButtons(){
@@ -393,21 +396,21 @@ public void playerLeaves(int player){
 
 public class ExitSListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
-		if (numPlayers == 1) frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-		if (numPlayers == 3) {
-			shift = true;
-			playerLeaves(0);
-			p1Name = p2Name;
-			playerLeaves(1);
-			p2Name = p3Name;
-		}
-		else if (numPlayers == 2) {
-			playerLeaves(0);
-			p1Name = p2Name;
-		}
-		numPlayers--;
-		JButton exit = (JButton)e.getSource();
-		exit.removeActionListener(this);
+	    if (numPlayers == 1) frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+	    if (numPlayers == 3) {
+		shift = true;
+		playerLeaves(0);
+		p1Name = p2Name;
+		playerLeaves(1);
+		p2Name = p3Name;
+	    }
+	    else if (numPlayers == 2) {
+		playerLeaves(0);
+		p1Name = p2Name;
+	    }
+	    numPlayers--;
+	    JButton exit = (JButton)e.getSource();
+	    exit.removeActionListener(this);
 	}
 }
 
@@ -792,11 +795,11 @@ public class FeltGreenActionListener implements ActionListener{
 
 	// create dealer's Labels
 	private void createDealerLabels(){
-    dealerPanel = new JPanel(); 
-	dealerLabel = new JLabel();
-    dealerPanel.setOpaque(true);
-    dealerPanel.setBackground(currentColor);
-	dealerPanel.add(dealerLabel);
+	    dealerPanel = new JPanel(); 
+	    dealerLabel = new JLabel();
+	    dealerPanel.setOpaque(true);
+	    dealerPanel.setBackground(currentColor);
+	    dealerPanel.add(dealerLabel);
 	}
 	
 	    //create menubar
@@ -820,15 +823,15 @@ public class FeltGreenActionListener implements ActionListener{
     	JMenuItem colorNavy = new JMenuItem("Navy");
     	JMenuItem colorMaroon = new JMenuItem("Maroon");
     	JMenuItem colorGray = new JMenuItem("Gray");
-		JMenuItem colorFeltGreen = new JMenuItem("Felt Green");
+	JMenuItem colorFeltGreen = new JMenuItem("Felt Green");
     	menuColors.add(colorNavy);
     	menuColors.add(colorGray);
     	menuColors.add(colorMaroon);
-		menuColors.add(colorFeltGreen);
+	menuColors.add(colorFeltGreen);
     	colorNavy.addActionListener(new NavyActionListener());
     	colorGray.addActionListener(new GrayActionListener());
     	colorMaroon.addActionListener(new MaroonActionListener());
-		colorFeltGreen.addActionListener(new FeltGreenActionListener());
+	colorFeltGreen.addActionListener(new FeltGreenActionListener());
     	JMenuItem menuNames = new JMenuItem("Player Names");
     	menuNames.addActionListener(new ChangeNamesListener());
     	JMenuItem songPause = new JMenuItem("Pause");
@@ -893,6 +896,7 @@ public class FeltGreenActionListener implements ActionListener{
     	displayPanel.add(dd);
     	setDoubleDown();
 
+	//should only appear if someone can split
     	split = new JButton("Split Hand");
     	split.addActionListener(new SplitListener());
     	displayPanel.add(split);
@@ -1807,6 +1811,8 @@ public class FeltGreenActionListener implements ActionListener{
 	/**logic for dealer's turn, calls getWinner() at the end
 	   @param event ActionEvent, timer
 	*/
+	String winners = new String("Did you win?");
+
 	   public void actionPerformed(ActionEvent event){
 	   	if(numPlayers == 1 && game.getPlayerS().isNotBust() == false){
 	   		timer.stop();
@@ -1817,17 +1823,17 @@ public class FeltGreenActionListener implements ActionListener{
 	   	else if(numPlayers == 2 && game.getPlayerS().isNotBust() == false 
 	   		&& game.getPlayerE().isNotBust() == false){
 	   		timer.stop();
-	   	dealerLabel.setText("Dealer wins");
-	   	theGui.getWinner();
-	   	return;
-	   }
-	   else if(numPlayers == 3 && game.getPlayerS().isNotBust() == false 
-	   	&& game.getPlayerE().isNotBust() == false 
-	   	&& game.getPlayerW().isNotBust() == false){
-	   	timer.stop();
-	   dealerLabel.setText("Dealer wins");
-	   theGui.getWinner();
-	   return;
+			dealerLabel.setText("Dealer wins");
+			theGui.getWinner();
+			return;
+		}
+		else if(numPlayers == 3 && game.getPlayerS().isNotBust() == false 
+			&& game.getPlayerE().isNotBust() == false 
+			&& game.getPlayerW().isNotBust() == false){
+		    timer.stop();
+		    dealerLabel.setText("Dealer wins");
+		    theGui.getWinner();
+		    return;
 	}
 	if(game.dealerHasBlackjack()){
 		timer.stop();
@@ -1839,7 +1845,38 @@ public class FeltGreenActionListener implements ActionListener{
 
 	if(game.dealerShouldStay()){
 		timer.stop();
-		displayLabel.setText("Did you win?");
+		if(numPlayers == 1){
+		    boolean PlayerWon = game.evaluateWinner(game.getPlayerS()) == 'P';
+		    if(PlayerWon) winners = game.getPlayerS().getName() + " won";
+		}
+		if(numPlayers == 2){
+		    boolean Player1Won = game.evaluateWinner(game.getPlayerS()) == 'P';
+		    boolean Player2Won = game.evaluateWinner(game.getPlayerE()) == 'P';
+		    if(Player1Won && Player2Won) winners = game.getPlayerS().getName() + " and " + game.getPlayerE().getName() + " won";
+		    if(Player1Won && !Player2Won) winners = game.getPlayerS().getName() + " won";
+		    if(!Player1Won && Player2Won) winners = game.getPlayerE().getName() + " won";
+		}
+		if(numPlayers == 3){
+		    boolean Player1Won = game.evaluateWinner(game.getPlayerS()) == 'P';
+		    boolean Player2Won = game.evaluateWinner(game.getPlayerE()) == 'P';
+		    boolean Player3Won = game.evaluateWinner(game.getPlayerW()) == 'P';
+		    //all 3 win
+		    if(Player1Won && Player2Won && Player3Won) winners = game.getPlayerS().getName() + ", " + game.getPlayerE().getName() + ", and " + game.getPlayerW().getName() + " won";
+		    //p1, p2 win
+		    if(Player1Won && Player2Won && !Player3Won) winners = game.getPlayerS().getName() + " and " + game.getPlayerE().getName() + " won";
+		    //p1, p3 win
+		    if(Player1Won && !Player2Won && Player3Won) winners = game.getPlayerS().getName() + " and " + game.getPlayerW().getName() + " won";
+		    //p2, p3 win
+		    if(!Player1Won && Player2Won && Player3Won) winners = game.getPlayerE().getName() + " and " + game.getPlayerW().getName() + " won";
+		    //p1 win
+		    if(Player1Won && !Player2Won && !Player3Won) winners = game.getPlayerS().getName() + " won";
+		    //p2 win
+		    if(!Player1Won && Player2Won && !Player3Won) winners = game.getPlayerE().getName() + " won";
+		    //p3 win
+		    if(!Player1Won && !Player2Won && Player3Won) winners = game.getPlayerW().getName() + " won";
+				    
+		}
+		displayLabel.setText(winners);
 		theGui.getWinner();
 		return;
 	}
@@ -1854,12 +1891,43 @@ public class FeltGreenActionListener implements ActionListener{
 	else{
 		dealerLabel.setText(game.getDealer().displayHandValue());
 		dealerLabel.setText(dealerLabel.getText() + " Dealer went bust");
+		if(numPlayers == 1){
+		    boolean PlayerWon = game.evaluateWinner(game.getPlayerS()) == 'P';
+		    if(PlayerWon) winners = game.getPlayerS().getName() + " won";
+		}
+		if(numPlayers == 2){
+		    boolean Player1Won = game.evaluateWinner(game.getPlayerS()) == 'P';
+		    boolean Player2Won = game.evaluateWinner(game.getPlayerE()) == 'P';
+		    if(Player1Won && Player2Won) winners = game.getPlayerS().getName() + " and " + game.getPlayerE().getName() + " won";
+		    if(Player1Won && !Player2Won) winners = game.getPlayerS().getName() + " won";
+		    if(!Player1Won && Player2Won) winners = game.getPlayerE().getName() + " won";
+		}
+		if(numPlayers == 3){
+		    boolean Player1Won = game.evaluateWinner(game.getPlayerS()) == 'P';
+		    boolean Player2Won = game.evaluateWinner(game.getPlayerE()) == 'P';
+		    boolean Player3Won = game.evaluateWinner(game.getPlayerW()) == 'P';
+		    //all 3 win
+		    if(Player1Won && Player2Won && Player3Won) winners = game.getPlayerS().getName() + ", " + game.getPlayerE().getName() + ", and " + game.getPlayerW().getName() + " won";
+		    //p1, p2 win
+		    if(Player1Won && Player2Won && !Player3Won) winners = game.getPlayerS().getName() + " and " + game.getPlayerE().getName() + " won";
+		    //p1, p3 win
+		    if(Player1Won && !Player2Won && Player3Won) winners = game.getPlayerS().getName() + " and " + game.getPlayerW().getName() + " won";
+		    //p2, p3 win
+		    if(!Player1Won && Player2Won && Player3Won) winners = game.getPlayerE().getName() + " and " + game.getPlayerW().getName() + " won";
+		    //p1 win
+		    if(Player1Won && !Player2Won && !Player3Won) winners = game.getPlayerS().getName() + " won";
+		    //p2 win
+		    if(!Player1Won && Player2Won && !Player3Won) winners = game.getPlayerE().getName() + " won";
+		    //p3 win
+		    if(!Player1Won && !Player2Won && Player3Won) winners = game.getPlayerW().getName() + " won";
+		}
+		displayLabel.setText(winners);
 		timer.stop();
 		theGui.getWinner();
 		return;
 	}
-}
-}
+	   }
+    }
 } //end BlackjackGui
 
 

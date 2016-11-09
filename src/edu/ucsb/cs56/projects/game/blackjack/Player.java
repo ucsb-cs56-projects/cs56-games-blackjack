@@ -13,6 +13,7 @@ public class Player{
     private int money, moneyWon, moneyLost, wins, losses, DD;
     private int numberOfCards = 2; 
     private int numberOfCards2 = 2;
+    private boolean hasSplit = false;
     private boolean notBust = true;
     private boolean notBust2 = true;
     
@@ -67,9 +68,11 @@ public class Player{
      */
     public void newHand(Deck d){
 	playerHand = new Hand();
+	playerHand2 = new Hand();
 	this.drawCard(d.draw());
 	this.drawCard(d.draw());
 	notBust = true;
+	hasSplit = false;
     }
     
     /** draws a Card for the player and checks if the total exceeds 21
@@ -91,6 +94,10 @@ public class Player{
      */
     public int getNumberOfCards() {
 	return numberOfCards;
+    }
+
+    public int getNumberOfCards2() {
+	return numberOfCards2;
     }
 
     /** returns players Hand object
@@ -142,7 +149,11 @@ public class Player{
     public int getDD() {
     	return this.DD;
     }
-    
+
+    public boolean getSplit() {
+	return this.hasSplit; 
+    }
+	    
     public void setDD(int dd) {
     	this.DD = dd;
     }
@@ -162,7 +173,11 @@ public class Player{
     public void setLost(int lost) {
     	this.moneyLost = lost;
     }
-    
+
+    public void setHasSplitTrue(){
+	this.hasSplit = true;
+    }
+	
     /** Adds money won to player's instance variable
      */
     public void addMoneyWon(int amount) {
@@ -214,21 +229,30 @@ public class Player{
 	if(h.getHandValue() > 21)
 	    notBust = false;
     }
+
+    public void setHand2(Hand h){
+	playerHand2 = h;
+	if(h.getSecondHandValue() > 21)
+	    notBust2 = false;
+    }
+    
     /** toString, returns ""
      */
     public String toString(){
 	return "";
     }
     
-    /** returns false if player went bust
+    /** returns false if player went bust. checks both hands if split.
      */
     public boolean isNotBust(){
-	return this.notBust;
+	if(!hasSplit)
+	    return this.notBust;
+	return this.notBust && this.notBust2;
     }
-    /** returns if player has blackjack
+    /** returns if player has blackjack. checks both hands if split.
      */
     public boolean hasBlackjack(){
-	return playerHand.hasBlackjack();
+	return playerHand.hasBlackjack() || playerHand2.hasBlackjack();
     }
     
     

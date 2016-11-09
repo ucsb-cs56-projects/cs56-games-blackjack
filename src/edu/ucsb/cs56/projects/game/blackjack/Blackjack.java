@@ -349,14 +349,14 @@ public class Blackjack{
 	    return 'P';
 	else if (dealer.getNumberOfCards() == 5) // if dealer has a 5 card charlie, dealer wins
 	    return 'D';
-	else if (player.getNumberOfCards() == 5) // if player has a 5 card charlie, player wins 
+	else if (player.getNumberOfCards() == 5 || player.getNumberOfCards2() == 5) // if player has a 5 card charlie, player wins. checks both hands if split.
 	    return 'P';
 	else if(dealer.getSecondHandValue() >= 
 		player.getSecondHandValue() && 
 		dealer.getSecondHandValue() >= 
-		player.getHandValue())
+		player.getHandValue()) //in the case of an Ace
 	    return 'D';
-	else if(dealer.getHandValue() >= player.getSecondHandValue() && dealer.getHandValue() >= player.getHandValue())
+	else if(dealer.getHandValue() >= player.getSecondHandValue() && dealer.getHandValue() >= player.getHandValue()) //in the case of an Ace
 	    return 'D';
 	else
 	    return 'P';

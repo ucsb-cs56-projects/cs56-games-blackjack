@@ -1,7 +1,7 @@
 package edu.ucsb.cs56.projects.game.blackjack;
 
 /** Card Class has the following variables: suit, value, name,
- *  isAce (check if Ace), and cardNumber (set to face if > 10) 
+ *  isAce (check if Ace), and cardNumber (set to face if greater than 10) 
  @author Brian Wan
  @author Fanny Kuang
  @author Eric Palyan
@@ -64,25 +64,29 @@ public class Card{
 	}
     }
     
-    /** returns the value of the card 
+    /** returns the value of the card
+     *  @return int
      */
     public int getValue(){
 	return value;
     }
     
     /** returns toString 
+     *  @return String
      */   
     public String toString(){
 	return name + " of " + suit;
     }
     
     /** returns whether or not the card is an ace
+     *  @return boolean
      */
     public boolean isAnAce(){
 	return isAce;
     }
     
     /** returns the true Card Number (e.g. King = 13, Ace = 1, 4 = 4)
+     *  @return int
      */
     public int getCardNumber(){
 	return cardNumber;

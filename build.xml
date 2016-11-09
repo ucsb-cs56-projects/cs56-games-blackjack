@@ -10,19 +10,21 @@
 <!-- modified build.xml for CS56 Blackjack Project
      name: Eric Palyan, W14 -->
  
+<!-- modified build.xml for CS56 Blackjack Project
+     name: David Tsu, F16 -->
 
  <property environment="env"/> <!-- load the environment variables --> 
- <property name="webRoot" value="${env.HOME}/public_html/"/>
+ <property name="webRoot" value="${env.HOME}/"/>
  <property name="webBaseUrl" value="http://www.cs.ucsb.edu/~${env.USER}"/>
  <property name="course" value="cs56"/>
- <property name="quarter" value="W13"/>
+ <property name="quarter" value="F16"/>
  <property name="projectName" value="blackjack"/>
  <property name="mainClass" value="edu.ucsb.cs56.projects.game.blackjack.BlackjackGui"/>
  <property name="projectPath" value="${course}/projects/game/${projectName}"/>
  
- <property name="javadocDest" value="${webRoot}/${projectPath}/javadoc"/> 
- <property name="javadocURL" value="${webBaseUrl}/${projectPath}/javadoc"/> 
- <property name="imagesDest" value="${webRoot}/${projectPath}/images"/>
+ <property name="javadocDest" value="../cs56-games-blackjack_javadoc_davidtsu_chavez95/javadoc"/> 
+ <property name="javadocURL" value="../cs56-games-blackjack_javadoc_davidtsu_chavez95/javadoc"/> 
+ <property name="imagesDest" value="$../cs56-games-blackjack_javadoc_davidtsu_chavez95/images"/>
  
  
  <path id="project.class.path">
@@ -84,7 +86,7 @@
  </target>
  
  <!-- Javadoc -->
- <target name="javadoc" depends="compile" description="prepare and post javadoc"> 
+<target name="javadoc" depends="compile" description="prepare and post javadoc"> 
    <delete dir="javadoc" quiet="true"/> 
    <javadoc destdir="javadoc" author="true" version="true" use="true">  
      <fileset dir="src" includes="**/*.java"/>  
@@ -103,7 +105,7 @@
    <chmod dir="${javadocDest}" perm="755" type="dir" includes="**"/> 
    <chmod dir="${javadocDest}" perm="755" type="file" includes="**/*"/> 
    <echo>Javadoc deployed to ${javadocURL}</echo> 
- </target>
+ </target> 
  
  <!-- JAR -->
  <target name="jar" depends="compile" description="JAR up files and put into dist directory">

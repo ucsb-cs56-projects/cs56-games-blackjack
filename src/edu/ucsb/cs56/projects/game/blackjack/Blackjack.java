@@ -8,7 +8,9 @@ import java.io.*;
  @author Brian Wan
  @author Fanny Kuang
  @author Eric Palyan
- @version 2014.02.27
+ @author David Tsu
+ @author Marco Chavez
+ @version 2016.11.9
 */
 
 public class Blackjack{
@@ -39,7 +41,10 @@ public class Blackjack{
 	
 	displayCard = null;
     }
-    
+
+    /** saveStats takes in a BlackjackGui and saves the stats of each player
+     *  @param gui BlackjackGui, instance of the game
+     */
     public void saveStats(BlackjackGui gui) {
     	switch(gui.numPlayers) {
     		case 1: p1wins = players.get(0).getWins(); p1losses = players.get(0).getLosses(); 
@@ -96,12 +101,17 @@ public class Blackjack{
     	}
     	
     }
-    
+
+    /** resets each player's statistics
+     */
     public void resetStats() {
     	p1money = p2money = p3money = 5000;
     	p1wins = p2wins = p3wins = p1losses = p2losses = p3losses = p1won = p2won = p3won = p1lost = p2lost = p3lost = 0;
     }
-    
+
+    /** loads statistics for each player
+     *  @param gui BlackjackGui, instance of the game
+     */
     public void loadStats(BlackjackGui gui) {
     	
     	switch(gui.numPlayers) {
@@ -187,6 +197,7 @@ public class Blackjack{
 	
 	displayCard = null;
     }
+    
     /** initializes a new round by dealing new hands to every player
      */
     public void newRound(){
@@ -196,7 +207,10 @@ public class Blackjack{
 	}
 	dealer.newHand(d);
     }
-    
+
+    /** splits the hand of the given player
+     *  @param player int, p1 being S, p2 being E, p3 being W
+     */
     public void splitHand(int player) {
     	getPlayer(player).getHand2().addCard(getPlayer(player).getHand().getSecondCard());
     	getPlayer(player).getHand2().addCard(d.draw());
@@ -204,12 +218,14 @@ public class Blackjack{
     }
     
     /** returns false if the dealer busted
+     *  @return boolean if dealer busts
      */
     public boolean dealerNotBust(){
 	return dealer.isNotBust();
     }
     
     /** returns reference to dealer Player
+     *  @return Player dealer
      */
     public Player getDealer(){
 	return dealer;
@@ -217,12 +233,24 @@ public class Blackjack{
     
     /** returns reference to Player within players ArrayList according to index
 	@param index integer of player (i.e. 1, 2, or 3)
+	@return Player with index of index
     */
     public Player getPlayer(int index){
 	return players.get(index-1);
     }
+	
+    /** returns reference to any Player
+     *  @param player int
+     *  @return Player
+     */    
+	public Player getPlayerX(int player){
+	if(players.size() > player)
+	    return players.get(player);
+	return null;
+    }
     
     /** returns reference to Player in South
+     *  @return Player
      */
     public Player getPlayerS(){
 	if(players.size() > 0)
@@ -231,6 +259,7 @@ public class Blackjack{
     }
     
     /** returns reference to Player in East
+     *  @return Player
      */
     public Player getPlayerE(){
 	if(players.size() > 1)
@@ -239,6 +268,7 @@ public class Blackjack{
     }
     
     /** returns reference to Player in West
+     *  @return Player
      */
     public Player getPlayerW(){
 	if(players.size() > 2)
@@ -247,6 +277,7 @@ public class Blackjack{
     }
     
     /** returns the value of the dealer's hand with aces valued at 1
+     *  @return int value of dealer's hand
      */
     public int dealerHandValue(){
 	return dealer.getHandValue();
@@ -254,18 +285,21 @@ public class Blackjack{
     
     /** returns the value of the dealer's hand with aces valued at 11 or returns -1 if the value 
      *  of the dealer's hand with aces valued at 11 makes the value greater than 21
+     *  @return int value of dealer's hand
      */
     public int dealerSecondValue(){
 	return dealer.getSecondHandValue();
     }
     
     /** returns a reference to the Card that the dealer is showing
+     *  @return Card
      */
     public Card getDealerCard(){
 	return dealer.getHand().getFirstCard();
     }
     
     /** makes the dealer hit and returns a reference to the card he drew so it can be displayed
+     *  @return Card
      */
     public Card dealerHit(){
 	displayCard = d.draw();
@@ -274,6 +308,7 @@ public class Blackjack{
     }
     
     /** returns a reference to the dealer's hand
+     *  @return Hand
      */
     public Hand getDealerHand(){
 	return dealer.getHand();
@@ -281,7 +316,8 @@ public class Blackjack{
     
     /** makes the player passed as a parameter hit and returns a reference to the card drawn so
      *  it can be displayed
-     @param player 
+     @param player Player
+     @return Card
     */
     public Card playerHit(Player player){
 	displayCard = d.draw();
@@ -290,7 +326,11 @@ public class Blackjack{
    
 	return displayCard;
     }
-    
+
+    /** makes the player passed as a parameter hit to second hand (for splitting)
+     *  @param player Player
+     *  @return Card
+     */
     public Card playerHit2(Player player) {
     	displayCard = d.draw();
 	player.drawCard2(displayCard);
@@ -301,6 +341,7 @@ public class Blackjack{
     
     /** decides whether or not the dealer should stay i.e. dealer has 17 or 
      *  higher
+     *  @return boolean
      */
     public boolean dealerShouldStay(){
 	if(dealerHandValue() >= 17 || dealerSecondValue() >= 17)
@@ -309,6 +350,7 @@ public class Blackjack{
     }
     
     /** returns true if dealer has blackjack
+     *  @return boolean
      */
     public boolean dealerHasBlackjack(){
 	return dealer.hasBlackjack();
@@ -316,12 +358,14 @@ public class Blackjack{
     
     /** returns true if player passed to method has blackjack
 	@param player to check for blackjack
+	@return boolean
     */
     public boolean playerHasBlackjack(Player player){
 	return player.hasBlackjack();
     }
     
     /** formats a String to return the value of just the dealer's first card during the player's turn
+     *  @return String
      */
     public String displayDealerCardValue(){
 	return "Dealer's hand value: " + dealer.getHand().getFirstCard().getValue();
@@ -329,6 +373,7 @@ public class Blackjack{
     
     /** evaluates the winner of the game
 	@param player to compare if won against dealer
+	@return char D or P for "D"ealer or "P"layer
     */
     public char evaluateWinner(Player player){
 	if(!player.isNotBust()) // if player is bust, dealer wins
@@ -341,14 +386,14 @@ public class Blackjack{
 	    return 'P';
 	else if (dealer.getNumberOfCards() == 5) // if dealer has a 5 card charlie, dealer wins
 	    return 'D';
-	else if (player.getNumberOfCards() == 5) // if player has a 5 card charlie, player wins 
+	else if (player.getNumberOfCards() == 5 || player.getNumberOfCards2() == 5) // if player has a 5 card charlie, player wins. checks both hands if split.
 	    return 'P';
 	else if(dealer.getSecondHandValue() >= 
 		player.getSecondHandValue() && 
 		dealer.getSecondHandValue() >= 
-		player.getHandValue())
+		player.getHandValue()) //in the case of an Ace
 	    return 'D';
-	else if(dealer.getHandValue() >= player.getSecondHandValue() && dealer.getHandValue() >= player.getHandValue())
+	else if(dealer.getHandValue() >= player.getSecondHandValue() && dealer.getHandValue() >= player.getHandValue()) //in the case of an Ace
 	    return 'D';
 	else
 	    return 'P';

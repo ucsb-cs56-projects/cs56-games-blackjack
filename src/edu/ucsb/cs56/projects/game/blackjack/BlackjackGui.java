@@ -24,8 +24,8 @@ public class BlackjackGui{
     /** WELCOME WINDOW,
      * # OF PLAYERS SELECTION WINDOW,
      * and BLACKJACK TABLE WINDOW **/
-	
     boolean isFirstRound = true;
+	
 
     JFrame frame;
     JFrame welcomeFrame;
@@ -61,6 +61,8 @@ public class BlackjackGui{
     JLabel downCard;
     JButton playAgain;
     JButton beginGame;
+	/** CARD SOUND EFFECT **/
+	    Sound cardEffect = new Sound("music/dealingCard.wav");
 
     /** RULES WINDOW **/
     JFrame rulesFrame;
@@ -240,7 +242,8 @@ public class BlackjackGui{
     private void setSplit() {	
 	switch(playerTurn) {
 	case(1):
-	    //System.out.println("South: " + ((game.getPlayerS().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerS().getHand().getSecondCard().getCardNumber()) % 13 )); 
+	   // % 13  is used becuase every 13 cards there's another card with the same value exmaple: 1 % 13 and 
+	   // 14 % 13 will both be A's   
 	    if (((game.getPlayerS().getHand().getFirstCard().getCardNumber()) % 13 )== ((game.getPlayerS().getHand().getSecondCard().getCardNumber()) % 13 )) {
 		split.setVisible(true);
 	    }
@@ -351,7 +354,6 @@ public class BlackjackGui{
 	stay.setVisible(false);
 	shift = false;
 	if (game.getPlayerS() != null) {
-	    if(isFirstRound)
 		createSouthAfterRoundButtons();
 			
 	}
@@ -601,7 +603,7 @@ public class BlackjackGui{
      */
     public class ChangeBetListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
-	    createBetWindow();
+	    createBetWindow(false);
 	}
     }
 
@@ -742,7 +744,7 @@ public class BlackjackGui{
 	    }
 	    // play, stop, loop the sound clip
     	}
-    	public void play(){
+    public void play(){
 	    clip.setFramePosition(0);  // Must always rewind!
 	    clip.start();
 	}
@@ -1014,11 +1016,13 @@ public class BlackjackGui{
 	createCardDisplayForAllPlayers();
 	// create the 'hit' and 'stay' buttons	
 	createHitAndStayButtons();
-		
-    	// background music
+	
+	if(isFirstRound){	
+    	// start background music automatically
     	song.play();
     	song.loop();
-
+		isFirstRound = false;
+	}
 	// remove the bet amount from all of the players' total money
     	updateMoney();
 
@@ -1164,7 +1168,8 @@ public class BlackjackGui{
 	    frame.getContentPane().setBackground(currentColor);
 	    //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    frame.setVisible(true);
-	}
+		}
+
     }
 
     /** Allows next player to take turn
@@ -1344,18 +1349,21 @@ public class BlackjackGui{
 		    cardLabelS.setText(game.getPlayerS().displayHandValue());
 		    cardsPanelS.add(new JLabel(getMyImage(newCard)));
 		    displayLabel.setText(game.getPlayerX(0).getName() + " hit!");	
+			cardEffect.play();
 		    break;
 		case 2:
 		    playerLabelE.setText(game.getPlayerX(1).getName() + isBust);
 		    cardLabelE.setText(game.getPlayerE().displayHandValue());
 		    cardsPanelE.add(new JLabel(getMyImage(newCard)));
 		    displayLabel.setText(game.getPlayerX(1).getName() + " hit!");
+			cardEffect.play();
 		    break;
 		case 3:
 		    playerLabelW.setText(game.getPlayerX(2).getName() + isBust);
 		    cardLabelW.setText(game.getPlayerW().displayHandValue());
 		    cardsPanelW.add(new JLabel(getMyImage(newCard)));
 		    displayLabel.setText(game.getPlayerX(2).getName() + " hit!");
+			cardEffect.play();
 		    break;
 		default:
 		    break;
@@ -1477,15 +1485,16 @@ public class BlackjackGui{
     public class RulesListener implements ActionListener{
      	public void actionPerformed(ActionEvent e)
      	{
-	    rulesFrame.setVisible(true);
-	    rulesButton.setVisible(false);
+			rulesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		
+		    rulesFrame.setVisible(true);
+		    rulesButton.setVisible(false);
      	}
 
     }
 
     /** creates window for betting
      */
-    public void createBetWindow() {
+    public void createBetWindow(boolean exit_on_close) {
 
 	// create the frame and panels, as well as set the layout
     	betFrame = new JFrame();
@@ -1542,12 +1551,21 @@ public class BlackjackGui{
 
 	// add the panel to the frame and set frame attributes
 	betFrame.add(outerPanel);
+
+	// Since this is the only frame before the game starts, if this window
+	// is closed the application should terminate
 	betFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	// If the betting frame is brought up at the end of a round and closed using the 'x' button the game 
+	// should not be terminated.
+	if(!exit_on_close)
+		betFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		
+
 	betFrame.pack();
 	betFrame.setLocationRelativeTo(null); // center window
 	betFrame.setVisible(true);
 
-
+	// Set PartOfWelcomeingWindow to false. This is the last frame before game starts.
     }
 
     /** listender class for confirm name button 
@@ -1562,7 +1580,7 @@ public class BlackjackGui{
 	    // disable the previous window ('enter player name(s)')
 	    nameFrame.setVisible(false);
 
-	    createBetWindow();
+	    createBetWindow(true);
 	}
     }
 
@@ -1962,25 +1980,27 @@ public class BlackjackGui{
 
 	public void actionPerformed(ActionEvent event){
 	    if(numPlayers == 1 && game.getPlayerS().isNotBust() == false){
-		timer.stop();
-		dealerLabel.setText("Dealer wins");
-		theGui.getWinner();
-		return;
+			timer.stop();
+			dealerLabel.setText("Dealer wins");
+			theGui.getWinner();
+			return;
 	    }
-	    else if(numPlayers == 2 && game.getPlayerS().isNotBust() == false 
-		    && game.getPlayerE().isNotBust() == false){
-		timer.stop();
-		dealerLabel.setText("Dealer wins");
-		theGui.getWinner();
-		return;
+	    else if(numPlayers == 2
+		 		&& game.getPlayerS().isNotBust() == false 
+		    	&& game.getPlayerE().isNotBust() == false){
+			timer.stop();
+			dealerLabel.setText("Dealer wins");
+			theGui.getWinner();
+			return;
 	    }
-	    else if(numPlayers == 3 && game.getPlayerS().isNotBust() == false 
-		    && game.getPlayerE().isNotBust() == false 
-		    && game.getPlayerW().isNotBust() == false){
-		timer.stop();
-		dealerLabel.setText("Dealer wins");
-		theGui.getWinner();
-		return;
+	    else if(numPlayers == 3 
+				&& game.getPlayerS().isNotBust() == false 
+		 	    && game.getPlayerE().isNotBust() == false 
+		    	&& game.getPlayerW().isNotBust() == false){
+			timer.stop();
+			dealerLabel.setText("Dealer wins");
+			theGui.getWinner();
+			return;
 	    }
 	    if(game.dealerHasBlackjack()){
 		timer.stop();
@@ -2029,6 +2049,7 @@ public class BlackjackGui{
 	    }
 	    else{
 		displayCard = game.dealerHit();
+		cardEffect.play();
 		dealerPanel.add(new JLabel(getMyImage(displayCard)));
 	    }
 	    if(game.dealerNotBust()){

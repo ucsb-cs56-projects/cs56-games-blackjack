@@ -57,3 +57,6 @@ W16 final remarks
 -------------------
 Most of the code you will be working on will be located in the BlackJackGui.java file. Things will be much easier if you can separate the code inside that file and put them into their own separate files because currently BlackJackGui.java is a very long file with literally every single frame the game uses. There are still some bugs in the game: ex.) When a player tries the "Add Money?" button. All the bugs are related to the GUI and not the game logic.
 
+F16 final remarks
+-------------------
+Currently the application runs well except for the spilt option. Most of the improvements needed are inside the BlackJackGui.java file. This class needs to be refactored may there is a design pattern that will work well. One bug in the Gui that has not been resolved is that the 'Hit' and 'Stay' buttons move around depending on which players turn it is.

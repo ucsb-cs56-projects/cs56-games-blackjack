@@ -63,4 +63,4 @@ Currently the application runs well except for the split option. Most of the imp
 TO-DO:
 * Refactor BlackjackGui - This is the most important step to take for the next group. This one file is >1800 lines long and handles far too many tasks as is. Dividing this up with not only improve your understanding of the code but will help subsequent groups greatly.
 * Fix Split Option - Currently, this option somewhat works for a single split, but subsequent hits after the split are not handled properly. In the code currently, Aces can have the value 1 or 11, so Hand and Second Hand values are stored in each player class to handle this case. Unfortunately, each split must handle its own two hands, which can grow large and needlessly complicated.
-* Fix Button Shifting - The buttons for hitting and staying in the game hop around the screen. This needs to be fixed.
+* Fix Button Shifting - The buttons for hitting and staying in the game hop around the screen. This might be more easily fixed after a code refactor.

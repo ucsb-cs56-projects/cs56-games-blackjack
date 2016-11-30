@@ -59,4 +59,8 @@ Most of the code you will be working on will be located in the BlackJackGui.java
 
 F16 final remarks
 -------------------
-Currently the application runs well except for the spilt option. Most of the improvements needed are inside the BlackJackGui.java file. This class needs to be refactored may there is a design pattern that will work well. One bug in the Gui that has not been resolved is that the 'Hit' and 'Stay' buttons move around depending on which players turn it is.
+Currently the application runs well except for the split option. Most of the improvements needed are inside the BlackJackGui.java file. This class needs to be refactored - perhaps there is a design pattern that will work well. One notable bug in the Gui that has not been resolved is that the 'Hit' and 'Stay' buttons move around depending on which players turn it is. Possible paths of pursuit are as follows.
+TO-DO:
+> Refactor BlackjackGui - This is the most important step to take for the next group. This one file is >1800 lines long and handles far too many tasks as is. Dividing this up with not only improve your understanding of the code but will help subsequent groups greatly.
+> Fix Split Option - Currently, this option somewhat works for a single split, but subsequent hits after the split are not handled properly. In the code currently, Aces can have the value 1 or 11, so Hand and Second Hand values are stored in each player class to handle this case. Unfortunately, each split must handle its own two hands, which can grow large and needlessly complicated.
+> Fix Button Shifting - The buttons for betting and continuing play during the game hop around the screen. This needs to be fixed.

@@ -60,14 +60,14 @@ Most of the code you will be working on will be located in the BlackJackGui.java
 F16 final remarks
 -------------------
 This quarter, we fixed the following issues:
-*#37 - We implemented card sound effects
-*#38 - Reimplemented go method so that new round doesn't create a new window each game
-*#45 - Reimplemented rules tab closing function
-*#47 - Readded green to background color menu
-*#48 - Maintained background color between rounds
-*#49 - Edited appearance of split button
-*#53 - Reimplemented betting frame closing function
-*#54 - Edited music playing functionality
+* #37 - We implemented card sound effects
+* #38 - Reimplemented go method so that new round doesn't create a new window each game
+* #45 - Reimplemented rules tab closing function
+* #47 - Readded green to background color menu
+* #48 - Maintained background color between rounds
+* #49 - Edited appearance of split button
+* #53 - Reimplemented betting frame closing function
+* #54 - Edited music playing functionality
 Currently the application runs well except for the split option. Most of the improvements needed are inside the BlackJackGui.java file. This class needs to be refactored - perhaps there is a design pattern that will work well. One notable bug in the Gui that has not been resolved is that the 'Hit' and 'Stay' buttons move around depending on which players turn it is. Possible paths of pursuit are as follows.
 TO-DO:
 * Refactor BlackjackGui - This is the most important step to take for the next group. This one file is >1800 lines long and handles far too many tasks as is. Dividing this up with not only improve your understanding of the code but will help subsequent groups greatly.

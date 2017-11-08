@@ -34,35 +34,17 @@ public class BlackjackGui{
     JPanel addMoneyPanel;
     JPanel playerPanelS;
     JPanel playerPanelE;
-    JPanel playerPanelW;
-    JPanel cardPanelS;
-    JPanel cardPanelE;
-    JPanel cardPanelW;
-    JPanel dealerPanel;
-    JPanel welcomePanel;
-    JPanel displayPanel;
-    JPanel centerPanel;
-    JPanel textPanel;
-    JLabel dealerLabel;
-    JLabel displayLabel;
-    JLabel welcomeLabel;
-    JTextField player1Name;
-    JTextField player2Name;
-    JTextField player3Name;
-    String p1Name;
-    String p2Name;
-    String p3Name;
-    JPanel namePanel;
-    Blackjack game = new Blackjack();
-    boolean dealerTurn;
-    int playerTurn = 1;
-    BlackjackGui theGui;
-    Card displayCard;
-    JLabel downCard;
-    JButton playAgain;
-    JButton beginGame;
-	/** CARD SOUND EFFECT **/
-	    Sound cardEffect = new Sound("music/dealingCard.wav");
+    JPanel playerPanelW; JPanel cardPanelS; JPanel cardPanelE; JPanel cardPanelW;
+    JPanel dealerPanel; JPanel welcomePanel; JPanel displayPanel; JPanel
+    centerPanel; JPanel textPanel; JLabel dealerLabel; JLabel displayLabel;
+    JLabel welcomeLabel; JTextField player1Name; JTextField player2Name;
+    JTextField player3Name; String p1Name; String p2Name; String p3Name; JPanel
+    namePanel; Blackjack game = new Blackjack(); boolean dealerTurn; int
+    playerTurn = 1; BlackjackGui theGui; Card displayCard; JLabel downCard;
+    JButton playAgain; JButton beginGame;
+
+    /** CARD SOUND EFFECT **/
+	  Sound cardEffect = new Sound("music/dealingCard.wav");
 
     /** RULES WINDOW **/
     JFrame rulesFrame;
@@ -172,20 +154,20 @@ public class BlackjackGui{
     int speed = 1000;
     Timer timer = new Timer(speed, new MyTimerListener());
 
-    BlackjackGui(){
-	frame = new JFrame();
-	playerLabelArray[0] = playerLabelS;
-	playerLabelArray[1] = playerLabelE;
-	playerLabelArray[2] = playerLabelW;
+    BlackjackGui()
+    {
+      frame = new JFrame();
 
-	card1LabelArray[0]  = cardLabelS;
-	card1LabelArray[1]  = cardLabelE;
-	card1LabelArray[2]  = cardLabelW;
+      playerLabelArray[0] = playerLabelS;
+      playerLabelArray[1] = playerLabelE;
+      playerLabelArray[2] = playerLabelW;
 
-	card2LabelArray[0]  = card2LabelS;
-	card2LabelArray[1]  = card2LabelE;
-	card2LabelArray[2]  = card2LabelW;
-
+      card1LabelArray[0]  = cardLabelS;
+      card1LabelArray[1]  = cardLabelE;
+      card1LabelArray[2]  = cardLabelW;
+      card2LabelArray[0]  = card2LabelS;
+      card2LabelArray[1]  = card2LabelE;
+      card2LabelArray[2]  = card2LabelW;
     }
 
 
@@ -202,7 +184,7 @@ public class BlackjackGui{
     /** enabled or disabled Double Down optiion
      */
     private void setDoubleDown() {
-    	switch(playerTurn) {
+    switch(playerTurn) {
 	case(1):
 	    if (canPlayer1DD) {
 		canPlayer1DD = false;

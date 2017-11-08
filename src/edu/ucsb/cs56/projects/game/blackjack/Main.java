@@ -1,9 +1,9 @@
 package edu.ucsb.cs56.projects.game.blackjack;
 
 /**
- * Controller.java
+ * Main.java
  *
- * The Controller class for the Blackjack Game.
+ * The Main class for the Blackjack Game.
  * Contains main
  *
  * @author Ryan Lorica
@@ -11,7 +11,7 @@ package edu.ucsb.cs56.projects.game.blackjack;
  * @version 11/7/17
  */
 
-public class Controller
+public class Main
 {
 
   /** Launches and runs the Blackjack game
@@ -19,9 +19,7 @@ public class Controller
    */
   public static void main(String[] args)
   {
-    BlackjackGui gui = new BlackjackGui();
-    gui.rules();
-    gui.welcome();
-    gui.go();
+    MasterController game = new MasterController();
+    game.run();
   }
 }

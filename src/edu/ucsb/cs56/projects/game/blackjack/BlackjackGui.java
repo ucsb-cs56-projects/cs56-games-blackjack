@@ -172,21 +172,21 @@ public class BlackjackGui{
     int speed = 1000;
     Timer timer = new Timer(speed, new MyTimerListener());
 
-    BlackjackGui(){
-	frame = new JFrame();
-	playerLabelArray[0] = playerLabelS;
-	playerLabelArray[1] = playerLabelE;
-	playerLabelArray[2] = playerLabelW;
+  BlackjackGui()
+  {
+    frame = new JFrame();
+    playerLabelArray[0] = playerLabelS;
+	  playerLabelArray[1] = playerLabelE;
+    playerLabelArray[2] = playerLabelW;
 
-	card1LabelArray[0]  = cardLabelS;
-	card1LabelArray[1]  = cardLabelE;
-	card1LabelArray[2]  = cardLabelW;
+    card1LabelArray[0]  = cardLabelS;
+    card1LabelArray[1]  = cardLabelE;
+    card1LabelArray[2]  = cardLabelW;
 
-	card2LabelArray[0]  = card2LabelS;
-	card2LabelArray[1]  = card2LabelE;
-	card2LabelArray[2]  = card2LabelW;
-
-    }
+    card2LabelArray[0]  = card2LabelS;
+    card2LabelArray[1]  = card2LabelE;
+    card2LabelArray[2]  = card2LabelW;
+  }
 
 
     /** enabled or disabled Double Down optiion
@@ -1173,13 +1173,23 @@ public class BlackjackGui{
 
     /** initializes the rules window
      */
-    public void rules() {
+    public void rules()
+    {
     	rulesFrame = new JFrame();
     	rulesPanel = new JPanel(new GridLayout(2, 0, 5, 0));
-    	rulesLabel = new JLabel("<html><br>Blackjack win and loss conditions.. <br>Loss Conditions: <br>-Having a hand value of over 21 (BUST!) <br>-Having a hand value less than the dealer's hand value <br><br>Win Conditions: <br>-Get blackjack (hand value of 21) <br>-Have 5 cards without busting (5 card charlie! you still still lose if the dealer has blackjack) <br>-Have a hand value greater than the dealer's <br><br>Other Features:<br>-Double downing draws one card then moves onto the next player (deducts bet amount, chance to win double)<br>-Every player starts with $5,000<br><br>");
+    	rulesLabel = new JLabel
+        ("<html><br>Blackjack win and loss conditions.. <br>Loss Conditions:"
+        +" <br>-Having a hand value of over 21 (BUST!) <br>-Having a hand value"
+        +" less than the dealer's hand value <br><br>Win Conditions: <br>-Get"
+        +" blackjack (hand value of 21) <br>-Have 5 cards without busting (5"
+        +" card charlie! you still still lose if the dealer has blackjack)"
+        +" <br>-Have a hand value greater than the dealer's <br><br>Other"
+        +" Features:<br>-Double downing draws one card then moves onto the"
+        +" next player (deducts bet amount, chance to win double)<br>-Every"
+        +" player starts with $5,000<br><br>");
 
     	rulesButton = new JButton("Play!");
-    	rulesButton.addActionListener(new CloseRulesListener());
+    	//rulesButton.addActionListener(new CloseRulesListener());
 
     	rulesLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -1187,7 +1197,7 @@ public class BlackjackGui{
     	rulesPanel.add(rulesButton);
     	rulesPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-        // create the outer panel to center the widgets
+      // create the outer panel to center the widgets
     	JPanel outerPanel = new JPanel();
     	outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
     	outerPanel.add(Box.createHorizontalGlue());
@@ -1198,51 +1208,53 @@ public class BlackjackGui{
     	rulesFrame.setSize(300,400);
     	rulesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	rulesFrame.pack();
-        rulesFrame.setLocationRelativeTo(null); // center the window
-        rulesFrame.setVisible(true);
+      rulesFrame.setLocationRelativeTo(null); // center the window
+      rulesFrame.setVisible(true);
     }
 
 
+  public JButton onePlayerButton;
+  public JButton twoPlayerButton;
+  public JButton threePlayerButton;
 
-    /** initializes the welcome widgets
-     */
-    public void welcome(){
-    	totalPotLabel = new JLabel();
+  /** initializes the welcome widgets
+  */
+  public void welcome()
+  {
+    totalPotLabel = new JLabel();
 
-    	welcomeFrame = new JFrame();
-    	welcomePanel = new JPanel(new GridLayout(4, 0, 5, 0));
-    	welcomeLabel = new JLabel();
+    welcomeFrame = new JFrame();
+    welcomePanel = new JPanel(new GridLayout(4, 0, 5, 0));
+    welcomeLabel = new JLabel();
 
-    	JButton onePlayer = new JButton("1 player");
-    	JButton twoPlayers = new JButton("2 players");
-    	JButton threePlayers = new JButton("3 players");
-    	onePlayer.addActionListener(new WelcomeListener1());
-    	twoPlayers.addActionListener(new WelcomeListener2());
-    	threePlayers.addActionListener(new WelcomeListener3());
+    onePlayerButton = new JButton("1 player");
+    twoPlayerButton = new JButton("2 players");
+    threePlayerButton = new JButton("3 players");
 
-    	welcomeLabel.setText("Welcome to Blackjack");
-    	welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    welcomeLabel.setText("Welcome to Blackjack");
+    welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-    	welcomePanel.add(welcomeLabel);
-    	welcomePanel.add(onePlayer);
-    	welcomePanel.add(twoPlayers);
-    	welcomePanel.add(threePlayers);
-    	welcomePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    welcomePanel.add(welcomeLabel);
 
-	// create the outer panel to center the widgets
-    	JPanel outerPanel = new JPanel();
-    	outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
-    	outerPanel.add(Box.createHorizontalGlue());
-    	outerPanel.add(welcomePanel);
-    	outerPanel.add(Box.createHorizontalGlue());
+    welcomePanel.add(onePlayerButton);
+    welcomePanel.add(twoPlayerButton);
+    welcomePanel.add(threePlayerButton);
 
-    	welcomeFrame.add(welcomePanel);
-    	welcomeFrame.setSize(200,175);
-    	welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	welcomeFrame.pack();
-	welcomeFrame.setLocationRelativeTo(null); // center the window
+    welcomePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-    }
+    // create the outer panel to center the widgets
+    JPanel outerPanel = new JPanel();
+    outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
+    outerPanel.add(Box.createHorizontalGlue());
+    outerPanel.add(welcomePanel);
+    outerPanel.add(Box.createHorizontalGlue());
+
+    welcomeFrame.add(welcomePanel);
+    welcomeFrame.setSize(200,175);
+    welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    welcomeFrame.pack();
+    welcomeFrame.setLocationRelativeTo(null); // center the window
+  }
 
 
     /** returns the image corresponding to the Card passed in
@@ -1667,19 +1679,7 @@ public class BlackjackGui{
     }
 
 
-    /** listener class for closing the rules window
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class CloseRulesListener implements ActionListener {
-	/** closes the rules window
-            @param event ActionEvent, play button (close rules)
-	*/
-	public void actionPerformed(ActionEvent event) {
-	    rulesFrame.setVisible(false);
-	    welcomeFrame.setVisible(true);
-	}
-    }
+
 
     /** listener class for player names change in menu bar
      *  @author ???
@@ -1742,53 +1742,6 @@ public class BlackjackGui{
 	nameFrame.getContentPane().add(namePanel);
 	nameFrame.setLocationRelativeTo(null); // center the window
 	nameFrame.setVisible(true);
-    }
-
-
-
-    /** listener class for 1 player button
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class WelcomeListener1 implements ActionListener{
-	/** initializes the window for set bet amount and prepares for a 1 player game
-	    @param event ActionEvent, welcome 1 player
-	*/
-	public void actionPerformed(ActionEvent event){
-	    numPlayers = 1;
-	    welcomeFrame.setVisible(false);
-	    createNewNameFrame(numPlayers);
-	}
-    }
-
-    /** listener class for 2 player button
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class WelcomeListener2 implements ActionListener{
-	/** initializes  the window for set bet amount and prepares for a 2 player game
-	    @param event ActionEvent, welcome 2 player
-	*/
-	public void actionPerformed(ActionEvent event){
-	    numPlayers = 2;
-	    welcomeFrame.setVisible(false);
-	    createNewNameFrame(numPlayers);
-	}
-    }
-
-    /** listener class for 3 player button
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class WelcomeListener3 implements ActionListener{
-	/** initializes the window for set bet amount and prepares for a 3 player game
-	    @param event ActionEvent, welcome 3 player
-	*/
-	public void actionPerformed(ActionEvent event){
-	    numPlayers = 3;
-	    welcomeFrame.setVisible(false);
-	    createNewNameFrame(numPlayers);
-	}
     }
 
     /** listener class for load button

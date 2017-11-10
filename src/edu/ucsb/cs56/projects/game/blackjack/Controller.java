@@ -14,14 +14,5 @@ package edu.ucsb.cs56.projects.game.blackjack;
 public class Controller
 {
 
-  /** Launches and runs the Blackjack game
-   * @param args Array of String command line arguments
-   */
-  public static void main(String[] args)
-  {
-    BlackjackGui gui = new BlackjackGui();
-    gui.rules();
-    gui.welcome();
-    gui.go();
-  }
+
 }

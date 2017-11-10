@@ -19,7 +19,7 @@
  <property name="course" value="cs56"/>
  <property name="quarter" value="F16"/>
  <property name="projectName" value="blackjack"/>
- <property name="mainClass" value="edu.ucsb.cs56.projects.game.blackjack.Controller"/>
+ <property name="mainClass" value="edu.ucsb.cs56.projects.game.blackjack.Main"/>
  <property name="projectPath" value="${course}/projects/game/${projectName}"/>
 
  <property name="javadocDest" value="../cs56-games-blackjack_javadoc_davidtsu_chavez95/javadoc"/>

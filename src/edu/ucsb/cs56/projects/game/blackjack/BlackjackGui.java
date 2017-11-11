@@ -296,19 +296,6 @@ public class BlackjackGui
     	}
     }
 
-    /** split listener
-     *  @author David Tsu
-     *  @author Marco Chavez
-     *  @version 2016.11.9
-     */
-    public class SplitListener implements ActionListener {
-    	public void actionPerformed(ActionEvent e) {
-	    game.splitHand(playerTurn);
-	    splitHand(playerTurn);
-	    split.setVisible(false);
-    	}
-    }
-
 
   // TODO initialize these in constructor
   JButton save = new JButton("Save all stats");

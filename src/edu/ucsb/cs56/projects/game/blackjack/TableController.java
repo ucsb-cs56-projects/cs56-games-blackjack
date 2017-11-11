@@ -26,6 +26,7 @@ public class TableController
 
   public void run()
   {
+    gui.go();
     attachActionListeners();
   }
 

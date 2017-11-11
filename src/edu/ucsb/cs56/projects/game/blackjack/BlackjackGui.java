@@ -63,7 +63,7 @@ public class BlackjackGui
     BlackjackGui theGui;
     Card displayCard;
     JLabel downCard;
-    JButton playAgain;
+    JButton playAgain = new JButton("Play again");;
     JButton beginGame;
 	/** CARD SOUND EFFECT **/
 	    Sound cardEffect = new Sound("music/dealingCard.wav");
@@ -197,7 +197,7 @@ public class BlackjackGui
 
     /** enabled or disabled Double Down optiion
      */
-    private void setDoubleDown() {
+    public void setDoubleDown() {
     	switch(playerTurn) {
 	case(1):
 	    if (canPlayer1DD) {
@@ -235,7 +235,7 @@ public class BlackjackGui
     }
 
     /** enabled or disabled split option */
-    private void setSplit() {
+    public void setSplit() {
 	switch(playerTurn) {
 	case(1):
 	   // % 13  is used becuase every 13 cards there's another card with the same value exmaple: 1 % 13 and
@@ -306,9 +306,22 @@ public class BlackjackGui
 	    game.splitHand(playerTurn);
 	    splitHand(playerTurn);
 	    split.setVisible(false);
-
     	}
     }
+
+
+  // TODO initialize these in constructor
+  JButton save = new JButton("Save all stats");
+  JButton exitE = new JButton("Leave Game");
+  JButton addMoneyE = new JButton("Add Money?");;
+  JButton changeBetE = new JButton("Change Bet Amount?");;
+  JButton exitW = new JButton("Leave Game");
+  JButton addMoneyW = new JButton("Add Money?");
+  JButton changeBetW = new JButton("Change Bet Amount?");
+  JButton exitS = new JButton("Leave Game");
+	JButton addMoneyS = new JButton("Add Money?");
+	JButton changeBetS = new JButton("Change Bet Amount?");
+  JButton resumeGame = new JButton("Confirm");
 
     /** gets the winner and displays it in a label
      *  also makes the playAgain button visible
@@ -340,12 +353,12 @@ public class BlackjackGui
 	if(DealerWon)
 	    displayLabel.setText("Dealer wins");
 	/** create 'play again' button to display at the end of the round and removes hit and stay button **/
-	JButton save = new JButton("Save all stats");
+
 	save.setMaximumSize(new Dimension(170, 75));
-	save.addActionListener(new SaveListener());
-	playAgain = new JButton("Play again");
-	playAgain.setMaximumSize(new Dimension(130, 75));
-	playAgain.addActionListener(new PlayAgainListener());
+	//save.addActionListener(new SaveListener());
+  //playAgain = new JButton("Play again");
+  playAgain.setMaximumSize(new Dimension(130, 75));
+	//playAgain.addActionListener(new PlayAgainListener());
 	hit.setVisible(false);
 	stay.setVisible(false);
 	shift = false;
@@ -354,23 +367,13 @@ public class BlackjackGui
 
 	}
 	if (game.getPlayerE() != null) {
-	    JButton exitE = new JButton("Leave Game");
-	    JButton addMoneyE = new JButton("Add Money?");
-	    JButton changeBetE = new JButton("Change Bet Amount?");
-	    exitE.addActionListener(new ExitEListener());
-	    changeBetE.addActionListener(new ChangeBetListener());
-	    addMoneyE.addActionListener(new AddMoneyEListener());
+
+
 	    playerPanelE.add(addMoneyE);
 	    playerPanelE.add(changeBetE);
 	    playerPanelE.add(exitE);
 	}
 	if (game.getPlayerW() != null) {
-	    JButton exitW = new JButton("Leave Game");
-	    JButton addMoneyW = new JButton("Add Money?");
-	    JButton changeBetW = new JButton("Change Bet Amount?");
-	    exitW.addActionListener(new ExitWListener());
-	    changeBetW.addActionListener(new ChangeBetListener());
-	    addMoneyW.addActionListener(new AddMoneyWListener());
 	    playerPanelW.add(addMoneyW);
 	    playerPanelW.add(changeBetW);
 	    playerPanelW.add(exitW);
@@ -381,13 +384,7 @@ public class BlackjackGui
 
     /** creates buttons at round's end
      */
-    private void createSouthAfterRoundButtons(){
-	JButton exitS = new JButton("Leave Game");
-	JButton addMoneyS = new JButton("Add Money?");
-	JButton changeBetS = new JButton("Change Bet Amount?");
-	exitS.addActionListener(new ExitSListener());
-	changeBetS.addActionListener(new ChangeBetListener());
-	addMoneyS.addActionListener(new AddMoneySListener());
+    public void createSouthAfterRoundButtons(){
 	playerPanelS.add(addMoneyS);
 	playerPanelS.add(changeBetS);
 	playerPanelS.add(exitS);
@@ -404,85 +401,7 @@ public class BlackjackGui
 	game.players.get(player).setName(game.players.get(player + 1).getName());
     }
 
-    /** ExitSListener, listens for bottom player's exit
-     *  @author David Tsu
-     *  @author Marco Chavez
-     *  @version 2016.11.9
-     */
-    public class ExitSListener implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-	    if (numPlayers == 1) frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-	    if (numPlayers == 3) {
-		shift = true;
-		playerLeaves(0);
-		p1Name = p2Name;
-		playerLeaves(1);
-		p2Name = p3Name;
-	    }
-	    else if (numPlayers == 2) {
-		playerLeaves(0);
-		p1Name = p2Name;
-	    }
-	    numPlayers--;
-	    JButton exit = (JButton)e.getSource();
-	    exit.removeActionListener(this);
-	}
-    }
-
-    /** ExitEListener, listens for right player's exit
-     *  @author David Tsu
-     *  @author Marco Chavez
-     *  @version 2016.11.9
-     */
-    public class ExitEListener implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-	    if (numPlayers == 1) {
-		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-	    }
-	    else if (numPlayers == 3) {
-		playerLeaves(1);
-		p2Name = p3Name;
-	    }
-	    else if (numPlayers == 2) {
-		if (shift == true) {
-		    playerLeaves(0);
-		    p1Name = p2Name;
-		}
-	    }
-	    numPlayers--;
-	    JButton exit = (JButton)e.getSource();
-	    exit.removeActionListener(this);
-	}
-    }
-
-    /** ExitWListener, listens for left player's exit
-     *  @author David Tsu
-     *  @author Marco Chavez
-     *  @version 2016.11.9
-     */
-    public class ExitWListener implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-	    if (numPlayers == 1) {
-		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-	    }
-	    numPlayers--;
-	    JButton exit = (JButton)e.getSource();
-	    exit.removeActionListener(this);
-	}
-    }
-
-    /** ExitListener, listens for general game exit
-     *  @author David Tsu
-     *  @author Marco Chavez
-     *  @version 2016.11.9
-     */
-    public class ExitListener implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-	    System.exit(0);
-	}
-    }
-
-    JTextField amountTextField;
+    JTextField amountTextField = new JTextField(20);
     /** creates name frame that sets player names
 	@param player int number of players
     **/
@@ -492,8 +411,8 @@ public class BlackjackGui
 	addMoneyFrame.setSize(300,220);
 
 	JLabel amount = new JLabel("Enter amount of money desired: ");
-	amountTextField = new JTextField(20);
-	amountTextField.addActionListener(new AmountTextFieldListener());
+	//amountTextField = new JTextField(20);
+	//amountTextField.addActionListener(new AmountTextFieldListener());
 
 	if(player == 1)
 	    {
@@ -520,87 +439,10 @@ public class BlackjackGui
 	addMoneyPanel.add(currentMoney);
 	addMoneyPanel.add(amount);
 	addMoneyPanel.add(amountTextField);
-
-	JButton resumeGame = new JButton("Confirm");
-	resumeGame.addActionListener(new ConfirmAddMoney());
 	addMoneyPanel.add(resumeGame);
 	addMoneyFrame.getContentPane().add(addMoneyPanel);
 	addMoneyFrame.setLocationRelativeTo(null); // center the window
 	addMoneyFrame.setVisible(true);
-    }
-
-    /** AddMoneySListener
-     *  @author David Tsu
-     *  @author Marco Chavez
-     *  @version 2016.11.9
-     */
-    public class AddMoneySListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	    createAddMoneyFrame(1);
-	}
-    }
-    /** AddMoneyEListener
-     *  @author David Tsu
-     *  @author Marco Chavez
-     *  @version 2016.11.9
-     */
-    public class AddMoneyEListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	    createAddMoneyFrame(2);
-
-	}
-    }
-
-    /** AddMoneyWListener
-     *  @author David Tsu
-     *  @author Marco Chavez
-     *  @version 2016.11.9
-     */
-    public class AddMoneyWListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	    createAddMoneyFrame(3);
-
-	}
-    }
-
-    /** AmountTextFieldListener
-     *  @author David Tsu
-     *  @author Marco Chavez
-     *  @version 2016.11.9
-     */
-    public class AmountTextFieldListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	    int moneyToAdd = Integer.parseInt(amountTextField.getText());
-	    int currentMoneyToDisplay = currentMoneyInt + moneyToAdd;
-
-	    currentMoney.setText("Your current amount of Money:" + currentMoneyToDisplay);
-	}
-    }
-
-    /** listener class for confirm addMoney button
-     *  @author David Tsu
-     *  @author Marco Chavez
-     *  @version 2016.11.9
-     */
-    public class ConfirmAddMoney implements ActionListener{
-	/** initializes some of the JLabels for a set bet menu and brings up the main JFrame
-	    @param event ActionEvent, set bet
-	*/
-	public void actionPerformed(ActionEvent event){
-	    // disable the previous window ('enter player name(s)')
-	    addMoneyFrame.setVisible(false);
-	}
-    }
-
-    /** listener class for changebet
-     *  @author David Tsu
-     *  @author Marco Chavez
-     *  @version 2016.11.9
-     */
-    public class ChangeBetListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	    createBetWindow(false);
-	}
     }
 
     /** beings the delay timer and shows the dealer's card that was face down
@@ -647,7 +489,7 @@ public class BlackjackGui
      * @param pot pot is the amount of money to be won
      * @param player the player that won
      */
-    private void updateMoney(int pot, int player) {
+    public void updateMoney(int pot, int player) {
     	switch(numPlayers) {
 	case(1):
 	    if(player == 1)
@@ -670,7 +512,7 @@ public class BlackjackGui
     /** [overloaded] add/deduct amount from a specific player
      * @param player player to deduct from
      */
-    private void updateMoney(int player) {
+    public void updateMoney(int player) {
     	game.getPlayer(player).setMoney(-amountBet);
     	updateMoneyLabel(player);
     }
@@ -705,7 +547,7 @@ public class BlackjackGui
      *  @version 2016.2.18
      */
     public class Sound {
-    	private Clip clip;
+    	public Clip clip;
     	public Sound(String fileName) {
 	    // specify the sound to play
 	    // (assuming the sound can be played by the audio system)
@@ -754,105 +596,7 @@ public class BlackjackGui
     // song object for background music
     Sound song = new Sound("music/Casino_Ambiance_Music.wav");
 
-    /** listener class for pause button
-     *  @author John Lau
-     *  @version 2016.2.18
-     */
-    public class PauseMusicListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	    song.stop();
-	}
-    }
 
-    /** listener class for play button
-     *  @author John Lau
-     *  @version 2016.2.18
-     */
-    public class PlayMusicListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	    song.play();
-	}
-    }
-
-    /** listener class for Navy color change
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class NavyActionListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	    currentColor = navy;
-	    dealerPanel.setBackground(navy);
-	    displayPanel.setBackground(navy);
-	    cardsPanelE.setBackground(navy);
-	    cardsPanelS.setBackground(navy);
-	    cardsPanelW.setBackground(navy);
-	    centerPanel.setBackground(navy);
-	    textPanel.setBackground(navy);
-	    playerPanelS.setBackground(navy);
-	    playerPanelE.setBackground(navy);
-	    playerPanelW.setBackground(navy);
-	}
-    }
-
-    /** listener class for Maroon color change
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class MaroonActionListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	    currentColor = maroon;
-	    dealerPanel.setBackground(maroon);
-	    displayPanel.setBackground(maroon);
-	    cardsPanelE.setBackground(maroon);
-	    cardsPanelS.setBackground(maroon);
-	    cardsPanelW.setBackground(maroon);
-	    centerPanel.setBackground(maroon);
-	    textPanel.setBackground(maroon);
-	    playerPanelS.setBackground(maroon);
-	    playerPanelE.setBackground(maroon);
-	    playerPanelW.setBackground(maroon);
-	}
-    }
-
-    /** listener class for Gray color change
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class GrayActionListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	    currentColor = gray;
-	    dealerPanel.setBackground(gray);
-	    displayPanel.setBackground(gray);
-	    cardsPanelE.setBackground(gray);
-	    cardsPanelS.setBackground(gray);
-	    cardsPanelW.setBackground(gray);
-	    centerPanel.setBackground(gray);
-	    textPanel.setBackground(gray);
-	    playerPanelS.setBackground(gray);
-	    playerPanelE.setBackground(gray);
-	    playerPanelW.setBackground(gray);
-	}
-    }
-
-    /** listener class for FeltGreen color change
-     *  @author Marco Chavez
-     *  @version 2016.11.9
-     */
-    public class FeltGreenActionListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	    currentColor = feltgreen;
-	    dealerPanel.setBackground(feltgreen);
-	    displayPanel.setBackground(feltgreen);
-	    cardsPanelE.setBackground(feltgreen);
-	    cardsPanelS.setBackground(feltgreen);
-	    cardsPanelW.setBackground(feltgreen);
-	    centerPanel.setBackground(feltgreen);
-	    textPanel.setBackground(feltgreen);
-	    playerPanelS.setBackground(feltgreen);
-	    playerPanelE.setBackground(feltgreen);
-	    playerPanelW.setBackground(feltgreen);
-	}
-    }
     // create 3rd player's label
     public void create3rdPlayersLabel(){
     	playerPanelW = new JPanel(); playerLabelW = new JLabel(p3Name);  playerLabelArray[2] = playerLabelW;
@@ -886,6 +630,18 @@ public class BlackjackGui
 	dealerPanel.add(dealerLabel);
     }
 
+  public JMenuItem menuSave;
+  public JMenuItem menuExit;
+  public JMenuItem menuRestart;
+  public JMenuItem menuRules;
+  public JMenuItem menuNames;
+  public JMenuItem songPause;
+  public JMenuItem songPlay;
+  public JMenuItem colorNavy;
+  public JMenuItem colorFeltGreen;
+  public JMenuItem colorMaroon;
+  public JMenuItem colorGray;
+
     //create menubar
     public void createMenuBar(){
     	menuBar = new JMenuBar();
@@ -895,35 +651,35 @@ public class BlackjackGui
     	menuHelp = new JMenu("Help");
     	menuMusic = new JMenu("Music");
 
-    	JMenuItem menuSave= new JMenuItem("Save");
-    	menuSave.addActionListener(new SaveListener());
-    	JMenuItem menuExit = new JMenuItem("Exit");
-    	menuExit.addActionListener(new ExitListener());
-    	JMenuItem menuRestart = new JMenuItem("Restart");
-    	menuRestart.addActionListener(new PlayAgainListener());
-    	JMenuItem menuRules= new JMenuItem("Rules");
-    	menuRules.addActionListener(new RulesListener());
+    	menuSave= new JMenuItem("Save");
+    	//menuSave.addActionListener(new SaveListener());
+    	menuExit = new JMenuItem("Exit");
+    	//menuExit.addActionListener(new ExitListener());
+    	menuRestart = new JMenuItem("Restart");
+    	//menuRestart.addActionListener(new PlayAgainListener());
+      menuRules= new JMenuItem("Rules");
+    	//menuRules.addActionListener(new RulesListener());
     	JMenu menuColors= new JMenu("Colors");
-    	JMenuItem colorNavy = new JMenuItem("Navy");
-    	JMenuItem colorMaroon = new JMenuItem("Maroon");
-    	JMenuItem colorGray = new JMenuItem("Gray");
-	JMenuItem colorFeltGreen = new JMenuItem("Felt Green");
+    	colorNavy = new JMenuItem("Navy");
+    	colorMaroon = new JMenuItem("Maroon");
+    	colorGray = new JMenuItem("Gray");
+	    colorFeltGreen = new JMenuItem("Felt Green");
     	menuColors.add(colorNavy);
     	menuColors.add(colorGray);
     	menuColors.add(colorMaroon);
 	menuColors.add(colorFeltGreen);
-    	colorNavy.addActionListener(new NavyActionListener());
-    	colorGray.addActionListener(new GrayActionListener());
-    	colorMaroon.addActionListener(new MaroonActionListener());
-	colorFeltGreen.addActionListener(new FeltGreenActionListener());
-    	JMenuItem menuNames = new JMenuItem("Player Names");
-    	menuNames.addActionListener(new ChangeNamesListener());
-    	JMenuItem songPause = new JMenuItem("Pause");
+    	//colorNavy.addActionListener(new NavyActionListener());
+    	//colorGray.addActionListener(new GrayActionListener());
+    	//colorMaroon.addActionListener(new MaroonActionListener());
+	    //colorFeltGreen.addActionListener(new FeltGreenActionListener());
+    	menuNames = new JMenuItem("Player Names");
+    	//menuNames.addActionListener(new ChangeNamesListener());
+    	songPause = new JMenuItem("Pause");
     	menuMusic.add(songPause);
-    	songPause.addActionListener(new PauseMusicListener());
-    	JMenuItem songPlay = new JMenuItem("Play");
+    	//songPause.addActionListener(new PauseMusicListener());
+    	songPlay = new JMenuItem("Play");
     	menuMusic.add(songPlay);
-    	songPlay.addActionListener(new PlayMusicListener());
+    	//songPlay.addActionListener(new PlayMusicListener());
 
     	menuFile.add(menuSave);
     	menuFile.add(menuExit);
@@ -962,10 +718,10 @@ public class BlackjackGui
     public void createHitAndStayButtons(){
     	hit = new JButton("hit");
     	hit.setMaximumSize(new Dimension(75,75));
-    	hit.addActionListener(new HitListener());
+    	//hit.addActionListener(new HitListener());
     	stay = new JButton("stay");
     	stay.setMaximumSize(new Dimension(75,75));
-    	stay.addActionListener(new StayListener());
+    	//stay.addActionListener(new StayListener());
     	displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
     	centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
     	centerPanel.add(Box.createRigidArea(new Dimension(120, 0)));
@@ -975,14 +731,14 @@ public class BlackjackGui
     	displayPanel.add(displayLabel);
     	displayPanel.add(centerPanel);
 
-    	dd = new JButton("Double Down?");
-    	dd.addActionListener(new ddListener());
+      dd = new JButton("Double Down?");
+    	//dd.addActionListener(new ddListener());
     	displayPanel.add(dd);
     	setDoubleDown();
 
 	//should only appear if someone can split
     	split = new JButton("Split Hand");
-    	split.addActionListener(new SplitListener());
+    	//split.addActionListener(new SplitListener());
     	displayPanel.add(split);
     }
 
@@ -1402,174 +1158,6 @@ public void initialize()
 	    return new ImageIcon();
     }
 
-
-    /** listener class for the hit button
-     */
-    public class HitListener implements ActionListener{
-	/** does nothing if it is not the player's turn
-	 *   otherwise makes the player hit and checks if the player went bust.
-	 *   If player busts, it goes to next player's turn or the dealer's turn.
-	 @param event ActionEvent, player's action
-	*/
-	public void actionPerformed(ActionEvent event){
-	    setDoubleDown();
-
-	    if(!dealerTurn){
-		//adds a new card to the players hand
-		Card newCard = game.playerHit(game.getPlayer(playerTurn));
-		//makes a string for whether or not the player busts,
-		//to later append to their label
-		String isBust = !game.getPlayer(playerTurn).isNotBust() ? " went bust!" : "";
-		split.setVisible(false);
-		switch(playerTurn){
-		case 1:
-		    playerLabelS.setText(game.getPlayerX(0).getName() + isBust);
-		    cardLabelS.setText(game.getPlayerS().displayHandValue());
-		    cardsPanelS.add(new JLabel(getMyImage(newCard)));
-		    displayLabel.setText(game.getPlayerX(0).getName() + " hit!");
-			cardEffect.play();
-		    break;
-		case 2:
-		    playerLabelE.setText(game.getPlayerX(1).getName() + isBust);
-		    cardLabelE.setText(game.getPlayerE().displayHandValue());
-		    cardsPanelE.add(new JLabel(getMyImage(newCard)));
-		    displayLabel.setText(game.getPlayerX(1).getName() + " hit!");
-			cardEffect.play();
-		    break;
-		case 3:
-		    playerLabelW.setText(game.getPlayerX(2).getName() + isBust);
-		    cardLabelW.setText(game.getPlayerW().displayHandValue());
-		    cardsPanelW.add(new JLabel(getMyImage(newCard)));
-		    displayLabel.setText(game.getPlayerX(2).getName() + " hit!");
-			cardEffect.play();
-		    break;
-		default:
-		    break;
-		}
-		//if player busts, either continue on to next player's turn or dealer's turn
-		if(!game.getPlayer(playerTurn).isNotBust()){
-		    if(playerTurn < numPlayers)
-			theGui.nextPlayersTurn();
-		    else
-			theGui.startDealerTurn();
-		}
-	    }
-	}
-    }
-
-    /** listener class for the stay button
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class StayListener implements ActionListener{
-
-	/** does nothing if it is not the player's turn
-	 *  otherwise makes the player stay and starts the dealer's turn
-	 @param event ActionEvent, Player stays
-	*/
-	public void actionPerformed(ActionEvent event){
-
-	    if(!dealerTurn){
-		if(playerTurn < numPlayers){
-		    playerTurn++;
-		    displayLabel.setText(game.getPlayer(playerTurn).getName() + "'s turn");
-		    setSplit();
-		}
-		else{
-		    displayLabel.setText("Dealer's Turn");
-		    theGui.startDealerTurn();
-		}
-	    }
-	    setDoubleDown();
-	}
-    }
-
-
-    /** listener class for the double down button
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class ddListener implements ActionListener{
-
-        /** does nothing if it is not the player's turn
-         *  otherwise makes the player draw one card and then goes to the next player's turn
-         @param event ActionEvent, Player doubles down
-	*/
-	public void actionPerformed(ActionEvent event){
-
-	    if(!dealerTurn){
-		//update pot and deduct player's money on hand
-		updateTotalPot(amountBet);
-		updateMoney(playerTurn);
-
-		//adds a new card to the players hand
-		Card newCard = game.playerHit(game.getPlayer(playerTurn));
-                //makes a string for whether or not the player busts,
-                //to later append to their label
-		String isBust = !game.getPlayer(playerTurn).isNotBust() ? " went bust!" : "";
-		switch(playerTurn){
-		case 1:
-		    playerLabelS.setText(p1Name + isBust);
-		    cardLabelS.setText(game.getPlayerS().displayHandValue());
-		    cardsPanelS.add(new JLabel(getMyImage(newCard)));
-		    displayLabel.setText(p1Name + " hit!");
-		    game.getPlayerS().setDD(amountBet);
-		    break;
-		case 2:
-		    playerLabelE.setText(p2Name + isBust);
-		    cardLabelE.setText(game.getPlayerE().displayHandValue());
-		    cardsPanelE.add(new JLabel(getMyImage(newCard)));
-		    displayLabel.setText(p2Name + " hit!");
-		    game.getPlayerE().setDD(amountBet);
-		    break;
-		case 3:
-		    playerLabelW.setText(p3Name + isBust);
-		    cardLabelW.setText(game.getPlayerW().displayHandValue());
-		    cardsPanelW.add(new JLabel(getMyImage(newCard)));
-		    displayLabel.setText(p3Name + " hit!");
-		    game.getPlayerW().setDD(amountBet);
-		    break;
-		default:
-		    break;
-		}
-		//if player busts, either continue on to next player's turn or dealer's turn
-		if(!game.getPlayer(playerTurn).isNotBust()){
-		    if(playerTurn < numPlayers)
-			theGui.nextPlayersTurn();
-		    else
-			theGui.startDealerTurn();
-		}
-
-		// if not bust
-		else if(playerTurn < numPlayers){
-		    playerTurn++;
-		    displayLabel.setText(game.getPlayer(playerTurn).getName() + "'s turn");
-		}
-		// if dealer's turn
-		else{
-		    displayLabel.setText("Dealer's Turn");
-		    theGui.startDealerTurn();
-		}
-	    }
-
-	}
-    }
-
-
-    /** Opens rules without Play button
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class RulesListener implements ActionListener{
-     	public void actionPerformed(ActionEvent e)
-     	{
-			rulesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		    rulesFrame.setVisible(true);
-		    rulesButton.setVisible(false);
-     	}
-
-    }
-
   /** creates window for betting
   */
   public void createBetWindow(boolean exit_on_close)
@@ -1638,17 +1226,6 @@ public void initialize()
     // Set PartOfWelcomeingWindow to false. This is the last frame before game starts.
   }
 
-    /** listener class for player names change in menu bar
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class ChangeNamesListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	    createNewNameFrame(numPlayers);
-	}
-
-    }
-
   /** creates name frame that sets player names
 	@param num number of players
   **/
@@ -1702,19 +1279,6 @@ public void initialize()
 	  nameFrame.setVisible(true);
   }
 
-    /** listener class for save button
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class SaveListener implements ActionListener {
-	/** prepares for save
-	 *  @param event ActionEvent
-	 */
-	public void actionPerformed(ActionEvent event) {
-	    game.saveStats(theGui);
-	}
-    }
-
     /** updates ingame statistics
      */
     public void updateStats() {
@@ -1731,29 +1295,6 @@ public void initialize()
 	if (game.getPlayerW() != null) { game.getPlayerW().setWins(game.p3wins); game.getPlayerW().setLosses(game.p3losses);
 	    game.getPlayerW().setWon(game.p3won); game.getPlayerW().setLost(game.p3lost);
 	    game.getPlayerW().resetMoney(game.p3money);
-	}
-    }
-
-
-    /** listener class for playAgain button
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class PlayAgainListener implements ActionListener{
-
-	/** starts a new game
-	    @param event ActionEvent, play again
-	*/
-	public void actionPerformed(ActionEvent event){
-	    didPlayer1Split = false;
-	    didPlayer2Split = false;
-	    didPlayer3Split = false;
-	    game.newRound();
-	    song.stop();
-	    welcomeFrame.dispose();
-	    nameFrame.dispose();
-	    keepRunning = true;
-	    go();
 	}
     }
 } //end BlackjackGui

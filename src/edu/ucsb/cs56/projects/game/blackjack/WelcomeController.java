@@ -15,7 +15,7 @@ import java.awt.*;
 
 public class WelcomeController
 {
-  public BlackjackGui gui;
+  BlackjackGui gui;
 
   public WelcomeController(BlackjackGui g)
   {
@@ -48,7 +48,7 @@ public class WelcomeController
     {
       gui.numPlayers = 1;
       gui.welcomeFrame.setVisible(false);
-      gui.createNewNameFrame(gui.numPlayers);
+      gui.stage++;
     }
   }
 
@@ -65,7 +65,7 @@ public class WelcomeController
     {
       gui.numPlayers = 2;
       gui.welcomeFrame.setVisible(false);
-      gui.createNewNameFrame(gui.numPlayers);
+      gui.stage++;
     }
   }
 
@@ -82,7 +82,7 @@ public class WelcomeController
     {
       gui.numPlayers = 3;
       gui.welcomeFrame.setVisible(false);
-      gui.createNewNameFrame(gui.numPlayers);
+      gui.stage++;
     }
   }
 }

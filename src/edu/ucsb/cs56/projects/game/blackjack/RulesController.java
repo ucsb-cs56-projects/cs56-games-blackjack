@@ -15,7 +15,7 @@ import java.awt.*;
 
 public class RulesController
 {
-  public BlackjackGui gui;
+  BlackjackGui gui;
 
   public RulesController(BlackjackGui g)
   {
@@ -45,7 +45,7 @@ public class RulesController
     public void actionPerformed(ActionEvent event)
     {
       gui.rulesFrame.setVisible(false);
-      gui.welcomeFrame.setVisible(true);
+      gui.stage++;
     }
   }
 }

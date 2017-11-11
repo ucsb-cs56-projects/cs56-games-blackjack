@@ -21,13 +21,31 @@ public class Main
   {
     BlackjackGui gui = new BlackjackGui();
 
-    RulesController rc = new RulesController(gui);
-    rc.run();
+    try{
 
-    WelcomeController wc = new WelcomeController(gui);
-    wc.run();
+      RulesController rc = new RulesController(gui);
+      rc.run();
+      while(gui.stage == 0) { Thread.sleep(10); }
 
-    GuiController gc = new GuiController
-    gui.go();
+      WelcomeController wc = new WelcomeController(gui);
+      wc.run();
+      while(gui.stage == 1) { Thread.sleep(10); }
+
+      NameFrameController nfc = new NameFrameController(gui);
+      nfc.run();
+      while(gui.stage == 2) { Thread.sleep(10); }
+
+      BetWindowController bwc = new BetWindowController(gui);
+      bwc.run();
+      while(gui.stage == 3) { Thread.sleep(10); }
+
+    }
+    catch(InterruptedException ex)
+    {
+      Thread.currentThread().interrupt();
+    }
+
+    TableController tc = new TableController(gui);
+    tc.run();
   }
 }

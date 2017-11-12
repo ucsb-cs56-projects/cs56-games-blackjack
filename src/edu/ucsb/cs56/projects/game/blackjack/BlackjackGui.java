@@ -744,7 +744,7 @@ public class BlackjackGui
 
     createMenuBar();
     createDealerLabels();
-	  create1stPlayersLabel();
+	create1stPlayersLabel();
     create2ndPlayersLabel();
     create3rdPlayersLabel();
     createCardDisplayForAllPlayers();
@@ -1082,7 +1082,8 @@ public void initialize()
     */
     public ImageIcon getMyImage(Card c){
 	String cardString ="/images/" + c + ".gif";
-	
+    cardString = cardString.replaceAll(" ",""); //remove spaces
+
 	URL myurl = getClass().getResource(cardString);
 	if(myurl != null){
 	    ImageIcon myImage = new ImageIcon(myurl);

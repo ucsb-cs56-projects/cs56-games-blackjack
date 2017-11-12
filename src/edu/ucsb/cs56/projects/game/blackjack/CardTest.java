@@ -14,11 +14,11 @@ import static org.junit.Assert.assertEquals;
 */
 
 public class CardTest{
-        
+
 	/** Test case for Card.getValue()
 	    @see Card
 	*/
-    
+
     @Test
 	public void test_GetValue1() {
 	Card c = new Card(12, "Diamonds");
@@ -28,7 +28,7 @@ public class CardTest{
 	/** Test case for Card.getValue()
 	    @see Card
 	*/
-    
+
     @Test
 	public void test_GetValue3() {
 	Card c = new Card(13, "Clubs");
@@ -38,7 +38,7 @@ public class CardTest{
 	/** Test case for Card.getValue()
 	    @see Card
 	*/
-    
+
     @Test
 	public void test_GetValue2() {
 	Card c = new Card(4, "Spades");
@@ -48,7 +48,7 @@ public class CardTest{
     	/** Test case for Card.toString()
 	    @see Card
 	*/
-    
+
     @Test
 	public void test_ToString1() {
 	Card c = new Card(9, "Clubs");
@@ -58,7 +58,7 @@ public class CardTest{
 	/** Test case for Card.toString()
 	    @see Card
 	*/
-    
+
     @Test
 	public void test_ToString2() {
 	Card c = new Card(1, "Hearts");
@@ -67,7 +67,7 @@ public class CardTest{
 	/** Test case for Card.toString()
 	    @see Card
 	*/
-    
+
     @Test
 	public void test_ToString3() {
 	Card c = new Card(11, "Hearts");
@@ -77,7 +77,7 @@ public class CardTest{
 	/** Test case for Card.toString()
 	    @see Card
 	*/
-    
+
     @Test
 	public void test_ToString4() {
 	Card c = new Card(12, "Clubs");
@@ -87,7 +87,7 @@ public class CardTest{
     /** Test case for Card.isAnAce()
 	    @see Card
 	*/
-    
+
     @Test
 	public void test_IsAnAce1() {
 	Card c = new Card(11, "Hearts");
@@ -96,7 +96,7 @@ public class CardTest{
 	/** Test case for Card.isAnAce()
 	    @see Card
 	*/
-    
+
     @Test
 	public void test_IsAnAce2() {
 	Card c = new Card(1, "Diamonds");

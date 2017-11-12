@@ -75,7 +75,7 @@ public class Card{
      *  @return String
      */
     public String toString(){
-	return name + "Of" + suit;
+	return name + " of " + suit;
     }
 
     /** returns whether or not the card is an ace

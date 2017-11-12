@@ -164,7 +164,7 @@ public class BlackjackGui
     boolean didPlayer3Split = false;
 
     /** TABLE INFORMATION **/
-    JLabel totalPotLabel;
+    JLabel totalPotLabel = new JLabel();
     int totalPot;
 
     /** GAME INFORMATION **/
@@ -1027,54 +1027,6 @@ public void initialize()
       rulesFrame.setLocationRelativeTo(null); // center the window
       rulesFrame.setVisible(true);
     }
-
-
-  // NECESSARY FOR WELCOME
-  public JButton onePlayerButton;
-  public JButton twoPlayerButton;
-  public JButton threePlayerButton;
-
-  /** initializes the welcome widgets
-  */
-  public void welcome()
-  {
-    totalPotLabel = new JLabel();
-
-    welcomeFrame = new JFrame();
-    welcomePanel = new JPanel(new GridLayout(4, 0, 5, 0));
-    welcomeLabel = new JLabel();
-
-    onePlayerButton = new JButton("1 player");
-    twoPlayerButton = new JButton("2 players");
-    threePlayerButton = new JButton("3 players");
-
-    welcomeLabel.setText("Welcome to Blackjack");
-    welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-    welcomePanel.add(welcomeLabel);
-
-    welcomePanel.add(onePlayerButton);
-    welcomePanel.add(twoPlayerButton);
-    welcomePanel.add(threePlayerButton);
-
-    welcomePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-    // create the outer panel to center the widgets
-    JPanel outerPanel = new JPanel();
-    outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
-    outerPanel.add(Box.createHorizontalGlue());
-    outerPanel.add(welcomePanel);
-    outerPanel.add(Box.createHorizontalGlue());
-
-    welcomeFrame.add(welcomePanel);
-    welcomeFrame.setSize(200,175);
-    welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    welcomeFrame.pack();
-    welcomeFrame.setLocationRelativeTo(null); // center the window
-
-    welcomeFrame.setVisible(true);
-  }
-
 
     /** returns the image corresponding to the Card passed in
      *  @param c Card to retrieve the image of

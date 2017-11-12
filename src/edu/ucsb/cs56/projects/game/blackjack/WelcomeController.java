@@ -16,73 +16,36 @@ import java.awt.*;
 public class WelcomeController
 {
   BlackjackGui gui;
+  WelcomeGui welcomeGui;
 
-  public WelcomeController(BlackjackGui g)
+  public WelcomeController(BlackjackGui gui)
   {
-    gui = g;
+    this.gui = gui;
   }
 
-  public void run()
-  {
-    gui.welcome();
+  public void run(){
+    welcomeGui = new WelcomeGui();
+    welcomeGui.display();
     attachActionListeners();
   }
 
   public void attachActionListeners()
   {
-    gui.onePlayerButton.addActionListener(new WelcomeListener1());
-    gui.twoPlayerButton.addActionListener(new WelcomeListener2());
-    gui.threePlayerButton.addActionListener(new WelcomeListener3());
+      welcomeGui.onePlayerButton.addActionListener(e -> gui.numPlayers = 1);
+      welcomeGui.onePlayerButton.addActionListener(new closeAndIncrementStage());
+      welcomeGui.twoPlayersButton.addActionListener(e -> gui.numPlayers = 2);
+      welcomeGui.twoPlayersButton.addActionListener(new closeAndIncrementStage());
+      welcomeGui.threePlayersButton.addActionListener(e -> gui.numPlayers = 3);
+      welcomeGui.threePlayersButton.addActionListener(new closeAndIncrementStage());
   }
 
-  /** listener class for 1 player button
-   *  @author ???
-   *  @version 2016.11.9
-   */
-  public class WelcomeListener1 implements ActionListener
-  {
-    /** initializes the window for set bet amount and prepares for a 1 player game
-    @param event ActionEvent, welcome 1 player
-    */
-    public void actionPerformed(ActionEvent event)
-    {
-      gui.numPlayers = 1;
-      gui.welcomeFrame.setVisible(false);
-      gui.stage++;
-    }
-  }
+  public class closeAndIncrementStage implements ActionListener{
 
-  /** listener class for 2 player button
-   *  @author ???
-   *  @version 2016.11.9
-   */
-  public class WelcomeListener2 implements ActionListener
-  {
-    /** initializes  the window for set bet amount and prepares for a 2 player game
-    @param event ActionEvent, welcome 2 player
-    */
-    public void actionPerformed(ActionEvent event)
-    {
-      gui.numPlayers = 2;
-      gui.welcomeFrame.setVisible(false);
-      gui.stage++;
-    }
+      public void actionPerformed(ActionEvent event)
+      {
+          welcomeGui.welcomeFrame.setVisible(false);
+          gui.stage++;
+      }
   }
-
-  /** listener class for 3 player button
-   *  @author ???
-   *  @version 2016.11.9
-   */
-  public class WelcomeListener3 implements ActionListener
-  {
-    /** initializes the window for set bet amount and prepares for a 3 player game
-    @param event ActionEvent, welcome 3 player
-    */
-    public void actionPerformed(ActionEvent event)
-    {
-      gui.numPlayers = 3;
-      gui.welcomeFrame.setVisible(false);
-      gui.stage++;
-    }
-  }
+  
 }

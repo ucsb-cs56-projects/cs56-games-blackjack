@@ -3,8 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RulesGui implements Gui {
-String rulesParagraph =
-      "<html><br>Blackjack win and loss conditions.."
+    String rulesParagraph =
+    "<html><br>Blackjack win and loss conditions.."
     + "<br>Loss Conditions:"
     + "<br>-Having a hand value of over 21 (BUST!)"
     + "<br>-Having a hand value less than the dealer's hand value"
@@ -15,19 +15,24 @@ String rulesParagraph =
     + "<br><br>Other Features:"
     + "<br>-Double downing draws one card then moves onto the next player (deducts bet amount, chance to win double)"
     + "<br>-Every player starts with $5,000<br><br>";
+
+    JPanel outerPanel;
+
+    JFrame rulesFrame;
+    JPanel rulesPanel;
+    JLabel rulesLabel;
+
+    JButton rulesButton;
+
     /** initializes the rules window
      */
-    public void display(GuiController controller) {
-            JFrame rulesFrame = new JFrame();
-            JPanel rulesPanel = new JPanel(new GridLayout(2, 0, 5, 0));
-            JLabel rulesLabel = new JLabel(rulesParagraph);
+    public void display() {
+            rulesFrame = new JFrame();
+            rulesPanel = new JPanel(new GridLayout(2, 0, 5, 0));
+            rulesLabel = new JLabel(rulesParagraph);
 
             //Button to close the window and go to the welcome window
-            JButton rulesButton = new JButton("Play!");
-            rulesButton.addActionListener(e -> {
-                                            rulesFrame.setVisible(false);
-                                            controller.setDone();
-                                          });
+            rulesButton = new JButton("Play!");
 
             rulesLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -36,7 +41,7 @@ String rulesParagraph =
             rulesPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
             // create the outer panel to center the widgets
-            JPanel outerPanel = new JPanel();
+            outerPanel = new JPanel();
             outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
             outerPanel.add(Box.createHorizontalGlue());
             outerPanel.add(rulesPanel);

@@ -32,6 +32,7 @@ public class BlackjackGui
 
 
     JFrame frame;
+    JFrame welcomeFrame;
     JFrame nameFrame;
     JFrame addMoneyFrame;
     JPanel addMoneyPanel;
@@ -42,11 +43,13 @@ public class BlackjackGui
     JPanel cardPanelE;
     JPanel cardPanelW;
     JPanel dealerPanel;
+    JPanel welcomePanel;
     JPanel displayPanel;
     JPanel centerPanel;
     JPanel textPanel;
     JLabel dealerLabel;
     JLabel displayLabel;
+    JLabel welcomeLabel;
     JTextField player1Name;
     JTextField player2Name;
     JTextField player3Name;
@@ -63,7 +66,13 @@ public class BlackjackGui
     JButton playAgain = new JButton("Play again");;
     JButton beginGame;
 	/** CARD SOUND EFFECT **/
-	Sound cardEffect = new Sound("music/dealingCard.wav");
+	    Sound cardEffect = new Sound("music/dealingCard.wav");
+
+    /** RULES WINDOW **/
+    JFrame rulesFrame;
+    JPanel rulesPanel;
+    JLabel rulesLabel;
+    JButton rulesButton;
 
     /** BET WINDOW **/
     JFrame betFrame;
@@ -637,10 +646,6 @@ public class BlackjackGui
     	//menuRestart.addActionListener(new PlayAgainListener());
       menuRules= new JMenuItem("Rules");
     	//menuRules.addActionListener(new RulesListener());
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     	JMenu menuColors= new JMenu("Colors");
     	colorNavy = new JMenuItem("Navy");
     	colorMaroon = new JMenuItem("Maroon");
@@ -982,7 +987,6 @@ public void initialize()
     	setSplit();
     }
 
-<<<<<<< Updated upstream
     /** initializes the rules window
      */
     public void rules()
@@ -1072,8 +1076,6 @@ public void initialize()
   }
 
 
-=======
->>>>>>> Stashed changes
     /** returns the image corresponding to the Card passed in
      *  @param c Card to retrieve the image of
      *  @return ImageIcon for corresponding card
@@ -1263,31 +1265,6 @@ public void initialize()
 	  nameFrame.setLocationRelativeTo(null); // center the window
 	  nameFrame.setVisible(true);
   }
-    /** listener class for player names change in menu bar
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class ChangeNamesListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	   // createNewNameFrame(numPlayers);
-	}
-
-    }
-
-
-    /** listener class for save button
-     *  @author ???
-     *  @version 2016.11.9
-     */
-    public class SaveListener implements ActionListener {
-	/** prepares for save
-	 *  @param event ActionEvent
-	 */
-	public void actionPerformed(ActionEvent event) {
-	    game.saveStats(theGui);
-	}
-    }
->>>>>>> Stashed changes
 
     /** updates ingame statistics
      */

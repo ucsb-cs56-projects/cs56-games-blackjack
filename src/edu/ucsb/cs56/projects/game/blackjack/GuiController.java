@@ -1,9 +1,11 @@
+package edu.ucsb.cs56.projects.game.blackjack;
 import java.util.ArrayList;
 //Rules, welcome, playernames, bet, game
 public class GuiController{
     public int numPlayers;
     public ArrayList<String> playerNames;
     public int betAmount;
+    public boolean done;
 
     public GuiController(){
     }
@@ -32,5 +34,8 @@ public class GuiController{
         return this.numPlayers;
     }
 
+    public void setDone(){
+        this.done = true;
+    }
 
 }

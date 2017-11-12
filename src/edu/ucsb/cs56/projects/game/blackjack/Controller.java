@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 package edu.ucsb.cs56.projects.game.blackjack;
 
 /**
@@ -31,4 +29,3 @@ public class Controller
       */
   }
 }
->>>>>>> Stashed changes

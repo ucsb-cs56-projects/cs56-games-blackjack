@@ -50,9 +50,6 @@ public class BlackjackGui
     JLabel dealerLabel;
     JLabel displayLabel;
     JLabel welcomeLabel;
-    JTextField player1Name;
-    JTextField player2Name;
-    JTextField player3Name;
     String p1Name;
     String p2Name;
     String p3Name;
@@ -60,13 +57,11 @@ public class BlackjackGui
     Blackjack game = new Blackjack();
     boolean dealerTurn;
     int playerTurn = 1;
-    BlackjackGui theGui;
     Card displayCard;
     JLabel downCard;
-    JButton playAgain = new JButton("Play again");;
-    JButton beginGame;
+    JButton playAgain = new JButton("Play again");
 	/** CARD SOUND EFFECT **/
-	    Sound cardEffect = new Sound("music/dealingCard.wav");
+	Sound cardEffect = new Sound("music/dealingCard.wav");
 
 
     /** BET WINDOW **/
@@ -726,9 +721,7 @@ public class BlackjackGui
 
   /** initializes many of the widgets and sets up listeners to some of those widgets
   */
-  public void go()
-  {
-    theGui=this;
+  public void go(){
     frame.getContentPane().removeAll();
     dealerTurn = false;
     playerTurn = 1;
@@ -913,7 +906,7 @@ public void initialize()
     break;
   }
 
-  if (load) game.loadStats(theGui);
+  if (load) game.loadStats(this);
 
   // switch statement gives players names and makes their cards visible
   switch(numPlayers)

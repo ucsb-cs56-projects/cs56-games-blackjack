@@ -649,7 +649,7 @@ public class BlackjackGui
     	menuColors.add(colorNavy);
     	menuColors.add(colorGray);
     	menuColors.add(colorMaroon);
-	menuColors.add(colorFeltGreen);
+        menuColors.add(colorFeltGreen);
     	//colorNavy.addActionListener(new NavyActionListener());
     	//colorGray.addActionListener(new GrayActionListener());
     	//colorMaroon.addActionListener(new MaroonActionListener());
@@ -900,16 +900,16 @@ public void initialize()
   switch(numPlayers)
   {
     case 1:
-    game.getPlayerS().setName(player1Name.getText());
+    game.getPlayerS().setName(p1Name);
     break;
     case 2:
-    game.getPlayerS().setName(player1Name.getText());
-    game.getPlayerE().setName(player2Name.getText());
+    game.getPlayerS().setName(p1Name);
+    game.getPlayerE().setName(p2Name);
     break;
     case 3:
-    game.getPlayerS().setName(player1Name.getText());
-    game.getPlayerE().setName(player2Name.getText());
-    game.getPlayerW().setName(player3Name.getText());
+    game.getPlayerS().setName(p1Name);
+    game.getPlayerE().setName(p2Name);
+    game.getPlayerW().setName(p3Name);
     break;
   }
 
@@ -1065,59 +1065,6 @@ public void initialize()
     betFrame.setLocationRelativeTo(null); // center window
     betFrame.setVisible(true);
     // Set PartOfWelcomeingWindow to false. This is the last frame before game starts.
-  }
-
-  /** creates name frame that sets player names
-	@param num number of players
-  **/
-  public void createNewNameFrame(int num)
-  {
-	  nameFrame = new JFrame();
-    namePanel = new JPanel();
-    nameFrame.setSize(300,220);
-    if(num == 1)
-	  {
-      JLabel name1 = new JLabel("Player 1's name: ");
-      player1Name = new JTextField(20);
-      namePanel.add(name1);
-      namePanel.add(player1Name);
-    }
-    else if(num == 2)
-    {
-      JLabel name1 = new JLabel("Player 1's name: ");
-      player1Name = new JTextField(20);
-		  JLabel name2 = new JLabel("Player 2's name: ");
-      player2Name = new JTextField(20);
-      namePanel.add(name1);
-      namePanel.add(player1Name);
-      namePanel.add(name2);
-      namePanel.add(player2Name);
-	  }
-	  else if(num ==3)
-    {
-      JLabel name1 = new JLabel("Player 1's name: ");
-      player1Name = new JTextField(20);
-		  JLabel name2 = new JLabel("Player 2's name: ");
-		  player2Name = new JTextField(20);
-		  JLabel name3 = new JLabel("Player 3's name: ");
-		  player3Name = new JTextField(20);
-		  namePanel.add(name1);
-		  namePanel.add(player1Name);
-		  namePanel.add(name2);
-		  namePanel.add(player2Name);
-		  namePanel.add(name3);
-		  namePanel.add(player3Name);
-	  }
-
-	  loadSave = new JCheckBox("Load Saved Stats");
-	  //loadSave.addItemListener(new LoadListener());
-	  namePanel.add(loadSave);
-    beginGame = new JButton("Confirm");
-	  //beginGame.addActionListener(new ConfirmName());
-	  namePanel.add(beginGame);
-	  nameFrame.getContentPane().add(namePanel);
-	  nameFrame.setLocationRelativeTo(null); // center the window
-	  nameFrame.setVisible(true);
   }
 
     /** updates ingame statistics

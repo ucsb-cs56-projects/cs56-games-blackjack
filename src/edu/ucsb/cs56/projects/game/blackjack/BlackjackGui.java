@@ -32,7 +32,6 @@ public class BlackjackGui
 
 
     JFrame frame;
-    JFrame welcomeFrame;
     JFrame nameFrame;
     JFrame addMoneyFrame;
     JPanel addMoneyPanel;
@@ -43,13 +42,11 @@ public class BlackjackGui
     JPanel cardPanelE;
     JPanel cardPanelW;
     JPanel dealerPanel;
-    JPanel welcomePanel;
     JPanel displayPanel;
     JPanel centerPanel;
     JPanel textPanel;
     JLabel dealerLabel;
     JLabel displayLabel;
-    JLabel welcomeLabel;
     JTextField player1Name;
     JTextField player2Name;
     JTextField player3Name;
@@ -66,13 +63,7 @@ public class BlackjackGui
     JButton playAgain = new JButton("Play again");;
     JButton beginGame;
 	/** CARD SOUND EFFECT **/
-	    Sound cardEffect = new Sound("music/dealingCard.wav");
-
-    /** RULES WINDOW **/
-    JFrame rulesFrame;
-    JPanel rulesPanel;
-    JLabel rulesLabel;
-    JButton rulesButton;
+	Sound cardEffect = new Sound("music/dealingCard.wav");
 
     /** BET WINDOW **/
     JFrame betFrame;
@@ -176,12 +167,24 @@ public class BlackjackGui
     int speed = 1000;
     Timer timer;
 
+<<<<<<< Updated upstream
   BlackjackGui()
   {
     frame = new JFrame();
     playerLabelArray[0] = playerLabelS;
 	  playerLabelArray[1] = playerLabelE;
     playerLabelArray[2] = playerLabelW;
+=======
+    /*Gui Info */
+    GuiController controller = new GuiController();
+    WelcomeGui welcomeGui = new WelcomeGui();
+
+    BlackjackGui(){
+	frame = new JFrame();
+	playerLabelArray[0] = playerLabelS;
+	playerLabelArray[1] = playerLabelE;
+	playerLabelArray[2] = playerLabelW;
+>>>>>>> Stashed changes
 
     card1LabelArray[0]  = cardLabelS;
     card1LabelArray[1]  = cardLabelE;
@@ -638,6 +641,7 @@ public class BlackjackGui
     	menuHelp = new JMenu("Help");
     	menuMusic = new JMenu("Music");
 
+<<<<<<< Updated upstream
     	menuSave= new JMenuItem("Save");
     	//menuSave.addActionListener(new SaveListener());
     	menuExit = new JMenuItem("Exit");
@@ -646,6 +650,16 @@ public class BlackjackGui
     	//menuRestart.addActionListener(new PlayAgainListener());
       menuRules= new JMenuItem("Rules");
     	//menuRules.addActionListener(new RulesListener());
+=======
+    	JMenuItem menuSave= new JMenuItem("Save");
+    	menuSave.addActionListener(new SaveListener());
+    	JMenuItem menuExit = new JMenuItem("Exit");
+    	menuExit.addActionListener(new ExitListener());
+    	JMenuItem menuRestart = new JMenuItem("Restart");
+    	menuRestart.addActionListener(new PlayAgainListener());
+    	JMenuItem menuRules= new JMenuItem("Rules");
+    //	menuRules.addActionListener(new RulesListener());
+>>>>>>> Stashed changes
     	JMenu menuColors= new JMenu("Colors");
     	colorNavy = new JMenuItem("Navy");
     	colorMaroon = new JMenuItem("Maroon");

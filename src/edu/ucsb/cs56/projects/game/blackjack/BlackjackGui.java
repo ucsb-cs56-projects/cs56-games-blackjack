@@ -1081,61 +1081,8 @@ public void initialize()
      *  @return ImageIcon for corresponding card
     */
     public ImageIcon getMyImage(Card c){
-	String cardString ="";
-	switch(c.getCardNumber()){
-	case(1): cardString = "/images/c1.gif"; break;
-	case(2): cardString = "/images/c2.gif"; break;
-	case(3): cardString = "/images/c3.gif"; break;
-	case(4): cardString = "/images/c4.gif"; break;
-	case(5): cardString = "/images/c5.gif"; break;
-	case(6): cardString = "/images/c6.gif"; break;
-	case(7): cardString = "/images/c7.gif"; break;
-	case(8): cardString = "/images/c8.gif"; break;
-	case(9): cardString = "/images/c9.gif"; break;
-	case(10): cardString = "/images/c10.gif"; break;
-	case(11): cardString = "/images/cj.gif"; break;
-	case(12): cardString = "/images/cq.gif"; break;
-	case(13): cardString = "/images/ck.gif"; break;
-	case(14): cardString = "/images/d1.gif"; break;
-	case(15): cardString = "/images/d2.gif"; break;
-	case(16): cardString = "/images/d3.gif"; break;
-	case(17): cardString = "/images/d4.gif"; break;
-	case(18): cardString = "/images/d5.gif"; break;
-	case(19): cardString = "/images/d6.gif"; break;
-	case(20): cardString = "/images/d7.gif"; break;
-	case(21): cardString = "/images/d8.gif"; break;
-	case(22): cardString = "/images/d9.gif"; break;
-	case(23): cardString = "/images/d10.gif"; break;
-	case(24): cardString = "/images/dj.gif"; break;
-	case(25): cardString = "/images/dq.gif"; break;
-	case(26): cardString = "/images/dk.gif"; break;
-	case(27): cardString = "/images/h1.gif"; break;
-	case(28): cardString = "/images/h2.gif"; break;
-	case(29): cardString = "/images/h3.gif"; break;
-	case(30): cardString = "/images/h4.gif"; break;
-	case(31): cardString = "/images/h5.gif"; break;
-	case(32): cardString = "/images/h6.gif"; break;
-	case(33): cardString = "/images/h7.gif"; break;
-	case(34): cardString = "/images/h8.gif"; break;
-	case(35): cardString = "/images/h9.gif"; break;
-	case(36): cardString = "/images/h10.gif"; break;
-	case(37): cardString = "/images/hj.gif"; break;
-	case(38): cardString = "/images/hq.gif"; break;
-	case(39): cardString = "/images/hk.gif"; break;
-	case(40): cardString = "/images/s1.gif"; break;
-	case(41): cardString = "/images/s2.gif"; break;
-	case(42): cardString = "/images/s3.gif"; break;
-	case(43): cardString = "/images/s4.gif"; break;
-	case(44): cardString = "/images/s5.gif"; break;
-	case(45): cardString = "/images/s6.gif"; break;
-	case(46): cardString = "/images/s7.gif"; break;
-	case(47): cardString = "/images/s8.gif"; break;
-	case(48): cardString = "/images/s9.gif"; break;
-	case(49): cardString = "/images/s10.gif"; break;
-	case(50): cardString = "/images/sj.gif"; break;
-	case(51): cardString = "/images/sq.gif"; break;
-	case(52): cardString = "/images/sk.gif"; break;
-	}
+	String cardString ="/images/" + c + ".gif";
+	
 	URL myurl = getClass().getResource(cardString);
 	if(myurl != null){
 	    ImageIcon myImage = new ImageIcon(myurl);

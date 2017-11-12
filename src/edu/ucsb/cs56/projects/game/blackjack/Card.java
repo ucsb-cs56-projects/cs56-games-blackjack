@@ -1,7 +1,7 @@
 package edu.ucsb.cs56.projects.game.blackjack;
 
 /** Card Class has the following variables: suit, value, name,
- *  isAce (check if Ace), and cardNumber (set to face if greater than 10) 
+ *  isAce (check if Ace), and cardNumber (set to face if greater than 10)
  @author Brian Wan
  @author Fanny Kuang
  @author Eric Palyan
@@ -13,11 +13,11 @@ public class Card{
 
     private int value;
     private int cardNumber;
-   
+
     private boolean isAce;
 
 
-    /** 
+    /**
 	@param value int, value of card, between 1 and 13, if greater than 10 it is set to 10
 	@param suit String, suit of card, either Hearts, Clubs, Spades, or Diamonds
     */
@@ -29,21 +29,21 @@ public class Card{
 	/** determine card number **/
 	if(suit.equals("Diamonds"))
 	    cardNumber += 13;
-	
+
 	else if(suit.equals("Hearts"))
 	    cardNumber += 26;
-	
+
 	else if(suit.equals("Spades"))
 	    cardNumber += 39;
 
-	/** determine card name, value and whether or not it is an ace. 
+	/** determine card name, value and whether or not it is an ace.
 	/** by default isAce is set to false, so it will remain false
 	/** unless value == 1 */
 	if(value == 1){
 	    name="Ace";
 	    isAce = true;
 	}
-	
+
 	else if(value >=2 && value <=10){
 	    name=Integer.toString(value);
 	}
@@ -63,28 +63,28 @@ public class Card{
 	    this.value=10;
 	}
     }
-    
+
     /** returns the value of the card
      *  @return int
      */
     public int getValue(){
 	return value;
     }
-    
-    /** returns toString 
+
+    /** returns toString
      *  @return String
-     */   
+     */
     public String toString(){
-	return name + " of " + suit;
+	return name + "Of" + suit;
     }
-    
+
     /** returns whether or not the card is an ace
      *  @return boolean
      */
     public boolean isAnAce(){
 	return isAce;
     }
-    
+
     /** returns the true Card Number (e.g. King = 13, Ace = 1, 4 = 4)
      *  @return int
      */

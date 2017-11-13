@@ -16,3 +16,7 @@ and start their turn. Also, we need to implement it in such a way that the playe
 class can affect these positions.
 * Closing the naming players Gui doesn't stop the program from running. This can
 be seen, because the music continues to play.
+* Clean up the case statements of that are caused by number of players. These look very redundant, and they should be able to be refactored. There is also a block in the NameGui that can also be fixed.
+* Make renaming with the menubar work properly.
+* Create a main controller or something of sort to hold consistent variables, such as numPlayers, playerNames, and amountBet.
+* The way players and player positions are handled needs an overhaul of refactoring.

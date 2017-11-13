@@ -63,21 +63,8 @@ public class BlackjackGui
 	/** CARD SOUND EFFECT **/
 	Sound cardEffect = new Sound("music/dealingCard.wav");
 
-
-    /** BET WINDOW **/
-    JFrame betFrame;
-    JPanel betPanel;
-    JLabel betLabel;
-    JTextField betText;
-    JButton betButton;
-    JButton betAmount1;
-    JButton betAmount2;
-    JButton betAmount3;
-    JButton betAmount4;
-    JButton betAmount5;
-    JLabel betAmount;
+    /** BET INFO **/
     int amountBet;
-    JCheckBox loadSave;
 
     /** ADD MONEY FRAME **/
     int currentMoneyInt;
@@ -991,74 +978,6 @@ public void initialize()
 	else
 	    return new ImageIcon();
     }
-
-  /** creates window for betting
-  */
-  public void createBetWindow(boolean exit_on_close)
-  {
-    // create the frame and panels, as well as set the layout
-    betFrame = new JFrame();
-    betPanel = new JPanel(new GridLayout(7,0,5,0));
-    betLabel = new JLabel();
-
-    // set the main text and center it
-    betLabel.setText("<html>How much would you<br>like to bet?</html>");
-    betLabel.setHorizontalAlignment(JLabel.CENTER);
-
-    // by default have the $25 bet selected
-    betAmount = new JLabel("$25");
-    betAmount.setHorizontalAlignment(JLabel.CENTER); // center the label
-    amountBet = 25;
-
-    betText = new JTextField("Or enter your desired bet amount here");
-    //betText.addActionListener(new BetTextListener());
-
-    // create bet amount buttons and assign ActionListeners
-    betAmount1 = new JButton("$25");
-    betAmount2 = new JButton("$50");
-    betAmount3 = new JButton("$100");
-    betAmount4 = new JButton("$250");
-    betAmount5 = new JButton("$500");
-    //betAmount1.addActionListener(new BetAmountListener1());
-    //betAmount2.addActionListener(new BetAmountListener2());
-    //betAmount3.addActionListener(new BetAmountListener3());
-    //betAmount4.addActionListener(new BetAmountListener4());
-    //betAmount5.addActionListener(new BetAmountListener5());
-
-    // create button to confirm selected bet amount
-    betButton = new JButton("Confirm Bet");
-    //betButton.addActionListener(new BeginGameListener());
-    // add widgets to panel
-    betPanel.add(betLabel);
-    betPanel.add(betAmount);
-    betPanel.add(betAmount1);
-    betPanel.add(betAmount2);
-    betPanel.add(betAmount3);
-    betPanel.add(betAmount4);
-    betPanel.add(betAmount5);
-    betPanel.add(betText);
-    betPanel.add(betButton);
-    betText.selectAll();
-    // create the outer panel to center the widgets
-    JPanel outerPanel = new JPanel();
-    outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
-    outerPanel.add(Box.createHorizontalGlue());
-    outerPanel.add(betPanel);
-    outerPanel.add(Box.createHorizontalGlue());
-    // add the panel to the frame and set frame attributes
-    betFrame.add(outerPanel);
-    // Since this is the only frame before the game starts, if this window
-    // is closed the application should terminate
-    betFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    // If the betting frame is brought up at the end of a round and closed using the 'x' button the game
-    // should not be terminated.
-    if(!exit_on_close)
-    betFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    betFrame.pack();
-    betFrame.setLocationRelativeTo(null); // center window
-    betFrame.setVisible(true);
-    // Set PartOfWelcomeingWindow to false. This is the last frame before game starts.
-  }
 
     /** updates ingame statistics
      */

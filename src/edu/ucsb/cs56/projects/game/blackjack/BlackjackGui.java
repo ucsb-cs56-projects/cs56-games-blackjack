@@ -50,9 +50,6 @@ public class BlackjackGui
     JLabel dealerLabel;
     JLabel displayLabel;
     JLabel welcomeLabel;
-    JTextField player1Name;
-    JTextField player2Name;
-    JTextField player3Name;
     String p1Name;
     String p2Name;
     String p3Name;
@@ -60,34 +57,14 @@ public class BlackjackGui
     Blackjack game = new Blackjack();
     boolean dealerTurn;
     int playerTurn = 1;
-    BlackjackGui theGui;
     Card displayCard;
     JLabel downCard;
-    JButton playAgain = new JButton("Play again");;
-    JButton beginGame;
+    JButton playAgain = new JButton("Play again");
 	/** CARD SOUND EFFECT **/
-	    Sound cardEffect = new Sound("music/dealingCard.wav");
+	Sound cardEffect = new Sound("music/dealingCard.wav");
 
-    /** RULES WINDOW **/
-    JFrame rulesFrame;
-    JPanel rulesPanel;
-    JLabel rulesLabel;
-    JButton rulesButton;
-
-    /** BET WINDOW **/
-    JFrame betFrame;
-    JPanel betPanel;
-    JLabel betLabel;
-    JTextField betText;
-    JButton betButton;
-    JButton betAmount1;
-    JButton betAmount2;
-    JButton betAmount3;
-    JButton betAmount4;
-    JButton betAmount5;
-    JLabel betAmount;
+    /** BET INFO **/
     int amountBet;
-    JCheckBox loadSave;
 
     /** ADD MONEY FRAME **/
     int currentMoneyInt;
@@ -164,7 +141,7 @@ public class BlackjackGui
     boolean didPlayer3Split = false;
 
     /** TABLE INFORMATION **/
-    JLabel totalPotLabel;
+    JLabel totalPotLabel = new JLabel();
     int totalPot;
 
     /** GAME INFORMATION **/
@@ -457,7 +434,7 @@ public class BlackjackGui
      * @param amount amount to add to the total pot
      */
     public void updateTotalPot(int amount) {
-    	totalPot += amount;
+        totalPot = amount;
     	totalPotLabel.setText("Total pot: $" + totalPot);
     }
 
@@ -664,7 +641,7 @@ public class BlackjackGui
     	menuColors.add(colorNavy);
     	menuColors.add(colorGray);
     	menuColors.add(colorMaroon);
-	menuColors.add(colorFeltGreen);
+        menuColors.add(colorFeltGreen);
     	//colorNavy.addActionListener(new NavyActionListener());
     	//colorGray.addActionListener(new GrayActionListener());
     	//colorMaroon.addActionListener(new MaroonActionListener());
@@ -741,9 +718,7 @@ public class BlackjackGui
 
   /** initializes many of the widgets and sets up listeners to some of those widgets
   */
-  public void go()
-  {
-    theGui=this;
+  public void go(){
     frame.getContentPane().removeAll();
     dealerTurn = false;
     playerTurn = 1;
@@ -754,7 +729,7 @@ public class BlackjackGui
 
     createMenuBar();
     createDealerLabels();
-	  create1stPlayersLabel();
+	create1stPlayersLabel();
     create2ndPlayersLabel();
     create3rdPlayersLabel();
     createCardDisplayForAllPlayers();
@@ -915,20 +890,20 @@ public void initialize()
   switch(numPlayers)
   {
     case 1:
-    game.getPlayerS().setName(player1Name.getText());
+    game.getPlayerS().setName(p1Name);
     break;
     case 2:
-    game.getPlayerS().setName(player1Name.getText());
-    game.getPlayerE().setName(player2Name.getText());
+    game.getPlayerS().setName(p1Name);
+    game.getPlayerE().setName(p2Name);
     break;
     case 3:
-    game.getPlayerS().setName(player1Name.getText());
-    game.getPlayerE().setName(player2Name.getText());
-    game.getPlayerW().setName(player3Name.getText());
+    game.getPlayerS().setName(p1Name);
+    game.getPlayerE().setName(p2Name);
+    game.getPlayerW().setName(p3Name);
     break;
   }
 
-  if (load) game.loadStats(theGui);
+  if (load) game.loadStats(this);
 
   // switch statement gives players names and makes their cards visible
   switch(numPlayers)
@@ -997,155 +972,14 @@ public void initialize()
     	setSplit();
     }
 
-    /** initializes the rules window
-     */
-    public void rules()
-    {
-    	rulesFrame = new JFrame();
-    	rulesPanel = new JPanel(new GridLayout(2, 0, 5, 0));
-    	rulesLabel = new JLabel
-        ("<html><br>Blackjack win and loss conditions.. <br>Loss Conditions:"
-        +" <br>-Having a hand value of over 21 (BUST!) <br>-Having a hand value"
-        +" less than the dealer's hand value <br><br>Win Conditions: <br>-Get"
-        +" blackjack (hand value of 21) <br>-Have 5 cards without busting (5"
-        +" card charlie! you still still lose if the dealer has blackjack)"
-        +" <br>-Have a hand value greater than the dealer's <br><br>Other"
-        +" Features:<br>-Double downing draws one card then moves onto the"
-        +" next player (deducts bet amount, chance to win double)<br>-Every"
-        +" player starts with $5,000<br><br>");
-
-    	rulesButton = new JButton("Play!");
-    	//rulesButton.addActionListener(new CloseRulesListener());
-
-    	rulesLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-    	rulesPanel.add(rulesLabel);
-    	rulesPanel.add(rulesButton);
-    	rulesPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-      // create the outer panel to center the widgets
-    	JPanel outerPanel = new JPanel();
-    	outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
-    	outerPanel.add(Box.createHorizontalGlue());
-    	outerPanel.add(rulesPanel);
-    	outerPanel.add(Box.createHorizontalGlue());
-
-    	rulesFrame.add(rulesPanel);
-    	rulesFrame.setSize(300,400);
-    	rulesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	rulesFrame.pack();
-      rulesFrame.setLocationRelativeTo(null); // center the window
-      rulesFrame.setVisible(true);
-    }
-
-
-  // NECESSARY FOR WELCOME
-  public JButton onePlayerButton;
-  public JButton twoPlayerButton;
-  public JButton threePlayerButton;
-
-  /** initializes the welcome widgets
-  */
-  public void welcome()
-  {
-    totalPotLabel = new JLabel();
-
-    welcomeFrame = new JFrame();
-    welcomePanel = new JPanel(new GridLayout(4, 0, 5, 0));
-    welcomeLabel = new JLabel();
-
-    onePlayerButton = new JButton("1 player");
-    twoPlayerButton = new JButton("2 players");
-    threePlayerButton = new JButton("3 players");
-
-    welcomeLabel.setText("Welcome to Blackjack");
-    welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-    welcomePanel.add(welcomeLabel);
-
-    welcomePanel.add(onePlayerButton);
-    welcomePanel.add(twoPlayerButton);
-    welcomePanel.add(threePlayerButton);
-
-    welcomePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-    // create the outer panel to center the widgets
-    JPanel outerPanel = new JPanel();
-    outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
-    outerPanel.add(Box.createHorizontalGlue());
-    outerPanel.add(welcomePanel);
-    outerPanel.add(Box.createHorizontalGlue());
-
-    welcomeFrame.add(welcomePanel);
-    welcomeFrame.setSize(200,175);
-    welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    welcomeFrame.pack();
-    welcomeFrame.setLocationRelativeTo(null); // center the window
-
-    welcomeFrame.setVisible(true);
-  }
-
-
     /** returns the image corresponding to the Card passed in
      *  @param c Card to retrieve the image of
      *  @return ImageIcon for corresponding card
     */
     public ImageIcon getMyImage(Card c){
-	String cardString ="";
-	switch(c.getCardNumber()){
-	case(1): cardString = "/images/c1.gif"; break;
-	case(2): cardString = "/images/c2.gif"; break;
-	case(3): cardString = "/images/c3.gif"; break;
-	case(4): cardString = "/images/c4.gif"; break;
-	case(5): cardString = "/images/c5.gif"; break;
-	case(6): cardString = "/images/c6.gif"; break;
-	case(7): cardString = "/images/c7.gif"; break;
-	case(8): cardString = "/images/c8.gif"; break;
-	case(9): cardString = "/images/c9.gif"; break;
-	case(10): cardString = "/images/c10.gif"; break;
-	case(11): cardString = "/images/cj.gif"; break;
-	case(12): cardString = "/images/cq.gif"; break;
-	case(13): cardString = "/images/ck.gif"; break;
-	case(14): cardString = "/images/d1.gif"; break;
-	case(15): cardString = "/images/d2.gif"; break;
-	case(16): cardString = "/images/d3.gif"; break;
-	case(17): cardString = "/images/d4.gif"; break;
-	case(18): cardString = "/images/d5.gif"; break;
-	case(19): cardString = "/images/d6.gif"; break;
-	case(20): cardString = "/images/d7.gif"; break;
-	case(21): cardString = "/images/d8.gif"; break;
-	case(22): cardString = "/images/d9.gif"; break;
-	case(23): cardString = "/images/d10.gif"; break;
-	case(24): cardString = "/images/dj.gif"; break;
-	case(25): cardString = "/images/dq.gif"; break;
-	case(26): cardString = "/images/dk.gif"; break;
-	case(27): cardString = "/images/h1.gif"; break;
-	case(28): cardString = "/images/h2.gif"; break;
-	case(29): cardString = "/images/h3.gif"; break;
-	case(30): cardString = "/images/h4.gif"; break;
-	case(31): cardString = "/images/h5.gif"; break;
-	case(32): cardString = "/images/h6.gif"; break;
-	case(33): cardString = "/images/h7.gif"; break;
-	case(34): cardString = "/images/h8.gif"; break;
-	case(35): cardString = "/images/h9.gif"; break;
-	case(36): cardString = "/images/h10.gif"; break;
-	case(37): cardString = "/images/hj.gif"; break;
-	case(38): cardString = "/images/hq.gif"; break;
-	case(39): cardString = "/images/hk.gif"; break;
-	case(40): cardString = "/images/s1.gif"; break;
-	case(41): cardString = "/images/s2.gif"; break;
-	case(42): cardString = "/images/s3.gif"; break;
-	case(43): cardString = "/images/s4.gif"; break;
-	case(44): cardString = "/images/s5.gif"; break;
-	case(45): cardString = "/images/s6.gif"; break;
-	case(46): cardString = "/images/s7.gif"; break;
-	case(47): cardString = "/images/s8.gif"; break;
-	case(48): cardString = "/images/s9.gif"; break;
-	case(49): cardString = "/images/s10.gif"; break;
-	case(50): cardString = "/images/sj.gif"; break;
-	case(51): cardString = "/images/sq.gif"; break;
-	case(52): cardString = "/images/sk.gif"; break;
-	}
+	String cardString ="/images/" + c + ".gif";
+    cardString = cardString.replaceAll(" ",""); //remove spaces
+
 	URL myurl = getClass().getResource(cardString);
 	if(myurl != null){
 	    ImageIcon myImage = new ImageIcon(myurl);
@@ -1154,127 +988,6 @@ public void initialize()
 	else
 	    return new ImageIcon();
     }
-
-  /** creates window for betting
-  */
-  public void createBetWindow(boolean exit_on_close)
-  {
-    // create the frame and panels, as well as set the layout
-    betFrame = new JFrame();
-    betPanel = new JPanel(new GridLayout(7,0,5,0));
-    betLabel = new JLabel();
-
-    // set the main text and center it
-    betLabel.setText("<html>How much would you<br>like to bet?</html>");
-    betLabel.setHorizontalAlignment(JLabel.CENTER);
-
-    // by default have the $25 bet selected
-    betAmount = new JLabel("$25");
-    betAmount.setHorizontalAlignment(JLabel.CENTER); // center the label
-    amountBet = 25;
-
-    betText = new JTextField("Or enter your desired bet amount here");
-    //betText.addActionListener(new BetTextListener());
-
-    // create bet amount buttons and assign ActionListeners
-    betAmount1 = new JButton("$25");
-    betAmount2 = new JButton("$50");
-    betAmount3 = new JButton("$100");
-    betAmount4 = new JButton("$250");
-    betAmount5 = new JButton("$500");
-    //betAmount1.addActionListener(new BetAmountListener1());
-    //betAmount2.addActionListener(new BetAmountListener2());
-    //betAmount3.addActionListener(new BetAmountListener3());
-    //betAmount4.addActionListener(new BetAmountListener4());
-    //betAmount5.addActionListener(new BetAmountListener5());
-
-    // create button to confirm selected bet amount
-    betButton = new JButton("Confirm Bet");
-    //betButton.addActionListener(new BeginGameListener());
-    // add widgets to panel
-    betPanel.add(betLabel);
-    betPanel.add(betAmount);
-    betPanel.add(betAmount1);
-    betPanel.add(betAmount2);
-    betPanel.add(betAmount3);
-    betPanel.add(betAmount4);
-    betPanel.add(betAmount5);
-    betPanel.add(betText);
-    betPanel.add(betButton);
-    betText.selectAll();
-    // create the outer panel to center the widgets
-    JPanel outerPanel = new JPanel();
-    outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
-    outerPanel.add(Box.createHorizontalGlue());
-    outerPanel.add(betPanel);
-    outerPanel.add(Box.createHorizontalGlue());
-    // add the panel to the frame and set frame attributes
-    betFrame.add(outerPanel);
-    // Since this is the only frame before the game starts, if this window
-    // is closed the application should terminate
-    betFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    // If the betting frame is brought up at the end of a round and closed using the 'x' button the game
-    // should not be terminated.
-    if(!exit_on_close)
-    betFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    betFrame.pack();
-    betFrame.setLocationRelativeTo(null); // center window
-    betFrame.setVisible(true);
-    // Set PartOfWelcomeingWindow to false. This is the last frame before game starts.
-  }
-
-  /** creates name frame that sets player names
-	@param num number of players
-  **/
-  public void createNewNameFrame(int num)
-  {
-	  nameFrame = new JFrame();
-    namePanel = new JPanel();
-    nameFrame.setSize(300,220);
-    if(num == 1)
-	  {
-      JLabel name1 = new JLabel("Player 1's name: ");
-      player1Name = new JTextField(20);
-      namePanel.add(name1);
-      namePanel.add(player1Name);
-    }
-    else if(num == 2)
-    {
-      JLabel name1 = new JLabel("Player 1's name: ");
-      player1Name = new JTextField(20);
-		  JLabel name2 = new JLabel("Player 2's name: ");
-      player2Name = new JTextField(20);
-      namePanel.add(name1);
-      namePanel.add(player1Name);
-      namePanel.add(name2);
-      namePanel.add(player2Name);
-	  }
-	  else if(num ==3)
-    {
-      JLabel name1 = new JLabel("Player 1's name: ");
-      player1Name = new JTextField(20);
-		  JLabel name2 = new JLabel("Player 2's name: ");
-		  player2Name = new JTextField(20);
-		  JLabel name3 = new JLabel("Player 3's name: ");
-		  player3Name = new JTextField(20);
-		  namePanel.add(name1);
-		  namePanel.add(player1Name);
-		  namePanel.add(name2);
-		  namePanel.add(player2Name);
-		  namePanel.add(name3);
-		  namePanel.add(player3Name);
-	  }
-
-	  loadSave = new JCheckBox("Load Saved Stats");
-	  //loadSave.addItemListener(new LoadListener());
-	  namePanel.add(loadSave);
-    beginGame = new JButton("Confirm");
-	  //beginGame.addActionListener(new ConfirmName());
-	  namePanel.add(beginGame);
-	  nameFrame.getContentPane().add(namePanel);
-	  nameFrame.setLocationRelativeTo(null); // center the window
-	  nameFrame.setVisible(true);
-  }
 
     /** updates ingame statistics
      */

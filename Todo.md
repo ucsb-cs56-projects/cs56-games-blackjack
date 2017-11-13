@@ -8,8 +8,6 @@ Ryan Kirkpatrick and Ryan Lorica
 names, initial bets, and the actual game
 * Idea for possibly setting players or similar objects as observers to a main
 subject class that would control the flow of the game from player to player.
-* Idea above could possibly be extended to having multiplayer work on different
-computers
 * Do composition for a lot of the gui elements like menubar
 * Music stops looping after a while
 * Current player should be displayed at the bottom without any notice of the

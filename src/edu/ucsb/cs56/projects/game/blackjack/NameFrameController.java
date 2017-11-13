@@ -13,44 +13,38 @@ import java.awt.*;
  * @version 11/7/17
  */
 
-public class NameFrameController
-{
+public class NameFrameController{
   BlackjackGui gui;
+  NameGui nameGui;
 
-  public NameFrameController(BlackjackGui g)
-  {
-    gui = g;
+  public NameFrameController(BlackjackGui gui){
+    this.gui = gui;
   }
 
-  public void run()
-  {
-    gui.createNewNameFrame(gui.numPlayers);
-    attachActionListeners();
+  public void run(){
+      nameGui = new NameGui(gui.numPlayers);
+      nameGui.display();
+      attachActionListeners();
   }
 
-  public void attachActionListeners()
-  {
-    gui.loadSave.addItemListener(new LoadListener());
-    gui.beginGame.addActionListener(new ConfirmName());
+  public void attachActionListeners(){
+    nameGui.loadSave.addItemListener(new LoadListener());
+    nameGui.beginGame.addActionListener(new ConfirmName());
   }
 
   /** listener class for load button
    *  @author ???
    *  @version 2016.11.9
    */
-  public class LoadListener implements ItemListener
-  {
+  public class LoadListener implements ItemListener{
     /** prepares for load
     *  @param e ItemEvent
     */
-    public void itemStateChanged(ItemEvent e)
-    {
-      if (e.getStateChange() == ItemEvent.SELECTED)
-      {
+    public void itemStateChanged(ItemEvent e){
+      if (e.getStateChange() == ItemEvent.SELECTED){
         gui.load = true;
       }
-      else
-      {
+      else{
         gui.game.resetStats();
         gui.load = false;
       }
@@ -61,15 +55,16 @@ public class NameFrameController
    *  @author ???
    *  @version 2016.11.9
    */
-  public class ConfirmName implements ActionListener
-  {
+  public class ConfirmName implements ActionListener{
     /** initializes some of the JLabels for a set bet menu and brings up the main JFrame
     @param event ActionEvent, set bet
     */
-    public void actionPerformed(ActionEvent event)
-    {
+    public void actionPerformed(ActionEvent event){
       // disable the previous window ('enter player name(s)')
-      gui.nameFrame.setVisible(false);
+      nameGui.nameFrame.setVisible(false);
+      gui.p1Name = nameGui.player1Name.getText();
+      gui.p2Name = nameGui.player2Name.getText();
+      gui.p3Name = nameGui.player3Name.getText();
       gui.stage++;
     }
   }

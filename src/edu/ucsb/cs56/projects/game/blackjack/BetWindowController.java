@@ -14,32 +14,30 @@ import javax.swing.*;
  * @version 11/7/17
  */
 
-public class BetWindowController
-{
+public class BetWindowController{
   BlackjackGui gui;
+  BetGui betGui;
 
-  public BetWindowController(BlackjackGui g)
-  {
-    gui = g;
+  public BetWindowController(BlackjackGui gui){
+    this.gui = gui;
   }
 
-  public void run()
-  {
-    gui.createBetWindow(true);
-    attachActionListeners();
+  public void run(){
+      betGui = new BetGui();
+      betGui.display();
+      attachActionListeners();
   }
 
-  public void attachActionListeners()
-  {
-    gui.betText.addActionListener(new BetTextListener());
+  public void attachActionListeners(){
+    betGui.betText.addActionListener(new BetTextListener());
 
-    gui.betAmount1.addActionListener(new BetAmountListener1());
-    gui.betAmount2.addActionListener(new BetAmountListener2());
-    gui.betAmount3.addActionListener(new BetAmountListener3());
-    gui.betAmount4.addActionListener(new BetAmountListener4());
-    gui.betAmount5.addActionListener(new BetAmountListener5());
+    betGui.betAmount1.addActionListener(new BetAmountListener1());
+    betGui.betAmount2.addActionListener(new BetAmountListener2());
+    betGui.betAmount3.addActionListener(new BetAmountListener3());
+    betGui.betAmount4.addActionListener(new BetAmountListener4());
+    betGui.betAmount5.addActionListener(new BetAmountListener5());
 
-    gui.betButton.addActionListener(new BeginGameListener());
+    betGui.betButton.addActionListener(new BeginGameListener());
   }
 
   /** listener class for bet text field allowing for custom user bets
@@ -53,9 +51,9 @@ public class BetWindowController
     */
     public void actionPerformed(ActionEvent event)
     {
-      gui.betText.selectAll();
-      gui.amountBet = Integer.parseInt(gui.betText.getText());
-      gui.betAmount.setText("$" + gui.amountBet);
+      betGui.betText.selectAll();
+      betGui.amountBet = Integer.parseInt(betGui.betText.getText());
+      betGui.betAmountLabel.setText("$" + betGui.amountBet);
     }
   }
 
@@ -70,8 +68,8 @@ public class BetWindowController
     */
     public void actionPerformed(ActionEvent event)
     {
-      gui.amountBet += 25;
-      gui.betAmount.setText("$" + gui.amountBet);
+      betGui.amountBet += 25;
+      betGui.betAmountLabel.setText("$" + betGui.amountBet);
     }
   }
 
@@ -86,8 +84,8 @@ public class BetWindowController
     */
     public void actionPerformed(ActionEvent event)
     {
-      gui.amountBet += 50;
-      gui.betAmount.setText("$" + gui.amountBet);
+      betGui.amountBet += 50;
+      betGui.betAmountLabel.setText("$" + betGui.amountBet);
     }
   }
 
@@ -102,8 +100,8 @@ public class BetWindowController
     */
     public void actionPerformed(ActionEvent event)
     {
-      gui.amountBet += 100;
-      gui.betAmount.setText("$" + gui.amountBet);
+      betGui.amountBet += 100;
+      betGui.betAmountLabel.setText("$" + betGui.amountBet);
     }
   }
 
@@ -118,8 +116,8 @@ public class BetWindowController
     */
     public void actionPerformed(ActionEvent event)
     {
-      gui.amountBet += 250;
-      gui.betAmount.setText("$" + gui.amountBet);
+      betGui.amountBet += 250;
+      betGui.betAmountLabel.setText("$" + betGui.amountBet);
     }
   }
 
@@ -134,8 +132,8 @@ public class BetWindowController
     */
     public void actionPerformed(ActionEvent event)
     {
-      gui.amountBet += 500;
-      gui.betAmount.setText("$" + gui.amountBet);
+      betGui.amountBet += 500;
+      betGui.betAmountLabel.setText("$" + betGui.amountBet);
     }
   }
 
@@ -148,9 +146,9 @@ public class BetWindowController
     /** adds names to players and starts game
     @param event ActionEvent, begins the game
     */
-    public void actionPerformed(ActionEvent event)
-    {
-      gui.betFrame.setVisible(false);
+    public void actionPerformed(ActionEvent event){
+      betGui.betFrame.setVisible(false);
+      gui.amountBet = betGui.amountBet;
       gui.stage++;
     }
   }

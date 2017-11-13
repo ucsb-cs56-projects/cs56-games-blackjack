@@ -172,16 +172,6 @@ public class BlackjackGui
   }
 
 
-    /** launches/runs the blackjack game
-     * @param args array of String command line arguments
-     */
-    public static void main(String[] args){
-    	BlackjackGui gui = new BlackjackGui();
-    	gui.rules();
-    	gui.welcome();
-    	gui.go();
-    }
-
     /** enabled or disabled Double Down optiion
      */
     public void setDoubleDown() {

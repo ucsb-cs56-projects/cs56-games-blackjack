@@ -196,11 +196,10 @@ public class TableController
    *  @author Marco Chavez
    *  @version 2016.11.9
    */
-  public class ChangeBetListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.createBetWindow(false);
+  public class ChangeBetListener implements ActionListener{
+    public void actionPerformed(ActionEvent e){
+      BetWindowController bc = new BetWindowController(gui);
+      bc.run();
     }
   }
 
@@ -443,13 +442,12 @@ public class TableController
    *  @author ???
    *  @version 2016.11.9
    */
-  public class ChangeNamesListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.createNewNameFrame(gui.numPlayers);
-    }
-  }
+   public class ChangeNamesListener implements ActionListener{
+       public void actionPerformed(ActionEvent e){
+           NameFrameController nc = new NameFrameController(gui);
+           nc.run();
+       }
+   }
 
   /** ExitSListener, listens for bottom player's exit
    *  @author David Tsu
@@ -536,15 +534,12 @@ public class TableController
    *  @author ???
    *  @version 2016.11.9
    */
-  public class RulesListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.rulesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      gui.rulesFrame.setVisible(true);
-      gui.rulesButton.setVisible(false);
+  public class RulesListener implements ActionListener{
+      public void actionPerformed(ActionEvent e){
+          RulesController rc = new RulesController(gui);
+          rc.run();
+          rc.rulesGui.rulesButton.setVisible(false);
     }
-
   }
 
   /** listener class for save button

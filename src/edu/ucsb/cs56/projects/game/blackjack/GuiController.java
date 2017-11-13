@@ -14,7 +14,8 @@ public class GuiController{
         //rulesGui.display();
         GuiController controller = new GuiController();
         WelcomeGui welcomeGui = new WelcomeGui();
-        welcomeGui.display(controller);
+        welcomeGui.display();
+
 /*
         NamesGui namesGui = new namesGui(this);
         namesGui.display();
@@ -34,8 +35,12 @@ public class GuiController{
         return this.numPlayers;
     }
 
-    public void setDone(){
-        this.done = true;
+    public void DisplayRules(){
+        RulesGui rulesGui = new RulesGui();
+        rulesGui.display();
+    }
+    public void DisplayWelcome(){
+
     }
 
 }

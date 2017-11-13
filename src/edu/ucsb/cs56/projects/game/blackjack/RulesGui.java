@@ -49,7 +49,7 @@ public class RulesGui implements Gui {
 
             rulesFrame.add(rulesPanel);
             rulesFrame.setSize(300,400);
-            rulesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            rulesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             rulesFrame.pack();
             rulesFrame.setLocationRelativeTo(null); // center the window
             rulesFrame.setVisible(true);

@@ -424,7 +424,7 @@ public class BlackjackGui
      * @param amount amount to add to the total pot
      */
     public void updateTotalPot(int amount) {
-    	totalPot += amount;
+        totalPot = amount;
     	totalPotLabel.setText("Total pot: $" + totalPot);
     }
 

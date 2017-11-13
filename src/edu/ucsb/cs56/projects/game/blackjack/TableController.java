@@ -586,8 +586,6 @@ public class TableController
       gui.didPlayer3Split = false;
       gui.game.newRound();
       gui.song.stop();
-      gui.welcomeFrame.dispose();
-      gui.nameFrame.dispose();
       gui.keepRunning = true;
       gui.go();
       attachActionListeners();

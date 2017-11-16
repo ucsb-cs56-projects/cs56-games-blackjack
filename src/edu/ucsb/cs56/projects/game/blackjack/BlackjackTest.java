@@ -1,6 +1,8 @@
 package edu.ucsb.cs56.projects.game.blackjack;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import javax.swing.*;
+import java.awt.*;
 
 /** test class for Blackjack
 
@@ -13,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 */
 
 public class BlackjackTest{
-        
+
 	/** Test case for Blackjack.getPlayer(i).isNotBust()
 	    @see Blackjack
 	*/
@@ -34,7 +36,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals(true,b.getPlayer(1).isNotBust());
     }
-    
+
     /** Test case for Blackjack.getPlayer(i).isNotBust()
 	    @see Blackjack
 	*/
@@ -57,7 +59,7 @@ public class BlackjackTest{
 		b.getPlayer(2).drawCard(newCard);
 		assertEquals(false,b.getPlayer(2).isNotBust());
     }
-    
+
     /** Test case for Blackjack.getPlayer(i).isNotBust()
 	    @see Blackjack
 	*/
@@ -78,8 +80,8 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals(true,b.getPlayer(3).isNotBust());
     }
-    
-    
+
+
     /** Test case for Blackjack.dealerNotBust()
 	    @see Blackjack
 	*/
@@ -100,7 +102,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals(true,b.dealerNotBust());
     }
-    
+
     /** Test case for Blackjack.dealerNotBust()
 	    @see Blackjack
 	*/
@@ -123,7 +125,7 @@ public class BlackjackTest{
 		b.getDealer().drawCard(newCard);
 		assertEquals(true,b.dealerNotBust());
     }
-   
+
 
 	/** Test case for Blackjack.dealerHandValue()
             @see Blackjack
@@ -145,7 +147,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals(15,b.dealerHandValue());
     }
-    
+
     /** Test case for Blackjack.dealerHandValue()
             @see Blackjack
     */
@@ -166,7 +168,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals(11,b.dealerHandValue());
     }
-    
+
 	/** Test case for Blackjack.dealerSecondValue()
             @see Blackjack
     */
@@ -187,7 +189,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals(-1,b.dealerSecondValue());
     }
-    
+
     /** Test case for Blackjack.dealerSecondValue()
             @see Blackjack
     */
@@ -208,7 +210,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals(21,b.dealerSecondValue());
     }
-    
+
     /** Test case for Blackjack.dealerSecondValue()
             @see Blackjack
     */
@@ -230,8 +232,8 @@ public class BlackjackTest{
 		b.getDealer().drawCard(new Card(7, "Spades"));
 		assertEquals(-1,b.dealerSecondValue());
     }
-    
-    
+
+
     /** Test case for Blackjack.evaluateWinner()
             @see Blackjack
     */
@@ -252,7 +254,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals('D',b.evaluateWinner(b.getPlayer(1)));
     }
-    
+
     /** Test case for Blackjack.evaluateWinner()
             @see Blackjack
     */
@@ -273,7 +275,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals('P',b.evaluateWinner(b.getPlayer(2)));
     }
-   
+
 
 	/** Test case for Blackjack.evaluateWinner()
             @see Blackjack
@@ -296,8 +298,8 @@ public class BlackjackTest{
 		b.getDealer().drawCard(new Card(11, "Spades"));
 		assertEquals('P',b.evaluateWinner(b.getPlayer(3)));
     }
-    
-    
+
+
     /** Test case for Blackjack.dealerHasBlackjack()
             @see Blackjack
     */
@@ -319,7 +321,7 @@ public class BlackjackTest{
 		b.getDealer().drawCard(new Card(6, "Hearts"));
 		assertEquals(false,b.dealerHasBlackjack());
     }
-    
+
     /** Test case for Blackjack.dealerHasBlackjack()
             @see Blackjack
     */
@@ -362,7 +364,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals(false,b.playerHasBlackjack(b.getPlayer(1)));
     }
-    
+
     /** Test case for Blackjack.playerHasBlackjack(Player p)
             @see Blackjack
     */
@@ -383,7 +385,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals(true,b.playerHasBlackjack(b.getPlayer(3)));
     }
-    
+
     /** Test case for Blackjack.playerHasBlackjack(Player p)
             @see Blackjack
     */
@@ -426,7 +428,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals(false,b.dealerShouldStay());
     }
-    
+
     /** Test case for Blackjack.dealerShouldStay()
             @see Blackjack
     */
@@ -447,7 +449,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals(true,b.dealerShouldStay());
     }
-    
+
     /** Test case for Blackjack.dealerShouldStay()
             @see Blackjack
     */
@@ -469,8 +471,8 @@ public class BlackjackTest{
 		b.getDealer().drawCard(new Card(6, "Clubs"));
 		assertEquals(true,b.dealerShouldStay());
     }
-    
-    
+
+
     /** Test case for Blackjack.getDealerCard()
             @see Blackjack
     */
@@ -491,7 +493,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals(c1,b.getDealerCard());
     }
-    
+
     /** Test case for Blackjack.getDealerCard()
             @see Blackjack
     */
@@ -512,7 +514,7 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals(c1,b.getDealerCard());
     }
-    
+
     /** Test case for Blackjack.displayDealerCardValue()
             @see Blackjack
     */
@@ -533,5 +535,39 @@ public class BlackjackTest{
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		assertEquals("Dealer's hand value: 3",b.displayDealerCardValue());
     }
-    
+
+
+    @Test
+    public void test_getMyImage() {
+        BlackjackGui gui = new BlackjackGui();
+
+        Deck deck = new Deck();
+        Card currentCard = deck.draw();
+        ImageIcon myImage = gui.getMyImage(currentCard);
+
+        JFrame testFrame = new JFrame("test_getMyImage");
+        JLabel cardLabel = new JLabel("Current card: " + currentCard);
+        JLabel cardImage = new JLabel(myImage);
+
+        testFrame.add(cardLabel);
+        testFrame.add(cardImage);
+
+        testFrame.setLayout(new GridLayout(2,1));
+        testFrame.pack();
+        testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        testFrame.setVisible(true);
+
+        while(deck.getDeckSize() != 0){
+            try{
+                Thread.sleep(1000);
+                currentCard = deck.draw();
+                myImage = gui.getMyImage(currentCard);
+                cardImage.setIcon(myImage);
+                cardLabel.setText("Current card: "+ currentCard);
+            } catch(InterruptedException ex){
+                testFrame.dispose();
+            }
+        }
+    }
+
 }//end BlackjackTest

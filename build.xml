@@ -9,29 +9,29 @@
 
 <!-- modified build.xml for CS56 Blackjack Project
      name: Eric Palyan, W14 -->
- 
+
 <!-- modified build.xml for CS56 Blackjack Project
      name: David Tsu, F16 -->
 
- <property environment="env"/> <!-- load the environment variables --> 
+ <property environment="env"/> <!-- load the environment variables -->
  <property name="webRoot" value="${env.HOME}/"/>
  <property name="webBaseUrl" value="http://www.cs.ucsb.edu/~${env.USER}"/>
  <property name="course" value="cs56"/>
  <property name="quarter" value="F16"/>
  <property name="projectName" value="blackjack"/>
- <property name="mainClass" value="edu.ucsb.cs56.projects.game.blackjack.BlackjackGui"/>
+ <property name="mainClass" value="edu.ucsb.cs56.projects.game.blackjack.Main"/>
  <property name="projectPath" value="${course}/projects/game/${projectName}"/>
- 
- <property name="javadocDest" value="../cs56-games-blackjack_javadoc_davidtsu_chavez95/javadoc"/> 
- <property name="javadocURL" value="../cs56-games-blackjack_javadoc_davidtsu_chavez95/javadoc"/> 
+
+ <property name="javadocDest" value="../cs56-games-blackjack_javadoc_davidtsu_chavez95/javadoc"/>
+ <property name="javadocURL" value="../cs56-games-blackjack_javadoc_davidtsu_chavez95/javadoc"/>
  <property name="imagesDest" value="$../cs56-games-blackjack_javadoc_davidtsu_chavez95/images"/>
- 
- 
+
+
  <path id="project.class.path">
    <pathelement location="build"/>
    <pathelement location="lib/junit-4.8.2.jar"/>
  </path>
- 
+
  <!-- Compile src code -->
  <target name="compile" description="compiles src code into .class files and stores them in build directory">
    <mkdir dir="build"/>
@@ -42,7 +42,7 @@
      <fileset dir="images" includes="*.gif"/>
    </copy>
  </target>
- 
+
  <!-- copy images to web -->
  <target name="images" depends="compile,jar" description="copy images to web">
    <delete dir="${webRoot}/${projectPath}/images"/>
@@ -51,14 +51,14 @@
      <fileset dir="images" includes="*.gif"/>
    </copy>
  </target>
- 
+
  <!-- Run the Gui -->
  <target name="run" depends="compile, jar" description="run the BlackjackGui">
-   <java fork="true" classname="${mainClass}">  
+   <java fork="true" classname="${mainClass}">
      <classpath refid="project.class.path"/>
    </java>
  </target>
- 
+
  <!-- Clean the directories -->
  <target name="clean" description="delete unnecessary files and directories">
    <delete failonerror="false" verbose="true">
@@ -70,7 +70,7 @@
    <delete dir="temp" quiet="true"/>
    <delete dir="build/images" quiet="true"/>
  </target>
- 
+
  <!-- Run JUnit tests -->
  <target name="test" depends="compile" description="run JUnit tests">
    <junit haltonerror="no" haltonfailure="no">
@@ -81,32 +81,32 @@
 	 <include name="**/*Test.java"/>
        </fileset>
      </batchtest>
-     <formatter type="plain" usefile="false"/>       
+     <formatter type="plain" usefile="false"/>
    </junit>
  </target>
- 
+
  <!-- Javadoc -->
-<target name="javadoc" depends="compile" description="prepare and post javadoc"> 
-   <delete dir="javadoc" quiet="true"/> 
-   <javadoc destdir="javadoc" author="true" version="true" use="true">  
-     <fileset dir="src" includes="**/*.java"/>  
+<target name="javadoc" depends="compile" description="prepare and post javadoc">
+   <delete dir="javadoc" quiet="true"/>
+   <javadoc destdir="javadoc" author="true" version="true" use="true">
+     <fileset dir="src" includes="**/*.java"/>
      <classpath refid="project.class.path"/>
    </javadoc>
    <!-- delete the old javadoc -->
-   <delete quiet="true" dir="${javadocDest}"/> 
+   <delete quiet="true" dir="${javadocDest}"/>
    <!-- copy everything you just made to the javadoc destination, and then make it readable -->
-   <copy todir="${javadocDest}"> 
-     <fileset dir="javadoc"/> 
-   </copy> 
-   <!-- Note: this only does the chmod command on the 
+   <copy todir="${javadocDest}">
+     <fileset dir="javadoc"/>
+   </copy>
+   <!-- Note: this only does the chmod command on the
 	javadoc subdirectory and its contents.  You MIGHT have to
 	MANUALLY do the chmod on the parent directories.  However,
-	you should only need to do that once. --> 
-   <chmod dir="${javadocDest}" perm="755" type="dir" includes="**"/> 
-   <chmod dir="${javadocDest}" perm="755" type="file" includes="**/*"/> 
-   <echo>Javadoc deployed to ${javadocURL}</echo> 
- </target> 
- 
+	you should only need to do that once. -->
+   <chmod dir="${javadocDest}" perm="755" type="dir" includes="**"/>
+   <chmod dir="${javadocDest}" perm="755" type="file" includes="**/*"/>
+   <echo>Javadoc deployed to ${javadocURL}</echo>
+ </target>
+
  <!-- JAR -->
  <target name="jar" depends="compile" description="JAR up files and put into dist directory">
    <mkdir dir="dist"/>
@@ -116,5 +116,5 @@
      </manifest>
    </jar>
  </target>
- 
+
 </project>

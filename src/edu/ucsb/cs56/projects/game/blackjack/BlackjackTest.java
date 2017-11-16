@@ -536,7 +536,9 @@ public class BlackjackTest{
 		assertEquals("Dealer's hand value: 3",b.displayDealerCardValue());
     }
 
-
+    /** Test case for BlackjackGui.getMyImage()
+            @see BlackjackGui
+    */
     @Test
     public void test_getMyImage() {
         BlackjackGui gui = new BlackjackGui();

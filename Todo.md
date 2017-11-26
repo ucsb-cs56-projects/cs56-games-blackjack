@@ -1,5 +1,8 @@
 Ryan Kirkpatrick and Ryan Lorica
 
+Kirk,
+I refactored setSplit, splitHand, setDoubleDown, getWinner(now getWinner and drawEndScreen), evaluateWinner, loadStats
+
 ### List of things that can be done (no particular order):
 
 * Make this todo list once complete into issues.

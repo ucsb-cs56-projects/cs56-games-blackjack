@@ -172,105 +172,120 @@ public class BlackjackGui
   }
 
 
-    /** enabled or disabled Double Down optiion
-     */
-    public void setDoubleDown() {
-    	switch(playerTurn) {
-	case(1):
-	    if (canPlayer1DD) {
-		canPlayer1DD = false;
-		dd.setVisible(true);
-	    }
-	    else
-		dd.setVisible(false);
-	    break;
-	case(2):
-	    if (canPlayer2DD) {
-		canPlayer2DD = false;
-		dd.setVisible(true);
-	    }
-	    else
-		dd.setVisible(false);
-	    break;
-	case(3):
-	    if (canPlayer3DD) {
-		canPlayer3DD = false;
-		dd.setVisible(true);
-	    }
-	    else
-		dd.setVisible(false);
-	    break;
-	case(4):
-	    if (canPlayer4DD) {
-		canPlayer4DD = false;
-		dd.setVisible(true);
-	    }
-	    else
-		dd.setVisible(false);
-	    break;
-    	}
+  /** enabled or disabled Double Down optiion
+  */
+  public void setDoubleDown()
+  {
+    if( playerTurn == 1 && canPlayer1DD )
+    {
+      canPlayer1DD = false;
+      dd.setVisible(true);
     }
 
-    /** enabled or disabled split option */
-    public void setSplit() {
-	switch(playerTurn) {
-	case(1):
-	   // % 13  is used becuase every 13 cards there's another card with the same value exmaple: 1 % 13 and
-	   // 14 % 13 will both be A's
-	    if (((game.getPlayerS().getHand().getFirstCard().getCardNumber()) % 13 )== ((game.getPlayerS().getHand().getSecondCard().getCardNumber()) % 13 )) {
-		split.setVisible(true);
-	    }
-	    else split.setVisible(false);
-	    break;
-	case(2):
+    else if( playerTurn == 2 && canPlayer2DD )
+    {
+      canPlayer2DD = false;
+      dd.setVisble(true);
+    }
+
+    else if( playerTurn == 3 && canPlayer3DD )
+    {
+      canPlayer3DD = false;
+      dd.setVisible(true);
+    }
+
+    else if( playerTurn == 4 && canPlayer4DD )
+    {
+      canPlayer4DD = false;
+      dd.setVisible(true);
+    }
+
+    else
+    {
+      dd.setVisible(false);
+    }
+  }
+
+  /** enabled or disabled split option */
+  public void setSplit()
+  {
+    int cardOne = 0;
+    int cardTwo = 1;
+
+    switch(playerTurn)
+    {
+      case(1):
+      // % 13  is used becuase every 13 cards there's another card with the same value exmaple: 1 % 13 and
+      // 14 % 13 will both be A's
+      cardOne = ( game.getPlayerS().getHand().getFirstCard().getCardNumber() ) % 13;
+      cardTwo = ( game.getPlayerS().getHand().getSecondCard().getCardNumber() ) % 13;
+
+      case(2):
 	    //System.out.println("East: " + ((game.getPlayerE().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerE().getHand().getSecondCard().getCardNumber()) % 13 ));
-	    if (((game.getPlayerE().getHand().getFirstCard().getCardNumber()) % 13) == ((game.getPlayerE().getHand().getSecondCard().getCardNumber()) % 13)) {
-		split.setVisible(true);
-	    }
-	    else split.setVisible(false);
-	    break;
-	case(3):
-	    //System.out.println("West: " + ((game.getPlayerW().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerW().getHand().getSecondCard().getCardNumber()) % 13 ));
-	    if (((game.getPlayerW().getHand().getFirstCard().getCardNumber()) % 13) == ((game.getPlayerW().getHand().getSecondCard().getCardNumber()) % 13 )) {
-		split.setVisible(true);
-	    }
-	    else split.setVisible(false);
-	    break;
-	case(4): split.setVisible(false);
-	    break;
-	}
-    }
+      cardOne = ( game.getPlayerE().getHand().getFirstCard().getCardNumber() ) % 13;
+      cardTwo = ( game.getPlayerE().getHand().getSecondCard().getCardNumber() ) % 13;
 
-    /** splits the hand of player
-     * @param player the integer of the player
-     */
-    public void splitHand(int player) {
-    	switch(player) {
-	case 1: cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
-	    cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
-	    card2LabelS.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
-	    cardLabelS.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() +
-			       "  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
-	    game.getPlayer(player).setHasSplitTrue();
+      case(3):
+	    //System.out.println("West: " + ((game.getPlayerW().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerW().getHand().getSecondCard().getCardNumber()) % 13 ));
+      cardOne = ( game.getPlayerW().getHand().getFirstCard().getCardNumber() ) % 13;
+      cardTwo = ( game.getPlayerW().getHand().getSecondCard().getCardNumber() ) % 13;
+    }
+    split.setVisible(cardOne == cardTwo);
+  }
+
+  /** splits the hand of player
+  * @param player the integer of the player
+  */
+  public void splitHand(int player)
+  {
+    Player playerObj = game.getPlayer(player);
+
+    Hand hand1 = playerObj.getHand();
+    JLabel hand1_card2_img = getMyImage(hand1.getSecondCard());
+
+    Hand hand2 = playerObj.getHand2();
+    JLabel hand2_card1_img = new JLabel(getMyImage(hand2.getFirstCard()));
+    JLabel hand2_card2_img = new JLabel(getMyImage(hand2.getSecondCard()));
+
+    switch(player)
+    {
+      case 1:
+      cardsPanelS.add( hand2_card1_img, BorderLayout.EAST);
+	    cardsPanelS.add( hand2_card2_img, BorderLayout.EAST);
+	    card2LabelS.setIcon(hand1_card2_img);
+	    cardLabelS.setText
+      (
+        "Hand Value: " + hand1.displayHandValue() +
+        "  Second Hand Value: " + hand2.displayHandValue()
+      );
 	    didPlayer1Split = true;
 	    break;
-	case 2: cardsPanelE.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
-	    cardsPanelE.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
-	    card2LabelE.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
-	    cardLabelE.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() +
-			       "  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
-	    game.getPlayer(player).setHasSplitTrue();
+
+      case 2:
+      cardsPanelE.add( hand2_card1_img, BorderLayout.EAST);
+	    cardsPanelE.add( hand2_card2_img, BorderLayout.EAST);
+	    card2LabelE.setIcon(hand1_card2_img);
+	    cardLabelE.setText
+      (
+        "Hand Value: " + hand1.displayHandValue() +
+			  "  Second Hand Value: " + hand2.displayHandValue()
+      );
 	    didPlayer2Split = true;
 	    break;
-	case 3: cardsPanelW.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
-	    cardsPanelW.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
-	    card2LabelW.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
-	    cardLabelW.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() +
-			       "  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
-	    game.getPlayer(player).setHasSplitTrue();
+
+      case 3:
+      cardsPanelW.add( hand2_card1_img, BorderLayout.EAST);
+	    cardsPanelW.add( hand2_card2_img, BorderLayout.EAST);
+	    card2LabelW.setIcon(hand1_card2_img);
+	    cardLabelW.setText
+      (
+        "Hand Value: " + hand1.displayHandValue() +
+        "  Second Hand Value: " + hand2.displayHandValue()
+      );
 	    didPlayer3Split = true;
 	    break;
     	}
+      playerObj.setHasSplitTrue();
     }
 
 
@@ -287,64 +302,71 @@ public class BlackjackGui
 	JButton changeBetS = new JButton("Change Bet Amount?");
   JButton resumeGame = new JButton("Confirm");
 
-    /** gets the winner and displays it in a label
-     *  also makes the playAgain button visible
-     */
-    public void getWinner(){
+  /** gets the winner and displays it in a label
+  *  also makes the playAgain button visible
+  */
+  public void getWinner()
+  {
+    boolean DealerWon = true;
 
-	boolean DealerWon = true;
-
-	for(int count = 0; count < numPlayers; count++){
-	    boolean PlayerWon = game.evaluateWinner(game.getPlayerX(count)) == 'P';
+    for(int count = 0; count < numPlayers; count++)
+    {
+      Player playerObj = game.getPlayerX(count);
+      boolean PlayerWon = game.evaluatewinner(playerObj);
 	    String winOrLose = PlayerWon ? " wins" : " loses";
-	    if (PlayerWon) {
-		game.getPlayerX(count).addWin();
-		game.getPlayerX(count).addMoneyWon(amountBet + game.getPlayerX(count).getDD());
+
+      if (PlayerWon)
+      {
+        playerObj.addWin();
+        playerObj.addMoneyWon(amountBet + playerObj.getDD());
+        updateMoney(amountBet, count + 1);
+        DealerWon = false;
 	    }
-	    else {
-		game.getPlayerX(count).addLoss();
-		game.getPlayerX(count).addMoneyLost(amountBet + game.getPlayerX(count).getDD());
+	    else
+      {
+        playerObj.addLoss();
+        playerObj.addMoneyLost(amountBet + playerObj.getDD());
 	    }
+
 	    updateMoneyLabel(count + 1);
-	    playerLabelArray[count].setText(game.getPlayerX(count).getName() + winOrLose);
-	    card1LabelArray[count].setText("Hand Value: " + game.getPlayerX(count).getHand().displayBestValue());
-	    if (PlayerWon)
-		updateMoney(amountBet, count + 1);
-	    if(PlayerWon)
-		DealerWon = false;
+	    playerLabelArray[count].setText(playerObj.getName() + winOrLose);
+	    card1LabelArray[count].setText("Hand Value: " + playerObj.getHand().displayBestValue());
+    }
 
-	}
-	if(DealerWon)
-	    displayLabel.setText("Dealer wins");
-	/** create 'play again' button to display at the end of the round and removes hit and stay button **/
+    if(DealerWon) displayLabel.setText("Dealer wins");
+  }
 
-	save.setMaximumSize(new Dimension(170, 75));
-	//save.addActionListener(new SaveListener());
-  //playAgain = new JButton("Play again");
-  playAgain.setMaximumSize(new Dimension(130, 75));
-	//playAgain.addActionListener(new PlayAgainListener());
-	hit.setVisible(false);
-	stay.setVisible(false);
-	shift = false;
-	if (game.getPlayerS() != null) {
-		createSouthAfterRoundButtons();
+  public void drawEndScreen()
+  {
+    /** create 'play again' button to display at the end of the round and removes hit and stay button **/
+    save.setMaximumSize(new Dimension(170, 75));
+    //save.addActionListener(new SaveListener());
+    //playAgain = new JButton("Play again");
+    playAgain.setMaximumSize(new Dimension(130, 75));
+    //playAgain.addActionListener(new PlayAgainListener());
+    hit.setVisible(false);
+    stay.setVisible(false);
+    shift = false;
 
-	}
-	if (game.getPlayerE() != null) {
-
-
+    if (game.getPlayerS() != null)
+    {
+      createSouthAfterRoundButtons();
+    }
+    if (game.getPlayerE() != null)
+    {
 	    playerPanelE.add(addMoneyE);
 	    playerPanelE.add(changeBetE);
 	    playerPanelE.add(exitE);
-	}
-	if (game.getPlayerW() != null) {
+    }
+    if (game.getPlayerW() != null)
+    {
 	    playerPanelW.add(addMoneyW);
 	    playerPanelW.add(changeBetW);
 	    playerPanelW.add(exitW);
-	}
-	displayPanel.add(playAgain);
-	displayPanel.add(save);
     }
+    displayPanel.add(playAgain);
+    displayPanel.add(save);
+  }
 
     /** creates buttons at round's end
      */

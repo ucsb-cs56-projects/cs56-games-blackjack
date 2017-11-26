@@ -613,6 +613,7 @@ public class TableController
         gui.timer.stop();
         gui.dealerLabel.setText("Dealer wins");
         gui.getWinner();
+        gui.drawEndScreen();
         return;
       }
       else if (gui.numPlayers == 2
@@ -622,6 +623,7 @@ public class TableController
         gui.timer.stop();
         gui.dealerLabel.setText("Dealer wins");
         gui.getWinner();
+        gui.drawEndScreen();
         return;
       }
       else if(gui.numPlayers == 3
@@ -632,6 +634,7 @@ public class TableController
         gui.timer.stop();
         gui.dealerLabel.setText("Dealer wins");
         gui.getWinner();
+        gui.drawEndScreen();
         return;
       }
       if(gui.game.dealerHasBlackjack())
@@ -639,6 +642,7 @@ public class TableController
         gui.timer.stop();
         gui.dealerLabel.setText("Dealer has Blackjack");
         gui.getWinner();
+        gui.drawEndScreen();
         return;
       }
       gui.dealerLabel.setText(gui.game.getDealer().displayHandValue());
@@ -681,6 +685,7 @@ public class TableController
         }
         gui.displayLabel.setText(winners);
         gui.getWinner();
+        gui.drawEndScreen();
         return;
       }
       else
@@ -734,6 +739,7 @@ public class TableController
         gui.displayLabel.setText(winners);
         gui.timer.stop();
         gui.getWinner();
+        gui.drawEndScreen();
         return;
       }
     }

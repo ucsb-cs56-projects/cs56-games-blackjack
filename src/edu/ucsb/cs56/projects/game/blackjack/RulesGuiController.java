@@ -32,8 +32,9 @@ public class RulesGuiController{
     }
 
     /** listener class for closing the rules window
-     *  @author ???
-     *  @version 2016.11.9
+     *  @author Ryan Kirkpatrick
+     *  @author Ryan Lorica
+     *  @version 2017.11.28
      */
     public class CloseRulesListener implements ActionListener{
     /** closes the rules window

@@ -538,6 +538,8 @@ public class BlackjackTest{
 
     /** Test case for BlackjackGui.getMyImage()
             @see BlackjackGui
+            @author Ryan Kirkpatrick
+            @version 11/28/17
     */
     @Test
     public void test_getMyImage() {

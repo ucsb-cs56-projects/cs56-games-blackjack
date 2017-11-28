@@ -3,6 +3,15 @@ package edu.ucsb.cs56.projects.game.blackjack;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * WelcomeGui.java
+ *
+ * The class for the welcome gui.
+ *
+ * @author Ryan Lorica
+ * @author Ryan Kirkpatrick
+ * @version 11/28/17
+ */
 
 public class WelcomeGui implements Gui{
 

@@ -1,6 +1,17 @@
 package edu.ucsb.cs56.projects.game.blackjack;
 import java.util.ArrayList;
-//Rules, welcome, playernames, bet, game
+
+/**
+ * GuiModel.java
+ *
+ * The GuiModel class for the Blackjack Game.
+ * Contains GuiModel
+ *
+ * @author Ryan Lorica
+ * @author Ryan Kirkpatrick
+ * @version 11/28/17
+ */
+ 
 public class GuiModel{
     private int numPlayers;
     private ArrayList<String> playerNames;

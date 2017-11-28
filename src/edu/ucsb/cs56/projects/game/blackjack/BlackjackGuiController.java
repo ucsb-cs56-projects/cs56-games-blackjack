@@ -12,7 +12,7 @@ import javax.sound.sampled.*;
  *
  * @author Ryan Lorica
  * @author Ryan Kirkpatrick
- * @version 11/7/17
+ * @version 11/28/17
  */
 
 public class BlackjackGuiController

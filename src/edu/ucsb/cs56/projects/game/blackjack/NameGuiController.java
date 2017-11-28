@@ -7,11 +7,11 @@ import java.util.ArrayList;
 /**
  * NameGuiController.java
  *
- * The Controller class for the NameFrame.
+ * The Controller class for the NameGui.
  *
  * @author Ryan Lorica
  * @author Ryan Kirkpatrick
- * @version 11/7/17
+ * @version 11/28/17
  */
 
 public class NameGuiController {

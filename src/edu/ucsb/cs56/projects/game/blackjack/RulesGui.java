@@ -2,6 +2,16 @@ package edu.ucsb.cs56.projects.game.blackjack;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * RulesGui.java
+ *
+ * The class for the RulesGui.
+ *
+ * @author Ryan Lorica
+ * @author Ryan Kirkpatrick
+ * @version 11/28/17
+ */
+
 public class RulesGui implements Gui {
     String rulesParagraph =
     "<html><br>Blackjack win and loss conditions.."

@@ -19,7 +19,9 @@ e interface.
    @author Eric Palyan
    @author David Tsu
    @author Marco Chavez
-   @version 2016.11.9
+   @author Ryan Kirkpatrick
+   @author Ryan Lorica
+   @version 2017.11.28
 */
 public class BlackjackGui{
 

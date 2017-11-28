@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.io.*;
 
 
-/**BlackjackGui Class contains all widgets for Blackjack game interface.
+/**BlackjackGui Class contains all widgets for Blackjack gam
+e interface.
    @author Brian Wan
    @author Fanny Kuang
    @author Eric Palyan
@@ -20,10 +21,7 @@ import java.io.*;
    @author Marco Chavez
    @version 2016.11.9
 */
-public class BlackjackGui
-{
-
-    public int stage;
+public class BlackjackGui{
 
     /** WELCOME WINDOW,
      * # OF PLAYERS SELECTION WINDOW,
@@ -153,23 +151,30 @@ public class BlackjackGui
     int speed = 1000;
     Timer timer;
 
-  BlackjackGui()
-  {
-    frame = new JFrame();
-    playerLabelArray[0] = playerLabelS;
-	  playerLabelArray[1] = playerLabelE;
-    playerLabelArray[2] = playerLabelW;
+    BlackjackGui(GuiModel gm){
+        this.game.resetStats();
 
-    card1LabelArray[0]  = cardLabelS;
-    card1LabelArray[1]  = cardLabelE;
-    card1LabelArray[2]  = cardLabelW;
+        this.numPlayers = gm.getNumPlayers();
+        this.load = gm.getLoad();
+        this.names = gm.getPlayerNames();
+        p1Name = this.names.get(0);
+        p2Name = this.names.get(1);
+        p3Name = this.names.get(2);
 
-    card2LabelArray[0]  = card2LabelS;
-    card2LabelArray[1]  = card2LabelE;
-    card2LabelArray[2]  = card2LabelW;
 
-    stage = 0;
-  }
+        frame = new JFrame();
+        playerLabelArray[0] = playerLabelS;
+        playerLabelArray[1] = playerLabelE;
+        playerLabelArray[2] = playerLabelW;
+
+        card1LabelArray[0]  = cardLabelS;
+        card1LabelArray[1]  = cardLabelE;
+        card1LabelArray[2]  = cardLabelW;
+
+        card2LabelArray[0]  = card2LabelS;
+        card2LabelArray[1]  = card2LabelE;
+        card2LabelArray[2]  = card2LabelW;
+}
 
 
   /** enabled or disabled Double Down optiion
@@ -185,7 +190,7 @@ public class BlackjackGui
     else if( playerTurn == 2 && canPlayer2DD )
     {
       canPlayer2DD = false;
-      dd.setVisble(true);
+      dd.setVisible(true);
     }
 
     else if( playerTurn == 3 && canPlayer3DD )
@@ -241,7 +246,7 @@ public class BlackjackGui
     Player playerObj = game.getPlayer(player);
 
     Hand hand1 = playerObj.getHand();
-    JLabel hand1_card2_img = getMyImage(hand1.getSecondCard());
+    ImageIcon hand1_card2_img = getMyImage(hand1.getSecondCard());
 
     Hand hand2 = playerObj.getHand2();
     JLabel hand2_card1_img = new JLabel(getMyImage(hand2.getFirstCard()));
@@ -312,7 +317,7 @@ public class BlackjackGui
     for(int count = 0; count < numPlayers; count++)
     {
       Player playerObj = game.getPlayerX(count);
-      boolean PlayerWon = game.evaluatewinner(playerObj);
+      boolean PlayerWon = game.evaluateWinner(playerObj);
 	    String winOrLose = PlayerWon ? " wins" : " loses";
 
       if (PlayerWon)

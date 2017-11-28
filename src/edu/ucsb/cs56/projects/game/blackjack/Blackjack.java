@@ -10,7 +10,9 @@ import java.io.*;
  @author Eric Palyan
  @author David Tsu
  @author Marco Chavez
- @version 2016.11.9
+ @author Ryan Kirkpatrick
+ @author Ryan Lorica
+ @version 2017.11.28
 */
 
 public class Blackjack{
@@ -375,7 +377,7 @@ public class Blackjack{
     (
       !dealerNotBust() ||
       player.getNumberOfCards() == 5 ||
-      player.getNumberOfCards2()
+      player.getNumberOfCards2() == 5
     ) return true;
 
     if

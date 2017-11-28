@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.sound.sampled.*;
 
 /**
- * TableController.java
+ * BlackjackGuiController.java
  *
  * The Controller class for the Blackjack Table.
  *
@@ -15,13 +15,14 @@ import javax.sound.sampled.*;
  * @version 11/7/17
  */
 
-public class TableController
+public class BlackjackGuiController
 {
   public BlackjackGui gui;
+  public GuiModel gm;
 
-  public TableController(BlackjackGui g)
-  {
-    gui = g;
+  public BlackjackGuiController(GuiModel gm){
+    this.gui = new BlackjackGui(gm);
+    this.gm = gm;
   }
 
   public void run()
@@ -198,7 +199,7 @@ public class TableController
    */
   public class ChangeBetListener implements ActionListener{
     public void actionPerformed(ActionEvent e){
-      BetWindowController bc = new BetWindowController(gui);
+      BetGuiController bc = new BetGuiController(gm);
       bc.run();
     }
   }
@@ -444,7 +445,7 @@ public class TableController
    */
    public class ChangeNamesListener implements ActionListener{
        public void actionPerformed(ActionEvent e){
-           NameFrameController nc = new NameFrameController(gui);
+           NameGuiController nc = new NameGuiController(gm);
            nc.run();
        }
    }
@@ -536,7 +537,7 @@ public class TableController
    */
   public class RulesListener implements ActionListener{
       public void actionPerformed(ActionEvent e){
-          RulesController rc = new RulesController(gui);
+          RulesGuiController rc = new RulesGuiController(gm);
           rc.run();
           rc.rulesGui.rulesButton.setVisible(false);
     }
@@ -652,22 +653,22 @@ public class TableController
         gui.timer.stop();
         if(gui.numPlayers == 1)
         {
-          boolean PlayerWon = gui.game.evaluateWinner(gui.game.getPlayerS()) == 'P';
+          boolean PlayerWon = gui.game.evaluateWinner(gui.game.getPlayerS());
           if(PlayerWon) winners = gui.game.getPlayerS().getName() + " won";
         }
         if(gui.numPlayers == 2)
         {
-          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS()) == 'P';
-          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE()) == 'P';
+          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS());
+          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE());
           if(Player1Won && Player2Won) winners = gui.game.getPlayerS().getName() + " and " + gui.game.getPlayerE().getName() + " won";
           if(Player1Won && !Player2Won) winners = gui.game.getPlayerS().getName() + " won";
           if(!Player1Won && Player2Won) winners = gui.game.getPlayerE().getName() + " won";
         }
         if(gui.numPlayers == 3)
         {
-          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS()) == 'P';
-          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE()) == 'P';
-          boolean Player3Won = gui.game.evaluateWinner(gui.game.getPlayerW()) == 'P';
+          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS());
+          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE());
+          boolean Player3Won = gui.game.evaluateWinner(gui.game.getPlayerW());
           //all 3 win
           if(Player1Won && Player2Won && Player3Won) winners = gui.game.getPlayerS().getName() + ", " + gui.game.getPlayerE().getName() + ", and " + gui.game.getPlayerW().getName() + " won";
           //p1, p2 win
@@ -705,22 +706,22 @@ public class TableController
         gui.dealerLabel.setText(gui.dealerLabel.getText() + " Dealer went bust");
         if(gui.numPlayers == 1)
         {
-          boolean PlayerWon = gui.game.evaluateWinner(gui.game.getPlayerS()) == 'P';
+          boolean PlayerWon = gui.game.evaluateWinner(gui.game.getPlayerS());
           if(PlayerWon) winners = gui.game.getPlayerS().getName() + " won";
         }
         if(gui.numPlayers == 2)
         {
-          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS()) == 'P';
-          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE()) == 'P';
+          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS());
+          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE());
           if(Player1Won && Player2Won) winners = gui.game.getPlayerS().getName() + " and " + gui.game.getPlayerE().getName() + " won";
           if(Player1Won && !Player2Won) winners = gui.game.getPlayerS().getName() + " won";
           if(!Player1Won && Player2Won) winners = gui.game.getPlayerE().getName() + " won";
         }
         if(gui.numPlayers == 3)
         {
-          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS()) == 'P';
-          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE()) == 'P';
-          boolean Player3Won = gui.game.evaluateWinner(gui.game.getPlayerW()) == 'P';
+          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS());
+          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE());
+          boolean Player3Won = gui.game.evaluateWinner(gui.game.getPlayerW());
           //all 3 win
           if(Player1Won && Player2Won && Player3Won) winners = gui.game.getPlayerS().getName() + ", " + gui.game.getPlayerE().getName() + ", and " + gui.game.getPlayerW().getName() + " won";
           //p1, p2 win

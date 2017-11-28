@@ -1,46 +1,51 @@
 package edu.ucsb.cs56.projects.game.blackjack;
-import java.util.ArrayList;
-//Rules, welcome, playernames, bet, game
+
+/**
+ * GuiController.java
+ *
+ * The GuiController class for the Blackjack Game.
+ * Contains GuiController
+ *
+ * @author Ryan Lorica
+ * @author Ryan Kirkpatrick
+ * @version 11/28/17
+ */
+
 public class GuiController{
-    public int numPlayers;
-    public ArrayList<String> playerNames;
-    public int betAmount;
-    public boolean done;
+    public GuiModel gm;
 
-    public GuiController(){
-    }
-    public static void main(String args[]){
-        //RulesGui rulesGui = new RulesGui();
-        //rulesGui.display();
-        GuiController controller = new GuiController();
-        WelcomeGui welcomeGui = new WelcomeGui();
-        welcomeGui.display();
-
-/*
-        NamesGui namesGui = new namesGui(this);
-        namesGui.display();
-
-        BetGui betGui = new betGui();
-        betGui.display();
-
-        GameGui gameGui = new gameGui();
-        gameGui.display();*/
+    GuiController(){
+        gm = new GuiModel();
     }
 
-    public void setNumPlayers(int numPlayers){
-        this.numPlayers = numPlayers;
-        System.out.println(numPlayers + "");
+  /** Launches and runs the Blackjack game
+   */
+  public void run(){
+    try{
+
+      RulesGuiController rc = new RulesGuiController(gm);
+      rc.run();
+      while(gm.getStage() == 0) { Thread.sleep(10); }
+
+      WelcomeGuiController wc = new WelcomeGuiController(gm);
+      wc.run();
+      while(gm.getStage() == 1) { Thread.sleep(10); }
+
+      NameGuiController nfc = new NameGuiController(gm);
+      nfc.run();
+      while(gm.getStage() == 2) { Thread.sleep(10); }
+
+      BetGuiController bwc = new BetGuiController(gm);
+      bwc.run();
+      while(gm.getStage() == 3) { Thread.sleep(10); }
+
     }
-    public int getNumPlayers(){
-        return this.numPlayers;
+    catch(InterruptedException ex)
+    {
+      Thread.currentThread().interrupt();
     }
 
-    public void DisplayRules(){
-        RulesGui rulesGui = new RulesGui();
-        rulesGui.display();
-    }
-    public void DisplayWelcome(){
-
-    }
-
+    BlackjackGuiController bgc = new BlackjackGuiController(gm);
+    bgc.run();
+  }
 }

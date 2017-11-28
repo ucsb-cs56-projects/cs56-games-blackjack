@@ -4,21 +4,21 @@ import java.awt.event.*;
 import java.awt.*;
 
 /**
- * RulesController.java
+ * RulesGuiController.java
  *
  * The Controller class for the Rules screen.
  *
  * @author Ryan Lorica
  * @author Ryan Kirkpatrick
- * @version 11/7/17
+ * @version 11/28/17
  */
 
-public class RulesController{
-    BlackjackGui gui;
+public class RulesGuiController{
+    GuiModel gm;
     RulesGui rulesGui;
 
-    public RulesController(BlackjackGui gui){
-        this.gui = gui;
+    public RulesGuiController(GuiModel gm){
+        this.gm = gm;
     }
 
     public void run(){
@@ -41,7 +41,7 @@ public class RulesController{
      */
         public void actionPerformed(ActionEvent event){
                 rulesGui.rulesFrame.setVisible(false);
-                gui.stage++;
+                gm.incrementStage();
         }
     }
 }

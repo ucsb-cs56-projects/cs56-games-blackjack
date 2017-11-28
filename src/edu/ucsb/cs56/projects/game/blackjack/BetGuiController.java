@@ -5,7 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- * BetWindowController.java
+ * BetGuiController.java
  *
  * The Controller class for the BetWindow.
  *
@@ -14,12 +14,12 @@ import javax.swing.*;
  * @version 11/7/17
  */
 
-public class BetWindowController{
-  BlackjackGui gui;
+public class BetGuiController{
+  GuiModel gm;
   BetGui betGui;
 
-  public BetWindowController(BlackjackGui gui){
-    this.gui = gui;
+  public BetGuiController(GuiModel gm){
+    this.gm = gm;
   }
 
   public void run(){
@@ -148,8 +148,8 @@ public class BetWindowController{
     */
     public void actionPerformed(ActionEvent event){
       betGui.betFrame.setVisible(false);
-      gui.amountBet = betGui.amountBet;
-      gui.stage++;
+      gm.setBetAmount(betGui.amountBet);
+      gm.incrementStage();
     }
   }
 }

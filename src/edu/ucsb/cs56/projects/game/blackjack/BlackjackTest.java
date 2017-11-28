@@ -541,7 +541,7 @@ public class BlackjackTest{
     */
     @Test
     public void test_getMyImage() {
-        BlackjackGui gui = new BlackjackGui();
+        BlackjackGui gui = new BlackjackGui(new GuiModel());
 
         Deck deck = new Deck();
         Card currentCard = deck.draw();

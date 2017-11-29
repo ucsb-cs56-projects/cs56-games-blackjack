@@ -454,48 +454,29 @@ public class BlackjackGui{
     	totalPotLabel.setText("Total pot: $" + totalPot);
     }
 
-    /** deduct the bet amount from each players' hand at the start of each round
-     */
-    public void updateMoney() {
-    	switch(numPlayers) {
-	case(1):
-	    game.getPlayerS().setMoney(-amountBet);
-	    break;
-	case(2):
-	    game.getPlayerS().setMoney(-amountBet);
-	    game.getPlayerE().setMoney(-amountBet);
-	    break;
-	case(3):
-	    game.getPlayerS().setMoney(-amountBet);
-	    game.getPlayerE().setMoney(-amountBet);
-	    game.getPlayerW().setMoney(-amountBet);
-	    break;
-	default:
-	    break;
-    	}
+  /** deduct the bet amount from each players' hand at the start of each round
+  */
+  public void updateMoney()
+  {
+    switch(numPlayers)
+    {
+      case(3): game.getPlayerW().setMoney(-amountBet);
+      case(2): game.getPlayerE().setMoney(-amountBet);
+      case(1): game.getPlayerS().setMoney(-amountBet);
     }
+  }
 
-    /** [overloaded] add the total pot to the winner's total money
-     * @param pot pot is the amount of money to be won
-     * @param player the player that won
-     */
-    public void updateMoney(int pot, int player) {
-    	switch(numPlayers) {
-	case(1):
-	    if(player == 1)
-		game.getPlayerS().setMoney(pot*2);
-	    break;
-	case(2):
-	    if(player == 1) game.getPlayerS().setMoney(pot*3);
-	    if(player == 2) game.getPlayerE().setMoney(pot*3);
-	    break;
-	case(3):
-	    if(player == 1) game.getPlayerS().setMoney(pot*4);
-	    if(player == 2) game.getPlayerE().setMoney(pot*4);
-	    if(player == 3) game.getPlayerW().setMoney(pot*4);
-	    break;
-	default:
-	    break;
+  /** [overloaded] add the total pot to the winner's total money
+  * @param pot pot is the amount of money to be won
+  * @param player the player that won
+  */
+  public void updateMoney(int pot, int player)
+  {
+    switch(numPlayers)
+    {
+      case(3): if(player == 3) game.getPlayerW().setMoney(pot*(numPlayers+1));
+      case(2): if(player == 2) game.getPlayerE().setMoney(pot*(numPlayers+1));
+      case(1): if(player == 1) game.getPlayerS().setMoney(pot*(numPlayers+1));
     	}
     }
 
@@ -622,7 +603,7 @@ public class BlackjackGui{
     canPlayer4DD =true;
 
     createDealerLabels();
-	create1stPlayersLabel();
+	  create1stPlayersLabel();
     create2ndPlayersLabel();
     create3rdPlayersLabel();
     createCardDisplayForAllPlayers();
@@ -771,18 +752,9 @@ public void initialize()
 {
   switch(numPlayers)
   {
-    case 1:
-    game.getPlayerS().setName(p1Name);
-    break;
-    case 2:
-    game.getPlayerS().setName(p1Name);
-    game.getPlayerE().setName(p2Name);
-    break;
-    case 3:
-    game.getPlayerS().setName(p1Name);
-    game.getPlayerE().setName(p2Name);
-    game.getPlayerW().setName(p3Name);
-    break;
+    case 3: game.getPlayerW().setName(p3Name);
+    case 2: game.getPlayerE().setName(p2Name);
+    case 1: game.getPlayerS().setName(p1Name);
   }
 
   if (load) game.loadStats(this);
@@ -790,58 +762,35 @@ public void initialize()
   // switch statement gives players names and makes their cards visible
   switch(numPlayers)
   {
+    case 3:
+    playerLabelWM.setText("Money: $" + (game.getPlayerW().getMoney()));
+    playerLabelWWinLoss.setText("Wins/Losses: " + game.getPlayerW().getWins() + "/" + game.getPlayerW().getLosses());
+    playerLabelWMWonLost.setText("Money Won/Lost: " + game.getPlayerW().getMoneyWon() + "/" + game.getPlayerW().getMoneyLost());
+    playerLabelW.setText(game.getPlayerW().displayHandValue());
+
+    case 2:
+    playerLabelEM.setText("Money: $" + (game.getPlayerE().getMoney()));
+    playerLabelEWinLoss.setText("Wins/Losses: " + game.getPlayerE().getWins() + "/" + game.getPlayerE().getLosses());
+    playerLabelEMWonLost.setText("Money Won/Lost: " + game.getPlayerE().getMoneyWon() + "/" + game.getPlayerE().getMoneyLost());
+    playerLabelE.setText(game.getPlayerE().displayHandValue());
+
     case 1:
     playerLabelSM.setText("Money: $" + game.getPlayerS().getMoney());
     playerLabelSWinLoss.setText("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
     playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
-
-    p1Name = new String(game.getPlayerS().getName());
     playerLabelS.setText(game.getPlayerS().displayHandValue());
-    playerLabelS.setText(p1Name);
-    frame.remove(playerPanelW);
-    frame.remove(playerPanelE);
-    break;
-    case 2:
-    playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
-    playerLabelSWinLoss.setText("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
-    playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
-    playerLabelEM.setText("Money: $" + (game.getPlayerE().getMoney()));
-    playerLabelEWinLoss.setText("Wins/Losses: " + game.getPlayerE().getWins() + "/" + game.getPlayerE().getLosses());
-    playerLabelEMWonLost.setText("Money Won/Lost: " + game.getPlayerE().getMoneyWon() + "/" + game.getPlayerE().getMoneyLost());
-
-    p1Name = new String(game.getPlayerS().getName());
-    p2Name = new String(game.getPlayerE().getName());
-    playerLabelS.setText(game.getPlayerS().displayHandValue());
-    playerLabelE.setText(game.getPlayerE().displayHandValue());
-    frame.remove(playerPanelW);
-    break;
-    case 3:
-    playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
-    playerLabelSWinLoss.setText("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
-    playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
-    playerLabelEM.setText("Money: $" + (game.getPlayerE().getMoney()));
-    playerLabelEWinLoss.setText("Wins/Losses: " + game.getPlayerE().getWins() + "/" + game.getPlayerE().getLosses());
-    playerLabelEMWonLost.setText("Money Won/Lost: " + game.getPlayerE().getMoneyWon() + "/" + game.getPlayerE().getMoneyLost());
-    playerLabelWM.setText("Money: $" + (game.getPlayerW().getMoney()));
-    playerLabelWWinLoss.setText("Wins/Losses: " + game.getPlayerW().getWins() + "/" + game.getPlayerW().getLosses());
-    playerLabelWMWonLost.setText("Money Won/Lost: " + game.getPlayerW().getMoneyWon() + "/" + game.getPlayerW().getMoneyLost());
-
-    p1Name = new String(game.getPlayerS().getName());
-    p2Name = new String(game.getPlayerE().getName());
-    p3Name = new String(game.getPlayerW().getName());
-    playerLabelS.setText(game.getPlayerS().displayHandValue());
-    playerLabelE.setText(game.getPlayerE().displayHandValue());
-    playerLabelW.setText(game.getPlayerW().displayHandValue());
-    //frame.setSize(1000,600);
-    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
   }
+
+  switch(numPlayers)
+  {
+    case 1: frame.remove(playerPanelE);
+    case 2: frame.remove(playerPanelW); break;
+    case 3: frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+  }
+
   displayLabel.setText(p1Name + "'s turn");
-
   updateTotalPot(amountBet*(numPlayers+1));
-
-  frame.setLocationRelativeTo(null); // center window
-  //frame.setUndecorated(true);
-  //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+  frame.setLocationRelativeTo(null);
   frame.setVisible(true);
 }
 

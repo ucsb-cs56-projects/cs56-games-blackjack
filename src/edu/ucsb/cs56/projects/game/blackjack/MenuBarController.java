@@ -120,17 +120,7 @@ public class MenuBarController{
      {
        public void actionPerformed(ActionEvent e)
        {
-         gui.currentColor = gui.navy;
-         gui.dealerPanel.setBackground(gui.navy);
-         gui.displayPanel.setBackground(gui.navy);
-         gui.cardsPanelE.setBackground(gui.navy);
-         gui.cardsPanelS.setBackground(gui.navy);
-         gui.cardsPanelW.setBackground(gui.navy);
-         gui.centerPanel.setBackground(gui.navy);
-         gui.textPanel.setBackground(gui.navy);
-         gui.playerPanelS.setBackground(gui.navy);
-         gui.playerPanelE.setBackground(gui.navy);
-         gui.playerPanelW.setBackground(gui.navy);
+         changeColor(gui.navy);
        }
      }
 
@@ -142,17 +132,7 @@ public class MenuBarController{
      {
        public void actionPerformed(ActionEvent e)
        {
-         gui.currentColor = gui.maroon;
-         gui.dealerPanel.setBackground(gui.maroon);
-         gui.displayPanel.setBackground(gui.maroon);
-         gui.cardsPanelE.setBackground(gui.maroon);
-         gui.cardsPanelS.setBackground(gui.maroon);
-         gui.cardsPanelW.setBackground(gui.maroon);
-         gui.centerPanel.setBackground(gui.maroon);
-         gui.textPanel.setBackground(gui.maroon);
-         gui.playerPanelS.setBackground(gui.maroon);
-         gui.playerPanelE.setBackground(gui.maroon);
-         gui.playerPanelW.setBackground(gui.maroon);
+         changeColor(gui.maroon);
        }
      }
 
@@ -164,17 +144,7 @@ public class MenuBarController{
      {
        public void actionPerformed(ActionEvent e)
        {
-         gui.currentColor = gui.gray;
-         gui.dealerPanel.setBackground(gui.gray);
-         gui.displayPanel.setBackground(gui.gray);
-         gui.cardsPanelE.setBackground(gui.gray);
-         gui.cardsPanelS.setBackground(gui.gray);
-         gui.cardsPanelW.setBackground(gui.gray);
-         gui.centerPanel.setBackground(gui.gray);
-         gui.textPanel.setBackground(gui.gray);
-         gui.playerPanelS.setBackground(gui.gray);
-         gui.playerPanelE.setBackground(gui.gray);
-         gui.playerPanelW.setBackground(gui.gray);
+         changeColor(gui.gray);
        }
      }
 
@@ -186,18 +156,23 @@ public class MenuBarController{
      {
        public void actionPerformed(ActionEvent e)
        {
-         gui.currentColor = gui.feltgreen;
-         gui.dealerPanel.setBackground(gui.feltgreen);
-         gui.displayPanel.setBackground(gui.feltgreen);
-         gui.cardsPanelE.setBackground(gui.feltgreen);
-         gui.cardsPanelS.setBackground(gui.feltgreen);
-         gui.cardsPanelW.setBackground(gui.feltgreen);
-         gui.centerPanel.setBackground(gui.feltgreen);
-         gui.textPanel.setBackground(gui.feltgreen);
-         gui.playerPanelS.setBackground(gui.feltgreen);
-         gui.playerPanelE.setBackground(gui.feltgreen);
-         gui.playerPanelW.setBackground(gui.feltgreen);
+         changeColor(gui.feltgreen);
        }
+     }
+
+     public void changeColor(Color color)
+     {
+       gui.currentColor = color;
+       gui.dealerPanel.setBackground(color);
+       gui.displayPanel.setBackground(color);
+       gui.cardsPanelE.setBackground(color);
+       gui.cardsPanelS.setBackground(color);
+       gui.cardsPanelW.setBackground(color);
+       gui.centerPanel.setBackground(color);
+       gui.textPanel.setBackground(color);
+       gui.playerPanelS.setBackground(color);
+       gui.playerPanelE.setBackground(color);
+       gui.playerPanelW.setBackground(color);
      }
 
        /** listener class for pause button

@@ -1,9 +1,4 @@
 package edu.ucsb.cs56.projects.game.blackjack;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -60,9 +55,9 @@ public class BlackjackGui{
     Card displayCard;
     JLabel downCard;
     JButton playAgain = new JButton("Play again");
-	/** CARD SOUND EFFECT **/
-	Sound cardEffect = new Sound("music/dealingCard.wav");
-
+	/**SOUND EFFECTS **/
+    Sound cardEffect;
+    Sound song;
     /** BET INFO **/
     int amountBet;
 
@@ -154,6 +149,7 @@ public class BlackjackGui{
     Timer timer;
 
     BlackjackGui(GuiModel gm){
+        //Get info from GuiModel
         this.game.resetStats();
 
         this.numPlayers = gm.getNumPlayers();
@@ -162,7 +158,13 @@ public class BlackjackGui{
         p1Name = this.names.get(0);
         p2Name = this.names.get(1);
         p3Name = this.names.get(2);
+        this.amountBet = gm.getBetAmount();
 
+        // Set cardEffect sound and start song automatically
+        cardEffect = new Sound("music/dealingCard.wav");
+        song = new Sound("music/Casino_Ambiance_Music.wav");
+        song.play();
+        song.loop();
 
         frame = new JFrame();
         playerLabelArray[0] = playerLabelS;
@@ -535,61 +537,6 @@ public class BlackjackGui{
     	}
     }
 
-    /** sound class, plays background music from menu bar
-     *  @author John Lau
-     *  @version 2016.2.18
-     */
-    public class Sound {
-    	public Clip clip;
-    	public Sound(String fileName) {
-	    // specify the sound to play
-	    // (assuming the sound can be played by the audio system)
-	    // from a wave File
-	    try {
-		File file = new File(fileName);
-		if (file.exists()) {
-		    AudioInputStream sound = AudioSystem.getAudioInputStream(file);
-		    // load the sound into memory (a Clip)
-		    clip = AudioSystem.getClip();
-		    clip.open(sound);
-		}
-		else {
-		    throw new RuntimeException("Sound: file not found: " + fileName);
-		}
-	    }
-	    catch (MalformedURLException e) {
-		e.printStackTrace();
-		throw new RuntimeException("Sound: Malformed URL: " + e);
-	    }
-	    catch (UnsupportedAudioFileException e) {
-		e.printStackTrace();
-		throw new RuntimeException("Sound: Unsupported Audio File: " + e);
-	    }
-	    catch (IOException e) {
-		e.printStackTrace();
-		throw new RuntimeException("Sound: Input/Output Error: " + e);
-	    }
-	    catch (LineUnavailableException e) {
-		e.printStackTrace();
-		throw new RuntimeException("Sound: Line Unavailable Exception Error: " + e);
-	    }
-	    // play, stop, loop the sound clip
-    	}
-    public void play(){
-	    clip.setFramePosition(0);  // Must always rewind!
-	    clip.start();
-	}
-	public void loop(){
-	    clip.loop(Clip.LOOP_CONTINUOUSLY);
-	}
-	public void stop(){
-	    clip.stop();
-	}
-    }
-    // song object for background music
-    Sound song = new Sound("music/Casino_Ambiance_Music.wav");
-
-
     // create 3rd player's label
     public void create3rdPlayersLabel(){
     	playerPanelW = new JPanel(); playerLabelW = new JLabel(p3Name);  playerLabelArray[2] = playerLabelW;
@@ -855,54 +802,43 @@ public class BlackjackGui{
     setSplit();
 
     // This section is for a new round of Blackjack
-    if(keepRunning == true)
-    {
-      if(numPlayers == 0)
-      {
-        song.stop();
-        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-      }
-	    if(numPlayers == 1)
-      {
-        cardLabelS.setText(game.getPlayerS().displayHandValue());
-        frame.remove(playerPanelE);
-        frame.remove(playerPanelW);
-        //frame.setSize(1000,1000);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-      }
-	    else if(numPlayers == 2)
-      {
-        cardLabelS.setText(game.getPlayerS().displayHandValue());
-        cardLabelE.setText(game.getPlayerE().displayHandValue());
-        frame.remove(playerPanelW);
-        //frame.setSize(800,600);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    if(keepRunning == true){
+        if(numPlayers == 0){
+            song.stop();
+            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+        } else if(numPlayers == 1){
+            cardLabelS.setText(game.getPlayerS().displayHandValue());
+            frame.remove(playerPanelE);
+            frame.remove(playerPanelW);
+            //frame.setSize(1000,1000);
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        } else if(numPlayers == 2){
+            cardLabelS.setText(game.getPlayerS().displayHandValue());
+            cardLabelE.setText(game.getPlayerE().displayHandValue());
+            frame.remove(playerPanelW);
+            //frame.setSize(800,600);
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    } else if(numPlayers == 3){
+            cardLabelS.setText(game.getPlayerS().displayHandValue());
+            cardLabelE.setText(game.getPlayerE().displayHandValue());
+            cardLabelW.setText(game.getPlayerW().displayHandValue());
+            //frame.setSize(1000,600);
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    }
-	    else if(numPlayers == 3)
-      {
-        cardLabelS.setText(game.getPlayerS().displayHandValue());
-        cardLabelE.setText(game.getPlayerE().displayHandValue());
-        cardLabelW.setText(game.getPlayerW().displayHandValue());
-        //frame.setSize(1000,600);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-	    }
+
 	    displayLabel.setText("New Round, " + p1Name + "'s turn");
 	    frame.setLocationRelativeTo(null);
 	    frame.getContentPane().setBackground(currentColor);
 	    //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-      frame.pack();
+        frame.pack();
 	    frame.setVisible(true);
-		}
+	}
 
-    if(isFirstRound)
-    {
-      // start background music automatically
-    	song.play();
-    	song.loop();
-      initialize();
-      isFirstRound = false;
+    if(isFirstRound){
+          initialize();
+          isFirstRound = false;
     }
-  }
+}
 
 public void initialize()
 {

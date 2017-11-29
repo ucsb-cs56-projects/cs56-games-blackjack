@@ -213,8 +213,8 @@ public class BlackjackGuiController
     *   If player busts, it goes to next player's turn or the dealer's turn.
     @param event ActionEvent, player's action
     */
-    public void actionPerformed(ActionEvent event)
-    {
+    public void actionPerformed(ActionEvent event){
+
       gui.setDoubleDown();
 
       if(!gui.dealerTurn)
@@ -586,7 +586,6 @@ public class BlackjackGuiController
       gui.didPlayer2Split = false;
       gui.didPlayer3Split = false;
       gui.game.newRound();
-      gui.song.stop();
       gui.keepRunning = true;
       gui.go();
       attachActionListeners();

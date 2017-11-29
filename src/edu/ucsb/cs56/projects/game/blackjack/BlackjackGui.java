@@ -55,6 +55,7 @@ public class BlackjackGui{
     Card displayCard;
     JLabel downCard;
     JButton playAgain = new JButton("Play again");
+
 	/**SOUND EFFECTS **/
     Sound cardEffect;
     Sound song;
@@ -64,14 +65,6 @@ public class BlackjackGui{
     /** ADD MONEY FRAME **/
     int currentMoneyInt;
     JLabel currentMoney;
-
-    /** MENUBAR **/
-    JMenuBar menuBar;
-    JMenu menuFile;
-    JMenu menuEdit;
-    JMenu menuView;
-    JMenu menuHelp;
-    JMenu menuMusic;
 
     /** BUTTONS **/
     JButton hit;
@@ -151,13 +144,9 @@ public class BlackjackGui{
     BlackjackGui(GuiModel gm){
         //Get info from GuiModel
         this.game.resetStats();
-
         this.numPlayers = gm.getNumPlayers();
         this.load = gm.getLoad();
-        this.names = gm.getPlayerNames();
-        p1Name = this.names.get(0);
-        p2Name = this.names.get(1);
-        p3Name = this.names.get(2);
+        setPlayerNames(gm);
         this.amountBet = gm.getBetAmount();
 
         // Set cardEffect sound and start song automatically
@@ -180,6 +169,12 @@ public class BlackjackGui{
         card2LabelArray[2]  = card2LabelW;
 }
 
+    public void setPlayerNames(GuiModel gm){
+        this.names = gm.getPlayerNames();
+        p1Name = this.names.get(0);
+        p2Name = this.names.get(1);
+        p3Name = this.names.get(2);
+    }
 
   /** enabled or disabled Double Down optiion
   */
@@ -570,73 +565,6 @@ public class BlackjackGui{
 	dealerPanel.add(dealerLabel);
     }
 
-  public JMenuItem menuSave;
-  public JMenuItem menuExit;
-  public JMenuItem menuRestart;
-  public JMenuItem menuRules;
-  public JMenuItem menuNames;
-  public JMenuItem songPause;
-  public JMenuItem songPlay;
-  public JMenuItem colorNavy;
-  public JMenuItem colorFeltGreen;
-  public JMenuItem colorMaroon;
-  public JMenuItem colorGray;
-
-    //create menubar
-    public void createMenuBar(){
-    	menuBar = new JMenuBar();
-    	menuFile = new JMenu("File");
-    	menuEdit = new JMenu("Edit");
-    	menuView = new JMenu("View");
-    	menuHelp = new JMenu("Help");
-    	menuMusic = new JMenu("Music");
-
-    	menuSave= new JMenuItem("Save");
-    	//menuSave.addActionListener(new SaveListener());
-    	menuExit = new JMenuItem("Exit");
-    	//menuExit.addActionListener(new ExitListener());
-    	menuRestart = new JMenuItem("Restart");
-    	//menuRestart.addActionListener(new PlayAgainListener());
-      menuRules= new JMenuItem("Rules");
-    	//menuRules.addActionListener(new RulesListener());
-    	JMenu menuColors= new JMenu("Colors");
-    	colorNavy = new JMenuItem("Navy");
-    	colorMaroon = new JMenuItem("Maroon");
-    	colorGray = new JMenuItem("Gray");
-	    colorFeltGreen = new JMenuItem("Felt Green");
-    	menuColors.add(colorNavy);
-    	menuColors.add(colorGray);
-    	menuColors.add(colorMaroon);
-        menuColors.add(colorFeltGreen);
-    	//colorNavy.addActionListener(new NavyActionListener());
-    	//colorGray.addActionListener(new GrayActionListener());
-    	//colorMaroon.addActionListener(new MaroonActionListener());
-	    //colorFeltGreen.addActionListener(new FeltGreenActionListener());
-    	menuNames = new JMenuItem("Player Names");
-    	//menuNames.addActionListener(new ChangeNamesListener());
-    	songPause = new JMenuItem("Pause");
-    	menuMusic.add(songPause);
-    	//songPause.addActionListener(new PauseMusicListener());
-    	songPlay = new JMenuItem("Play");
-    	menuMusic.add(songPlay);
-    	//songPlay.addActionListener(new PlayMusicListener());
-
-    	menuFile.add(menuSave);
-    	menuFile.add(menuExit);
-    	menuFile.add(menuRestart);
-    	menuBar.add(menuFile);
-    	menuEdit.add(menuNames);
-    	menuBar.add(menuEdit);
-    	menuView.add(menuColors);
-    	menuBar.add(menuView);
-    	menuHelp.add(menuRules);
-    	menuBar.add(menuHelp);
-    	menuBar.add(menuMusic);
-    	frame.setJMenuBar(menuBar);
-
-
-    }
-
     // create card displays for all players
     public void createCardDisplayForAllPlayers(){
     	displayPanel = new JPanel(); displayLabel = new JLabel();
@@ -693,7 +621,6 @@ public class BlackjackGui{
     canPlayer3DD =true;
     canPlayer4DD =true;
 
-    createMenuBar();
     createDealerLabels();
 	create1stPlayersLabel();
     create2ndPlayersLabel();

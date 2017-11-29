@@ -19,35 +19,38 @@ public class BlackjackGuiController
 {
   public BlackjackGui gui;
   public GuiModel gm;
+  public MenuBarController mbc;
 
   public BlackjackGuiController(GuiModel gm){
     this.gui = new BlackjackGui(gm);
     this.gm = gm;
   }
 
-  public void run()
-  {
+  public void run(){
+    attachMenuBar();
     gui.go();
     attachActionListeners();
+  }
+  public void restart(){
+      gui.didPlayer1Split = false;
+      gui.didPlayer2Split = false;
+      gui.didPlayer3Split = false;
+      gui.game.newRound();
+      gui.keepRunning = true;
+      run();
+  }
+
+  public void attachMenuBar(){
+      mbc = new MenuBarController(this);
+      mbc.run();
   }
 
   public void attachActionListeners()
   {
     gui.timer = new Timer(gui.speed, new MyTimerListener());
     gui.playAgain.addActionListener(new PlayAgainListener());
-    gui.menuExit.addActionListener(new ExitListener());
-    gui.menuRestart.addActionListener(new PlayAgainListener());
-    gui.menuRules.addActionListener(new RulesListener());
-    gui.menuSave.addActionListener(new SaveListener());
     gui.save.addActionListener(new SaveListener());
-    gui.menuNames.addActionListener(new ChangeNamesListener());
     gui.amountTextField.addActionListener(new AmountTextFieldListener());
-    gui.songPause.addActionListener(new PauseMusicListener());
-    gui.songPlay.addActionListener(new PlayMusicListener());
-    gui.colorNavy.addActionListener(new NavyActionListener());
-    gui.colorGray.addActionListener(new GrayActionListener());
-    gui.colorMaroon.addActionListener(new MaroonActionListener());
-    gui.colorFeltGreen.addActionListener(new FeltGreenActionListener());
     gui.hit.addActionListener(new HitListener());
     gui.stay.addActionListener(new StayListener());
     gui.exitE.addActionListener(new ExitEListener());
@@ -310,118 +313,6 @@ public class BlackjackGuiController
     }
   }
 
-  /** listener class for Navy color change
-   *  @author ???
-   *  @version 2016.11.9
-   */
-  public class NavyActionListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.currentColor = gui.navy;
-      gui.dealerPanel.setBackground(gui.navy);
-      gui.displayPanel.setBackground(gui.navy);
-      gui.cardsPanelE.setBackground(gui.navy);
-      gui.cardsPanelS.setBackground(gui.navy);
-      gui.cardsPanelW.setBackground(gui.navy);
-      gui.centerPanel.setBackground(gui.navy);
-      gui.textPanel.setBackground(gui.navy);
-      gui.playerPanelS.setBackground(gui.navy);
-      gui.playerPanelE.setBackground(gui.navy);
-      gui.playerPanelW.setBackground(gui.navy);
-    }
-  }
-
-  /** listener class for Maroon color change
-   *  @author ???
-   *  @version 2016.11.9
-   */
-  public class MaroonActionListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.currentColor = gui.maroon;
-      gui.dealerPanel.setBackground(gui.maroon);
-      gui.displayPanel.setBackground(gui.maroon);
-      gui.cardsPanelE.setBackground(gui.maroon);
-      gui.cardsPanelS.setBackground(gui.maroon);
-      gui.cardsPanelW.setBackground(gui.maroon);
-      gui.centerPanel.setBackground(gui.maroon);
-      gui.textPanel.setBackground(gui.maroon);
-      gui.playerPanelS.setBackground(gui.maroon);
-      gui.playerPanelE.setBackground(gui.maroon);
-      gui.playerPanelW.setBackground(gui.maroon);
-    }
-  }
-
-  /** listener class for Gray color change
-   *  @author ???
-   *  @version 2016.11.9
-   */
-  public class GrayActionListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.currentColor = gui.gray;
-      gui.dealerPanel.setBackground(gui.gray);
-      gui.displayPanel.setBackground(gui.gray);
-      gui.cardsPanelE.setBackground(gui.gray);
-      gui.cardsPanelS.setBackground(gui.gray);
-      gui.cardsPanelW.setBackground(gui.gray);
-      gui.centerPanel.setBackground(gui.gray);
-      gui.textPanel.setBackground(gui.gray);
-      gui.playerPanelS.setBackground(gui.gray);
-      gui.playerPanelE.setBackground(gui.gray);
-      gui.playerPanelW.setBackground(gui.gray);
-    }
-  }
-
-  /** listener class for FeltGreen color change
-   *  @author Marco Chavez
-   *  @version 2016.11.9
-   */
-  public class FeltGreenActionListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.currentColor = gui.feltgreen;
-      gui.dealerPanel.setBackground(gui.feltgreen);
-      gui.displayPanel.setBackground(gui.feltgreen);
-      gui.cardsPanelE.setBackground(gui.feltgreen);
-      gui.cardsPanelS.setBackground(gui.feltgreen);
-      gui.cardsPanelW.setBackground(gui.feltgreen);
-      gui.centerPanel.setBackground(gui.feltgreen);
-      gui.textPanel.setBackground(gui.feltgreen);
-      gui.playerPanelS.setBackground(gui.feltgreen);
-      gui.playerPanelE.setBackground(gui.feltgreen);
-      gui.playerPanelW.setBackground(gui.feltgreen);
-    }
-  }
-
-  /** listener class for pause button
-   *  @author John Lau
-   *  @version 2016.2.18
-   */
-  public class PauseMusicListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.song.stop();
-    }
-  }
-
-  /** listener class for play button
-   *  @author John Lau
-   *  @version 2016.2.18
-   */
-  public class PlayMusicListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.song.play();
-    }
-  }
-
   /** AmountTextFieldListener
    *  @author David Tsu
    *  @author Marco Chavez
@@ -437,18 +328,6 @@ public class BlackjackGuiController
       gui.currentMoney.setText("Your current amount of Money:" + currentMoneyToDisplay);
     }
   }
-
-  // TODO Fix this listener
-  /** listener class for player names change in menu bar
-   *  @author ???
-   *  @version 2016.11.9
-   */
-   public class ChangeNamesListener implements ActionListener{
-       public void actionPerformed(ActionEvent e){
-           NameGuiController nc = new NameGuiController(gm);
-           nc.run();
-       }
-   }
 
   /** ExitSListener, listens for bottom player's exit
    *  @author David Tsu
@@ -530,19 +409,6 @@ public class BlackjackGuiController
     }
   }
 
-
-  /** Opens rules without Play button
-   *  @author ???
-   *  @version 2016.11.9
-   */
-  public class RulesListener implements ActionListener{
-      public void actionPerformed(ActionEvent e){
-          RulesGuiController rc = new RulesGuiController(gm);
-          rc.run();
-          rc.rulesGui.rulesButton.setVisible(false);
-    }
-  }
-
   /** listener class for save button
    *  @author ???
    *  @version 2016.11.9
@@ -558,18 +424,6 @@ public class BlackjackGuiController
     }
   }
 
-  /** ExitListener, listens for general game exit
-   *  @author David Tsu
-   *  @author Marco Chavez
-   *  @version 2016.11.9
-   */
-  public class ExitListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      System.exit(0);
-    }
-  }
 
   /** listener class for playAgain button
    *  @author ???
@@ -582,13 +436,7 @@ public class BlackjackGuiController
     */
     public void actionPerformed(ActionEvent event)
     {
-      gui.didPlayer1Split = false;
-      gui.didPlayer2Split = false;
-      gui.didPlayer3Split = false;
-      gui.game.newRound();
-      gui.keepRunning = true;
-      gui.go();
-      attachActionListeners();
+      restart();
     }
   }
 

@@ -1,9 +1,4 @@
 package edu.ucsb.cs56.projects.game.blackjack;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -12,18 +7,18 @@ import java.util.ArrayList;
 import java.io.*;
 
 
-/**BlackjackGui Class contains all widgets for Blackjack game interface.
+/**BlackjackGui Class contains all widgets for Blackjack gam
+e interface.
    @author Brian Wan
    @author Fanny Kuang
    @author Eric Palyan
    @author David Tsu
    @author Marco Chavez
-   @version 2016.11.9
+   @author Ryan Kirkpatrick
+   @author Ryan Lorica
+   @version 2017.11.28
 */
-public class BlackjackGui
-{
-
-    public int stage;
+public class BlackjackGui{
 
     /** WELCOME WINDOW,
      * # OF PLAYERS SELECTION WINDOW,
@@ -60,23 +55,16 @@ public class BlackjackGui
     Card displayCard;
     JLabel downCard;
     JButton playAgain = new JButton("Play again");
-	/** CARD SOUND EFFECT **/
-	Sound cardEffect = new Sound("music/dealingCard.wav");
 
+	/**SOUND EFFECTS **/
+    Sound cardEffect;
+    Sound song;
     /** BET INFO **/
     int amountBet;
 
     /** ADD MONEY FRAME **/
     int currentMoneyInt;
     JLabel currentMoney;
-
-    /** MENUBAR **/
-    JMenuBar menuBar;
-    JMenu menuFile;
-    JMenu menuEdit;
-    JMenu menuView;
-    JMenu menuHelp;
-    JMenu menuMusic;
 
     /** BUTTONS **/
     JButton hit;
@@ -153,124 +141,155 @@ public class BlackjackGui
     int speed = 1000;
     Timer timer;
 
-  BlackjackGui()
+    BlackjackGui(GuiModel gm){
+        //Get info from GuiModel
+        this.game.resetStats();
+        this.numPlayers = gm.getNumPlayers();
+        this.load = gm.getLoad();
+        setPlayerNames(gm);
+        this.amountBet = gm.getBetAmount();
+
+        // Set cardEffect sound and start song automatically
+        cardEffect = new Sound("music/dealingCard.wav");
+        song = new Sound("music/Casino_Ambiance_Music.wav");
+        song.play();
+        song.loop();
+
+        frame = new JFrame();
+        playerLabelArray[0] = playerLabelS;
+        playerLabelArray[1] = playerLabelE;
+        playerLabelArray[2] = playerLabelW;
+
+        card1LabelArray[0]  = cardLabelS;
+        card1LabelArray[1]  = cardLabelE;
+        card1LabelArray[2]  = cardLabelW;
+
+        card2LabelArray[0]  = card2LabelS;
+        card2LabelArray[1]  = card2LabelE;
+        card2LabelArray[2]  = card2LabelW;
+}
+
+    public void setPlayerNames(GuiModel gm){
+        this.names = gm.getPlayerNames();
+        p1Name = this.names.get(0);
+        p2Name = this.names.get(1);
+        p3Name = this.names.get(2);
+    }
+
+  /** enabled or disabled Double Down optiion
+  */
+  public void setDoubleDown()
   {
-    frame = new JFrame();
-    playerLabelArray[0] = playerLabelS;
-	  playerLabelArray[1] = playerLabelE;
-    playerLabelArray[2] = playerLabelW;
+    if( playerTurn == 1 && canPlayer1DD )
+    {
+      canPlayer1DD = false;
+      dd.setVisible(true);
+    }
 
-    card1LabelArray[0]  = cardLabelS;
-    card1LabelArray[1]  = cardLabelE;
-    card1LabelArray[2]  = cardLabelW;
+    else if( playerTurn == 2 && canPlayer2DD )
+    {
+      canPlayer2DD = false;
+      dd.setVisible(true);
+    }
 
-    card2LabelArray[0]  = card2LabelS;
-    card2LabelArray[1]  = card2LabelE;
-    card2LabelArray[2]  = card2LabelW;
+    else if( playerTurn == 3 && canPlayer3DD )
+    {
+      canPlayer3DD = false;
+      dd.setVisible(true);
+    }
 
-    stage = 0;
+    else if( playerTurn == 4 && canPlayer4DD )
+    {
+      canPlayer4DD = false;
+      dd.setVisible(true);
+    }
+
+    else
+    {
+      dd.setVisible(false);
+    }
   }
 
+  /** enabled or disabled split option */
+  public void setSplit()
+  {
+    int cardOne = 0;
+    int cardTwo = 1;
 
-    /** enabled or disabled Double Down optiion
-     */
-    public void setDoubleDown() {
-    	switch(playerTurn) {
-	case(1):
-	    if (canPlayer1DD) {
-		canPlayer1DD = false;
-		dd.setVisible(true);
-	    }
-	    else
-		dd.setVisible(false);
-	    break;
-	case(2):
-	    if (canPlayer2DD) {
-		canPlayer2DD = false;
-		dd.setVisible(true);
-	    }
-	    else
-		dd.setVisible(false);
-	    break;
-	case(3):
-	    if (canPlayer3DD) {
-		canPlayer3DD = false;
-		dd.setVisible(true);
-	    }
-	    else
-		dd.setVisible(false);
-	    break;
-	case(4):
-	    if (canPlayer4DD) {
-		canPlayer4DD = false;
-		dd.setVisible(true);
-	    }
-	    else
-		dd.setVisible(false);
-	    break;
-    	}
-    }
+    switch(playerTurn)
+    {
+      case(1):
+      // % 13  is used becuase every 13 cards there's another card with the same value exmaple: 1 % 13 and
+      // 14 % 13 will both be A's
+      cardOne = ( game.getPlayerS().getHand().getFirstCard().getCardNumber() ) % 13;
+      cardTwo = ( game.getPlayerS().getHand().getSecondCard().getCardNumber() ) % 13;
 
-    /** enabled or disabled split option */
-    public void setSplit() {
-	switch(playerTurn) {
-	case(1):
-	   // % 13  is used becuase every 13 cards there's another card with the same value exmaple: 1 % 13 and
-	   // 14 % 13 will both be A's
-	    if (((game.getPlayerS().getHand().getFirstCard().getCardNumber()) % 13 )== ((game.getPlayerS().getHand().getSecondCard().getCardNumber()) % 13 )) {
-		split.setVisible(true);
-	    }
-	    else split.setVisible(false);
-	    break;
-	case(2):
+      case(2):
 	    //System.out.println("East: " + ((game.getPlayerE().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerE().getHand().getSecondCard().getCardNumber()) % 13 ));
-	    if (((game.getPlayerE().getHand().getFirstCard().getCardNumber()) % 13) == ((game.getPlayerE().getHand().getSecondCard().getCardNumber()) % 13)) {
-		split.setVisible(true);
-	    }
-	    else split.setVisible(false);
-	    break;
-	case(3):
-	    //System.out.println("West: " + ((game.getPlayerW().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerW().getHand().getSecondCard().getCardNumber()) % 13 ));
-	    if (((game.getPlayerW().getHand().getFirstCard().getCardNumber()) % 13) == ((game.getPlayerW().getHand().getSecondCard().getCardNumber()) % 13 )) {
-		split.setVisible(true);
-	    }
-	    else split.setVisible(false);
-	    break;
-	case(4): split.setVisible(false);
-	    break;
-	}
-    }
+      cardOne = ( game.getPlayerE().getHand().getFirstCard().getCardNumber() ) % 13;
+      cardTwo = ( game.getPlayerE().getHand().getSecondCard().getCardNumber() ) % 13;
 
-    /** splits the hand of player
-     * @param player the integer of the player
-     */
-    public void splitHand(int player) {
-    	switch(player) {
-	case 1: cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
-	    cardsPanelS.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
-	    card2LabelS.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
-	    cardLabelS.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() +
-			       "  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
-	    game.getPlayer(player).setHasSplitTrue();
+      case(3):
+	    //System.out.println("West: " + ((game.getPlayerW().getHand().getFirstCard().getCardNumber()) % 13 ) + " " + ((game.getPlayerW().getHand().getSecondCard().getCardNumber()) % 13 ));
+      cardOne = ( game.getPlayerW().getHand().getFirstCard().getCardNumber() ) % 13;
+      cardTwo = ( game.getPlayerW().getHand().getSecondCard().getCardNumber() ) % 13;
+    }
+    split.setVisible(cardOne == cardTwo);
+  }
+
+  /** splits the hand of player
+  * @param player the integer of the player
+  */
+  public void splitHand(int player)
+  {
+    Player playerObj = game.getPlayer(player);
+
+    Hand hand1 = playerObj.getHand();
+    ImageIcon hand1_card2_img = getMyImage(hand1.getSecondCard());
+
+    Hand hand2 = playerObj.getHand2();
+    JLabel hand2_card1_img = new JLabel(getMyImage(hand2.getFirstCard()));
+    JLabel hand2_card2_img = new JLabel(getMyImage(hand2.getSecondCard()));
+
+    switch(player)
+    {
+      case 1:
+      cardsPanelS.add( hand2_card1_img, BorderLayout.EAST);
+	    cardsPanelS.add( hand2_card2_img, BorderLayout.EAST);
+	    card2LabelS.setIcon(hand1_card2_img);
+	    cardLabelS.setText
+      (
+        "Hand Value: " + hand1.displayHandValue() +
+        "  Second Hand Value: " + hand2.displayHandValue()
+      );
 	    didPlayer1Split = true;
 	    break;
-	case 2: cardsPanelE.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
-	    cardsPanelE.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
-	    card2LabelE.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
-	    cardLabelE.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() +
-			       "  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
-	    game.getPlayer(player).setHasSplitTrue();
+
+      case 2:
+      cardsPanelE.add( hand2_card1_img, BorderLayout.EAST);
+	    cardsPanelE.add( hand2_card2_img, BorderLayout.EAST);
+	    card2LabelE.setIcon(hand1_card2_img);
+	    cardLabelE.setText
+      (
+        "Hand Value: " + hand1.displayHandValue() +
+			  "  Second Hand Value: " + hand2.displayHandValue()
+      );
 	    didPlayer2Split = true;
 	    break;
-	case 3: cardsPanelW.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getFirstCard())), BorderLayout.EAST);
-	    cardsPanelW.add( new  JLabel(getMyImage(game.getPlayer(player).getHand2().getSecondCard())), BorderLayout.EAST);
-	    card2LabelW.setIcon(getMyImage(game.getPlayer(player).getHand().getSecondCard()));
-	    cardLabelW.setText("Hand Value: " + game.getPlayer(player).getHand().displayHandValue() +
-			       "  Second Hand Value: " + game.getPlayer(player).getHand2().displayHandValue());
-	    game.getPlayer(player).setHasSplitTrue();
+
+      case 3:
+      cardsPanelW.add( hand2_card1_img, BorderLayout.EAST);
+	    cardsPanelW.add( hand2_card2_img, BorderLayout.EAST);
+	    card2LabelW.setIcon(hand1_card2_img);
+	    cardLabelW.setText
+      (
+        "Hand Value: " + hand1.displayHandValue() +
+        "  Second Hand Value: " + hand2.displayHandValue()
+      );
 	    didPlayer3Split = true;
 	    break;
     	}
+      playerObj.setHasSplitTrue();
     }
 
 
@@ -287,64 +306,71 @@ public class BlackjackGui
 	JButton changeBetS = new JButton("Change Bet Amount?");
   JButton resumeGame = new JButton("Confirm");
 
-    /** gets the winner and displays it in a label
-     *  also makes the playAgain button visible
-     */
-    public void getWinner(){
+  /** gets the winner and displays it in a label
+  *  also makes the playAgain button visible
+  */
+  public void getWinner()
+  {
+    boolean DealerWon = true;
 
-	boolean DealerWon = true;
-
-	for(int count = 0; count < numPlayers; count++){
-	    boolean PlayerWon = game.evaluateWinner(game.getPlayerX(count)) == 'P';
+    for(int count = 0; count < numPlayers; count++)
+    {
+      Player playerObj = game.getPlayerX(count);
+      boolean PlayerWon = game.evaluateWinner(playerObj);
 	    String winOrLose = PlayerWon ? " wins" : " loses";
-	    if (PlayerWon) {
-		game.getPlayerX(count).addWin();
-		game.getPlayerX(count).addMoneyWon(amountBet + game.getPlayerX(count).getDD());
+
+      if (PlayerWon)
+      {
+        playerObj.addWin();
+        playerObj.addMoneyWon(amountBet + playerObj.getDD());
+        updateMoney(amountBet, count + 1);
+        DealerWon = false;
 	    }
-	    else {
-		game.getPlayerX(count).addLoss();
-		game.getPlayerX(count).addMoneyLost(amountBet + game.getPlayerX(count).getDD());
+	    else
+      {
+        playerObj.addLoss();
+        playerObj.addMoneyLost(amountBet + playerObj.getDD());
 	    }
+
 	    updateMoneyLabel(count + 1);
-	    playerLabelArray[count].setText(game.getPlayerX(count).getName() + winOrLose);
-	    card1LabelArray[count].setText("Hand Value: " + game.getPlayerX(count).getHand().displayBestValue());
-	    if (PlayerWon)
-		updateMoney(amountBet, count + 1);
-	    if(PlayerWon)
-		DealerWon = false;
+	    playerLabelArray[count].setText(playerObj.getName() + winOrLose);
+	    card1LabelArray[count].setText("Hand Value: " + playerObj.getHand().displayBestValue());
+    }
 
-	}
-	if(DealerWon)
-	    displayLabel.setText("Dealer wins");
-	/** create 'play again' button to display at the end of the round and removes hit and stay button **/
+    if(DealerWon) displayLabel.setText("Dealer wins");
+  }
 
-	save.setMaximumSize(new Dimension(170, 75));
-	//save.addActionListener(new SaveListener());
-  //playAgain = new JButton("Play again");
-  playAgain.setMaximumSize(new Dimension(130, 75));
-	//playAgain.addActionListener(new PlayAgainListener());
-	hit.setVisible(false);
-	stay.setVisible(false);
-	shift = false;
-	if (game.getPlayerS() != null) {
-		createSouthAfterRoundButtons();
+  public void drawEndScreen()
+  {
+    /** create 'play again' button to display at the end of the round and removes hit and stay button **/
+    save.setMaximumSize(new Dimension(170, 75));
+    //save.addActionListener(new SaveListener());
+    //playAgain = new JButton("Play again");
+    playAgain.setMaximumSize(new Dimension(130, 75));
+    //playAgain.addActionListener(new PlayAgainListener());
+    hit.setVisible(false);
+    stay.setVisible(false);
+    shift = false;
 
-	}
-	if (game.getPlayerE() != null) {
-
-
+    if (game.getPlayerS() != null)
+    {
+      createSouthAfterRoundButtons();
+    }
+    if (game.getPlayerE() != null)
+    {
 	    playerPanelE.add(addMoneyE);
 	    playerPanelE.add(changeBetE);
 	    playerPanelE.add(exitE);
-	}
-	if (game.getPlayerW() != null) {
+    }
+    if (game.getPlayerW() != null)
+    {
 	    playerPanelW.add(addMoneyW);
 	    playerPanelW.add(changeBetW);
 	    playerPanelW.add(exitW);
-	}
-	displayPanel.add(playAgain);
-	displayPanel.add(save);
     }
+    displayPanel.add(playAgain);
+    displayPanel.add(save);
+  }
 
     /** creates buttons at round's end
      */
@@ -428,48 +454,29 @@ public class BlackjackGui
     	totalPotLabel.setText("Total pot: $" + totalPot);
     }
 
-    /** deduct the bet amount from each players' hand at the start of each round
-     */
-    public void updateMoney() {
-    	switch(numPlayers) {
-	case(1):
-	    game.getPlayerS().setMoney(-amountBet);
-	    break;
-	case(2):
-	    game.getPlayerS().setMoney(-amountBet);
-	    game.getPlayerE().setMoney(-amountBet);
-	    break;
-	case(3):
-	    game.getPlayerS().setMoney(-amountBet);
-	    game.getPlayerE().setMoney(-amountBet);
-	    game.getPlayerW().setMoney(-amountBet);
-	    break;
-	default:
-	    break;
-    	}
+  /** deduct the bet amount from each players' hand at the start of each round
+  */
+  public void updateMoney()
+  {
+    switch(numPlayers)
+    {
+      case(3): game.getPlayerW().setMoney(-amountBet);
+      case(2): game.getPlayerE().setMoney(-amountBet);
+      case(1): game.getPlayerS().setMoney(-amountBet);
     }
+  }
 
-    /** [overloaded] add the total pot to the winner's total money
-     * @param pot pot is the amount of money to be won
-     * @param player the player that won
-     */
-    public void updateMoney(int pot, int player) {
-    	switch(numPlayers) {
-	case(1):
-	    if(player == 1)
-		game.getPlayerS().setMoney(pot*2);
-	    break;
-	case(2):
-	    if(player == 1) game.getPlayerS().setMoney(pot*3);
-	    if(player == 2) game.getPlayerE().setMoney(pot*3);
-	    break;
-	case(3):
-	    if(player == 1) game.getPlayerS().setMoney(pot*4);
-	    if(player == 2) game.getPlayerE().setMoney(pot*4);
-	    if(player == 3) game.getPlayerW().setMoney(pot*4);
-	    break;
-	default:
-	    break;
+  /** [overloaded] add the total pot to the winner's total money
+  * @param pot pot is the amount of money to be won
+  * @param player the player that won
+  */
+  public void updateMoney(int pot, int player)
+  {
+    switch(numPlayers)
+    {
+      case(3): if(player == 3) game.getPlayerW().setMoney(pot*(numPlayers+1));
+      case(2): if(player == 2) game.getPlayerE().setMoney(pot*(numPlayers+1));
+      case(1): if(player == 1) game.getPlayerS().setMoney(pot*(numPlayers+1));
     	}
     }
 
@@ -506,61 +513,6 @@ public class BlackjackGui
     	}
     }
 
-    /** sound class, plays background music from menu bar
-     *  @author John Lau
-     *  @version 2016.2.18
-     */
-    public class Sound {
-    	public Clip clip;
-    	public Sound(String fileName) {
-	    // specify the sound to play
-	    // (assuming the sound can be played by the audio system)
-	    // from a wave File
-	    try {
-		File file = new File(fileName);
-		if (file.exists()) {
-		    AudioInputStream sound = AudioSystem.getAudioInputStream(file);
-		    // load the sound into memory (a Clip)
-		    clip = AudioSystem.getClip();
-		    clip.open(sound);
-		}
-		else {
-		    throw new RuntimeException("Sound: file not found: " + fileName);
-		}
-	    }
-	    catch (MalformedURLException e) {
-		e.printStackTrace();
-		throw new RuntimeException("Sound: Malformed URL: " + e);
-	    }
-	    catch (UnsupportedAudioFileException e) {
-		e.printStackTrace();
-		throw new RuntimeException("Sound: Unsupported Audio File: " + e);
-	    }
-	    catch (IOException e) {
-		e.printStackTrace();
-		throw new RuntimeException("Sound: Input/Output Error: " + e);
-	    }
-	    catch (LineUnavailableException e) {
-		e.printStackTrace();
-		throw new RuntimeException("Sound: Line Unavailable Exception Error: " + e);
-	    }
-	    // play, stop, loop the sound clip
-    	}
-    public void play(){
-	    clip.setFramePosition(0);  // Must always rewind!
-	    clip.start();
-	}
-	public void loop(){
-	    clip.loop(Clip.LOOP_CONTINUOUSLY);
-	}
-	public void stop(){
-	    clip.stop();
-	}
-    }
-    // song object for background music
-    Sound song = new Sound("music/Casino_Ambiance_Music.wav");
-
-
     // create 3rd player's label
     public void create3rdPlayersLabel(){
     	playerPanelW = new JPanel(); playerLabelW = new JLabel(p3Name);  playerLabelArray[2] = playerLabelW;
@@ -592,73 +544,6 @@ public class BlackjackGui
 	dealerPanel.setOpaque(true);
 	dealerPanel.setBackground(currentColor);
 	dealerPanel.add(dealerLabel);
-    }
-
-  public JMenuItem menuSave;
-  public JMenuItem menuExit;
-  public JMenuItem menuRestart;
-  public JMenuItem menuRules;
-  public JMenuItem menuNames;
-  public JMenuItem songPause;
-  public JMenuItem songPlay;
-  public JMenuItem colorNavy;
-  public JMenuItem colorFeltGreen;
-  public JMenuItem colorMaroon;
-  public JMenuItem colorGray;
-
-    //create menubar
-    public void createMenuBar(){
-    	menuBar = new JMenuBar();
-    	menuFile = new JMenu("File");
-    	menuEdit = new JMenu("Edit");
-    	menuView = new JMenu("View");
-    	menuHelp = new JMenu("Help");
-    	menuMusic = new JMenu("Music");
-
-    	menuSave= new JMenuItem("Save");
-    	//menuSave.addActionListener(new SaveListener());
-    	menuExit = new JMenuItem("Exit");
-    	//menuExit.addActionListener(new ExitListener());
-    	menuRestart = new JMenuItem("Restart");
-    	//menuRestart.addActionListener(new PlayAgainListener());
-      menuRules= new JMenuItem("Rules");
-    	//menuRules.addActionListener(new RulesListener());
-    	JMenu menuColors= new JMenu("Colors");
-    	colorNavy = new JMenuItem("Navy");
-    	colorMaroon = new JMenuItem("Maroon");
-    	colorGray = new JMenuItem("Gray");
-	    colorFeltGreen = new JMenuItem("Felt Green");
-    	menuColors.add(colorNavy);
-    	menuColors.add(colorGray);
-    	menuColors.add(colorMaroon);
-        menuColors.add(colorFeltGreen);
-    	//colorNavy.addActionListener(new NavyActionListener());
-    	//colorGray.addActionListener(new GrayActionListener());
-    	//colorMaroon.addActionListener(new MaroonActionListener());
-	    //colorFeltGreen.addActionListener(new FeltGreenActionListener());
-    	menuNames = new JMenuItem("Player Names");
-    	//menuNames.addActionListener(new ChangeNamesListener());
-    	songPause = new JMenuItem("Pause");
-    	menuMusic.add(songPause);
-    	//songPause.addActionListener(new PauseMusicListener());
-    	songPlay = new JMenuItem("Play");
-    	menuMusic.add(songPlay);
-    	//songPlay.addActionListener(new PlayMusicListener());
-
-    	menuFile.add(menuSave);
-    	menuFile.add(menuExit);
-    	menuFile.add(menuRestart);
-    	menuBar.add(menuFile);
-    	menuEdit.add(menuNames);
-    	menuBar.add(menuEdit);
-    	menuView.add(menuColors);
-    	menuBar.add(menuView);
-    	menuHelp.add(menuRules);
-    	menuBar.add(menuHelp);
-    	menuBar.add(menuMusic);
-    	frame.setJMenuBar(menuBar);
-
-
     }
 
     // create card displays for all players
@@ -717,9 +602,8 @@ public class BlackjackGui
     canPlayer3DD =true;
     canPlayer4DD =true;
 
-    createMenuBar();
     createDealerLabels();
-	create1stPlayersLabel();
+	  create1stPlayersLabel();
     create2ndPlayersLabel();
     create3rdPlayersLabel();
     createCardDisplayForAllPlayers();
@@ -826,71 +710,51 @@ public class BlackjackGui
     setSplit();
 
     // This section is for a new round of Blackjack
-    if(keepRunning == true)
-    {
-      if(numPlayers == 0)
-      {
-        song.stop();
-        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-      }
-	    if(numPlayers == 1)
-      {
-        cardLabelS.setText(game.getPlayerS().displayHandValue());
-        frame.remove(playerPanelE);
-        frame.remove(playerPanelW);
-        //frame.setSize(1000,1000);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-      }
-	    else if(numPlayers == 2)
-      {
-        cardLabelS.setText(game.getPlayerS().displayHandValue());
-        cardLabelE.setText(game.getPlayerE().displayHandValue());
-        frame.remove(playerPanelW);
-        //frame.setSize(800,600);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    if(keepRunning == true){
+        if(numPlayers == 0){
+            song.stop();
+            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+        } else if(numPlayers == 1){
+            cardLabelS.setText(game.getPlayerS().displayHandValue());
+            frame.remove(playerPanelE);
+            frame.remove(playerPanelW);
+            //frame.setSize(1000,1000);
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        } else if(numPlayers == 2){
+            cardLabelS.setText(game.getPlayerS().displayHandValue());
+            cardLabelE.setText(game.getPlayerE().displayHandValue());
+            frame.remove(playerPanelW);
+            //frame.setSize(800,600);
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    } else if(numPlayers == 3){
+            cardLabelS.setText(game.getPlayerS().displayHandValue());
+            cardLabelE.setText(game.getPlayerE().displayHandValue());
+            cardLabelW.setText(game.getPlayerW().displayHandValue());
+            //frame.setSize(1000,600);
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    }
-	    else if(numPlayers == 3)
-      {
-        cardLabelS.setText(game.getPlayerS().displayHandValue());
-        cardLabelE.setText(game.getPlayerE().displayHandValue());
-        cardLabelW.setText(game.getPlayerW().displayHandValue());
-        //frame.setSize(1000,600);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-	    }
+
 	    displayLabel.setText("New Round, " + p1Name + "'s turn");
 	    frame.setLocationRelativeTo(null);
 	    frame.getContentPane().setBackground(currentColor);
 	    //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-      frame.pack();
+        frame.pack();
 	    frame.setVisible(true);
-		}
+	}
 
-    if(isFirstRound)
-    {
-      // start background music automatically
-    	song.play();
-    	song.loop();
-      initialize();
-      isFirstRound = false;
+    if(isFirstRound){
+          initialize();
+          isFirstRound = false;
     }
-  }
+}
 
 public void initialize()
 {
   switch(numPlayers)
   {
-    case 1:
-    game.getPlayerS().setName(p1Name);
-    break;
-    case 2:
-    game.getPlayerS().setName(p1Name);
-    game.getPlayerE().setName(p2Name);
-    break;
-    case 3:
-    game.getPlayerS().setName(p1Name);
-    game.getPlayerE().setName(p2Name);
-    game.getPlayerW().setName(p3Name);
-    break;
+    case 3: game.getPlayerW().setName(p3Name);
+    case 2: game.getPlayerE().setName(p2Name);
+    case 1: game.getPlayerS().setName(p1Name);
   }
 
   if (load) game.loadStats(this);
@@ -898,58 +762,35 @@ public void initialize()
   // switch statement gives players names and makes their cards visible
   switch(numPlayers)
   {
+    case 3:
+    playerLabelWM.setText("Money: $" + (game.getPlayerW().getMoney()));
+    playerLabelWWinLoss.setText("Wins/Losses: " + game.getPlayerW().getWins() + "/" + game.getPlayerW().getLosses());
+    playerLabelWMWonLost.setText("Money Won/Lost: " + game.getPlayerW().getMoneyWon() + "/" + game.getPlayerW().getMoneyLost());
+    playerLabelW.setText(game.getPlayerW().displayHandValue());
+
+    case 2:
+    playerLabelEM.setText("Money: $" + (game.getPlayerE().getMoney()));
+    playerLabelEWinLoss.setText("Wins/Losses: " + game.getPlayerE().getWins() + "/" + game.getPlayerE().getLosses());
+    playerLabelEMWonLost.setText("Money Won/Lost: " + game.getPlayerE().getMoneyWon() + "/" + game.getPlayerE().getMoneyLost());
+    playerLabelE.setText(game.getPlayerE().displayHandValue());
+
     case 1:
     playerLabelSM.setText("Money: $" + game.getPlayerS().getMoney());
     playerLabelSWinLoss.setText("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
     playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
-
-    p1Name = new String(game.getPlayerS().getName());
     playerLabelS.setText(game.getPlayerS().displayHandValue());
-    playerLabelS.setText(p1Name);
-    frame.remove(playerPanelW);
-    frame.remove(playerPanelE);
-    break;
-    case 2:
-    playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
-    playerLabelSWinLoss.setText("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
-    playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
-    playerLabelEM.setText("Money: $" + (game.getPlayerE().getMoney()));
-    playerLabelEWinLoss.setText("Wins/Losses: " + game.getPlayerE().getWins() + "/" + game.getPlayerE().getLosses());
-    playerLabelEMWonLost.setText("Money Won/Lost: " + game.getPlayerE().getMoneyWon() + "/" + game.getPlayerE().getMoneyLost());
-
-    p1Name = new String(game.getPlayerS().getName());
-    p2Name = new String(game.getPlayerE().getName());
-    playerLabelS.setText(game.getPlayerS().displayHandValue());
-    playerLabelE.setText(game.getPlayerE().displayHandValue());
-    frame.remove(playerPanelW);
-    break;
-    case 3:
-    playerLabelSM.setText("Money: $" + (game.getPlayerS().getMoney()));
-    playerLabelSWinLoss.setText("Wins/Losses: " + game.getPlayerS().getWins() + "/" + game.getPlayerS().getLosses());
-    playerLabelSMWonLost.setText("Money Won/Lost: " + game.getPlayerS().getMoneyWon() + "/" + game.getPlayerS().getMoneyLost());
-    playerLabelEM.setText("Money: $" + (game.getPlayerE().getMoney()));
-    playerLabelEWinLoss.setText("Wins/Losses: " + game.getPlayerE().getWins() + "/" + game.getPlayerE().getLosses());
-    playerLabelEMWonLost.setText("Money Won/Lost: " + game.getPlayerE().getMoneyWon() + "/" + game.getPlayerE().getMoneyLost());
-    playerLabelWM.setText("Money: $" + (game.getPlayerW().getMoney()));
-    playerLabelWWinLoss.setText("Wins/Losses: " + game.getPlayerW().getWins() + "/" + game.getPlayerW().getLosses());
-    playerLabelWMWonLost.setText("Money Won/Lost: " + game.getPlayerW().getMoneyWon() + "/" + game.getPlayerW().getMoneyLost());
-
-    p1Name = new String(game.getPlayerS().getName());
-    p2Name = new String(game.getPlayerE().getName());
-    p3Name = new String(game.getPlayerW().getName());
-    playerLabelS.setText(game.getPlayerS().displayHandValue());
-    playerLabelE.setText(game.getPlayerE().displayHandValue());
-    playerLabelW.setText(game.getPlayerW().displayHandValue());
-    //frame.setSize(1000,600);
-    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
   }
+
+  switch(numPlayers)
+  {
+    case 1: frame.remove(playerPanelE);
+    case 2: frame.remove(playerPanelW); break;
+    case 3: frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+  }
+
   displayLabel.setText(p1Name + "'s turn");
-
   updateTotalPot(amountBet*(numPlayers+1));
-
-  frame.setLocationRelativeTo(null); // center window
-  //frame.setUndecorated(true);
-  //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+  frame.setLocationRelativeTo(null);
   frame.setVisible(true);
 }
 

@@ -6,47 +6,51 @@ import javax.swing.*;
 import javax.sound.sampled.*;
 
 /**
- * TableController.java
+ * BlackjackGuiController.java
  *
  * The Controller class for the Blackjack Table.
  *
  * @author Ryan Lorica
  * @author Ryan Kirkpatrick
- * @version 11/7/17
+ * @version 11/28/17
  */
 
-public class TableController
+public class BlackjackGuiController
 {
   public BlackjackGui gui;
+  public GuiModel gm;
+  public MenuBarController mbc;
 
-  public TableController(BlackjackGui g)
-  {
-    gui = g;
+  public BlackjackGuiController(GuiModel gm){
+    this.gui = new BlackjackGui(gm);
+    this.gm = gm;
   }
 
-  public void run()
-  {
+  public void run(){
+    attachMenuBar();
     gui.go();
     attachActionListeners();
+  }
+  public void restart(){
+      gui.didPlayer1Split = false;
+      gui.didPlayer2Split = false;
+      gui.didPlayer3Split = false;
+      gui.game.newRound();
+      gui.keepRunning = true;
+      run();
+  }
+
+  public void attachMenuBar(){
+      mbc = new MenuBarController(this);
+      mbc.run();
   }
 
   public void attachActionListeners()
   {
     gui.timer = new Timer(gui.speed, new MyTimerListener());
     gui.playAgain.addActionListener(new PlayAgainListener());
-    gui.menuExit.addActionListener(new ExitListener());
-    gui.menuRestart.addActionListener(new PlayAgainListener());
-    gui.menuRules.addActionListener(new RulesListener());
-    gui.menuSave.addActionListener(new SaveListener());
     gui.save.addActionListener(new SaveListener());
-    gui.menuNames.addActionListener(new ChangeNamesListener());
     gui.amountTextField.addActionListener(new AmountTextFieldListener());
-    gui.songPause.addActionListener(new PauseMusicListener());
-    gui.songPlay.addActionListener(new PlayMusicListener());
-    gui.colorNavy.addActionListener(new NavyActionListener());
-    gui.colorGray.addActionListener(new GrayActionListener());
-    gui.colorMaroon.addActionListener(new MaroonActionListener());
-    gui.colorFeltGreen.addActionListener(new FeltGreenActionListener());
     gui.hit.addActionListener(new HitListener());
     gui.stay.addActionListener(new StayListener());
     gui.exitE.addActionListener(new ExitEListener());
@@ -198,7 +202,7 @@ public class TableController
    */
   public class ChangeBetListener implements ActionListener{
     public void actionPerformed(ActionEvent e){
-      BetWindowController bc = new BetWindowController(gui);
+      BetGuiController bc = new BetGuiController(gm);
       bc.run();
     }
   }
@@ -212,8 +216,8 @@ public class TableController
     *   If player busts, it goes to next player's turn or the dealer's turn.
     @param event ActionEvent, player's action
     */
-    public void actionPerformed(ActionEvent event)
-    {
+    public void actionPerformed(ActionEvent event){
+
       gui.setDoubleDown();
 
       if(!gui.dealerTurn)
@@ -309,118 +313,6 @@ public class TableController
     }
   }
 
-  /** listener class for Navy color change
-   *  @author ???
-   *  @version 2016.11.9
-   */
-  public class NavyActionListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.currentColor = gui.navy;
-      gui.dealerPanel.setBackground(gui.navy);
-      gui.displayPanel.setBackground(gui.navy);
-      gui.cardsPanelE.setBackground(gui.navy);
-      gui.cardsPanelS.setBackground(gui.navy);
-      gui.cardsPanelW.setBackground(gui.navy);
-      gui.centerPanel.setBackground(gui.navy);
-      gui.textPanel.setBackground(gui.navy);
-      gui.playerPanelS.setBackground(gui.navy);
-      gui.playerPanelE.setBackground(gui.navy);
-      gui.playerPanelW.setBackground(gui.navy);
-    }
-  }
-
-  /** listener class for Maroon color change
-   *  @author ???
-   *  @version 2016.11.9
-   */
-  public class MaroonActionListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.currentColor = gui.maroon;
-      gui.dealerPanel.setBackground(gui.maroon);
-      gui.displayPanel.setBackground(gui.maroon);
-      gui.cardsPanelE.setBackground(gui.maroon);
-      gui.cardsPanelS.setBackground(gui.maroon);
-      gui.cardsPanelW.setBackground(gui.maroon);
-      gui.centerPanel.setBackground(gui.maroon);
-      gui.textPanel.setBackground(gui.maroon);
-      gui.playerPanelS.setBackground(gui.maroon);
-      gui.playerPanelE.setBackground(gui.maroon);
-      gui.playerPanelW.setBackground(gui.maroon);
-    }
-  }
-
-  /** listener class for Gray color change
-   *  @author ???
-   *  @version 2016.11.9
-   */
-  public class GrayActionListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.currentColor = gui.gray;
-      gui.dealerPanel.setBackground(gui.gray);
-      gui.displayPanel.setBackground(gui.gray);
-      gui.cardsPanelE.setBackground(gui.gray);
-      gui.cardsPanelS.setBackground(gui.gray);
-      gui.cardsPanelW.setBackground(gui.gray);
-      gui.centerPanel.setBackground(gui.gray);
-      gui.textPanel.setBackground(gui.gray);
-      gui.playerPanelS.setBackground(gui.gray);
-      gui.playerPanelE.setBackground(gui.gray);
-      gui.playerPanelW.setBackground(gui.gray);
-    }
-  }
-
-  /** listener class for FeltGreen color change
-   *  @author Marco Chavez
-   *  @version 2016.11.9
-   */
-  public class FeltGreenActionListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.currentColor = gui.feltgreen;
-      gui.dealerPanel.setBackground(gui.feltgreen);
-      gui.displayPanel.setBackground(gui.feltgreen);
-      gui.cardsPanelE.setBackground(gui.feltgreen);
-      gui.cardsPanelS.setBackground(gui.feltgreen);
-      gui.cardsPanelW.setBackground(gui.feltgreen);
-      gui.centerPanel.setBackground(gui.feltgreen);
-      gui.textPanel.setBackground(gui.feltgreen);
-      gui.playerPanelS.setBackground(gui.feltgreen);
-      gui.playerPanelE.setBackground(gui.feltgreen);
-      gui.playerPanelW.setBackground(gui.feltgreen);
-    }
-  }
-
-  /** listener class for pause button
-   *  @author John Lau
-   *  @version 2016.2.18
-   */
-  public class PauseMusicListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.song.stop();
-    }
-  }
-
-  /** listener class for play button
-   *  @author John Lau
-   *  @version 2016.2.18
-   */
-  public class PlayMusicListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      gui.song.play();
-    }
-  }
-
   /** AmountTextFieldListener
    *  @author David Tsu
    *  @author Marco Chavez
@@ -436,18 +328,6 @@ public class TableController
       gui.currentMoney.setText("Your current amount of Money:" + currentMoneyToDisplay);
     }
   }
-
-  // TODO Fix this listener
-  /** listener class for player names change in menu bar
-   *  @author ???
-   *  @version 2016.11.9
-   */
-   public class ChangeNamesListener implements ActionListener{
-       public void actionPerformed(ActionEvent e){
-           NameFrameController nc = new NameFrameController(gui);
-           nc.run();
-       }
-   }
 
   /** ExitSListener, listens for bottom player's exit
    *  @author David Tsu
@@ -529,19 +409,6 @@ public class TableController
     }
   }
 
-
-  /** Opens rules without Play button
-   *  @author ???
-   *  @version 2016.11.9
-   */
-  public class RulesListener implements ActionListener{
-      public void actionPerformed(ActionEvent e){
-          RulesController rc = new RulesController(gui);
-          rc.run();
-          rc.rulesGui.rulesButton.setVisible(false);
-    }
-  }
-
   /** listener class for save button
    *  @author ???
    *  @version 2016.11.9
@@ -557,18 +424,6 @@ public class TableController
     }
   }
 
-  /** ExitListener, listens for general game exit
-   *  @author David Tsu
-   *  @author Marco Chavez
-   *  @version 2016.11.9
-   */
-  public class ExitListener implements ActionListener
-  {
-    public void actionPerformed(ActionEvent e)
-    {
-      System.exit(0);
-    }
-  }
 
   /** listener class for playAgain button
    *  @author ???
@@ -581,14 +436,7 @@ public class TableController
     */
     public void actionPerformed(ActionEvent event)
     {
-      gui.didPlayer1Split = false;
-      gui.didPlayer2Split = false;
-      gui.didPlayer3Split = false;
-      gui.game.newRound();
-      gui.song.stop();
-      gui.keepRunning = true;
-      gui.go();
-      attachActionListeners();
+      restart();
     }
   }
 
@@ -613,6 +461,7 @@ public class TableController
         gui.timer.stop();
         gui.dealerLabel.setText("Dealer wins");
         gui.getWinner();
+        gui.drawEndScreen();
         return;
       }
       else if (gui.numPlayers == 2
@@ -622,6 +471,7 @@ public class TableController
         gui.timer.stop();
         gui.dealerLabel.setText("Dealer wins");
         gui.getWinner();
+        gui.drawEndScreen();
         return;
       }
       else if(gui.numPlayers == 3
@@ -632,6 +482,7 @@ public class TableController
         gui.timer.stop();
         gui.dealerLabel.setText("Dealer wins");
         gui.getWinner();
+        gui.drawEndScreen();
         return;
       }
       if(gui.game.dealerHasBlackjack())
@@ -639,6 +490,7 @@ public class TableController
         gui.timer.stop();
         gui.dealerLabel.setText("Dealer has Blackjack");
         gui.getWinner();
+        gui.drawEndScreen();
         return;
       }
       gui.dealerLabel.setText(gui.game.getDealer().displayHandValue());
@@ -648,22 +500,22 @@ public class TableController
         gui.timer.stop();
         if(gui.numPlayers == 1)
         {
-          boolean PlayerWon = gui.game.evaluateWinner(gui.game.getPlayerS()) == 'P';
+          boolean PlayerWon = gui.game.evaluateWinner(gui.game.getPlayerS());
           if(PlayerWon) winners = gui.game.getPlayerS().getName() + " won";
         }
         if(gui.numPlayers == 2)
         {
-          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS()) == 'P';
-          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE()) == 'P';
+          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS());
+          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE());
           if(Player1Won && Player2Won) winners = gui.game.getPlayerS().getName() + " and " + gui.game.getPlayerE().getName() + " won";
           if(Player1Won && !Player2Won) winners = gui.game.getPlayerS().getName() + " won";
           if(!Player1Won && Player2Won) winners = gui.game.getPlayerE().getName() + " won";
         }
         if(gui.numPlayers == 3)
         {
-          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS()) == 'P';
-          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE()) == 'P';
-          boolean Player3Won = gui.game.evaluateWinner(gui.game.getPlayerW()) == 'P';
+          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS());
+          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE());
+          boolean Player3Won = gui.game.evaluateWinner(gui.game.getPlayerW());
           //all 3 win
           if(Player1Won && Player2Won && Player3Won) winners = gui.game.getPlayerS().getName() + ", " + gui.game.getPlayerE().getName() + ", and " + gui.game.getPlayerW().getName() + " won";
           //p1, p2 win
@@ -681,6 +533,7 @@ public class TableController
         }
         gui.displayLabel.setText(winners);
         gui.getWinner();
+        gui.drawEndScreen();
         return;
       }
       else
@@ -700,22 +553,22 @@ public class TableController
         gui.dealerLabel.setText(gui.dealerLabel.getText() + " Dealer went bust");
         if(gui.numPlayers == 1)
         {
-          boolean PlayerWon = gui.game.evaluateWinner(gui.game.getPlayerS()) == 'P';
+          boolean PlayerWon = gui.game.evaluateWinner(gui.game.getPlayerS());
           if(PlayerWon) winners = gui.game.getPlayerS().getName() + " won";
         }
         if(gui.numPlayers == 2)
         {
-          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS()) == 'P';
-          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE()) == 'P';
+          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS());
+          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE());
           if(Player1Won && Player2Won) winners = gui.game.getPlayerS().getName() + " and " + gui.game.getPlayerE().getName() + " won";
           if(Player1Won && !Player2Won) winners = gui.game.getPlayerS().getName() + " won";
           if(!Player1Won && Player2Won) winners = gui.game.getPlayerE().getName() + " won";
         }
         if(gui.numPlayers == 3)
         {
-          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS()) == 'P';
-          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE()) == 'P';
-          boolean Player3Won = gui.game.evaluateWinner(gui.game.getPlayerW()) == 'P';
+          boolean Player1Won = gui.game.evaluateWinner(gui.game.getPlayerS());
+          boolean Player2Won = gui.game.evaluateWinner(gui.game.getPlayerE());
+          boolean Player3Won = gui.game.evaluateWinner(gui.game.getPlayerW());
           //all 3 win
           if(Player1Won && Player2Won && Player3Won) winners = gui.game.getPlayerS().getName() + ", " + gui.game.getPlayerE().getName() + ", and " + gui.game.getPlayerW().getName() + " won";
           //p1, p2 win
@@ -734,6 +587,7 @@ public class TableController
         gui.displayLabel.setText(winners);
         gui.timer.stop();
         gui.getWinner();
+        gui.drawEndScreen();
         return;
       }
     }

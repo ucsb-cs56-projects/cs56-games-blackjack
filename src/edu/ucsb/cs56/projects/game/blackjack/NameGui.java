@@ -1,7 +1,15 @@
 package edu.ucsb.cs56.projects.game.blackjack;
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * NameGui.java
+ *
+ * The class for the NameGui.
+ *
+ * @author Ryan Lorica
+ * @author Ryan Kirkpatrick
+ * @version 11/28/17
+ */
 public class NameGui implements Gui{
     JFrame nameFrame;
     JPanel namePanel;

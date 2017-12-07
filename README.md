@@ -14,7 +14,7 @@ ant run
 
 ![](http://i.imgur.com/rXE5Qe1.png)
 
-## W16 final remarks
+## W14 final remarks
 Most of the code you will be working on will be located in the BlackJackGui.java file. Things will be much easier if you can separate the code inside that file and put them into their own separate files because currently BlackJackGui.java is a very long file with literally every single frame the game uses. There are still some bugs in the game: ex.) When a player tries the "Add Money?" button. All the bugs are related to the GUI and not the game logic.
 
 ##### Recent changes
@@ -49,7 +49,7 @@ These are past projects which may have similar/missing features.
 
 
 ## F16 final remarks
--------------------
+
 ##### We fixed the following issues:
 * #37 - We implemented card sound effects
 * #38 - Reimplemented go method so that new round doesn't create a new window each game

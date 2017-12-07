@@ -76,7 +76,7 @@ Currently the application runs well except for the split option. Most of the imp
 ##### What the code does:
 * Currently the program steps through, in order, the rules gui, the welcome gui, the names gui, the bet gui, and the black jack gui. This control is done by the GuiController and GuiModel class. These classes control the user's movement between the gui's and control the data being passed between them. Once the blackjack gui is reached, the game of black can be played by interacting with the gui.
 
--What features could be Added:
+##### What features could be Added:
 * Current player should always be at the bottom of the screen, so the player cards should rotate when player turn changes. This might include refactoring.
 
 ##### What bugs exist:

@@ -72,7 +72,7 @@ Currently the application runs well except for the split option. Most of the imp
 [Javadoc link here.](https://github.com/UCSB-CS56-F16/cs56-games-blackjack_javadoc_davidtsu_chavez95)
 
 ## F17 final remarks
-------------------
+
 ##### What the code does:
 * Currently the program steps through, in order, the rules gui, the welcome gui, the names gui, the bet gui, and the black jack gui. This control is done by the GuiController and GuiModel class. These classes control the user's movement between the gui's and control the data being passed between them. Once the blackjack gui is reached, the game of black can be played by interacting with the gui.
 

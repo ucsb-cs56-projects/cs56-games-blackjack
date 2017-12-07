@@ -15,7 +15,6 @@ ant run
 ![](http://i.imgur.com/rXE5Qe1.png)
 
 ## W16 final remarks
--------------------
 Most of the code you will be working on will be located in the BlackJackGui.java file. Things will be much easier if you can separate the code inside that file and put them into their own separate files because currently BlackJackGui.java is a very long file with literally every single frame the game uses. There are still some bugs in the game: ex.) When a player tries the "Add Money?" button. All the bugs are related to the GUI and not the game logic.
 
 ##### Recent changes
@@ -49,7 +48,7 @@ These are past projects which may have similar/missing features.
 * [Simple classes for PlayingCard, Deck, BlackJackHand](https://foo.cs.ucsb.edu/cs56/issues/0000215/)
 
 
-### F16 final remarks
+## F16 final remarks
 -------------------
 ##### We fixed the following issues:
 * #37 - We implemented card sound effects
@@ -72,7 +71,7 @@ Currently the application runs well except for the split option. Most of the imp
 
 [Javadoc link here.](https://github.com/UCSB-CS56-F16/cs56-games-blackjack_javadoc_davidtsu_chavez95)
 
-### F17 final remarks
+## F17 final remarks
 ------------------
 ##### What the code does:
 * Currently the program steps through, in order, the rules gui, the welcome gui, the names gui, the bet gui, and the black jack gui. This control is done by the GuiController and GuiModel class. These classes control the user's movement between the gui's and control the data being passed between them. Once the blackjack gui is reached, the game of black can be played by interacting with the gui.

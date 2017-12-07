@@ -44,7 +44,7 @@ ant run
 
 ## Other former Blackjack projects
 
-These are past projects which may have similar/missing features. 
+These are past projects which may have similar/missing features.
 
 * [cs56_W12_492](https://foo.cs.ucsb.edu/cs56/issues/0000492/lab09b/)
 * [cs56_W12_443](https://foo.cs.ucsb.edu/cs56/issues/0000443/)
@@ -79,3 +79,22 @@ TO-DO:
 
 
 [Javadoc link here.](https://github.com/UCSB-CS56-F16/cs56-games-blackjack_javadoc_davidtsu_chavez95)
+
+F17 final remarks
+------------------
+-What the code does:
+* Currently the program steps through, in order, the rules gui, the welcome gui, the names gui, the bet gui, and the black jack gui. This control is done by the GuiController and GuiModel class. These classes control the user's movement between the gui's and control the data being passed between them. Once the blackjack gui is reached, the game of black can be played by interacting with the gui.
+
+-What features could be Added:
+* Current player should always be at the bottom of the screen, so the player cards should rotate when player turn changes. This might include refactoring.
+
+-What bugs exist:
+* The amount that the player's pot contains changes incorrectly with the amount that the player bets. This can be seen by continuously losing by continually pressing the hit button for several iterations of the game.
+* The player names tab in the menu bar takes opens up the names gui to read in player names, but doesn't update the blackjack gui with the proper names. This could also include a new feature to drop and add players dynamically as the game progresses.
+
+-What opportunities for refactoring:
+* BlackjackGui can still be refactored further as it is still around 850 lines.
+* There is a better way to implement GuiController, and thats by a programming method called wait and notify. Apparently this link has information about it. https://docs.oracle.com/javase/tutorial/essential/concurrency/guardmeth.html
+
+-What advice do we have:
+* You most likely want to start with the main.java, understand how GuiController and GuiModel is called and what they do. Then glance at the implementations of the rules, welcome, name, and bet guis to get an understanding of how the flow of the program works and how actaully running the application corresponds to what is happening with the xGui.java and the xGuiController.java code. From there you should play around with the blackjack game to understand the control flow of the game from a player's perspective. After that it might be best to start from the BlackjackGuiController.java run command and step through how the BlackjackGui is made and played so that you have a base and understanding of what needs to be refactored and where in the code those locations need to take place.

@@ -64,7 +64,6 @@
    <delete failonerror="false" verbose="true">
      <fileset dir="build" includes="**/*.class"/>
    </delete>
-   <delete dir="javadoc" quiet="true"/>
    <delete dir="dist" quiet="true"/>
    <delete dir="download" quiet="true"/>
    <delete dir="temp" quiet="true"/>

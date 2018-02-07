@@ -87,8 +87,8 @@
 
  <!-- Javadoc -->
 <target name="javadoc" depends="compile" description="prepare and post javadoc">
-   <delete dir="javadoc" quiet="true"/>
-   <javadoc destdir="javadoc" author="true" version="true" use="true">
+   <delete dir="docs" quiet="true"/>
+   <javadoc destdir="docs" author="true" version="true" use="true">
      <fileset dir="src" includes="**/*.java"/>
      <classpath refid="project.class.path"/>
    </javadoc>
@@ -96,7 +96,7 @@
    <delete quiet="true" dir="${javadocDest}"/>
    <!-- copy everything you just made to the javadoc destination, and then make it readable -->
    <copy todir="${javadocDest}">
-     <fileset dir="javadoc"/>
+     <fileset dir="docs"/>
    </copy>
    <!-- Note: this only does the chmod command on the
 	javadoc subdirectory and its contents.  You MIGHT have to

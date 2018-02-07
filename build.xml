@@ -22,10 +22,7 @@
  <property name="mainClass" value="edu.ucsb.cs56.projects.game.blackjack.Main"/>
  <property name="projectPath" value="${course}/projects/game/${projectName}"/>
 
- <property name="javadocDest" value="../cs56-games-blackjack_javadoc_davidtsu_chavez95/javadoc"/>
- <property name="javadocURL" value="../cs56-games-blackjack_javadoc_davidtsu_chavez95/javadoc"/>
- <property name="imagesDest" value="$../cs56-games-blackjack_javadoc_davidtsu_chavez95/images"/>
-
+ 
 
  <path id="project.class.path">
    <pathelement location="build"/>
@@ -91,19 +88,6 @@
      <fileset dir="src" includes="**/*.java"/>
      <classpath refid="project.class.path"/>
    </javadoc>
-   <!-- delete the old javadoc -->
-   <delete quiet="true" dir="${javadocDest}"/>
-   <!-- copy everything you just made to the javadoc destination, and then make it readable -->
-   <copy todir="${javadocDest}">
-     <fileset dir="docs"/>
-   </copy>
-   <!-- Note: this only does the chmod command on the
-	javadoc subdirectory and its contents.  You MIGHT have to
-	MANUALLY do the chmod on the parent directories.  However,
-	you should only need to do that once. -->
-   <chmod dir="${javadocDest}" perm="755" type="dir" includes="**"/>
-   <chmod dir="${javadocDest}" perm="755" type="file" includes="**/*"/>
-   <echo>Javadoc deployed to ${javadocURL}</echo>
  </target>
 
  <!-- JAR -->

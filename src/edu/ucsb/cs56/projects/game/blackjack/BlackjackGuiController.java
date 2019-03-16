@@ -42,7 +42,16 @@ public class BlackjackGuiController
       gui.didPlayer1Split = false;
       gui.didPlayer2Split = false;
       gui.didPlayer3Split = false;
+      gui.restartCount = gui.restartCount + 1;
+      int totalPot = gui.totalPot;
+    
+      if(gui.restartCount==1){
       gui.game.newRound();
+      }
+      else {
+      gui.game.newRound2(totalPot);
+      }
+
       gui.keepRunning = true;
  //     run();
       loop2();

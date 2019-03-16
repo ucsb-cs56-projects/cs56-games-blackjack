@@ -69,6 +69,11 @@ public class Player{
     	else money = amount;
     }
 
+    public void resetMoney2(int amount) {
+    	money = amount;
+    }
+
+
     /** Resets player hand so a new round of blackjack can begin
      * @param d Deck to play with
      */

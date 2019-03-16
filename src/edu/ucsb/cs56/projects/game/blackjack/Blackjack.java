@@ -206,6 +206,23 @@ public class Blackjack{
 	dealer.newHand(d);
     }
 
+
+    public void newRound2(int M){
+        d = new Deck();
+        int playerOriginMoney = 0;
+        int numPlayers = 0;
+        for(Player player : players){
+            numPlayers = numPlayers + 1;
+        }
+        for (Player player : players) {
+            player.newHand(d); player.resetNumberOfCards();
+            playerOriginMoney = player.getMoney();
+            player.resetMoney2(playerOriginMoney+(M/numPlayers));;
+        }
+        dealer.newHand(d); 
+    }
+
+
     /** splits the hand of the given player
      *  @param player int, p1 being S, p2 being E, p3 being W
      */

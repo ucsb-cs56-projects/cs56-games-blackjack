@@ -62,6 +62,8 @@ public class BlackjackGui {
     /** BET INFO **/
     int amountBet;
 
+     int restartCount = 0;
+
     /** ADD MONEY FRAME **/
     int playerToAdd;
     int currentMoneyInt;

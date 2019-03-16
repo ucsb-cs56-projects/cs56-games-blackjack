@@ -21,28 +21,67 @@ public class BlackjackGuiController
   public GuiModel gm;
   public MenuBarController mbc;
 
-  public BlackjackGuiController(GuiModel gm){
+  public BlackjackGuiController(GuiModel gm) {
     this.gui = new BlackjackGui(gm);
     this.gm = gm;
   }
 
-  public void run(){
+  public void run() {
     attachMenuBar();
     gui.go();
     attachActionListeners();
   }
-  public void restart(){
+
+  public void loop2() {
+    attachMenuBar();
+    gui.go();
+    attachSomeActionListeners();
+  }
+
+  public void restart() {
       gui.didPlayer1Split = false;
       gui.didPlayer2Split = false;
       gui.didPlayer3Split = false;
+      gui.restartCount = gui.restartCount + 1;
+      int totalPot = gui.totalPot;
+    
+      if(gui.restartCount==1){
       gui.game.newRound();
+      }
+      else {
+      gui.game.newRound2(totalPot);
+      }
+
       gui.keepRunning = true;
-      run();
+ //     run();
+      loop2();
   }
 
-  public void attachMenuBar(){
+  public void attachMenuBar() {
       mbc = new MenuBarController(this);
       mbc.run();
+  }
+
+  public void attachSomeActionListeners()
+  {
+    gui.timer = new Timer(gui.speed, new MyTimerListener());
+    gui.playAgain.addActionListener(new PlayAgainListener());
+    gui.save.addActionListener(new SaveListener());
+    gui.amountTextField.addActionListener(new AmountTextFieldListener());
+    gui.hit.addActionListener(new HitListener());
+    gui.stay.addActionListener(new StayListener());
+    gui.exitE.addActionListener(new ExitEListener());
+ //   gui.changeBetE.addActionListener(new ChangeBetListener());
+ //   gui.addMoneyE.addActionListener(new AddMoneyEListener());
+    gui.exitW.addActionListener(new ExitWListener());
+ //   gui.changeBetW.addActionListener(new ChangeBetListener());
+  //  gui.addMoneyW.addActionListener(new AddMoneyWListener());
+    gui.exitS.addActionListener(new ExitSListener());
+ // 	gui.changeBetS.addActionListener(new ChangeBetListener());
+ // 	gui.addMoneyS.addActionListener(new AddMoneySListener());
+    gui.resumeGame.addActionListener(new ConfirmAddMoney());
+    gui.dd.addActionListener(new ddListener());
+    gui.split.addActionListener(new SplitListener());
   }
 
   public void attachActionListeners()
@@ -325,7 +364,24 @@ public class BlackjackGuiController
       int moneyToAdd = Integer.parseInt(gui.amountTextField.getText());
       int currentMoneyToDisplay = gui.currentMoneyInt + moneyToAdd;
 
-      gui.currentMoney.setText("Your current amount of Money:" + currentMoneyToDisplay);
+      if (currentMoneyToDisplay <= 5000)
+      {
+        if (moneyToAdd > 0)
+        {
+          gui.currentMoney.setText("Your current amount of Money:" + currentMoneyToDisplay);
+          
+          if (gui.playerToAdd == 2)
+            gui.updateAddMoney(moneyToAdd, 2);
+          else if (gui.playerToAdd == 3)
+            gui.updateAddMoney(moneyToAdd, 3); 
+          else
+            gui.updateAddMoney(moneyToAdd, 1); 
+            
+          gui.addMoneyFrame.setVisible(false);  
+        } 
+      }
+      gui.amountTextField.setText("");
+      gui.currentMoney.setText("Unable to add money - $5000 Max");
     }
   }
 

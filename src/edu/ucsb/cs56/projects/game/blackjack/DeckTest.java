@@ -1,6 +1,10 @@
 package edu.ucsb.cs56.projects.game.blackjack;
 
 import org.junit.Test;
+
+//import jdk.internal.jline.internal.TestAccessible;
+import jdk.jfr.Timestamp;
+
 import static org.junit.Assert.assertEquals;
 
 /** test class for Deck
@@ -15,31 +19,27 @@ import static org.junit.Assert.assertEquals;
 
 public class DeckTest{
         
-    	/** Test case for Deck.getDeckSize()
-	    @see Deck
-	*/
+    /** Test cases for Deck.getDeckSize() 
+	  @see Deck */
+
+	@Test
+	public void test_FullDeckCreated() {
+		Deck d = new Deck();
+		assertEquals(52, d.getDeckSize());
+	}
 
     @Test
-	public void test_Draw() {
-	Deck d = new Deck();
-	d.draw();
-	assertEquals(51,d.getDeckSize());
+	public void test_DrawOneCard() {
+		Deck d = new Deck();
+		d.draw();
+		assertEquals(51,d.getDeckSize());
     }
 
-	/** Test case for Deck.getDeckSize()
-	    @see Deck
-	*/
-    
     @Test
-	public void test_Draw2() {
-	Deck d = new Deck();
-	d.draw();
-	d.draw();
-	d.draw();
-	d.draw();
-	d.draw();
-	assertEquals(47,d.getDeckSize());
-    }
-
-
+	public void test_DrawAllCards() {
+		Deck d = new Deck();
+		for (int i = 1; i < 53; i++)
+			d.draw();
+		assertEquals(0,d.getDeckSize());
+	}
 }//end DeckTest

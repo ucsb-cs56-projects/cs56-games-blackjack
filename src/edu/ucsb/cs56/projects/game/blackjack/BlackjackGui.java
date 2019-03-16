@@ -18,7 +18,7 @@ e interface.
    @author Ryan Lorica
    @version 2017.11.28
 */
-public class BlackjackGui{
+public class BlackjackGui {
 
     /** WELCOME WINDOW,
      * # OF PLAYERS SELECTION WINDOW,
@@ -56,16 +56,19 @@ public class BlackjackGui{
     JLabel downCard;
     JButton playAgain = new JButton("Play again");
 
-	/**SOUND EFFECTS **/
+	  /**SOUND EFFECTS **/
     Sound cardEffect;
     Sound song;
     /** BET INFO **/
     int amountBet;
 
+     int restartCount = 0;
+
     /** ADD MONEY FRAME **/
+    int playerToAdd;
     int currentMoneyInt;
     JLabel currentMoney;
-
+  
     /** BUTTONS **/
     JButton hit;
     JButton stay;
@@ -141,7 +144,7 @@ public class BlackjackGui{
     int speed = 1000;
     Timer timer;
 
-    BlackjackGui(GuiModel gm){
+    BlackjackGui(GuiModel gm) {
         //Get info from GuiModel
         this.game.resetStats();
         this.numPlayers = gm.getNumPlayers();
@@ -167,9 +170,9 @@ public class BlackjackGui{
         card2LabelArray[0]  = card2LabelS;
         card2LabelArray[1]  = card2LabelE;
         card2LabelArray[2]  = card2LabelW;
-}
+    }
 
-    public void setPlayerNames(GuiModel gm){
+    public void setPlayerNames(GuiModel gm) {
         this.names = gm.getPlayerNames();
         p1Name = this.names.get(0);
         p2Name = this.names.get(1);
@@ -304,7 +307,7 @@ public class BlackjackGui{
   JButton exitS = new JButton("Leave Game");
 	JButton addMoneyS = new JButton("Add Money?");
 	JButton changeBetS = new JButton("Change Bet Amount?");
-  JButton resumeGame = new JButton("Confirm");
+  JButton resumeGame = new JButton("Cancel");
 
   /** gets the winner and displays it in a label
   *  also makes the playAgain button visible
@@ -358,7 +361,7 @@ public class BlackjackGui{
     }
     if (game.getPlayerE() != null)
     {
-	    playerPanelE.add(addMoneyE);
+      playerPanelE.add(addMoneyE);
 	    playerPanelE.add(changeBetE);
 	    playerPanelE.add(exitE);
     }
@@ -374,68 +377,66 @@ public class BlackjackGui{
 
     /** creates buttons at round's end
      */
-    public void createSouthAfterRoundButtons(){
-	playerPanelS.add(addMoneyS);
-	playerPanelS.add(changeBetS);
-	playerPanelS.add(exitS);
+    public void createSouthAfterRoundButtons() {
+      playerPanelS.add(addMoneyS);
+      playerPanelS.add(changeBetS);
+      playerPanelS.add(exitS);
     }
+
     /** Fetches stats when a player leaves
      * @param player int for which player
      */
-    public void playerLeaves(int player){
-	game.players.get(player).resetMoney(game.players.get(player + 1).getMoney());
-	game.players.get(player).setWon(game.players.get(player + 1).getMoneyWon());
-	game.players.get(player).setLost(game.players.get(player + 1).getMoneyLost());
-	game.players.get(player).setWins(game.players.get(player + 1).getWins());
-	game.players.get(player).setLosses(game.players.get(player + 1).getLosses());
-	game.players.get(player).setName(game.players.get(player + 1).getName());
+    public void playerLeaves(int player) {
+      game.players.get(player).resetMoney(game.players.get(player + 1).getMoney());
+      game.players.get(player).setWon(game.players.get(player + 1).getMoneyWon());
+      game.players.get(player).setLost(game.players.get(player + 1).getMoneyLost());
+      game.players.get(player).setWins(game.players.get(player + 1).getWins());
+      game.players.get(player).setLosses(game.players.get(player + 1).getLosses());
+      game.players.get(player).setName(game.players.get(player + 1).getName());
     }
 
     JTextField amountTextField = new JTextField(20);
-    /** creates name frame that sets player names
-	@param player int number of players
+    /** creates frame to add money to players hand
+	  @param player int number of players
     **/
-    public void createAddMoneyFrame(int player){
-	addMoneyFrame = new JFrame();
-	addMoneyPanel = new JPanel();
-	addMoneyFrame.setSize(300,220);
+    public void createAddMoneyFrame(int player) {
+      addMoneyFrame = new JFrame();
+      addMoneyPanel = new JPanel();
+      addMoneyFrame.setSize(300,220);
 
-	JLabel amount = new JLabel("Enter amount of money desired: ");
-	//amountTextField = new JTextField(20);
-	//amountTextField.addActionListener(new AmountTextFieldListener());
+	    JLabel amount = new JLabel("Enter amount of money desired: ");
+      amountTextField.setText("");
 
-	if(player == 1)
-	    {
-		currentMoneyInt = game.getPlayerS().getMoney();
-		currentMoney = new JLabel("Your current amount of Money: " + game.getPlayerS().getMoney() );
+      if(player == 1)
+      {
+        currentMoneyInt = game.getPlayerS().getMoney();
+        currentMoney = new JLabel("Your current amount of Money: " + game.getPlayerS().getMoney());
+        playerToAdd = 1;
+      }
+      else if(player == 2)
+      {
+        currentMoneyInt = game.getPlayerE().getMoney();
+        currentMoney = new JLabel("Your current amount of Money: " + game.getPlayerE().getMoney());
+        playerToAdd = 2;
+      }
+      else if(player == 3)
+      {
+        currentMoneyInt = game.getPlayerW().getMoney();
+        currentMoney = new JLabel("Your current amount of Money: " + game.getPlayerW().getMoney());
+        playerToAdd = 3;
+      }
 
+      addMoneyPanel.add(currentMoney);
+      addMoneyPanel.add(amount);
+      addMoneyPanel.add(amountTextField);
+      addMoneyPanel.add(resumeGame);
+      addMoneyFrame.getContentPane().add(addMoneyPanel);
+      addMoneyFrame.setLocationRelativeTo(null); // center the window
+      addMoneyFrame.setVisible(true);
+  }
+    
 
-	    }
-	else if(player == 2)
-	    {
-		currentMoneyInt = game.getPlayerE().getMoney();
-		currentMoney = new JLabel("Your current amount of Money: " + game.getPlayerE().getMoney());
-
-
-	    }
-	else if(player == 3)
-	    {
-		currentMoneyInt = game.getPlayerW().getMoney();
-		currentMoney = new JLabel("Your current amount of Money: " + game.getPlayerW().getMoney());
-
-
-	    }
-
-	addMoneyPanel.add(currentMoney);
-	addMoneyPanel.add(amount);
-	addMoneyPanel.add(amountTextField);
-	addMoneyPanel.add(resumeGame);
-	addMoneyFrame.getContentPane().add(addMoneyPanel);
-	addMoneyFrame.setLocationRelativeTo(null); // center the window
-	addMoneyFrame.setVisible(true);
-    }
-
-    /** beings the delay timer and shows the dealer's card that was face down
+     /** beings the delay timer and shows the dealer's card that was face down
      */
     public void startDealerTurn(){
     	timer.setInitialDelay(speed);
@@ -446,7 +447,7 @@ public class BlackjackGui{
     	timer.start();
     }
 
-    /** add money to the total pot
+    /** add money to the total pot for the hand
      * @param amount amount to add to the total pot
      */
     public void updateTotalPot(int amount) {
@@ -486,6 +487,12 @@ public class BlackjackGui{
     public void updateMoney(int player) {
     	game.getPlayer(player).setMoney(-amountBet);
     	updateMoneyLabel(player);
+    }
+
+    public void updateAddMoney(int amount, int player) {
+      game.getPlayer(player).setMoney(amount);
+      updateMoneyLabel(player);
+
     }
 
     /** update money label for the player
@@ -593,14 +600,14 @@ public class BlackjackGui{
 
   /** initializes many of the widgets and sets up listeners to some of those widgets
   */
-  public void go(){
+  public void go() {
     frame.getContentPane().removeAll();
     dealerTurn = false;
     playerTurn = 1;
-    canPlayer1DD =true;
-    canPlayer2DD =true;
-    canPlayer3DD =true;
-    canPlayer4DD =true;
+    canPlayer1DD = true;
+    canPlayer2DD = true;
+    canPlayer3DD = true;
+    canPlayer4DD = true;
 
     createDealerLabels();
 	  create1stPlayersLabel();
@@ -608,6 +615,7 @@ public class BlackjackGui{
     create3rdPlayersLabel();
     createCardDisplayForAllPlayers();
     createHitAndStayButtons();
+
     // remove the bet amount from all of the players' total money
     updateMoney();
     dealerPanel.add(new JLabel(getMyImage(game.getDealer().getHand().getFirstCard())));
@@ -616,10 +624,12 @@ public class BlackjackGui{
     downCard = new JLabel(myImage);
     dealerPanel.add(downCard);
     dealerLabel.setText(game.displayDealerCardValue());
+
     // display total pot
     totalPot = 0;
     updateTotalPot(amountBet*(numPlayers+1));
     displayPanel.add(totalPotLabel);
+
     /*********************************/
     /** Prepare the blackjack table **/
     /*********************************/

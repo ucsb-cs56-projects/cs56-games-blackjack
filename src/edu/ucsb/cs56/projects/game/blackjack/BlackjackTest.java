@@ -252,7 +252,7 @@ public class BlackjackTest{
 		Hand h2 = new Hand(c5, c6);
 		Hand h3 = new Hand(c7, c8);
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
-		assertEquals('D',b.evaluateWinner(b.getPlayer(1)));
+		assertEquals(false,b.evaluateWinner(b.getPlayer(1)));
     }
 
     /** Test case for Blackjack.evaluateWinner()
@@ -273,7 +273,7 @@ public class BlackjackTest{
 		Hand h2 = new Hand(c5, c6);
 		Hand h3 = new Hand(c7, c8);
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
-		assertEquals('P',b.evaluateWinner(b.getPlayer(2)));
+		assertEquals(true,b.evaluateWinner(b.getPlayer(2)));
     }
 
 
@@ -296,7 +296,7 @@ public class BlackjackTest{
 		Hand h3 = new Hand(c7, c8);
 		Blackjack b = new Blackjack(dh, h1, h2, h3);
 		b.getDealer().drawCard(new Card(11, "Spades"));
-		assertEquals('P',b.evaluateWinner(b.getPlayer(3)));
+		assertEquals(true,b.evaluateWinner(b.getPlayer(3)));
     }
 
 
@@ -543,35 +543,7 @@ public class BlackjackTest{
     */
     @Test
     public void test_getMyImage() {
-        BlackjackGui gui = new BlackjackGui(new GuiModel());
 
-        Deck deck = new Deck();
-        Card currentCard = deck.draw();
-        ImageIcon myImage = gui.getMyImage(currentCard);
-
-        JFrame testFrame = new JFrame("test_getMyImage");
-        JLabel cardLabel = new JLabel("Current card: " + currentCard);
-        JLabel cardImage = new JLabel(myImage);
-
-        testFrame.add(cardLabel);
-        testFrame.add(cardImage);
-
-        testFrame.setLayout(new GridLayout(2,1));
-        testFrame.pack();
-        testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        testFrame.setVisible(true);
-
-        while(deck.getDeckSize() != 0){
-            try{
-                Thread.sleep(1000);
-                currentCard = deck.draw();
-                myImage = gui.getMyImage(currentCard);
-                cardImage.setIcon(myImage);
-                cardLabel.setText("Current card: "+ currentCard);
-            } catch(InterruptedException ex){
-                testFrame.dispose();
-            }
-        }
     }
 
 }//end BlackjackTest
